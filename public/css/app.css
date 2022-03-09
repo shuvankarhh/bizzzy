@@ -1,0 +1,59 @@
+/* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
+.register-radio {
+    display:none;
+}
+
+/* The label is what's left to style. 
+As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
+.register-radio + label {
+    padding: 0.4em;
+    display: inline-block;
+    cursor: pointer;
+    width: 155px;
+    box-shadow: 0px 3px 5px rgba(9, 30, 66, 0.2), 0px 0px 1px rgba(9, 30, 66, 0.31);
+    margin-right: -2px;
+    margin-left: -2px;
+}
+
+.register-radio.left + label  {
+    border-radius: 3px 0px 0px 3px;
+    border-left: 1px solid #14A800;
+    border-top: 1px solid #14A800;
+    border-bottom: 1px solid #14A800;
+}
+.register-radio.right + label  {
+    border-radius: 0px 3px 3px 0px;
+    border-right: 1px solid #14A800;
+    border-top: 1px solid #14A800;
+    border-bottom: 1px solid #14A800;
+}
+
+.blank-label {
+    display: none;
+}
+
+/* The '+' is the adjacent sibling selector.
+It selects what ever element comes right after it,
+as long as it is a sibling. */
+.register-radio:checked + label {
+    background: #14A800;
+    color: #FFFFFF;
+    transition: 150ms ease-in-out;
+}
+
+
+/* Override defaults */
+
+
+.form-control.is-invalid{
+    margin-bottom: 0px;
+}
+
+.navbar{
+    box-shadow: none;
+}
+
+body{
+    background-image: url(http://127.0.0.1:8000/images/extra_fillers/hero-green-background.svg);
+    background-repeat: no-repeat;
+}

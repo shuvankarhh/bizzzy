@@ -1,0 +1,171 @@
+@font-face {
+    font-family: Inter-Bold;
+    src: url(/fonts/Inter/static/Inter-Bold.ttf);
+}
+
+@font-face {
+    font-family: Lato-Bold;
+    src: url(/fonts/Lato/Lato-Bold.ttf);
+}
+
+@font-face {
+    font-family: Mulish-Bold;
+    src: url(/fonts/Mulish/static/Mulish-Bold.ttf);
+}
+
+@font-face {
+    font-family: Nunito Sans;
+    src: url(/fonts/Nunito_Sans/NunitoSans-Regular.ttf);
+}
+
+.container {
+    /* max-width: 100vw; */
+    padding-right: 0px;
+    padding-left: 0px;
+    /* width: 76%; */
+}
+
+@media (max-width: 1399.98px) {
+    .container {
+        /* max-width: 100vw; */
+        /* max-width: 100%; */
+        padding-right: 0px;
+        padding-left: 0px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 0px) and (max-width: 990px) {
+    .container {
+        /* max-width: 100vw; */
+        /* max-width: 100%; */
+        padding-right: 10px;
+        padding-left: 10px;
+        /* width: 76%; */
+    }
+}
+
+
+/* navbar start */
+
+.navbar_section {
+    margin-top: 15px;
+    width: 80%;
+}
+
+.navbar_section .container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.nav-brand {
+    color: #0086FF;
+    font-size: 26px;
+    font-family: Lato-Bold;
+    text-decoration: none;
+}
+
+.nav-brand:hover {
+    color: #14A800 !important;
+}
+
+.nav-link {
+    color: #0A0A0A;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-left: 50px;
+    white-space: nowrap;
+}
+
+.login {
+    margin-right: 85px;
+}
+
+.nav-link:focus,
+.nav-link:hover {
+    color: #14A800 !important;
+}
+
+.nav-link.active {
+    color: #14A800 !important;
+    font-family: Mulish-Bold;
+}
+
+.navbar_section .form-control {
+    width: unset;
+    padding: 0.6rem 1.75rem;
+    border: 1px solid #14A800;
+    box-shadow: 0px 0px 1px rgb(20, 168, 0);
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    border-color: #14A800;
+    box-shadow: 0px 0px 3px rgb(20, 168, 0);
+}
+
+.navbar_section .form-control::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #14A800;
+    opacity: 1;
+    /* Firefox */
+    font-family: Mulish-Bold;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #14A800;
+    font-family: Mulish-Bold;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #14A800;
+    font-family: Mulish-Bold;
+}
+
+@media (min-width: 0px) and (max-width: 990px) {
+    .search_input_group,
+    .login,
+    .sign_up {
+        display: none;
+    }
+}
+
+
+/* @media (min-width: 0px) and (max-width: 990px) {
+    .nav-brand {
+        ;
+    }
+} */
+
+.search_input_group {
+    position: relative;
+    margin-right: 13% !important;
+}
+
+.search_icon_input {
+    position: absolute;
+    top: 12px;
+    right: 25px;
+}
+
+.navbar_section .btn {
+    background-color: #14A800;
+    border-color: #14A800;
+    font-family: Mulish-Bold;
+    padding: 0.6rem 2.7rem;
+    margin-right: 17px;
+    white-space: nowrap;
+    color: white;
+}
+
+.navbar_toggle_nav {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+/* navbar end */
