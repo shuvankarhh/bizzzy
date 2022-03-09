@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmailVerification;
 use App\Models\User;
 use App\Models\Email;
 use App\Models\UserEmail;
@@ -9,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AuthenticationController extends Controller
 {
@@ -36,9 +38,7 @@ class AuthenticationController extends Controller
         }
 
         if(is_null($email->userEmail->verified_at)){
-            return view('authentication.verify_email', [
-                'email' => $email->email
-            ]);
+            return redirect()->route('user.verification-need.email', ['email' => $email->email]);
         }
 
         if (Auth::attempt(['account_email_id' => $email->id, 'password' => $request->password])) {
@@ -66,7 +66,7 @@ class AuthenticationController extends Controller
 
         $user = User::where('account_email_id', $email->id)->first();
         if(!is_null($user)){
-            return redirect()->route('user.login')->with('meassage', 'Email Already exists! Please Login!');
+            return redirect()->route('user.login')->with('message', 'Email Already exists! Please Login!');
         }
 
         if($email->userEmail){
@@ -92,7 +92,7 @@ class AuthenticationController extends Controller
             'freelancer_or_recuriter' => 'required',
         ]);
 
-        DB::transaction(function () use ($request) {
+        $data = DB::transaction(function () use ($request) {
             $email = Email::create([
                 'email' => $request->email
             ]);
@@ -106,17 +106,21 @@ class AuthenticationController extends Controller
 
             $user = User::create($user_data);
 
+            $token = Str::random(10);
+
             UserEmail::create([
                 'user_id' => $user->id,
                 'email_id' => $email->id,
-                'verification_token' => Str::random(10),
+                'verification_token' => $token,
                 'acting_status' => 1,
             ]);
+
+            return array('user' => $user, 'token' => $token);
         });
 
-        return view('authentication.verify_email', [
-            'email' => $request->email
-        ]);
+        Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
+
+        return redirect()->route('user.verification-need.email', ['email' => $request->email]);
     }
 
     public function logout(Request $request)
@@ -130,9 +134,9 @@ class AuthenticationController extends Controller
         return redirect('/');
     }
 
-    public function userVerifyEmailCreate()
+    public function userVerifyEmailCreate($email)
     {
-        return view('authentication.verify_email');
+        return view('authentication.verify_email')->with('email', $email);
     }
 
     public function userVerifyEmailStore($email, $token)
@@ -144,7 +148,7 @@ class AuthenticationController extends Controller
         }
 
         if(!is_null($verified->userEmail->verified_at)){
-            return;
+            return redirect()->route('user.login')->with('message', 'Email already verified!');
         }
 
         $verified->userEmail->verified_at = now();
@@ -152,6 +156,8 @@ class AuthenticationController extends Controller
 
         $verified->userEmail->user->account_email_id = $verified->id;
         $verified->userEmail->user->save();
+
+        return redirect()->route('user.login')->with('message', 'Verification Complete!');
         // User::where()
     }
 }

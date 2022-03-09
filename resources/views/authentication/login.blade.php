@@ -14,9 +14,13 @@
 
                             <h3 class="mb-4" style="font-size: 16px;">Enter Your Details</h3>
 
-                            @if (session('meassage'))
-                                <p class="ml-0 mr-0 mt-0">{{ session('meassage') }}</p>
+                            @if (session('message'))
+                                <p class="ml-0 mr-0 mt-0">{{ session('message') }}</p>
                             @endif
+
+                            @error('email')
+                                <p class="ml-0 mr-0 mt-0 text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-outline mb-4">
                                 <input type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg" />
                                 <label class="form-label" for="typeEmailX-2">Email</label>
