@@ -227,9 +227,15 @@
 }
 
 .people_comments {
-    border: 1px solid #14A800;
+    border: 2px solid #14A800;
     border-radius: 50px;
     margin-top: 15px;
+    box-shadow: 0px 3px 5px rgba(9, 30, 66, 0.2), 0px 0px 1px rgba(9, 30, 66, 0.31);
+}
+
+.border-less.border-less{
+    border: none;
+    box-shadow: none;
 }
 
 .people_comments img {

@@ -57,3 +57,50 @@ body{
     background-image: url(http://127.0.0.1:8000/images/extra_fillers/hero-green-background.svg);
     background-repeat: no-repeat;
 }
+
+
+/* Search ICON */
+.search_input_group .form-control {
+    padding-right: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height:  2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+    right: 362px;
+    cursor: pointer;
+}
+
+/* .form-control-feedback:hover{
+} */
+
+.footer{
+    font-family: Nunito Sans;
+    font-style: normal;
+}
+
+.footer-note{    
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.footer-agency{    
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 49px;
+}
+
+.footer-agency-note{    
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 100;
+}

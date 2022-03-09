@@ -2,7 +2,7 @@
 
 @section('content')
     
-<section class="vh-100">
+<section>
     <div class="container py-3 h-100">
 
         <div class="row d-flex justify-content-center align-items-center h-100">

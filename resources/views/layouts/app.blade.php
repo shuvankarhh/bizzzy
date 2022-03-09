@@ -34,7 +34,7 @@
               </button>
                 <a class="nav-brand" href="{{ url('/') }}">Bizzzy</a>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Link 1</a>
                         </li>
@@ -47,31 +47,36 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link 4</a>
                         </li>
-                    </ul>
+                    {{-- </ul> --}}
                     {{-- <form class="d-flex"> --}}
-                        <div class="search_input_group">
-                            <img src="{{asset('/images/icons/search-green.png')}}" class="search_icon_input">
-                            <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
-                        </div>
+                        {{-- <ul class="nav justify-content-center"> --}}
+                        <li class="nav-item">
+                            <div class="search_input_group">
+                                <img src="{{asset('/images/icons/search-green.png')}}" class="search_icon_input">
+                                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
+                            </div>
+                        </li>
+                    </ul>
 
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- Right elements -->
+                        <div class="d-flex align-items-center">
                             @auth
-                                <li class="nav-item">
+                                {{-- <li class="nav-item"> --}}
                                     <form action="{{ route('user.logout') }}" method="post">
                                         @csrf
                                         <button class="btn btn-danger" type="submit">Logout</button>
                                     </form>
-                                </li>                                
+                                {{-- </li>                                 --}}
                             @endauth
                             @guest
-                                <li class="nav-item">
+                                {{-- <li class="nav-item"> --}}
                                     <a class="nav-link login" aria-current="page" href="{{ route('user.login') }}">Sign In</a>
-                                </li>
-                                <li class="nav-item">
+                                {{-- </li> --}}
+                                {{-- <li class="nav-item"> --}}
                                     <a class="btn btn-outline-success" role="button" href="{{ route('user.register') }}">Sign Up</a>
-                                </li>
+                                {{-- </li> --}}
                             @endguest
-                        </ul>
+                            </div>
                     {{-- </form> --}}
                 </div>
             </div>
@@ -80,26 +85,50 @@
 
     @yield('content')
 
-    <footer class="bg-primary text-white text-center text-lg-start">
+    <footer class="footer bg-primary text-white text-center text-lg-start">
         <!-- Grid container -->
         <div class="container p-4">
             <!--Grid row-->
-            <div class="row">
+            <div class="row mt-5">
             <!--Grid column-->
-            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Agency</h5>
+            <div class="col-lg-4 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
+                <p class="footer-agency">Agency</p>
 
-                <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam
-                voluptatem veniam, est atque cumque eum delectus sint!
+                <p class="footer-agency-note">
+                    There are many variations of passages of lorem lpsum available, but the majority have suffered alteraction
                 </p>
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                      ><i class="fab fa-facebook-f"></i
+                    ></a>
+              
+                    <!-- Twitter -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                      ><i class="fab fa-twitter"></i
+                    ></a>
+              
+                    <!-- Google -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                      ><i class="fab fa-google"></i
+                    ></a>
+              
+                    <!-- Instagram -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                      ><i class="fab fa-instagram"></i
+                    ></a>
+              
+                    <!-- Linkedin -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                      ><i class="fab fa-linkedin-in"></i
+                    ></a>
+                  </section>
             </div>
             <!--Grid column-->
 
             <!--Grid column-->
-            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase">Links</h5>
+            <div class="col-lg-3 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
+                <h5 class="text-uppercase mb-3">Product</h5>
 
                 <ul class="list-unstyled mb-0">
                 <li>
@@ -119,8 +148,29 @@
             <!--Grid column-->
 
             <!--Grid column-->
-            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase mb-0">Links</h5>
+            <div class="col-lg-3 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
+                <h5 class="text-uppercase mb-3">Information</h5>
+
+                <ul class="list-unstyled mb-0">
+                <li>
+                    <a href="#!" class="text-white">Link 1</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Link 2</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Link 3</a>
+                </li>
+                <li>
+                    <a href="#!" class="text-white">Link 4</a>
+                </li>
+                </ul>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-2 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
+                <h5 class="text-uppercase mb-3">Company</h5>
 
                 <ul class="list-unstyled">
                 <li>
@@ -138,17 +188,13 @@
                 </ul>
             </div>
             <!--Grid column-->
+            <div class="col-12 mb-4 mb-md-0 text-center">
+                <p class="footer-note">© 2021 Agency - All Rights Reserved.</p>
+            </div>
             </div>
             <!--Grid row-->
         </div>
         <!-- Grid container -->
-
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2020 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-        </div>
-        <!-- Copyright -->
     </footer>
 
     {{-- <section class="container footer">

@@ -27,16 +27,16 @@
                 <img class="top_hero_main_img img-fluid" src="{{asset('/images/general/hero-img.png')}}" alt="">
             </div>
             <div>
-                <img class="top_hero_main_img" style=" height: 30px;width: 90px;position: absolute;left: -20px;top: 135px; z-index: -1" src="/images/extra_fillers/zigzag-green.png" alt="">
+                <img class="top_hero_main_img" style=" height: 30px;width: 90px;position: absolute;top: 25vh;right: 45vw; z-index: -1" src="/images/extra_fillers/zigzag-green.png" alt="">
             </div>
             <div>
-                <img class="sub_img" src="{{asset('/images/extra_fillers/circles-green.png')}}" style="position: absolute;top: 87px;right: 100px; z-index: -1" alt="">
+                <img class="sub_img" src="{{asset('/images/extra_fillers/circles-green.png')}}" style="position: absolute;top: 15vh;right: 10vw; z-index: -1" alt="">
             </div>
             <div>
-                <img class="sub_img" src="{{asset('/images/extra_fillers/triangles-green.png')}}" style="position: absolute;left: -100px;bottom: 17px; z-index: -1;" alt="">
+                <img class="sub_img" src="{{asset('/images/extra_fillers/triangles-green.png')}}" style="position: absolute;left: 45vw;top: 100vh; z-index: -1;" alt="">
             </div>
             <div>
-                <img class="sub_img" src="{{asset('/images/extra_fillers/cross-green.png')}}" style="position: absolute;bottom: 50px; right: 100px; z-index: -1;" alt="">
+                <img class="sub_img" src="{{asset('/images/extra_fillers/cross-green.png')}}" style="position: absolute;top: 16vw; right: 8vw; z-index: -1;" alt="">
             </div>
         </div>
     </div>
@@ -213,7 +213,7 @@
     </div>
     <div class="row" style="margin-top: 85px;">
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-            <div class="people_comments">
+            <div class="people_comments border-less">
                 <img src="{{asset('/images/general/reviews-img.png')}}" alt="">
                 <div class="people_comments_user">
                     <p class="people_comments_username">Jack Williamson</p>
@@ -235,7 +235,7 @@
             </div>
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-            <div class="people_comments">
+            <div class="people_comments border-less">
                 <img src="{{asset('/images/general/reviews-img.png')}}" alt="">
                 <div class="people_comments_user">
                     <p class="people_comments_username">Jack Williamson</p>
@@ -248,7 +248,7 @@
     </div>
 </section>
 
-<section class="container newsletter">
+<section class="container newsletter mb-5">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h1 class="hero_header" style="text-align: center;">Subscribe To Our Newsletter</h1>
@@ -262,17 +262,12 @@
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 newsletter_box">
                 <form action="" style="position: relative;">
-                    <input type="email" name="" id="" placeholder="Enter your email...">
+                    <input class="form-control" type="email" name="" id="" placeholder="Enter your email...">
                     <button class="btn btn-success newsletter_cta" type="submit">BTN</button>
                 </form>
-
-            </div>
-            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-
             </div>
         </div>
     </div>
-
 </section>
 
 @endsection

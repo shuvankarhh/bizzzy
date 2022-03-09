@@ -114,7 +114,9 @@ class AuthenticationController extends Controller
             ]);
         });
 
-        
+        return view('authentication.verify_email', [
+            'email' => $request->email
+        ]);
     }
 
     public function logout(Request $request)
