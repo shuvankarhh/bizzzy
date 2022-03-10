@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('navbar')
+<x-navbar/>
+@endsection
+
 @section('content')
     
 <section class="container top_hero_section">
@@ -9,14 +13,14 @@
                 <h1 class="hero_header">Build Your Awesome Career</h1>
             </div>
             <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
-                <h5 class="sub_hero_header">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution</h5>
+                <h5 class="sub_hero_headervh-100">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution</h5>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <div class="row justify-content-between">
-                    <div class="col-2">
+                <div class="row responsive-jutify">
+                    <div class="col-md-2 col-4">
                         <button class="btn btn-success top_hero_left_cta" type="submit">BTN</button>
                     </div>
-                    <div class="col-8">
+                    <div class="col-md-8 col-6">
                         <a class="top_hero_right_cta" href=""><img src="{{asset('/images/buttons/button1.svg')}}">How its work</a>
                     </div>
                 </div>
@@ -44,7 +48,7 @@
 <section class="container service_section">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " style="position: relative;">
-            <h1 class="hero_header" style="text-align: center;">The Service We Provide <br>For You</h1>
+            <h1 class="hero_header">The Service We Provide <br>For You</h1>
             <div>
                 <img class="sub_img" src="{{asset('/images/extra_fillers/triangles-blue.png')}}" style="position: absolute;left: 90px;top: 90px; z-index: -1;" alt="">
             </div>

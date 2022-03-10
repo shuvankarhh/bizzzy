@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('navbar')
+<x-navbar/>
+@endsection
+
 @section('content')
     
 <section>

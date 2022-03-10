@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
+@section('navbar')
+<x-navbar/>
+@endsection
+
 @section('content')
     
-<section class="vh-100" style="margin-top: 100px">
+<section class="vh-100" style="margin-top: 80px">
 
-    <div class="row d-flex justify-content-center align-items-center h-50">
+    <div class="row d-flex justify-content-center align-items-center h-50 p5">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5 col-sm-3">
             <div class="card shadow-2-strong" style="border-radius: 1rem;">
                 <div class="card-body p-5 text-center">

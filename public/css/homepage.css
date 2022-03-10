@@ -9,12 +9,21 @@
     font-weight: 700;
     line-height: 1;
     font-family: Inter-Bold;
+    text-align: center;
+}
+.responsive-jutify{
+    justify-content: space-between!important;
 }
 
-@media (min-width:0px) and (max-width:990px) {
+@media (min-width:0px) and (max-width:690px) {
     .hero_header {
+        margin-top: 80px;
         font-size: 50px;
-        margin-top: 0px;
+        text-align: left;
+    }
+
+    .responsive-jutify{
+        justify-content: center!important;
     }
 }
 
@@ -327,7 +336,7 @@
 }
 
 .footer {
-    margin-top: 100px;
+    /* margin-top: 100px; */
     width: 100%;
 }
 

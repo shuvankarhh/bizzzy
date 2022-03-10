@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('navbar')
+<x-navbar/>
+@endsection
+
 @section('content')
     
 <section>
@@ -8,7 +12,6 @@
             <div class="col-12 col-md-8 col-lg-5 col-xl-4">
                 <form action="{{ route('user.login') }}" method="post">
                     @csrf
-                    <h5 style="text-align: center;font-size: 24px;color: #0086FF; font-style: italic;margin-bottom: 30px" class="card-title">Bizzzy</h5>
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body text-center">
 

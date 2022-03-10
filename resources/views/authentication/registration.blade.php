@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('navbar')
+<x-navbar/>
+@endsection
+
 @section('content')
     
 <section>
@@ -7,7 +11,6 @@
 
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-8 col-lg-6 col-xl-5 col-sm-10">
-                <h5 style="text-align: center;font-size: 24px;color: #0086FF; font-style: italic;margin-bottom: 30px" class="card-title">Bizzzy</h5>
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body text-center">
                         <form action="{{ route('user.register') }}" method="post">
