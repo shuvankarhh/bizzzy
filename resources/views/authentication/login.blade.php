@@ -41,7 +41,7 @@
 
                             <hr class="my-4">
 
-                            <button class="btn btn-lg btn-block btn-primary" style="background-color: #FFFFFF; color: #1C1C1C;" type="submit"><i class="fab fa-google me-2"></i> Continue with google</button>
+                            <a href="{{ url('/redirect') }} " class="btn btn-lg btn-block btn-primary" style="background-color: #FFFFFF; color: #1C1C1C;"><i class="fab fa-google me-2"></i> Continue with google</a>
                             <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #FFFFFF; color: #1C1C1C;" type="submit"><i class="fab fa-apple me-2"></i>Continue with facebook</button>
 
                         </div>

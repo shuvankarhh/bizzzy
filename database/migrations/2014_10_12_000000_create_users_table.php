@@ -21,10 +21,12 @@ class CreateUsersTable extends Migration
             $table->string('user_name')->unique();
             $table->foreignId('account_phone_id')->nullable();
             $table->foreignId('account_email_id')->nullable();
-            $table->string('password');
+            $table->string('google_id')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password')->nullable();
             $table->string('photo')->nullable();
             $table->tinyInteger('acting_status')->unsigned();
-            $table->rememberToken();
+            $table->rememberToken()->nullable();
             $table->timestamps();
         });
     }

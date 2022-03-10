@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,10 @@ Route::get('user/verify-email/{email}', [AuthenticationController::class, 'userV
 Route::get('user/verify-email/{email}/{token}', [AuthenticationController::class, 'userVerifyEmailStore'])->name('user.verify.email');
 Route::get('user/register', [AuthenticationController::class, 'userRegisterCreate'])->name('user.register');
 Route::post('user/register', [AuthenticationController::class, 'userRegisterStore']);
+
+//google login
+Route::get('redirect', [SocialController::class, 'redirect']);
+Route::get('callback', [SocialController::class, 'callback']);
 
 Route::group(['middleware' => 'auth'], function (){
     Route::prefix('user')->group(function (){
