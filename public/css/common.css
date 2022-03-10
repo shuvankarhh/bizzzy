@@ -48,9 +48,10 @@
 
 /* navbar start */
 
+
 .navbar_section {
     margin-top: 15px;
-    width: 80%;
+    /* width: 80%; */
 }
 
 .navbar_section .container-fluid {
@@ -75,13 +76,20 @@
     font-weight: 600;
 }
 
+.nav-link.signup-sm{
+    display: none;
+    font-family: Mulish-Bold;
+    font-style: normal;
+}
+
 .navbar-expand-lg .navbar-nav .nav-link {
     margin-left: 1.5rem;
     white-space: nowrap;
 }
 
 .login {
-    /* margin-right: 85px; */
+    font-family: Mulish-Bold;
+    font-style: normal;
 }
 
 .nav-link:focus,
@@ -128,12 +136,29 @@
     font-family: Mulish-Bold;
 }
 
+.sm-authentication{
+    display: none !important;
+}
+
 @media (min-width: 0px) and (max-width: 990px) {
     .search_input_group,
-    .login,
+    .signup-lg,
+    .lg-authentication,
     .sign_up {
-        display: none;
+        display: none !important;
     }
+
+    .nav-link.signup-sm{
+        display: block;
+    }
+
+    .sm-authentication{
+        display: flex !important;
+    }
+
+    .navbar > .container-fluid > .responsive-nav-justify{
+        justify-content: start;
+    }    
 }
 
 

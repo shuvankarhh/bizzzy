@@ -104,3 +104,35 @@ body{
     line-height: 25px;
     font-weight: 100;
 }
+
+.footer-button{
+    color: white;
+    border-bottom: 1px solid white;
+    text-align: left;
+    text-decoration: none;
+}
+
+.footer-button > i{
+    float: right;
+    transition: 200ms ease-in-out;
+}
+
+.footer-button:hover{
+    color: white;
+}
+
+.footer-list{
+    text-align: left !important;
+}
+
+.footer-button > i.active{
+    transform: rotate(180deg);
+}
+
+.footer-list li{
+    padding: 5px;
+}
+
+.sm-footer .text-footer{
+    text-align: left;
+}

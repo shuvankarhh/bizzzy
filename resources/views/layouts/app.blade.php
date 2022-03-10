@@ -21,6 +21,7 @@
     <link href="{{asset('/css/app.css')}}" rel="stylesheet">
     <link href="{{asset('/css/common.css')}}" rel="stylesheet">
     <link href="{{asset('/css/homepage.css')}}" rel="stylesheet">
+    <link href="{{asset('fonts')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -29,11 +30,34 @@
     <section class="container navbar_section text-center">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-                <a class="nav-brand" href="{{ url('/') }}">Bizzzy</a>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <span class="responsive-nav-justify">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_toggle" aria-controls="navbar_toggle" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <a class="nav-brand" href="{{ url('/') }}">Bizzzy</a>
+                </span>
+
+                <div class="d-flex align-items-center sm-authentication">
+                    @auth
+                        {{-- <li class="nav-item"> --}}
+                            <form action="{{ route('user.logout') }}" method="post">
+                                @csrf
+                                <button class="btn btn-danger" type="submit">Logout</button>
+                            </form>
+                        {{-- </li> --}}
+                    @endauth
+                    @guest
+                        {{-- <li class="nav-item"> --}}
+                            <a class="nav-link login" aria-current="page" href="{{ route('user.login') }}">Sign In</a>
+                        {{-- </li> --}}
+                        {{-- <li class="nav-item"> --}}
+                            <a class="nav-link signup-sm" role="button" href="{{ route('user.register') }}">Sign Up</a>
+                        {{-- </li> --}}
+                    @endguest
+                </div>
+                
+
+                <div class="collapse navbar-collapse" id="navbar_toggle">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Link 1</a>
@@ -57,27 +81,27 @@
                             </div>
                         </li>
                     </ul>
+                </div>   
+                {{-- </form> --}}
 
-                        <!-- Right elements -->
-                        <div class="d-flex align-items-center">
-                            @auth
-                                {{-- <li class="nav-item"> --}}
-                                    <form action="{{ route('user.logout') }}" method="post">
-                                        @csrf
-                                        <button class="btn btn-danger" type="submit">Logout</button>
-                                    </form>
-                                {{-- </li>                                 --}}
-                            @endauth
-                            @guest
-                                {{-- <li class="nav-item"> --}}
-                                    <a class="nav-link login" aria-current="page" href="{{ route('user.login') }}">Sign In</a>
-                                {{-- </li> --}}
-                                {{-- <li class="nav-item"> --}}
-                                    <a class="btn btn-outline-success" role="button" href="{{ route('user.register') }}">Sign Up</a>
-                                {{-- </li> --}}
-                            @endguest
-                            </div>
-                    {{-- </form> --}}
+                <!-- Right elements -->
+                <div class="d-flex align-items-center lg-authentication">
+                    @auth
+                        {{-- <li class="nav-item"> --}}
+                            <form action="{{ route('user.logout') }}" method="post">
+                                @csrf
+                                <button class="btn btn-danger" type="submit">Logout</button>
+                            </form>
+                        {{-- </li>                                 --}}
+                    @endauth
+                    @guest
+                        {{-- <li class="nav-item"> --}}
+                            <a class="nav-link login" aria-current="page" href="{{ route('user.login') }}">Sign In</a>
+                        {{-- </li> --}}
+                        {{-- <li class="nav-item"> --}}
+                            <a class="btn btn-outline-success signup-lg" role="button" href="{{ route('user.register') }}">Sign Up</a>
+                        {{-- </li> --}}
+                    @endguest
                 </div>
             </div>
         </nav>
@@ -88,99 +112,222 @@
     <footer class="footer bg-primary text-white text-center text-lg-start">
         <!-- Grid container -->
         <div class="container p-4">
+
+            <div class="row mt-5 d-sm-flex d-md-none d-lg-none sm-footer">
+                <!-- Buttons trigger collapse -->
+                <a
+                class="footer-button pb-1"
+                data-mdb-toggle="collapse"
+                href="#collapseExample"
+                role="button"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+                onclick="toggleFoooterIcon(this)"
+                >
+                Product <i class="fas fa-chevron-down"></i>
+                </a>
+
+                <!-- Collapsed content -->
+                <div class="collapse mt-3" id="collapseExample">
+                    <ul class="footer-list list-unstyled mb-0">
+                        <li>
+                            <a href="#!" class="text-white">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Buttons trigger collapse -->
+                <a
+                class="footer-button mt-5 pb-1"
+                data-mdb-toggle="collapse"
+                href="#informationToggle"
+                role="button"
+                aria-expanded="false"
+                aria-controls="informationToggle"
+                onclick="toggleFoooterIcon(this)"
+                >
+                Information <i class="fas fa-chevron-down"></i>
+                </a>
+
+                <!-- Collapsed content -->
+                <div class="collapse mt-3" id="informationToggle">
+                    <ul class="footer-list list-unstyled mb-0">
+                        <li>
+                            <a href="#!" class="text-white">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- Buttons trigger collapse -->
+                <a
+                class="footer-button mt-5 pb-1"
+                data-mdb-toggle="collapse"
+                href="#companyToggle"
+                role="button"
+                aria-expanded="false"
+                aria-controls="companyToggle"
+                onclick="toggleFoooterIcon(this)"
+                >
+                Company <i class="fas fa-chevron-down"></i>
+                </a>
+
+                <!-- Collapsed content -->
+                <div class="collapse mt-3" id="companyToggle">
+                    <ul class="footer-list list-unstyled mb-0">
+                        <li>
+                            <a href="#!" class="text-white">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-3 col-sm-12 mb-4 mb-md-0 mt-5 text-footer">
+                    <p class="footer-agency">Agency</p>
+
+                    <p class="footer-agency-note">
+                        There are many variations of passages of lorem lpsum available, but the majority have suffered alteraction
+                    </p>
+                    <section class="mb-4">              
+                        <!-- Linkedin -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-linkedin-in"></i
+                        ></a>
+
+                        <!-- Facebook -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-facebook-f"></i
+                        ></a>
+                
+                        <!-- Twitter -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-twitter"></i
+                        ></a>
+                    </section>
+                </div>
+            </div>
             <!--Grid row-->
-            <div class="row mt-5">
-            <!--Grid column-->
-            <div class="col-lg-4 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
-                <p class="footer-agency">Agency</p>
+            <div class="row mt-5 d-sm-none d-md-flex d-lg-flex">
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
+                    <p class="footer-agency">Agency</p>
 
-                <p class="footer-agency-note">
-                    There are many variations of passages of lorem lpsum available, but the majority have suffered alteraction
-                </p>
-                <section class="mb-4">              
-                    <!-- Linkedin -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                      ><i class="fab fa-linkedin-in"></i
-                    ></a>
+                    <p class="footer-agency-note">
+                        There are many variations of passages of lorem lpsum available, but the majority have suffered alteraction
+                    </p>
+                    <section class="mb-4">              
+                        <!-- Linkedin -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-linkedin-in"></i
+                        ></a>
 
-                    <!-- Facebook -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                      ><i class="fab fa-facebook-f"></i
-                    ></a>
-              
-                    <!-- Twitter -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                      ><i class="fab fa-twitter"></i
-                    ></a>
-                  </section>
-            </div>
-            <!--Grid column-->
+                        <!-- Facebook -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-facebook-f"></i
+                        ></a>
+                
+                        <!-- Twitter -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
+                        ><i class="fab fa-twitter"></i
+                        ></a>
+                    </section>
+                </div>
+                <!--Grid column-->
 
-            <!--Grid column-->
-            <div class="col-lg-3 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
-                <h5 class="text-uppercase mb-3">Product</h5>
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
+                    <h5 class="text-uppercase mb-3">Product</h5>
 
-                <ul class="list-unstyled mb-0">
-                <li>
-                    <a href="#!" class="text-white">Link 1</a>
-                </li>
-                <li>
-                    <a href="#!" class="text-white">Link 2</a>
-                </li>
-                <li>
-                    <a href="#!" class="text-white">Link 3</a>
-                </li>
-                <li>
-                    <a href="#!" class="text-white">Link 4</a>
-                </li>
-                </ul>
-            </div>
-            <!--Grid column-->
+                    <ul class="list-unstyled mb-0">
+                    <li>
+                        <a href="#!" class="text-white">Link 1</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-white">Link 2</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-white">Link 3</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-white">Link 4</a>
+                    </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
 
-            <!--Grid column-->
-            <div class="col-lg-3 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
-                <h5 class="text-uppercase mb-3">Information</h5>
+                <!--Grid column-->
+                <div class="col-lg-3 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
+                    <h5 class="text-uppercase mb-3">Information</h5>
 
-                <ul class="list-unstyled mb-0">
-                <li>
-                    <a href="#!" class="text-white">Link 1</a>
-                </li>
-                <li>
-                    <a href="#!" class="text-white">Link 2</a>
-                </li>
-                <li>
-                    <a href="#!" class="text-white">Link 3</a>
-                </li>
-                <li>
-                    <a href="#!" class="text-white">Link 4</a>
-                </li>
-                </ul>
-            </div>
-            <!--Grid column-->
+                    <ul class="list-unstyled mb-0">
+                    <li>
+                        <a href="#!" class="text-white">Link 1</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-white">Link 2</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-white">Link 3</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-white">Link 4</a>
+                    </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
 
-            <!--Grid column-->
-            <div class="col-lg-2 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
-                <h5 class="text-uppercase mb-3">Company</h5>
+                <!--Grid column-->
+                <div class="col-lg-2 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
+                    <h5 class="text-uppercase mb-3">Company</h5>
 
-                <ul class="list-unstyled">
-                <li>
-                    <a href="#!" class="text-white">Link 1</a>
-                </li>
-                <li>
-                    <a href="#!" class="text-white">Link 2</a>
-                </li>
-                <li>
-                    <a href="#!" class="text-white">Link 3</a>
-                </li>
-                <li>
-                    <a href="#!" class="text-white">Link 4</a>
-                </li>
-                </ul>
-            </div>
-            <!--Grid column-->
-            <div class="col-12 mb-4 mb-md-0 text-center">
-                <p class="footer-note">© 2021 Agency - All Rights Reserved.</p>
-            </div>
+                    <ul class="list-unstyled">
+                    <li>
+                        <a href="#!" class="text-white">Link 1</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-white">Link 2</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-white">Link 3</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-white">Link 4</a>
+                    </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+                <div class="col-12 mb-4 mb-md-0 text-center">
+                    <p class="footer-note">© 2021 Agency - All Rights Reserved.</p>
+                </div>
+
             </div>
             <!--Grid row-->
         </div>
@@ -307,6 +454,7 @@
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="{{asset('/js/vendor/bootstrap_v5-0-2/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('/js/app.js')}}"></script>
 
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
