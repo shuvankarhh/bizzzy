@@ -21,91 +21,12 @@
     <link href="{{asset('/css/app.css')}}" rel="stylesheet">
     <link href="{{asset('/css/common.css')}}" rel="stylesheet">
     <link href="{{asset('/css/homepage.css')}}" rel="stylesheet">
-    <link href="{{asset('fonts')}}" rel="stylesheet">
 </head>
 
 <body>
     {{-- <img src="{{asset('/images/extra_fillers/hero-green-background.svg')}}" style="position: absolute;top: 0;left: 0;z-index: -1;height: 140vh;"> --}}
 
-    <section class="container navbar_section text-center">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-                <span class="responsive-nav-justify">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_toggle" aria-controls="navbar_toggle" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <a class="nav-brand" href="{{ url('/') }}">Bizzzy</a>
-                </span>
-
-                <div class="d-flex align-items-center sm-authentication">
-                    @auth
-                        {{-- <li class="nav-item"> --}}
-                            <form action="{{ route('user.logout') }}" method="post">
-                                @csrf
-                                <button class="btn btn-danger" type="submit">Logout</button>
-                            </form>
-                        {{-- </li> --}}
-                    @endauth
-                    @guest
-                        {{-- <li class="nav-item"> --}}
-                            <a class="nav-link login" aria-current="page" href="{{ route('user.login') }}">Sign In</a>
-                        {{-- </li> --}}
-                        {{-- <li class="nav-item"> --}}
-                            <a class="nav-link signup-sm" role="button" href="{{ route('user.register') }}">Sign Up</a>
-                        {{-- </li> --}}
-                    @endguest
-                </div>
-                
-
-                <div class="collapse navbar-collapse" id="navbar_toggle">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Link 1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link 2</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link 3</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link 4</a>
-                        </li>
-                    {{-- </ul> --}}
-                    {{-- <form class="d-flex"> --}}
-                        {{-- <ul class="nav justify-content-center"> --}}
-                        <li class="nav-item">
-                            <div class="search_input_group">
-                                <img src="{{asset('/images/icons/search-green.png')}}" class="search_icon_input">
-                                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
-                            </div>
-                        </li>
-                    </ul>
-                </div>   
-                {{-- </form> --}}
-
-                <!-- Right elements -->
-                <div class="d-flex align-items-center lg-authentication">
-                    @auth
-                        {{-- <li class="nav-item"> --}}
-                            <form action="{{ route('user.logout') }}" method="post">
-                                @csrf
-                                <button class="btn btn-danger" type="submit">Logout</button>
-                            </form>
-                        {{-- </li>                                 --}}
-                    @endauth
-                    @guest
-                        {{-- <li class="nav-item"> --}}
-                            <a class="nav-link login" aria-current="page" href="{{ route('user.login') }}">Sign In</a>
-                        {{-- </li> --}}
-                        {{-- <li class="nav-item"> --}}
-                            <a class="btn btn-outline-success signup-lg" role="button" href="{{ route('user.register') }}">Sign Up</a>
-                        {{-- </li> --}}
-                    @endguest
-                </div>
-            </div>
-        </nav>
-    </section>
+    @yield('navbar')
 
     @yield('content')
 
@@ -113,7 +34,7 @@
         <!-- Grid container -->
         <div class="container p-4">
 
-            <div class="row mt-5 d-sm-flex d-md-none d-lg-none sm-footer">
+            <div class="row mt-5 d-flex d-sm-flex d-md-none d-lg-none sm-footer">
                 <!-- Buttons trigger collapse -->
                 <a
                 class="footer-button pb-1"
@@ -234,7 +155,7 @@
                 </div>
             </div>
             <!--Grid row-->
-            <div class="row mt-5 d-sm-none d-md-flex d-lg-flex">
+            <div class="row mt-5 d-none d-sm-none d-md-flex d-lg-flex">
                 <!--Grid column-->
                 <div class="col-lg-4 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
                     <p class="footer-agency">Agency</p>

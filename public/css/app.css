@@ -1,3 +1,5 @@
+/* -- Register radion input-- */
+
 /* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
 .register-radio {
     display:none;
@@ -41,8 +43,56 @@ as long as it is a sibling. */
     transition: 150ms ease-in-out;
 }
 
+/* -- Question radion input-- */
 
-/* Override defaults */
+/* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
+.question .form-check{
+    padding-left: unset;
+}
+
+.question-radio {
+    display:none;
+}
+
+/* The label is what's left to style. 
+As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
+.question-radio + label {
+    padding: 1em;
+    display: inline-block;
+    cursor: pointer;
+    width: 70%;
+    margin-right: -2px;
+    margin-left: -2px;
+    background: #E3FCEF;
+    border-radius: 3px;
+    color: #006644;
+}
+
+.blank-label {
+    display: none;
+}
+
+/* The '+' is the adjacent sibling selector.
+It selects what ever element comes right after it,
+as long as it is a sibling. */
+.question-radio:checked + label {
+    background: #B5FBD6;
+    border: 1px solid #14A800;
+    transition: 150ms ease-in-out;
+}
+
+.question .skip{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #14A800;
+    margin-top: 30px;
+    font-family: Nunito Sans;
+}
+
+
+/* --- Override defaults --- */
 
 
 .form-control.is-invalid{
@@ -54,8 +104,8 @@ as long as it is a sibling. */
 }
 
 body{
-    background-image: url(http://127.0.0.1:8000/images/extra_fillers/hero-green-background.svg);
-    background-repeat: no-repeat;
+    /* background-image: url(http://127.0.0.1:8000/images/extra_fillers/hero-green-background.svg);
+    background-repeat: no-repeat; */
 }
 
 
@@ -81,6 +131,8 @@ body{
 /* .form-control-feedback:hover{
 } */
 
+
+/* ----- Footer ----- */
 .footer{
     font-family: Nunito Sans;
     font-style: normal;
@@ -135,4 +187,128 @@ body{
 
 .sm-footer .text-footer{
     text-align: left;
+}
+
+/* Getting started carousel */
+
+.carousel-inner-box{
+    position: absolute;
+    z-index: 1;
+    bottom: 10px;
+    left: 10px;
+    width: 40%;
+    /* display: none; */
+}
+
+.carousel-inner-box + .card{
+    background-color: #FFFFFF;
+    border-radius: 3px; 
+}
+
+.carousel-inner-box .left-text{
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.carousel-inner-box .right-text{
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    color: #006644;
+}
+
+.carousel-inner-box .description{
+    font-family: Nunito Sans;
+    font-style: normal;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px; color: #006644;
+}
+
+.carousel-inner-box .top-rated > p{
+    float: right;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.carousel-inner-box .top-rated > img{
+    height: 20px;
+    width: 20px;
+    float: right;
+}
+
+.carousel-inner-box .comment{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 25px;
+    margin-right: 10px;
+    margin-left: 10px;
+    text-align: justify;                            
+    color: #006644;
+}
+
+.getting-started .carousel-control-next{
+    top: unset;
+    bottom: 20px;
+}
+
+.getting-started .carousel-control-prev{
+    top: unset;
+    left: 50%;
+    bottom: 20px;
+    right: 0;
+}
+
+.getting-started .carousel-indicators{
+    justify-content: center;
+    left: 50%;
+}
+
+.getting-started .carousel-indicators [data-mdb-target]{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.getting-started-card{
+    border-radius: 1rem;
+    box-shadow: none;
+}
+
+.getting-started-card h1{    
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 38px;    
+    text-align: center;    
+    color: #1C1C1C;
+}
+
+.getting-started-card h2{    
+    font-family: Nunito Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #1C1C1C;
+}
+
+.vh-100{
+    height: 100vh;
+}
+
+.btn-nav-link{
+    border: none;
+    background: none;
+    font-weight: 500;
+}
+
+.btn-nav-link:hover{
+    color: #006644;
 }

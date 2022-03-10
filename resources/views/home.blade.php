@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('navbar')
+<x-navbar/>
+@endsection
+
 @section('content')
     
 <section class="container top_hero_section">
@@ -9,7 +13,7 @@
                 <h1 class="hero_header">Build Your Awesome Career</h1>
             </div>
             <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
-                <h5 class="sub_hero_header">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution</h5>
+                <h5 class="sub_hero_headervh-100">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution</h5>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <div class="row responsive-jutify">

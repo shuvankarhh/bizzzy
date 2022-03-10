@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\EmailVerification;
 use App\Models\User;
 use App\Models\Email;
+use App\Models\HUser;
 use App\Models\UserEmail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\EmailVerification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -97,14 +98,18 @@ class AuthenticationController extends Controller
                 'email' => $request->email
             ]);
 
+            $password = bcrypt($request->password);
+
             $user_data = array(
                 'name' => $request->first_name . ' ' . $request->last_name,
                 'user_name' => $request->first_name,
-                'password' => bcrypt($request->password),
+                'password' => $password,
                 'acting_status' => 1,
             );
 
             $user = User::create($user_data);
+
+            
 
             $token = Str::random(10);
 
