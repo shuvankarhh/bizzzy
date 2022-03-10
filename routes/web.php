@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\GetStarted\GetStartedController;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,10 @@ Route::prefix('user')->group(function (){
     Route::get('register', [AuthenticationController::class, 'userRegisterCreate'])->name('user.register');
     Route::post('register', [AuthenticationController::class, 'userRegisterStore']);
 });
+
+//google login
+Route::get('redirect', [SocialController::class, 'redirect']);
+Route::get('callback', [SocialController::class, 'callback']);
 
 Route::group(['middleware' => 'auth'], function (){
     Route::prefix('user')->group(function (){
