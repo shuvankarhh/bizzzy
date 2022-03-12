@@ -78,7 +78,7 @@
                           aria-expanded="false"
                         >
                           <img
-                            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                            src="{{ asset('images\general\avatar.png') }}"
                             class="rounded-circle"
                             height="25"
                             alt="Black and White Portrait of a Man"
