@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('question-one', [GetStartedController::class, 'qOne'])->name('question.one');
         Route::get('question-two', [GetStartedController::class, 'qTwo'])->name('question.two');
         Route::get('question-three', [GetStartedController::class, 'qThree'])->name('question.three');
+        Route::get('question-four', [GetStartedController::class, 'qFour'])->name('question.');
         Route::get('/', [UserController::class, 'index']);
     });
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');

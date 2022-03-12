@@ -26,4 +26,9 @@ class GetStartedController extends Controller
     {
         return view('get_started.question_three')->with('name', auth()->user()->name);
     }
+
+    public function qFour()
+    {
+        return view('get_started.question_four')->with('name', auth()->user()->name);
+    }
 }
