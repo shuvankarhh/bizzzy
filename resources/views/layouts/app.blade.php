@@ -18,6 +18,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet" />
 
     <!-- Bizzzy -->
+    <link href="{{asset('/fonts')}}" rel="stylesheet">
     <link href="{{asset('/css/app.css')}}" rel="stylesheet">
     <link href="{{asset('/css/common.css')}}" rel="stylesheet">
     <link href="{{asset('/css/homepage.css')}}" rel="stylesheet">
