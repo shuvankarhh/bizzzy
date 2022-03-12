@@ -24,6 +24,10 @@
                             @error('email')
                                 <p class="ml-0 mr-0 mt-0 text-danger">{{ $message }}</p>
                             @enderror
+
+                            @error('password')
+                                <p class="ml-0 mr-0 mt-0 text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-outline mb-4">
                                 <input type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg" />
                                 <label class="form-label" for="typeEmailX-2">Email</label>

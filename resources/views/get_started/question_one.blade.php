@@ -14,28 +14,19 @@
                         {{-- <a>Prev</a> --}}
                     </div>
                     <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-3">   
-                        <p style="font-style: normal;
-                        font-weight: bold;
-                        font-size: 28px;
-                        line-height: 28px;
-                        color: #1C1C1C;">A few quick questions: first, have you freelanced before?</p>
-                        <p style="font-family: Nunito Sans;
-                        font-style: normal;
-                        font-weight: normal;
-                        font-size: 14px;
-                        line-height: 20px;
-                        color: #006644;">This lets us know how much help to give you along the way. (We won’t share your answer with anyone else, including potential clients.)</p>
+                        <p class="main-question" >A few quick questions: first, have you freelanced before?</p>
+                        <p class="main-question-desc" >This lets us know how much help to give you along the way. (We won’t share your answer with anyone else, including potential clients.)</p>
                                              
                         <div class="form-check mb-3">
-                            <input class="question-radio" type="radio" id="new" name="freelancer_or_recuriter" value="freelancer"/>
+                            <input onclick="questionSelect(this.value, '{{ route('question.two') }}')" class="question-radio" type="radio" id="new" name="freelancer_or_recuriter" value="new"/>
                             <label for="new">Nope: it’s new to me</label>
                         </div>
                         <div class="form-check mb-3">
-                            <input class="question-radio" type="radio" id="beginner" name="freelancer_or_recuriter" value="freelancer"/>
+                            <input onclick="questionSelect(this.value, '{{ route('question.two') }}')" class="question-radio" type="radio" id="beginner" name="freelancer_or_recuriter" value="beginner"/>
                             <label for="beginner">I’ve tried it but still might need tips</label>
                         </div>
                         <div class="form-check mb-3">
-                            <input class="question-radio" type="radio" id="experienced" name="freelancer_or_recuriter" value="freelancer"/>
+                            <input onclick="questionSelect(this.value, '{{ route('question.two') }}')" class="question-radio" type="radio" id="experienced" name="freelancer_or_recuriter" value="experienced"/>
                             <label for="experienced">Yep, I’ve freelanced for years</label>
                         </div>
 

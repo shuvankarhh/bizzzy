@@ -31,16 +31,16 @@
                 <img class="top_hero_main_img img-fluid" src="{{asset('/images/general/hero-img.png')}}" alt="">
             </div>
             <div>
-                <img class="top_hero_main_img" style=" height: 30px;width: 90px;position: absolute;top: 25vh;right: 45vw; z-index: -1" src="/images/extra_fillers/zigzag-green.png" alt="">
+                <img class="top_hero_main_img" style=" height: 30px;width: 90px;position: absolute;top: 25vh;right: 45vw; z-index: -1" src="{{ asset('/images/extra_fillers/zigzag-green.png') }}" alt="">
             </div>
             <div>
-                <img class="sub_img" src="{{asset('/images/extra_fillers/circles-green.png')}}" style="position: absolute;top: 15vh;right: 10vw; z-index: -1" alt="">
+                <img class="sub_img" src="{{asset('/images/extra_fillers/circles-green.png')}}" style="position: absolute;top: 87px;right: 100px; z-index: -1" alt="">
             </div>
             <div>
-                <img class="sub_img" src="{{asset('/images/extra_fillers/triangles-green.png')}}" style="position: absolute;left: 45vw;top: 100vh; z-index: -1;" alt="">
+                <img class="sub_img" src="{{asset('/images/extra_fillers/triangles-green.png')}}" style="position: absolute;left: 45vw;top: 600px; z-index: -1;" alt="">
             </div>
             <div>
-                <img class="sub_img" src="{{asset('/images/extra_fillers/cross-green.png')}}" style="position: absolute;top: 16vw; right: 8vw; z-index: -1;" alt="">
+                <img class="sub_img" src="{{asset('/images/extra_fillers/cross-green.png')}}" style="position: absolute;top: 40vw; right: 8vw; z-index: -1;" alt="">
             </div>
         </div>
     </div>
