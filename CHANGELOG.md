@@ -1,3 +1,5 @@
+v0.015.0 - add: hourly rate (2022-03-13 11:07)
+
 v0.014.0 - add: work, education experience (2022-03-13 09:53)
 
 v0.013.0 - fix: upto question three (2022-03-12 11:53)

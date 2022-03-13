@@ -79,6 +79,13 @@
             </div>
         </div>
     </div>
-    <x-question-footer percentage=35/>
+    <div class="question-footer">
+        <x-question-footer percentage=35/>
+        <div class="row justify-content-end">
+            <div class="col-md-3 text-end">
+                {{-- <button class="btn btn-bizzzy-success text-nowrap me-3">Next, Languages </button> --}}
+            </div>
+        </div>
+    </div>
 </section>
 @endsection

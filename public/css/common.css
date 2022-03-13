@@ -1,4 +1,9 @@
 @font-face {
+    font-family: Inter;
+    src: url(/fonts/Inter/static/Inter-Regular.ttf);
+}
+
+@font-face {
     font-family: Inter-Bold;
     src: url(/fonts/Inter/static/Inter-Bold.ttf);
 }
@@ -16,6 +21,10 @@
 @font-face {
     font-family: Nunito Sans;
     src: url(/fonts/Nunito_Sans/NunitoSans-Regular.ttf);
+}
+
+.bizzzy-color{
+    color: #14A800;
 }
 
 .container {

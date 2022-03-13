@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('education', [EducationController::class, 'index'])->name('education.index');
         Route::get('add-education', [EducationController::class, 'create'])->name('education.create');
         Route::get('question-eleven', [GetStartedController::class, 'qEleven'])->name('question.eleven');
+        Route::get('question-twelve', [GetStartedController::class, 'qTwelve'])->name('question.twelve');
 
 
         Route::get('question-nine', [GetStartedController::class, 'qnine'])->name('question.nine');

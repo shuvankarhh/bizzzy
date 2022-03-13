@@ -277,6 +277,35 @@ as long as it is a sibling. */
     background-color: inherit;
 }
 
+.rate-text{
+    font-family: 'Inter-Bold';
+    font-style: normal;
+}
+
+.rate-desc{
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+}
+
+.rate-input-group{
+    padding-bottom: 0;
+    border-top: 1px solid #bdbdbd;
+    border-bottom: 1px solid #bdbdbd;
+    border-left: 1px solid #bdbdbd;
+    border-right: 0;
+    color: #14A800;
+}
+
+.rate-input-group + input{
+    border-top: 1px solid #bdbdbd;
+    border-bottom: 1px solid #bdbdbd;
+    border-left: 0;
+    border-right: 1px solid #bdbdbd;
+    text-align: right; 
+}
+
 /* ---------------------------------------------------------------- */
 
 /* --- Override defaults --- */
