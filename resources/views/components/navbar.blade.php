@@ -2,9 +2,11 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <span class="responsive-nav-justify">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_toggle" aria-controls="navbar_toggle" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
+                @if ($links !== 'false')
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_toggle" aria-controls="navbar_toggle" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                @endif
                 <a class="nav-brand" href="{{ url('/') }}">Bizzzy</a>
             </span>
 

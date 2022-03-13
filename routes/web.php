@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\GetStarted\GetStartedController;
+use App\Http\Controllers\GetStarted\WorkExperienceController;
 use App\Http\Controllers\SocialController;
 
 /*
@@ -52,12 +54,18 @@ Route::get('redirect', [SocialController::class, 'redirect']);
 Route::get('callback', [SocialController::class, 'callback']);
 
 Route::group(['middleware' => 'auth'], function (){
-    Route::prefix('user')->group(function (){
+    Route::prefix('user/create')->group(function (){
         Route::get('get-started', [GetStartedController::class, 'index'])->name('start.message');
         Route::get('question-one', [GetStartedController::class, 'qOne'])->name('question.one');
         Route::get('question-two', [GetStartedController::class, 'qTwo'])->name('question.two');
         Route::get('question-three', [GetStartedController::class, 'qThree'])->name('question.three');
         Route::get('question-four', [GetStartedController::class, 'qFour'])->name('question.');
+        Route::get('question-five', [GetStartedController::class, 'qFive'])->name('question.five');
+        Route::get('work-experience', [WorkExperienceController::class, 'index'])->name('work.experience.index');
+        Route::get('add-work-experience', [WorkExperienceController::class, 'create'])->name('work.experience.creat');
+        Route::get('education', [EducationController::class, 'index'])->name('education.index');
+        Route::get('add-education', [EducationController::class, 'create'])->name('education.create');
+        Route::get('question-eleven', [GetStartedController::class, 'qEleven'])->name('question.eleven');
         Route::get('/', [UserController::class, 'index']);
     });
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');

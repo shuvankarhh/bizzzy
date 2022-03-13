@@ -7,6 +7,10 @@ let toggleFoooterIcon = (e) => {
 // Question One
 
 let questionSelect = (val, link) => {
-    alert(val);
+    // alert(val);
+    location.href=link
+}
+
+let first_working_experience = (link) => {
     location.href=link
 }

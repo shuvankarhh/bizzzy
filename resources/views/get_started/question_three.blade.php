@@ -7,7 +7,7 @@
 @section('content')
 <section class="question">
     <div class="container py-3">
-        <div class="row d-flex justify-content-center align-items-center">
+        <div class="row d-flex justify-content-center mt-3 align-items-center">
             <div class="col-md-1 align-self-start">
                 <a>Prev</a>
             </div>
@@ -64,23 +64,13 @@
                             {{-- <div class="col-md-2 col-lg-2 col-xl-2 col-sm-3"></div> --}}
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-1 col-lg-1 col-xl-1 col-sm-3">
-        
+                    <div class="col-md-12 align-self-center mt-3">
+                        <div class="row justify-content-end text-lg-end text-xl-end text-md-end text-sm-start text-xs-start">
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xs-12 ">
+                                <a class="skip" href="#">Skip for now ></a>
                             </div>
-                            <div class="col-md-9 col-lg-9 col-xl-9 col-sm-3">
-                                <button class="btn btn-primary btn-ls " style="  background-color: #14A800; float: right; margin-top: 20px;" type="submit">Next, Create a Profile ></button>
-                                <p style="margin-top: 30px;"><a style="font-family: Nunito Sans;
-                                    font-style: normal; float: right;
-                                    font-weight: 600;
-                                    font-size: 14px;
-                                    line-height: 20px;margin-right: 10px;
-                                    color: #14A800;">Skip for now ></a></p>
-        
-                            </div>
-                            <div class="col-md-2 col-lg-2 col-xl-2 col-sm-3">
-                                <img style="float: right; margin-top: 80px;" src="/images/icons/qus.png" alt="">
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xs-12">
+                                <button onclick="first_working_experience('{{ route('work.experience.index') }}')" class="btn btn-primary btn-ls text-nowrap " style="background-color: #14A800;" type="submit">Next, Create a Profile ></button>
                             </div>
                         </div>
                     </div>
@@ -88,5 +78,6 @@
             </div>
         </div>
     </div>
+    <x-question-footer percentage=35/>
 </section>
 @endsection

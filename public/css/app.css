@@ -1,3 +1,4 @@
+
 /* -- Register radion input-- */
 
 /* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
@@ -43,11 +44,23 @@ as long as it is a sibling. */
     transition: 150ms ease-in-out;
 }
 
-/* -------- Question radion input ----------- */
+/* -------- Questions ----------------------------------------------------------------------- */
 
 /* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
-.question .form-check{
+.question{
+    min-height: 500px;
+    position: relative;
+}
+
+.question .form-check.custom{
     padding-left: unset;
+}
+
+.question-footer{
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .question-radio {
@@ -207,11 +220,81 @@ as long as it is a sibling. */
     font-size: 15px;
 }
 
+.add-exp{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 275px;
+    height: 132px;
+    background: #FFFFFF;
+    border: 1px dashed #DFE1E6;
+    box-sizing: border-box;
+}
+
+.add-exp-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 26px;
+    height: 26px;
+    background: #DFE1E6;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+.add-exp-button i{
+    color: #14A800;
+}
+
+.add-exp:hover{
+    box-shadow: 0px 5px 10px 1px #EBECF0;
+    cursor: pointer;
+}
+
+.add-exp p{
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #14A800;
+}
+
+.custom-label{    
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.custom-close{
+    color: #42526E;
+}
+
+.custom-close:hover{
+    color: #32363f;
+    background-color: inherit;
+}
 
 /* ---------------------------------------------------------------- */
 
 /* --- Override defaults --- */
 
+.btn-bizzzy-success{
+    background-color: #14A800;
+    border-color: #14A800;
+    color: white;
+}
+
+.btn-bizzzy-success:hover{
+    color: white;
+}
+
+.progress-bar{
+    background-color: #42526E;
+    border-radius: 15px;
+}
 
 .form-control.is-invalid{
     margin-bottom: 0px;
@@ -438,5 +521,9 @@ body{
 @media (min-width:0px) and (max-width:690px) {
     .container{
         max-width: 85vw;
+    }
+
+    .question-radio + label{
+        width: 90%;
     }
 }

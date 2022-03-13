@@ -45,10 +45,10 @@ class AuthenticationController extends Controller
         if (Auth::attempt(['account_email_id' => $email->id, 'password' => $request->password])) {
             $request->session()->regenerate();
  
-            return redirect()->intended('/');
+            return redirect()->intended('user/create/get-started');
         }
  
-        return back()->withErrors([
+        return back()->withErrors([ 
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
@@ -123,7 +123,7 @@ class AuthenticationController extends Controller
             return array('user' => $user, 'token' => $token);
         });
 
-        Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
+        // Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
 
         return redirect()->route('user.verification-need.email', ['email' => $request->email]);
     }
