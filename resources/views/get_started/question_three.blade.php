@@ -18,8 +18,8 @@
                         <p class="main-question-desc" >Different people come to Bizzzy for different reasons. We want to highlight the opportunities that fit your goals best – while still showing you all the possibilities. Which of these feels most right for you?</p>
                     </div>
                     <div class="col-md-12">
-                        <div class="row battery-question justify-content-md-center justify-content-sm-center justify-content-xs-center">
-                            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">
+                        <div class="row battery-question justify-content-md-center justify-content-sm-center justify-content-xs-center justify-content-lg-left justify-content-xl-left">
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12">
                                 <div class="card">
                                     <img src="{{asset('/images/card/card1.png')}}" class="card-img-top" alt="..." style="background-image: linear-gradient(0deg, #FFAB00 0%, #FF991F 99.49%);">
                                     <img class="battery" src="{{asset('/images/card/batteries.svg')}}" alt="">
@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12">
                                 <div class="card">
                                     <img src="/images/card/card2.svg" class="card-img-top" alt="..." style="background-image: linear-gradient(0deg, #FFAB00 0%, #FF991F 99.49%);">
                                     <img class="battery" src="{{asset('/images/card/batteries.svg')}}" alt="">
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-lg-4 col-xl-4 col-sm-12">
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12">
                                 <div class="card">
                                     <img src="{{asset('/images/card/card1.png')}}" class="card-img-top" alt="..." style="background-image: linear-gradient(0deg, #FFAB00 0%, #FF991F 99.49%);">
                                     <img class="battery" src="{{asset('/images/card/batteries.svg')}}" alt="">
@@ -61,6 +61,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12"></div>
                             {{-- <div class="col-md-2 col-lg-2 col-xl-2 col-sm-3"></div> --}}
                         </div>
                     </div>

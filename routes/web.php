@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('question-one', [GetStartedController::class, 'qOne'])->name('question.one');
         Route::get('question-two', [GetStartedController::class, 'qTwo'])->name('question.two');
         Route::get('question-three', [GetStartedController::class, 'qThree'])->name('question.three');
+
         Route::get('question-four', [GetStartedController::class, 'qFour'])->name('question.');
         Route::get('question-five', [GetStartedController::class, 'qFive'])->name('question.five');
         Route::get('work-experience', [WorkExperienceController::class, 'index'])->name('work.experience.index');
@@ -66,6 +67,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('education', [EducationController::class, 'index'])->name('education.index');
         Route::get('add-education', [EducationController::class, 'create'])->name('education.create');
         Route::get('question-eleven', [GetStartedController::class, 'qEleven'])->name('question.eleven');
+
+
+        Route::get('question-nine', [GetStartedController::class, 'qnine'])->name('question.nine');
+        Route::get('question-ten', [GetStartedController::class, 'qTen'])->name('question.ten');
         Route::get('/', [UserController::class, 'index']);
     });
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
