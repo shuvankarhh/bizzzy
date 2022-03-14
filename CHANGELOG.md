@@ -1,3 +1,5 @@
+v0.015.0 - add: work, education insert (2022-03-14 12:00)
+
 v0.015.0 - add: hourly rate (2022-03-13 11:07)
 
 v0.014.0 - add: work, education experience (2022-03-13 09:53)

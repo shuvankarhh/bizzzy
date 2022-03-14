@@ -44,11 +44,30 @@ as long as it is a sibling. */
     transition: 150ms ease-in-out;
 }
 
+/* -------- Selelct Option -----------------------------------------------------------------------*/
+
+.ts-wrapper .option .title {
+	display: block;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+}
+.ts-wrapper .option .desc {
+	font-size: 12px;
+	font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+}
+
+/* ----------------------------------------------------------------------------------------------- */
+
 /* -------- Questions ----------------------------------------------------------------------- */
 
 /* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
 .question{
-    min-height: 500px;
+    min-height: 80vh;
     position: relative;
 }
 
@@ -61,6 +80,11 @@ as long as it is a sibling. */
     bottom: 10px;
     width: 100%;
     overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.question-footer-height{
+    padding-bottom: 80px;
 }
 
 .question-radio {
@@ -261,6 +285,19 @@ as long as it is a sibling. */
     color: #14A800;
 }
 
+.added-exp{    
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: left;
+    width: 275px;
+    height: 75px;
+    background: #FFFFFF;
+    border: 1px solid #DFE1E6;
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
 .custom-label{    
     font-family: 'Nunito Sans';
     font-style: normal;
@@ -309,6 +346,10 @@ as long as it is a sibling. */
 /* ---------------------------------------------------------------- */
 
 /* --- Override defaults --- */
+
+.invalid-feedback.js{
+    margin-top: 0px;
+}
 
 .btn-bizzzy-success{
     background-color: #14A800;
@@ -547,6 +588,26 @@ body{
     max-width: 80vw;
 }
 
+@media (min-width: 768px) and (max-width:880px) {
+    .added-exp{    
+        width: 150px;
+    }
+}
+@media (min-width: 880px) and (max-width:990px) {
+    .added-exp{    
+        width: 170px;
+    }
+}
+@media (min-width: 990px) and (max-width:1140px) {
+    .added-exp{    
+        width: 200px;
+    }
+}
+@media (min-width: 1140px) and (max-width:1360px) {
+    .added-exp{    
+        width: 230px;
+    }
+}
 @media (min-width:0px) and (max-width:690px) {
     .container{
         max-width: 85vw;

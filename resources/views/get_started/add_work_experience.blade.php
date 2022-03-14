@@ -14,13 +14,28 @@
             <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">   
                 <p class="main-question" >If you have relevant work experience, add it here.</p>
                 <p class="main-question-desc" >Freelancers who add their experience are twice as likely to win work. But if you’re just starting out, you can still create a great profile. Just head on to the next page.</p>
-                                        
-                <div class="add-exp" data-mdb-target="#work_modal" data-mdb-toggle="modal">
-                    <div class="add-exp-button">
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <p style="display: block">Add Experience</p>
+                <div class="row" id="added_exp">
+                    @foreach ($experiences as $item)
+                        <div class="col-md-6 mb-2">
+                            <div class="added-exp">
+                                <p class="m-0 font-weight-bold">{{ $item->title }}</p>
+                                <p class="m-0">{{ $item->company }}</p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
+                <div class="row">                    
+                    <div class="col-md-12">
+                        <div class="add-exp" data-mdb-target="#work_modal" data-mdb-toggle="modal">
+                            <div class="add-exp-button">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <p style="display: block">Add Experience</p>
+                        </div>
+                    </div>
+                </div>
+                                        
+                
 
                 <div class="form-check mt-3">
                     <input class="form-check-input" type="checkbox" value="" id="no_exp" />
@@ -32,6 +47,7 @@
             </div>
         </div>
     </div>
+    <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=65/>
         <div class="row justify-content-end">
@@ -56,34 +72,29 @@
                 ></button>
             </div>
             <div class="modal-body p-4">
-                <form>
+                <form onsubmit="add_work_experience()" id="work_experience_form" action="#">
                     <!-- 2 column grid layout with text inputs for the first and last names -->
                     <div class="form-outline mb-4">
-                        <input type="text" id="work_title" class="form-control" />
-                        <label class="form-label" for="work_title">Title*</label>
+                        <input type="text" name="title" id="title" class="form-control" />
+                        <label class="form-label" for="title">Title*</label>
+                        <div id="title_invalid" class="invalid-feedback js"></div>
                     </div>
 
                     <!-- Text input -->
                     <div class="form-outline mb-4">
-                        <input type="text" id="work_company" class="form-control" />
-                        <label class="form-label" for="work_company">Company</label>
+                        <input type="text" name="company" id="company" class="form-control" />
+                        <label class="form-label" for="company">Company</label>
                     </div>
 
                     <!-- Text input -->
                     <div class="form-outline mb-4">
-                        <input type="text" id="work_location" class="form-control" />
-                        <label class="form-label" for="work_location">Location</label>
+                        <input type="text" name="location" id="location" class="form-control" />
+                        <label class="form-label" for="location">Location</label>
                     </div>
 
                     <!-- Checkbox -->
                     <div class="form-check d-flex mb-4">
-                        <input
-                            class="form-check-input me-2"
-                            type="checkbox"
-                            value="yes"
-                            id="currently_working"
-                            checked
-                        />
+                        <input class="form-check-input me-2" type="checkbox" value="1" id="currently_working" name="currently_working"/>
                         <label class="form-check-label" for="currently_working"> I am currently working in this role </label>
                     </div>
 
@@ -93,7 +104,7 @@
                             <div class="row" id="start_date_div">                                
                                 <div class="col-6">
                                     <select name="month_start" id="month_start" class="form-select" aria-label="Default select example">
-                                        <option selected>Month</option>
+                                        <option value="" selected>Month</option>
                                         <option value="1">01</option>
                                         <option value="2">02</option>
                                         <option value="3">03</option>
@@ -110,7 +121,7 @@
                                 </div>
                                 <div class="col-6">
                                     <select name="year_start" id="year_start" class="form-select" aria-label="Default select example">
-                                        <option selected>Year</option>
+                                        <option value="" selected>Year</option>
                                         <option >2020</option>
                                         <option >2021</option>
                                         <option >2022</option>
@@ -123,7 +134,7 @@
                             <div class="row" id="end_date_div">                                
                                 <div class="col-6">
                                     <select name="month_end" id="month_end" class="form-select" aria-label="Default select example">
-                                        <option selected>Month</option>
+                                        <option value="" selected>Month</option>
                                         <option value="1">01</option>
                                         <option value="2">02</option>
                                         <option value="3">03</option>
@@ -140,7 +151,7 @@
                                 </div>
                                 <div class="col-6">
                                     <select name="year_end" id="year_end" class="form-select" aria-label="Default select example">
-                                        <option selected>Year</option>
+                                        <option value="" selected>Year</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
                                         <option value="3">Three</option>
@@ -152,14 +163,14 @@
 
                     <!-- Message input -->
                     <div class="form-outline mb-4">
-                        <textarea class="form-control" id="description" rows="4"></textarea>
+                        <textarea class="form-control" id="description" name="description"  rows="4"></textarea>
                         <label class="form-label" for="description">Description</label>
                     </div>
 
                     <!-- Submit button -->
                     <div class="row justify-content-end">
                         <div class="col-3 text-end">
-                            <button type="button" class="btn btn-link custom-close" data-mdb-dismiss="modal" style="">Close</button>
+                            <button id="work_modal_close_button" type="button" class="btn btn-link custom-close" data-mdb-dismiss="modal" style="">Close</button>
                         </div>
                         <div class="col-3">
                             <button type="submit" class="btn btn-bizzzy-success btn-block">Save</button>

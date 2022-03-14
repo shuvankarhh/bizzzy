@@ -38,9 +38,10 @@
             <div class="col-12 text-end">
                 <img src="/images/icons/qus.png" alt="">
             </div>
-        </div>`
+        </div>
 
     </div>
+    <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=25/>
         <div class="row justify-content-end">

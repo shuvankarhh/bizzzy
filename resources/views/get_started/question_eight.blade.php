@@ -12,34 +12,21 @@
                 <a>Prev</a>
             </div>
             <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">    
-                <p class="main-question" >Clients like to know what you know - add your education here.</p>
-                <p class="main-question-desc" >You don’t have to have a degree. Adding any relevant education helps make your profile more visible.</p>
-                     
-                <div class="row" id="added_exp">
-                    @foreach ($educations as $item)
-                        <div class="col-md-6 mb-2">
-                            <div class="added-exp">
-                                <p class="m-0 font-weight-bold">{{ $item->institute_name }}</p>
-                                <p class="m-0">{{ $item->degree }}</p>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                <div class="row ms-0">
-                    <div class="add-exp" data-mdb-target="#education_modal" data-mdb-toggle="modal">
-                        <div class="add-exp-button">
-                            <i class="fas fa-plus"></i>
-                        </div>
-                        <p style="display: block">Add Education</p>
-                    </div>
-                </div>
-                <div class="form-check mt-3">
-                    <input class="form-check-input" type="checkbox" value="" id="no_exp" />
-                    <label class="form-check-label" for="no_exp">Nothing to add? Check the box and keep going</label>
-                </div>
+                <p class="main-question" >Looking good. Next, tell us which languages you speak.</p>
+                <p class="main-question-desc" >Bizzzy is global, so clients are often interested to know what languages you speak. English is a must, but do you speak any other languages?</p>
 
                 {{-- <a class="skip" href="#">Skip for now ></a> --}}
+                <div class="row">
+                    <div class="col-md-6">
+                        <select id="language" name="language" placeholder="English" autocomplete="off">
+                            <option value=""></option>
+                            <x-languages/>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select id="proficiency" name="proficiency" placeholder="Select a person..." autocomplete="off"></select>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -49,7 +36,7 @@
         <x-question-footer percentage=65/>
         <div class="row justify-content-end">
             <div class="col-md-3 text-end">
-                <button onclick="first_working_experience('{{ route('question.eight') }}')" class="btn btn-bizzzy-success text-nowrap me-3">Next, Languages </button>
+                <button onclick="first_working_experience('{{ route('question.eleven') }}')" class="btn btn-bizzzy-success text-nowrap me-3">Next, Languages </button>
             </div>
         </div>
     </div>

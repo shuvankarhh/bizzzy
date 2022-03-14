@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\GetStarted;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EducationRequest;
 use Illuminate\Http\Request;
 
 class EducationController extends Controller
@@ -14,7 +15,10 @@ class EducationController extends Controller
      */
     public function index()
     {
-        return view('get_started.add_education')->with('name', auth()->user()->name);
+        return view('get_started.add_education')->with([
+            'name' => auth()->user()->name,
+            'educations' => auth()->user()->educations,
+        ]);
     }
 
     /**
@@ -33,9 +37,19 @@ class EducationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EducationRequest $request)
     {
-        //
+        $education = auth()->user()->educations()->create([
+            'institute_name' => $request->institute_name,
+            'degree' => $request->degree,
+            'area_of_study' => $request->area_of_study,
+            'currently_studying' => $request->currently_studying,
+            'start_date' => (!empty($request->year_start)) ? $request->year_start . '-' . $request->month_start . '-' . '01' : NULL,
+            'end_date' => (!empty($request->year_end)) ? $request->year_end . '-' . $request->month_end . '-' . '01' : NULL,
+            'description' => $request->description,
+        ]);
+
+        return response()->json($education);
     }
 
     /**

@@ -10,7 +10,6 @@
     <form action="{{ route('user.register') }}" method="post">
         @csrf
         @if ($errors->any())
-
             @foreach ($errors->all() as $error)
                 <p>{{$error}}</p>
             @endforeach

@@ -23,22 +23,12 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
-     * The model observers for your application.
-     *
-     * @var array
-     */
-    protected $observers = [
-        User::class => [UserObserver::class],
-    ];
-
-    /**
      * Register any events for your application.
      *
      * @return void
      */
     public function boot()
     {
-        //
         User::observe(UserObserver::class);
     }
 }

@@ -53,6 +53,8 @@ Route::prefix('user')->group(function (){
 Route::get('redirect', [SocialController::class, 'redirect']);
 Route::get('callback', [SocialController::class, 'callback']);
 
+Route::post('test', [GetStartedController::class, 'test'])->name('test');
+
 Route::group(['middleware' => 'auth'], function (){
     Route::prefix('user/create')->group(function (){
         Route::get('get-started', [GetStartedController::class, 'index'])->name('start.message');
@@ -64,10 +66,13 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('question-five', [GetStartedController::class, 'qFive'])->name('question.five');
         Route::get('work-experience', [WorkExperienceController::class, 'index'])->name('work.experience.index');
         Route::get('add-work-experience', [WorkExperienceController::class, 'create'])->name('work.experience.creat');
+        Route::post('add-work-experience', [WorkExperienceController::class, 'store'])->name('work.experience.store');
         Route::get('education', [EducationController::class, 'index'])->name('education.index');
         Route::get('add-education', [EducationController::class, 'create'])->name('education.create');
+        Route::post('add-education', [EducationController::class, 'store'])->name('education.store');
         Route::get('question-eleven', [GetStartedController::class, 'qEleven'])->name('question.eleven');
         Route::get('question-twelve', [GetStartedController::class, 'qTwelve'])->name('question.twelve');
+        Route::get('question-eight', [GetStartedController::class, 'qEight'])->name('question.eight');
 
 
         Route::get('question-nine', [GetStartedController::class, 'qnine'])->name('question.nine');

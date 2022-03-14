@@ -79,6 +79,7 @@
             </div>
         </div>
     </div>
+    <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=35/>
         <div class="row justify-content-end">

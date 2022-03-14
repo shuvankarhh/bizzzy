@@ -16,12 +16,16 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet" />
+    <!-- Tom Select -->
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.1/dist/css/tom-select.css" rel="stylesheet">
 
     <!-- Bizzzy -->
-    <link href="{{asset('/fonts')}}" rel="stylesheet">
     <link href="{{asset('/css/app.css')}}" rel="stylesheet">
     <link href="{{asset('/css/common.css')}}" rel="stylesheet">
     <link href="{{asset('/css/homepage.css')}}" rel="stylesheet">
+    <script>
+        const APP_URL = '{{ url('/') }}'
+    </script>
 </head>
 
 <body>
@@ -376,10 +380,12 @@
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="{{asset('/js/vendor/bootstrap_v5-0-2/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('/js/app.js')}}"></script>
-
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+    <!-- Tom Select -->
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.1/dist/js/tom-select.complete.min.js"></script>
+    <!-- Bizzzy -->
+    <script src="{{asset('/js/app.js')}}"></script>
 </body>
 
 </html>
