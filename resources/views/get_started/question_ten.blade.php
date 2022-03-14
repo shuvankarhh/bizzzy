@@ -22,12 +22,12 @@
                         <div class="card" style=""><img src="{{asset('/images/card/card1.png')}}"
                                 class="card-img-top" alt="..."
                                 style="background-image: linear-gradient(0deg, #FFAB00 0%, #FF991F 99.49%);"><img
-                                class="battery" style="left: 45%" src="{{asset('/images/card/single-battary.png')}}"
+                                class="battery" style="left: 45%;top: 8%;" src="{{asset('/images/card/single-battary.png')}}"
                                 alt="">
                             <div class="card-body" style="margin-top: 0px">
                                 <p class="card-text" style="">Bizzzy Tip</p>
-                                <p class="card-text sm" style="">“I’m a developer with experience in building websites for small and medium sized businesses. Whether you’re trying to win work, list your services or even create a whole online store – I can help!
-                                    <ul>
+                                <p class="card-text sm" style="text-align: left;">“I’m a developer with experience in building websites for small and medium sized businesses. Whether you’re trying to win work, list your services or even create a whole online store – I can help!
+                                    <ul style="font-size: 14px">
                                         <li> I’m experienced in HTML and CSS 3, PHP, jQuery, WordpPess and SEO</li>
                                         <li>I’ll fully project manage your brief from start to finish</li>
                                         <li>Regular communication is really important to me, so let’s keep in touch!”</li>
@@ -39,8 +39,7 @@
                         </div>
                     </div>
                     <div><button class="btn btn-primary btn-ls "
-                            style=" background-color: #14A800;margin-top: 20px; float:right " type="submit">Now Write
-                            Your Bio</button><br></div>
+                            style=" background-color: #14A800;margin-top: 20px; float:right " type="submit">Choose Your Area of Work</button><br></div>
                 </div>
             </div>
         </div>

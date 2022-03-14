@@ -8,7 +8,7 @@
     <title>Homepage - Bizzzy</title>
 
     <!-- Bootstrap -->
-    <link href="{{asset('/css/vendor/bootstrap_v5-0-2/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('/css/vendor/bootstrap_v5-0-2/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
@@ -20,12 +20,14 @@
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.1/dist/css/tom-select.css" rel="stylesheet">
 
     <!-- Bizzzy -->
-    <link href="{{asset('/css/app.css')}}" rel="stylesheet">
-    <link href="{{asset('/css/common.css')}}" rel="stylesheet">
-    <link href="{{asset('/css/homepage.css')}}" rel="stylesheet">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/common.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/homepage.css') }}" rel="stylesheet">
     <script>
         const APP_URL = '{{ url('/') }}'
     </script>
+
+    @stack('css')
 </head>
 
 <body>
@@ -41,16 +43,9 @@
 
             <div class="row mt-5 d-flex d-sm-flex d-md-none d-lg-none sm-footer">
                 <!-- Buttons trigger collapse -->
-                <a
-                class="footer-button pb-1"
-                data-mdb-toggle="collapse"
-                href="#collapseExample"
-                role="button"
-                aria-expanded="false"
-                aria-controls="collapseExample"
-                onclick="toggleFoooterIcon(this)"
-                >
-                Product <i class="fas fa-chevron-down"></i>
+                <a class="footer-button pb-1" data-mdb-toggle="collapse" href="#collapseExample" role="button"
+                    aria-expanded="false" aria-controls="collapseExample" onclick="toggleFoooterIcon(this)">
+                    Product <i class="fas fa-chevron-down"></i>
                 </a>
 
                 <!-- Collapsed content -->
@@ -72,16 +67,9 @@
                 </div>
 
                 <!-- Buttons trigger collapse -->
-                <a
-                class="footer-button mt-5 pb-1"
-                data-mdb-toggle="collapse"
-                href="#informationToggle"
-                role="button"
-                aria-expanded="false"
-                aria-controls="informationToggle"
-                onclick="toggleFoooterIcon(this)"
-                >
-                Information <i class="fas fa-chevron-down"></i>
+                <a class="footer-button mt-5 pb-1" data-mdb-toggle="collapse" href="#informationToggle" role="button"
+                    aria-expanded="false" aria-controls="informationToggle" onclick="toggleFoooterIcon(this)">
+                    Information <i class="fas fa-chevron-down"></i>
                 </a>
 
                 <!-- Collapsed content -->
@@ -104,16 +92,9 @@
 
 
                 <!-- Buttons trigger collapse -->
-                <a
-                class="footer-button mt-5 pb-1"
-                data-mdb-toggle="collapse"
-                href="#companyToggle"
-                role="button"
-                aria-expanded="false"
-                aria-controls="companyToggle"
-                onclick="toggleFoooterIcon(this)"
-                >
-                Company <i class="fas fa-chevron-down"></i>
+                <a class="footer-button mt-5 pb-1" data-mdb-toggle="collapse" href="#companyToggle" role="button"
+                    aria-expanded="false" aria-controls="companyToggle" onclick="toggleFoooterIcon(this)">
+                    Company <i class="fas fa-chevron-down"></i>
                 </a>
 
                 <!-- Collapsed content -->
@@ -139,23 +120,21 @@
                     <p class="footer-agency">Agency</p>
 
                     <p class="footer-agency-note">
-                        There are many variations of passages of lorem lpsum available, but the majority have suffered alteraction
+                        There are many variations of passages of lorem lpsum available, but the majority have suffered
+                        alteraction
                     </p>
-                    <section class="mb-4">              
+                    <section class="mb-4">
                         <!-- Linkedin -->
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                        ><i class="fab fa-linkedin-in"></i
-                        ></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-linkedin-in"></i></a>
 
                         <!-- Facebook -->
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                        ><i class="fab fa-facebook-f"></i
-                        ></a>
-                
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-facebook-f"></i></a>
+
                         <!-- Twitter -->
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                        ><i class="fab fa-twitter"></i
-                        ></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-twitter"></i></a>
                     </section>
                 </div>
             </div>
@@ -166,23 +145,21 @@
                     <p class="footer-agency">Agency</p>
 
                     <p class="footer-agency-note">
-                        There are many variations of passages of lorem lpsum available, but the majority have suffered alteraction
+                        There are many variations of passages of lorem lpsum available, but the majority have suffered
+                        alteraction
                     </p>
-                    <section class="mb-4">              
+                    <section class="mb-4">
                         <!-- Linkedin -->
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                        ><i class="fab fa-linkedin-in"></i
-                        ></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-linkedin-in"></i></a>
 
                         <!-- Facebook -->
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                        ><i class="fab fa-facebook-f"></i
-                        ></a>
-                
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-facebook-f"></i></a>
+
                         <!-- Twitter -->
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                        ><i class="fab fa-twitter"></i
-                        ></a>
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                                class="fab fa-twitter"></i></a>
                     </section>
                 </div>
                 <!--Grid column-->
@@ -192,18 +169,18 @@
                     <h5 class="text-uppercase mb-3">Product</h5>
 
                     <ul class="list-unstyled mb-0">
-                    <li>
-                        <a href="#!" class="text-white">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-white">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-white">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-white">Link 4</a>
-                    </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 4</a>
+                        </li>
                     </ul>
                 </div>
                 <!--Grid column-->
@@ -213,18 +190,18 @@
                     <h5 class="text-uppercase mb-3">Information</h5>
 
                     <ul class="list-unstyled mb-0">
-                    <li>
-                        <a href="#!" class="text-white">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-white">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-white">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-white">Link 4</a>
-                    </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 4</a>
+                        </li>
                     </ul>
                 </div>
                 <!--Grid column-->
@@ -234,18 +211,18 @@
                     <h5 class="text-uppercase mb-3">Company</h5>
 
                     <ul class="list-unstyled">
-                    <li>
-                        <a href="#!" class="text-white">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-white">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-white">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="text-white">Link 4</a>
-                    </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-white">Link 4</a>
+                        </li>
                     </ul>
                 </div>
                 <!--Grid column-->
@@ -379,13 +356,18 @@
 
 
     <!-- Bootstrap Bundle with Popper -->
-    <script src="{{asset('/js/vendor/bootstrap_v5-0-2/bootstrap.bundle.min.js')}}"></script>
+    <<<<<<< Updated upstream <script src="{{ asset('/js/vendor/bootstrap_v5-0-2/bootstrap.bundle.min.js') }}"></script>
+    =======
+    <script src="{{ asset('/js/vendor/bootstrap_v5-0-2/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/js/app.js') }}"></script>
+
+    >>>>>>> Stashed changes
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
     <!-- Tom Select -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.1/dist/js/tom-select.complete.min.js"></script>
     <!-- Bizzzy -->
-    <script src="{{asset('/js/app.js')}}"></script>
+    <script src="{{ asset('/js/app.js') }}"></script>
 </body>
 
 </html>
