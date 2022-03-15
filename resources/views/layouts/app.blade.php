@@ -386,6 +386,7 @@
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.1/dist/js/tom-select.complete.min.js"></script>
     <!-- Bizzzy -->
     <script src="{{asset('/js/app.js')}}"></script>
+    @stack('script')
 </body>
 
 </html>

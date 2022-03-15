@@ -49,7 +49,7 @@
         <x-question-footer percentage=65/>
         <div class="row justify-content-end">
             <div class="col-md-3 text-end">
-                <button onclick="first_working_experience('{{ route('question.eight') }}')" class="btn btn-bizzzy-success text-nowrap me-3">Next, Languages </button>
+                <button onclick="first_working_experience('{{ route('language.index') }}')" class="btn btn-bizzzy-success text-nowrap me-3">Next, Languages </button>
             </div>
         </div>
     </div>

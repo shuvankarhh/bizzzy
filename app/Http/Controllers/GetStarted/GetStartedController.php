@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\GetStarted;
 
 use App\Http\Controllers\Controller;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 
 class GetStartedController extends Controller
@@ -37,11 +38,6 @@ class GetStartedController extends Controller
         return view('get_started.question_five')->with('name', auth()->user()->name);
     }
 
-    public function qEight()
-    {
-        return view('get_started.question_eight')->with('name', auth()->user()->name);
-    }
-
     public function qEleven()
     {
         return view('get_started.question_eleven')->with('name', auth()->user()->name);
@@ -57,7 +53,10 @@ class GetStartedController extends Controller
 
     public function qnine()
     {
-        return view('get_started.question_nine')->with('name', auth()->user()->name);
+        return view('get_started.question_nine')->with([
+            'name' => auth()->user()->name,
+            'skills' => Skill::get(),
+        ]);
     }
 
     public function qTen()

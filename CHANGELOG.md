@@ -1,3 +1,5 @@
+v0.016.0 - add: skill, language (2022-03-15 10:00)
+
 v0.015.0 - add: work, education insert (2022-03-14 12:00)
 
 v0.015.0 - add: hourly rate (2022-03-13 11:07)

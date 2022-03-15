@@ -7,7 +7,10 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\GetStarted\GetStartedController;
 use App\Http\Controllers\GetStarted\WorkExperienceController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\UserLanguageController;
+use App\Http\Controllers\UserSkillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,10 +75,12 @@ Route::group(['middleware' => 'auth'], function (){
         Route::post('add-education', [EducationController::class, 'store'])->name('education.store');
         Route::get('question-eleven', [GetStartedController::class, 'qEleven'])->name('question.eleven');
         Route::get('question-twelve', [GetStartedController::class, 'qTwelve'])->name('question.twelve');
-        Route::get('question-eight', [GetStartedController::class, 'qEight'])->name('question.eight');
+        Route::get('language', [UserLanguageController::class, 'index'])->name('language.index');
+        Route::post('language', [UserLanguageController::class, 'store'])->name('language.store');
 
 
-        Route::get('question-nine', [GetStartedController::class, 'qnine'])->name('question.nine');
+        Route::get('skill', [UserSkillController::class, 'index'])->name('skill.index');
+        Route::post('skill', [UserSkillController::class, 'store'])->name('skill.store');
         Route::get('question-ten', [GetStartedController::class, 'qTen'])->name('question.ten');
         Route::get('/', [UserController::class, 'index']);
     });
