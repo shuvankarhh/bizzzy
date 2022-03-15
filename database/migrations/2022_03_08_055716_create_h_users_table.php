@@ -25,8 +25,8 @@ class CreateHUsersTable extends Migration
             $table->string('photo')->nullable();
             $table->unsignedTinyInteger('acting_status');
 
-            $table->unsignedBigInteger('h_created_by_user');
-            $table->unsignedBigInteger('h_created_by_staff');
+            $table->unsignedBigInteger('h_created_by_user')->nullable();
+            $table->unsignedBigInteger('h_created_by_staff')->nullable();
             $table->timestamp('h_created_at')->nullable();
             $table->unsignedTinyInteger('h_crud_operation');
         });

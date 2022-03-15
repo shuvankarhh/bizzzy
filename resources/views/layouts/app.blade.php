@@ -355,20 +355,12 @@
 
     </section> --}}
 
-
-    <!-- Bootstrap Bundle with Popper -->
-    <<<<<<< Updated upstream <script src="{{ asset('/js/vendor/bootstrap_v5-0-2/bootstrap.bundle.min.js') }}"></script>
-    =======
-    <script src="{{ asset('/js/vendor/bootstrap_v5-0-2/bootstrap.bundle.min.js') }}"></script>
+    <!-- Bizzzy -->
     <script src="{{ asset('/js/app.js') }}"></script>
-
-    >>>>>>> Stashed changes
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
     <!-- Tom Select -->
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.1/dist/js/tom-select.complete.min.js"></script>
-    <!-- Bizzzy -->
-    <script src="{{ asset('/js/app.js') }}"></script>
     @stack('script')
 </body>
 

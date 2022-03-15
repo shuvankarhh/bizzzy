@@ -16,14 +16,14 @@ class CreateFreelancerProfilesTable extends Migration
         Schema::create('freelancer_profiles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedTinyInteger('availability_badge');
-            $table->unsignedTinyInteger('profile_visibility');
-            $table->string('professional_title');
-            $table->string('description', 5000);
-            $table->unsignedTinyInteger('project_time_preference');
-            $table->unsignedTinyInteger('experience_level');
-            $table->decimal('price_per_hour', 8, 3);
-            $table->unsignedTinyInteger('hours_per_week');
+            $table->unsignedTinyInteger('availability_badge')->nullable();
+            $table->unsignedTinyInteger('profile_visibility')->nullable();
+            $table->string('professional_title')->nullable();
+            $table->string('description', 5000)->nullable();
+            $table->unsignedTinyInteger('project_time_preference')->nullable();
+            $table->unsignedTinyInteger('experience_level')->nullable();
+            $table->decimal('price_per_hour', 8, 3)->nullable();
+            $table->unsignedTinyInteger('hours_per_week')->nullable();
             $table->decimal('total_earnings', 13, 3)->nullable();
             $table->unsignedSmallInteger('total_jobs');
             $table->unsignedInteger('total_hours');

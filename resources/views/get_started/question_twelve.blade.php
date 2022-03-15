@@ -21,16 +21,15 @@
                         <p class="rate-desc">Total amount the client will see</p>
                     </div>
                     <div class="col-5 align-self-center">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text rate-input-group"> <span class="font-weight-bold">$</span>/hr</span>
-                            <input
-                              type="text"
-                              class="form-control"
-                              aria-label="Amount (to the nearest dollar)"
-                            />
-                        </div>
+                        <form action="#" id="hourly_rate_form">
+                            <div class="input-group form-outline">
+                                <span class="input-group-text rate-input-group" id="inputGroupPrepend"> <span class="font-weight-bold">$</span>/hr</span>
+                                <input value="{{ $hourly_rate }}" id="hourly_rate" name="hourly_rate" type="number" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required />
+                                <div id="hourly_rate_invalid" class="invalid-feedback"></div>
+                            </div>
+                        </form>
                     </div>                    
-                    <div class="col-12">
+                    <div class="col-12 mt-5">
                         <hr class="mt-0">
                     </div>
                 </div>
@@ -41,13 +40,9 @@
                         <p class="rate-desc">The Bizzzy Service Fee is 20% </p>
                     </div>
                     <div class="col-5 align-self-center">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text rate-input-group"> <span class="font-weight-bold">$</span>/hr</span>
-                            <input
-                              type="text"
-                              class="form-control"
-                              aria-label="Amount (to the nearest dollar)"
-                            />
+                        <div class="input-group form-outline">
+                            <span class="input-group-text rate-input-group" id="inputGroupPrepend"> <span class="font-weight-bold">$</span>/hr</span>
+                            <input  value="-20" type="text" class="form-control" aria-describedby="inputGroupPrepend"/>
                         </div>
                     </div>                    
                     <div class="col-12">
@@ -61,13 +56,9 @@
                         <p class="rate-desc">The estimated amount you'll receive after service fees</p>
                     </div>
                     <div class="col-5 align-self-center">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text rate-input-group"> <span class="font-weight-bold">$</span>/hr</span>
-                            <input
-                              type="text"
-                              class="form-control"
-                              aria-label="Amount (to the nearest dollar)"
-                            />
+                        <div class="input-group form-outline">
+                            <span class="input-group-text rate-input-group" id="inputGroupPrepend"> <span class="font-weight-bold">$</span>/hr</span>
+                            <input id="will_get" type="text" class="form-control" aria-describedby="inputGroupPrepend"/>
                         </div>
                     </div>                    
                     <div class="col-12">
@@ -85,9 +76,25 @@
         <x-question-footer percentage=25/>
         <div class="row justify-content-end">
             <div class="col-md-3 text-end">
-                <button onclick="first_working_experience('{{ route('work.experience.index') }}')" class="btn btn-bizzzy-success text-nowrap me-3">Next, set your rate </button>
+                <button onclick="add_hourly_rate()" class="btn btn-bizzzy-success text-nowrap me-3">Next, set your rate </button>
             </div>
         </div>
     </div>
 </section>
 @endsection
+
+@push('script')
+<script>
+    const hourly_rate_input = document.getElementById('hourly_rate');
+
+    hourly_rate_input.addEventListener('keyup', () => {
+        const will_get = document.getElementById('will_get');
+        will_get.value = hourly_rate_input.value - 20;
+    });
+
+    window.onload = function() {
+        const will_get = document.getElementById('will_get');
+        will_get.value = hourly_rate_input.value - 20;
+    };
+</script>
+@endpush

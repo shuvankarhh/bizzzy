@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FreelancerProfileCategoryController;
+use App\Http\Controllers\FreelancerProfileController;
 use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\GetStarted\GetStartedController;
 use App\Http\Controllers\GetStarted\WorkExperienceController;
@@ -59,6 +62,8 @@ Route::get('callback', [SocialController::class, 'callback']);
 Route::post('test', [GetStartedController::class, 'test'])->name('test');
 
 Route::group(['middleware' => 'auth'], function (){
+    Route::get('category/sub-category/{id}', [CategoryController::class, 'get_sub_category'])->name('category.subCategory');
+
     Route::prefix('user/create')->group(function (){
         Route::get('get-started', [GetStartedController::class, 'index'])->name('start.message');
         Route::get('question-one', [GetStartedController::class, 'qOne'])->name('question.one');
@@ -73,8 +78,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('education', [EducationController::class, 'index'])->name('education.index');
         Route::get('add-education', [EducationController::class, 'create'])->name('education.create');
         Route::post('add-education', [EducationController::class, 'store'])->name('education.store');
-        Route::get('question-eleven', [GetStartedController::class, 'qEleven'])->name('question.eleven');
+        Route::get('category', [FreelancerProfileCategoryController::class, 'create'])->name('category.create');
+        Route::post('category', [FreelancerProfileCategoryController::class, 'store'])->name('category.store');
         Route::get('question-twelve', [GetStartedController::class, 'qTwelve'])->name('question.twelve');
+        Route::post('hourly_rate', [FreelancerProfileController::class, 'hourly_rate_store'])->name('hourlyRate.store');
         Route::get('language', [UserLanguageController::class, 'index'])->name('language.index');
         Route::post('language', [UserLanguageController::class, 'store'])->name('language.store');
 
@@ -82,7 +89,10 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('skill', [UserSkillController::class, 'index'])->name('skill.index');
         Route::post('skill', [UserSkillController::class, 'store'])->name('skill.store');
         Route::get('question-ten', [GetStartedController::class, 'qTen'])->name('question.ten');
+        Route::post('freelancer-bio', [FreelancerProfileController::class, 'bio_store'])->name('freelancer.bio.store');
         Route::get('question-thirteen', [GetStartedController::class, 'qThirteen'])->name('question.thirteen');
+
+        Route::post('uplaod_image', [FreelancerProfileController::class, 'image_store'])->name('freelancer.image.store');
 
         Route::get('/', [UserController::class, 'index']);
     });

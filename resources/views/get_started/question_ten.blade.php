@@ -14,11 +14,13 @@
                         proofread now!</p>
                     <p style="font-weight: 500;">Bio</p>
                     <div>
-                        <div class="form-outline">
-                            <textarea class="form-control" id="textAreaExample" rows="6"
-                                placeholder="Describe your top skills, experiences, and interests. This is one of the first things clients will see on your profile."></textarea>
-                            <label class="form-label" for="textAreaExample">Bio</label>
-                        </div>
+                        <form action="#" id="bio_form">
+                            <div class="form-outline">
+                                <textarea class="form-control" id="bio" name="bio" rows="6" placeholder="Describe your top skills, experiences, and interests. This is one of the first things clients will see on your profile.">{{ $bio }}</textarea>
+                                <label class="form-label" for="textAreaExample">Bio</label>
+                                <div id="bio_invalid" class="invalid-feedback js"></div>
+                            </div>
+                        </form>
                     </div>
                     <p style="float: right">At least 100 characters</p>
                 </div>
@@ -49,8 +51,7 @@
             <x-question-footer percentage=65 />
             <div class="row justify-content-end">
                 <div class="col-md-3 text-end">
-                    <button onclick="add_language('{{ route('question.eleven') }}')"
-                        class="btn btn-bizzzy-success text-nowrap me-3"> Choose Your Area of Work </button>
+                    <button onclick="add_bio('{{ route('question.eleven') }}')" class="btn btn-bizzzy-success text-nowrap me-3"> Choose Your Area of Work </button>
                 </div>
             </div>
         </div>

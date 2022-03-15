@@ -61,5 +61,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Skill::class, 'user_skills');
     }
+
+    public function freelance_profile()
+    {
+        return $this->hasOne(FreelancerProfile::class);
+    }
     
 }

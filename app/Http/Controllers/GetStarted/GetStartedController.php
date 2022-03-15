@@ -40,12 +40,13 @@ class GetStartedController extends Controller
 
     public function qEleven()
     {
-        return view('get_started.question_eleven')->with('name', auth()->user()->name);
     }
 
     public function qTwelve()
     {
-        return view('get_started.question_twelve')->with('name', auth()->user()->name);
+        return view('get_started.question_twelve')->with([
+            'hourly_rate' =>  (int)auth()->user()->freelance_profile->price_per_hour
+        ]);
     }
 
 
@@ -61,11 +62,16 @@ class GetStartedController extends Controller
 
     public function qTen()
     {
-        return view('get_started.question_ten')->with('name', auth()->user()->name);
+        return view('get_started.question_ten')->with([
+            'name' => auth()->user()->name,
+            'bio' => auth()->user()->freelance_profile->description
+        ]);
     }
 
     public function qThirteen()
     {
-        return view('get_started.question_thirteen')->with('name', auth()->user()->name);
+        return view('get_started.question_thirteen')->with([
+            'photo' => auth()->user()->photo
+        ]);
     }
 }

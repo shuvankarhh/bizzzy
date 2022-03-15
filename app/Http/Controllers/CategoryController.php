@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\GetStarted;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\EducationRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class EducationController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,7 @@ class EducationController extends Controller
      */
     public function index()
     {
-        return view('get_started.add_education')->with([
-            'name' => auth()->user()->name,
-            'educations' => auth()->user()->educations,
-        ]);
+        
     }
 
     /**
@@ -28,7 +24,7 @@ class EducationController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -37,19 +33,9 @@ class EducationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EducationRequest $request)
+    public function store(Request $request)
     {
-        $education = auth()->user()->educations()->create([
-            'institute_name' => $request->institute_name,
-            'degree' => $request->degree,
-            'area_of_study' => $request->area_of_study,
-            'currently_studying' => $request->currently_studying,
-            'start_date' => (!empty($request->year_start)) ? $request->year_start . '-01-' . '01' : NULL,
-            'end_date' => (!empty($request->year_end)) ? $request->year_end . '-01-' . '01' : NULL,
-            'description' => $request->description,
-        ]);
-
-        return response()->json($education);
+        //
     }
 
     /**
@@ -95,5 +81,12 @@ class EducationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function get_sub_category($id)
+    {
+        return view('templates.subcategory')->with([
+            'categories' => Category::where('parent_category_id', $id)->get()
+        ])->render();
     }
 }
