@@ -2,6 +2,7 @@
 
 @push('css')
     <link href="{{ asset('/css/pidie/pidie.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
 @endpush
 @section('navbar')
     <x-navbar links="false" />
@@ -18,16 +19,16 @@
                                 keep things safe and simple, they’ll pay you through us - which is why we need your personal
                                 information.</p>
                             <div>
-                                <img style="height: 80px;width:80px;" src="{{ asset('/images/general/avatar.png') }}"
+                                <img id="imagePreview" class="photo-priview"
+                                    style="height: 160px;width:160px; background:no-repeat; background-image: url({{ asset('/images/general/avatar.png') }});"
                                     alt="">
 
                             </div>
-                            <div>
-                                <button class="btn btn-primary btn-ls " data-mdb-toggle="modal"
-                                    data-mdb-target="#exampleModal"
-                                    style=" background-color:white;margin-top: 20px; color:#14A800; border: 1px solid #14A800;"
-                                    type="submit">Upload
-                                    Photo</button><br>
+                            <div class="photo-upload">
+                                <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" name="imageUpload"
+                                    class=" imageUpload" />
+                                <input type="hidden" name="base64image" name="base64image" id="base64image">
+                                <label for="imageUpload" class="btn upload-button">Upload photo</label>
                             </div>
 
                             <div style="margin-top: 30px;">
@@ -92,32 +93,11 @@
                         </div>
                         <div class="col-md-4 col-lg-4 col-xl-4 col-sm-3 d-none d-sm-none d-md-block"></div>
                         <div class="col-md-3 col-lg-2 col-xl-2 col-sm-3 d-none d-sm-none d-md-block">
-                            <div class="card" style=""><img src="{{ asset('/images/card/card1.png') }}"
-                                    class="card-img-top" alt="..."
-                                    style="background-image: linear-gradient(0deg, #FFAB00 0%, #FF991F 99.49%);"><img
-                                    class="battery" style="left: 45%;top: 8%;"
-                                    src="{{ asset('/images/card/single-battary.png') }}" alt="">
-                                <div class="card-body" style="margin-top: 0px">
-                                    <p class="card-text" style="">Bizzzy Tip</p>
-                                    <p class="card-text sm" style="text-align: left;">“I’m a developer with experience in
-                                        building websites for small and medium sized businesses. Whether you’re trying to
-                                        win work, list your services or even create a whole online store – I can help!
-                                    <ul style="font-size: 14px">
-                                        <li> I’m experienced in HTML and CSS 3, PHP, jQuery, WordpPess and SEO</li>
-                                        <li>I’ll fully project manage your brief from start to finish</li>
-                                        <li>Regular communication is really important to me, so let’s keep in touch!”
-                                        </li>
-                                    </ul>
-
-
-                                    </p>
-                                </div>
-                            </div>
                         </div>
                         <div>
                             <button class="btn btn-primary btn-ls "
-                                style=" background-color: #14A800;margin-top: 20px; float:right " type="submit">Choose Your
-                                Area of Work</button><br>
+                                style=" background-color: #14A800;margin-top: 20px; float:right " type="submit">Check Your
+                                Profile</button><br>
                         </div>
                     </div>
                 </div>
@@ -126,22 +106,42 @@
 
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+        <div class="modal fade imagecrop" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Add Profile Image</h5>
                     </div>
                     <div class="modal-body">
-                        <div style="height:200px; width:100%; background-color:#CCCCCC;">
+                        <div>
                             <div>
-                                <img src="{{ asset('/images/general/profile.png') }}" alt="" class="">
+                                <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
                             </div>
+                            {{-- <div class="photo-upload">
+                                <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" name="imageUpload"
+                                    class=" imageUpload">
+                                <label for="file" class="btn upload-button change-image">Change photo</label>
+                            
+                            </div> --}}
+
+                        </div>
+                        <div>
+                            <p class="details-title">Your photo should:</p>
+                            <ul class="photo-details">
+                                <li>Be a close-up of your face</li>
+                                <li> Show your face clearly - no sunglasses!</li>
+                                <li> Be clear and crisp</li>
+                                <li> Have a neutral background</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn"
+                            style="background: #FFFFFF; border-radius: 3px; color: #42526E;"
+                            data-mdb-dismiss="modal">Close</button>
+                        <button type="button" class="btn crop" id="crop"
+                            style="background: #14A800; border-radius: 3px; color:#FFFFFF">Save</button>
                     </div>
                 </div>
             </div>
@@ -151,8 +151,65 @@
     <script>
         new Pidie();
     </script>
+
+    <script>
+        var $modal = $('.imagecrop');
+        var image = document.getElementById('image');
+        var cropper;
+        $("body").on("change", ".imageUpload", function(e) {
+            var files = e.target.files;
+            var done = function(url) {
+                image.src = url;
+                $modal.modal('show');
+            };
+            var reader;
+            var file;
+            var url;
+            if (files && files.length > 0) {
+                file = files[0];
+                if (URL) {
+                    done(URL.createObjectURL(file));
+                } else if (FileReader) {
+                    reader = new FileReader();
+                    reader.onload = function(e) {
+                        done(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+        $modal.on('shown.bs.modal', function() {
+            cropper = new Cropper(image, {
+                aspectRatio: 1,
+                viewMode: 1,
+            });
+        }).on('hidden.bs.modal', function() {
+            cropper.destroy();
+            cropper = null;
+        });
+        $("body").on("click", "#crop", function() {
+            canvas = cropper.getCroppedCanvas({
+                width: 160,
+                height: 160,
+            });
+            canvas.toBlob(function(blob) {
+                url = URL.createObjectURL(blob);
+                var reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = function() {
+                    var base64data = reader.result;
+                    $('#base64image').val(base64data);
+                    document.getElementById('imagePreview').style.backgroundImage = "url(" +
+                        base64data + ")";
+                    $modal.modal('hide');
+                }
+            });
+        })
+    </script>
 @endsection
 
-{{-- @push('js')
-    <script src="{{ asset('/js/pidie/pidie.js') }}"></script>
-@endpush --}}
+@push('js')
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+@endpush

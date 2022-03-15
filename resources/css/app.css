@@ -1,701 +1,768 @@
-
-/* -- Register radion input-- */
-
-/* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
-.register-radio {
-    display:none;
-}
-
-/* The label is what's left to style. 
+                                /* -- Register radion input-- */
+                                /* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
+                                
+                                .register-radio {
+                                    display: none;
+                                }
+                                /* The label is what's left to style. 
 As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
-.register-radio + label {
-    padding: 0.4em;
-    display: inline-block;
-    cursor: pointer;
-    width: 155px;
-    box-shadow: 0px 3px 5px rgba(9, 30, 66, 0.2), 0px 0px 1px rgba(9, 30, 66, 0.31);
-    margin-right: -2px;
-    margin-left: -2px;
-}
-
-.register-radio.left + label  {
-    border-radius: 3px 0px 0px 3px;
-    border-left: 1px solid #14A800;
-    border-top: 1px solid #14A800;
-    border-bottom: 1px solid #14A800;
-}
-.register-radio.right + label  {
-    border-radius: 0px 3px 3px 0px;
-    border-right: 1px solid #14A800;
-    border-top: 1px solid #14A800;
-    border-bottom: 1px solid #14A800;
-}
-
-.blank-label {
-    display: none;
-}
-
-/* The '+' is the adjacent sibling selector.
+                                
+                                .register-radio+label {
+                                    padding: 0.4em;
+                                    display: inline-block;
+                                    cursor: pointer;
+                                    width: 155px;
+                                    box-shadow: 0px 3px 5px rgba(9, 30, 66, 0.2), 0px 0px 1px rgba(9, 30, 66, 0.31);
+                                    margin-right: -2px;
+                                    margin-left: -2px;
+                                }
+                                
+                                .register-radio.left+label {
+                                    border-radius: 3px 0px 0px 3px;
+                                    border-left: 1px solid #14A800;
+                                    border-top: 1px solid #14A800;
+                                    border-bottom: 1px solid #14A800;
+                                }
+                                
+                                .register-radio.right+label {
+                                    border-radius: 0px 3px 3px 0px;
+                                    border-right: 1px solid #14A800;
+                                    border-top: 1px solid #14A800;
+                                    border-bottom: 1px solid #14A800;
+                                }
+                                
+                                .blank-label {
+                                    display: none;
+                                }
+                                /* The '+' is the adjacent sibling selector.
 It selects what ever element comes right after it,
 as long as it is a sibling. */
-.register-radio:checked + label {
-    background: #14A800;
-    color: #FFFFFF;
-    transition: 150ms ease-in-out;
-}
-
-/* -------- Selelct Option -----------------------------------------------------------------------*/
-
-.ts-wrapper .option .title {
-	display: block;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-}
-.ts-wrapper .option .desc {
-	font-size: 12px;
-	font-family: 'Nunito Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 11px;
-}
-
-/* ----------------------------------------------------------------------------------------------- */
-
-
-
-/* -------- Questions ----------------------------------------------------------------------- */
-/* .ts-wrapper.plugin-remove_button .item .remove{
+                                
+                                .register-radio:checked+label {
+                                    background: #14A800;
+                                    color: #FFFFFF;
+                                    transition: 150ms ease-in-out;
+                                }
+                                /* -------- Selelct Option -----------------------------------------------------------------------*/
+                                
+                                .ts-wrapper .option .title {
+                                    display: block;
+                                    font-family: 'Inter';
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    font-size: 14px;
+                                }
+                                
+                                .ts-wrapper .option .desc {
+                                    font-size: 12px;
+                                    font-family: 'Nunito Sans';
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    font-size: 11px;
+                                }
+                                /* ----------------------------------------------------------------------------------------------- */
+                                /* -------- Questions ----------------------------------------------------------------------- */
+                                /* .ts-wrapper.plugin-remove_button .item .remove{
     color: red;
     content: '\f1f8';
     font-family: "Font Awesome 5 Free";
     font-style: normal;
     font-weight: 900;
 } */
-
-.is-invalid .ts-control{
-    border: 1px solid red;
-}
-
-
-.add-skill{
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 1px solid #626468;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.added-skill{
-    display:inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: default;
-}
-.added-skill > p{
-    margin: 6px;
-}
-
-.added-skill .text{
-    border: 2px solid #14A800;
-    border-radius: 50px;
-    padding: 8px 17px;
-    width: fit-content;
-}
-
-.flex{
-    display: flex;
-}
-
-.add-language{
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #DFE1E6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.add-language i{
-    color: #14A800;
-}
-
-.add-language + .desc{
-    font-family: 'Nunito Sans';
-    font-style: normal;
-    font-weight: 400;
-    color: #14A800;
-}
-
-.remove-language{
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #DFE1E6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.remove-language i{
-    color: #DE350B;
-    font-size: 12px;
-}
-.question{
-    min-height: 80vh;
-    position: relative;
-}
-
-.question .form-check.custom{
-    padding-left: unset;
-}
-
-.question-footer{
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.question-footer-height{
-    padding-bottom: 120px;
-}
-
-/* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
-.question-radio {
-    display:none;
-}
-
-/* The label is what's left to style. As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
-.question-radio + label {
-    padding: 1em;
-    display: inline-block;
-    cursor: pointer;
-    width: 70%;
-    margin-right: -2px;
-    margin-left: -2px;
-    background: #E3FCEF;
-    border-radius: 3px;
-    color: #006644;
-}
-
-.blank-label {
-    display: none;
-}
-
-/* The '+' is the adjacent sibling selector.
+                                
+                                .is-invalid .ts-control {
+                                    border: 1px solid red;
+                                }
+                                
+                                .add-skill {
+                                    width: 28px;
+                                    height: 28px;
+                                    border-radius: 50%;
+                                    border: 1px solid #626468;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                }
+                                
+                                .added-skill {
+                                    display: inline-flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    cursor: default;
+                                }
+                                
+                                .added-skill>p {
+                                    margin: 6px;
+                                }
+                                
+                                .added-skill .text {
+                                    border: 2px solid #14A800;
+                                    border-radius: 50px;
+                                    padding: 8px 17px;
+                                    width: fit-content;
+                                }
+                                
+                                .flex {
+                                    display: flex;
+                                }
+                                
+                                .add-language {
+                                    width: 24px;
+                                    height: 24px;
+                                    border-radius: 50%;
+                                    background: #DFE1E6;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                }
+                                
+                                .add-language i {
+                                    color: #14A800;
+                                }
+                                
+                                .add-language+.desc {
+                                    font-family: 'Nunito Sans';
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    color: #14A800;
+                                }
+                                
+                                .remove-language {
+                                    width: 24px;
+                                    height: 24px;
+                                    border-radius: 50%;
+                                    background: #DFE1E6;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                }
+                                
+                                .remove-language i {
+                                    color: #DE350B;
+                                    font-size: 12px;
+                                }
+                                
+                                .question {
+                                    min-height: 80vh;
+                                    position: relative;
+                                }
+                                
+                                .question .form-check.custom {
+                                    padding-left: unset;
+                                }
+                                
+                                .question-footer {
+                                    position: absolute;
+                                    bottom: 10px;
+                                    width: 100%;
+                                    overflow: hidden;
+                                    margin-bottom: 10px;
+                                }
+                                
+                                .question-footer-height {
+                                    padding-bottom: 120px;
+                                }
+                                /* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
+                                
+                                .question-radio {
+                                    display: none;
+                                }
+                                /* The label is what's left to style. As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
+                                
+                                .question-radio+label {
+                                    padding: 1em;
+                                    display: inline-block;
+                                    cursor: pointer;
+                                    width: 70%;
+                                    margin-right: -2px;
+                                    margin-left: -2px;
+                                    background: #E3FCEF;
+                                    border-radius: 3px;
+                                    color: #006644;
+                                }
+                                
+                                .blank-label {
+                                    display: none;
+                                }
+                                /* The '+' is the adjacent sibling selector.
 It selects what ever element comes right after it,
 as long as it is a sibling. */
-.question-radio:checked + label {
-    background: #B5FBD6;
-    border: 1px solid #14A800;
-    transition: 150ms ease-in-out;
-}
-
-.question .skip{
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    color: #14A800;
-    margin-top: 30px;
-    font-family: Nunito Sans;
-}
-
-.main-question{
-    font-style: normal;
-    font-weight: bold;
-    font-size: 28px;
-    line-height: 28px;
-    color: #1C1C1C;
-}
-
-.main-question-desc{
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;
-    color: #006644;
-}
-
-.battery-question .card{
-    /* width: 18rem; */
-    position: relative;
-}
-
-.battery-question .battery{
-    position: absolute;
-    left: 32%;
-    top: 11%;
-}
-
-.battery-question .card-body{
-    margin-top: 50px;
-}
-
-.battery-question .card-text{
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    text-align: center;
-
-    
-}
-
-.battery-question .card-text.sm{
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;    
-    text-align: center;    
-    color: #1C1C1C;
-}
-
-/* checkbox position */
-.battery-question .checkbox{
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    width: 24px;
-    height: 24px;
-}
-
-/* hide default input */
-.battery-question .checkbox input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* create custom input */
-.battery-question .checkbox .checkmark{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #fff;
-    border-radius: 50%;
-}
-
-/* input hover */
-.battery-question .checkbox:hover input ~ .checkmark {
-    background-color: rgb(255, 250, 250);
-    cursor: pointer;
-}
-
-/* check-background */
-.battery-question .checkbox input:checked ~ .checkmark {
-    background-color: #14A800;
-}
-
-/* Create the indicator (hidden when not checked) */
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the indicator (dot/circle) when checked */
-.battery-question .checkbox input:checked ~ .checkmark:after {
-    display: block;
-}
-
-/* Style the indicator (dot/circle) */
-.battery-question .checkbox .checkmark:after {
-    color:#fff;
-    content: '\f00c'; /* You should use \ and not /*/
-    font-family: "Font Awesome 5 Free"; /* This is the correct font-family*/
-    font-style: normal;
-    font-weight: 900;
-    left: 16%;
-    top: 6%;
-    font-size: 15px;
-}
-
-.add-exp{
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    width: 275px;
-    height: 132px;
-    background: #FFFFFF;
-    border: 1px dashed #DFE1E6;
-    box-sizing: border-box;
-}
-
-.add-exp-button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 26px;
-    height: 26px;
-    background: #DFE1E6;
-    border-radius: 50%;
-    margin-top: 10px;
-}
-
-.add-exp-button i{
-    color: #14A800;
-}
-
-.add-exp:hover{
-    box-shadow: 0px 5px 10px 1px #EBECF0;
-    cursor: pointer;
-}
-
-.add-exp p{
-    font-family: 'Nunito Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    color: #14A800;
-}
-
-.added-exp{    
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: left;
-    width: 275px;
-    height: 75px;
-    background: #FFFFFF;
-    border: 1px solid #DFE1E6;
-    box-sizing: border-box;
-    padding-left: 10px;
-}
-
-.custom-label{    
-    font-family: 'Nunito Sans';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-}
-
-.custom-close{
-    color: #42526E;
-}
-
-.custom-close:hover{
-    color: #32363f;
-    background-color: inherit;
-}
-
-.rate-text{
-    font-family: 'Inter-Bold';
-    font-style: normal;
-}
-
-.rate-desc{
-    font-family: 'Nunito Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 11px;
-}
-
-.rate-input-group{
-    padding-bottom: 0;
-    border-top: 1px solid #bdbdbd;
-    border-bottom: 1px solid #bdbdbd;
-    border-left: 1px solid #bdbdbd;
-    border-right: 0;
-    color: #14A800;
-}
-
-.rate-input-group + input{
-    border-top: 1px solid #bdbdbd;
-    border-bottom: 1px solid #bdbdbd;
-    border-left: 0;
-    border-right: 1px solid #bdbdbd;
-    text-align: right; 
-}
-
-/* ---------------------------------------------------------------- */
-
-/* --- Override defaults --- */
-
-.bizzy-tip-bio{
-    max-width: 300px;
-    float: right;
-}
-
-.invalid-feedback.js{
-    margin-top: 0px;
-}
-
-.btn-bizzzy-success{
-    background-color: #14A800;
-    border-color: #14A800;
-    color: white;
-}
-
-.btn-bizzzy-success:hover{
-    color: white;
-}
-
-.progress-bar{
-    background-color: #42526E;
-    border-radius: 15px;
-}
-
-.form-control.is-invalid{
-    margin-bottom: 0px;
-}
-
-.navbar{
-    box-shadow: none;
-}
-
-body{
-    /* background-image: url(http://127.0.0.1:8000/images/extra_fillers/hero-green-background.svg);
+                                
+                                .question-radio:checked+label {
+                                    background: #B5FBD6;
+                                    border: 1px solid #14A800;
+                                    transition: 150ms ease-in-out;
+                                }
+                                
+                                .question .skip {
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    color: #14A800;
+                                    margin-top: 30px;
+                                    font-family: Nunito Sans;
+                                }
+                                
+                                .main-question {
+                                    font-style: normal;
+                                    font-weight: bold;
+                                    font-size: 28px;
+                                    line-height: 28px;
+                                    color: #1C1C1C;
+                                }
+                                
+                                .main-question-desc {
+                                    font-family: Nunito Sans;
+                                    font-style: normal;
+                                    font-weight: normal;
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    color: #006644;
+                                }
+                                
+                                .battery-question .card {
+                                    /* width: 18rem; */
+                                    position: relative;
+                                }
+                                
+                                .battery-question .battery {
+                                    position: absolute;
+                                    left: 32%;
+                                    top: 11%;
+                                }
+                                
+                                .battery-question .card-body {
+                                    margin-top: 50px;
+                                }
+                                
+                                .battery-question .card-text {
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    font-size: 20px;
+                                    line-height: 24px;
+                                    text-align: center;
+                                }
+                                
+                                .battery-question .card-text.sm {
+                                    font-family: Nunito Sans;
+                                    font-style: normal;
+                                    font-weight: normal;
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    text-align: center;
+                                    color: #1C1C1C;
+                                }
+                                /* checkbox position */
+                                
+                                .battery-question .checkbox {
+                                    position: absolute;
+                                    top: 5px;
+                                    left: 10px;
+                                    width: 24px;
+                                    height: 24px;
+                                }
+                                /* hide default input */
+                                
+                                .battery-question .checkbox input {
+                                    position: absolute;
+                                    opacity: 0;
+                                    cursor: pointer;
+                                    height: 0;
+                                    width: 0;
+                                }
+                                /* create custom input */
+                                
+                                .battery-question .checkbox .checkmark {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    height: 25px;
+                                    width: 25px;
+                                    background-color: #fff;
+                                    border-radius: 50%;
+                                }
+                                /* input hover */
+                                
+                                .battery-question .checkbox:hover input~.checkmark {
+                                    background-color: rgb(255, 250, 250);
+                                    cursor: pointer;
+                                }
+                                /* check-background */
+                                
+                                .battery-question .checkbox input:checked~.checkmark {
+                                    background-color: #14A800;
+                                }
+                                /* Create the indicator (hidden when not checked) */
+                                
+                                .checkmark:after {
+                                    content: "";
+                                    position: absolute;
+                                    display: none;
+                                }
+                                /* Show the indicator (dot/circle) when checked */
+                                
+                                .battery-question .checkbox input:checked~.checkmark:after {
+                                    display: block;
+                                }
+                                /* Style the indicator (dot/circle) */
+                                
+                                .battery-question .checkbox .checkmark:after {
+                                    color: #fff;
+                                    content: '\f00c';
+                                    /* You should use \ and not /*/
+                                    font-family: "Font Awesome 5 Free";
+                                    /* This is the correct font-family*/
+                                    font-style: normal;
+                                    font-weight: 900;
+                                    left: 16%;
+                                    top: 6%;
+                                    font-size: 15px;
+                                }
+                                
+                                .add-exp {
+                                    display: flex;
+                                    flex-flow: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                    width: 275px;
+                                    height: 132px;
+                                    background: #FFFFFF;
+                                    border: 1px dashed #DFE1E6;
+                                    box-sizing: border-box;
+                                }
+                                
+                                .add-exp-button {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    width: 26px;
+                                    height: 26px;
+                                    background: #DFE1E6;
+                                    border-radius: 50%;
+                                    margin-top: 10px;
+                                }
+                                
+                                .add-exp-button i {
+                                    color: #14A800;
+                                }
+                                
+                                .add-exp:hover {
+                                    box-shadow: 0px 5px 10px 1px #EBECF0;
+                                    cursor: pointer;
+                                }
+                                
+                                .add-exp p {
+                                    font-family: 'Nunito Sans';
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    color: #14A800;
+                                }
+                                
+                                .added-exp {
+                                    display: flex;
+                                    flex-flow: column;
+                                    justify-content: center;
+                                    align-items: left;
+                                    width: 275px;
+                                    height: 75px;
+                                    background: #FFFFFF;
+                                    border: 1px solid #DFE1E6;
+                                    box-sizing: border-box;
+                                    padding-left: 10px;
+                                }
+                                
+                                .custom-label {
+                                    font-family: 'Nunito Sans';
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    font-size: 14px;
+                                }
+                                
+                                .custom-close {
+                                    color: #42526E;
+                                }
+                                
+                                .custom-close:hover {
+                                    color: #32363f;
+                                    background-color: inherit;
+                                }
+                                
+                                .rate-text {
+                                    font-family: 'Inter-Bold';
+                                    font-style: normal;
+                                }
+                                
+                                .rate-desc {
+                                    font-family: 'Nunito Sans';
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    font-size: 11px;
+                                }
+                                
+                                .rate-input-group {
+                                    padding-bottom: 0;
+                                    border-top: 1px solid #bdbdbd;
+                                    border-bottom: 1px solid #bdbdbd;
+                                    border-left: 1px solid #bdbdbd;
+                                    border-right: 0;
+                                    color: #14A800;
+                                }
+                                
+                                .rate-input-group+input {
+                                    border-top: 1px solid #bdbdbd;
+                                    border-bottom: 1px solid #bdbdbd;
+                                    border-left: 0;
+                                    border-right: 1px solid #bdbdbd;
+                                    text-align: right;
+                                }
+                                /* ---------------------------------------------------------------- */
+                                /* --- Override defaults --- */
+                                
+                                .bizzy-tip-bio {
+                                    max-width: 300px;
+                                    float: right;
+                                }
+                                
+                                .invalid-feedback.js {
+                                    margin-top: 0px;
+                                }
+                                
+                                .btn-bizzzy-success {
+                                    background-color: #14A800;
+                                    border-color: #14A800;
+                                    color: white;
+                                }
+                                
+                                .btn-bizzzy-success:hover {
+                                    color: white;
+                                }
+                                
+                                .progress-bar {
+                                    background-color: #42526E;
+                                    border-radius: 15px;
+                                }
+                                
+                                .form-control.is-invalid {
+                                    margin-bottom: 0px;
+                                }
+                                
+                                .navbar {
+                                    box-shadow: none;
+                                }
+                                
+                                body {
+                                    /* background-image: url(http://127.0.0.1:8000/images/extra_fillers/hero-green-background.svg);
     background-repeat: no-repeat; */
-}
-
-
-/* Search ICON */
-.search_input_group .form-control {
-    padding-right: 2.375rem;
-}
-
-.has-search .form-control-feedback {
-    position: absolute;
-    z-index: 2;
-    display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height:  2.375rem;
-    text-align: center;
-    pointer-events: none;
-    color: #aaa;
-    right: 362px;
-    cursor: pointer;
-}
-
-/* .form-control-feedback:hover{
+                                }
+                                /* Search ICON */
+                                
+                                .search_input_group .form-control {
+                                    padding-right: 2.375rem;
+                                }
+                                
+                                .has-search .form-control-feedback {
+                                    position: absolute;
+                                    z-index: 2;
+                                    display: block;
+                                    width: 2.375rem;
+                                    height: 2.375rem;
+                                    line-height: 2.375rem;
+                                    text-align: center;
+                                    pointer-events: none;
+                                    color: #aaa;
+                                    right: 362px;
+                                    cursor: pointer;
+                                }
+                                /* .form-control-feedback:hover{
 } */
-
-
-/* ----- Footer ----- */
-.footer{
-    font-family: Nunito Sans;
-    font-style: normal;
-}
-
-.footer-note{    
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-}
-
-.footer-agency{    
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 49px;
-}
-
-.footer-agency-note{    
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 25px;
-    font-weight: 100;
-}
-
-.footer-button{
-    color: white;
-    border-bottom: 1px solid white;
-    text-align: left;
-    text-decoration: none;
-}
-
-.footer-button > i{
-    float: right;
-    transition: 200ms ease-in-out;
-}
-
-.footer-button:hover{
-    color: white;
-}
-
-.footer-list{
-    text-align: left !important;
-}
-
-.footer-button > i.active{
-    transform: rotate(180deg);
-}
-
-.footer-list li{
-    padding: 5px;
-}
-
-.sm-footer .text-footer{
-    text-align: left;
-}
-
-/* Getting started carousel */
-
-.carousel-inner-box{
-    position: absolute;
-    z-index: 1;
-    bottom: 10px;
-    left: 10px;
-    width: 40%;
-    /* display: none; */
-}
-
-.carousel-inner-box + .card{
-    background-color: #FFFFFF;
-    border-radius: 3px; 
-}
-
-.carousel-inner-box .left-text{
-    float: left;
-    margin-left: 10px;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.carousel-inner-box .right-text{
-    float: right;
-    margin-right: 10px;
-    margin-top: 10px;
-    color: #006644;
-}
-
-.carousel-inner-box .description{
-    font-family: Nunito Sans;
-    font-style: normal;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 18px; color: #006644;
-}
-
-.carousel-inner-box .top-rated > p{
-    float: right;
-    font-size: 14px;
-    margin-right: 10px;
-}
-
-.carousel-inner-box .top-rated > img{
-    height: 20px;
-    width: 20px;
-    float: right;
-}
-
-.carousel-inner-box .comment{
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 25px;
-    margin-right: 10px;
-    margin-left: 10px;
-    text-align: justify;                            
-    color: #006644;
-}
-
-.getting-started .carousel-control-next{
-    top: unset;
-    bottom: 20px;
-}
-
-.getting-started .carousel-control-prev{
-    top: unset;
-    left: 50%;
-    bottom: 20px;
-    right: 0;
-}
-
-.getting-started .carousel-indicators{
-    justify-content: center;
-    left: 50%;
-}
-
-.getting-started .carousel-indicators [data-mdb-target]{
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-}
-
-.getting-started-card{
-    border-radius: 1rem;
-    box-shadow: none;
-}
-
-.getting-started-card h1{    
-    font-style: normal;
-    font-weight: bold;
-    font-size: 28px;
-    line-height: 38px;    
-    text-align: center;    
-    color: #1C1C1C;
-}
-
-.getting-started-card h2{    
-    font-family: Nunito Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;
-    text-align: center;
-    color: #1C1C1C;
-}
-
-.vh-100{
-    height: 100vh;
-}
-
-.btn-nav-link{
-    border: none;
-    background: none;
-    font-weight: 500;
-}
-
-.btn-nav-link:hover{
-    color: #006644;
-}
-
-.container{
-    max-width: 80vw;
-}
-
-@media (min-width: 768px) and (max-width:880px) {
-    .added-exp{    
-        width: 150px;
-    }
-}
-@media (min-width: 880px) and (max-width:990px) {
-    .added-exp{    
-        width: 170px;
-    }
-}
-@media (min-width: 990px) and (max-width:1140px) {
-    .added-exp{    
-        width: 200px;
-    }
-}
-@media (min-width: 1140px) and (max-width:1360px) {
-    .added-exp{    
-        width: 230px;
-    }
-}
-@media (min-width:0px) and (max-width:690px) {
-    .container{
-        max-width: 85vw;
-    }
-
-    .question-radio + label{
-        width: 90%;
-    }
-}
+                                /* ----- Footer ----- */
+                                
+                                .footer {
+                                    font-family: Nunito Sans;
+                                    font-style: normal;
+                                }
+                                
+                                .footer-note {
+                                    font-weight: normal;
+                                    font-size: 12px;
+                                    line-height: 16px;
+                                }
+                                
+                                .footer-agency {
+                                    font-weight: bold;
+                                    font-size: 36px;
+                                    line-height: 49px;
+                                }
+                                
+                                .footer-agency-note {
+                                    font-weight: normal;
+                                    font-size: 18px;
+                                    line-height: 25px;
+                                    font-weight: 100;
+                                }
+                                
+                                .footer-button {
+                                    color: white;
+                                    border-bottom: 1px solid white;
+                                    text-align: left;
+                                    text-decoration: none;
+                                }
+                                
+                                .footer-button>i {
+                                    float: right;
+                                    transition: 200ms ease-in-out;
+                                }
+                                
+                                .footer-button:hover {
+                                    color: white;
+                                }
+                                
+                                .footer-list {
+                                    text-align: left !important;
+                                }
+                                
+                                .footer-button>i.active {
+                                    transform: rotate(180deg);
+                                }
+                                
+                                .footer-list li {
+                                    padding: 5px;
+                                }
+                                
+                                .sm-footer .text-footer {
+                                    text-align: left;
+                                }
+                                /* Getting started carousel */
+                                
+                                .carousel-inner-box {
+                                    position: absolute;
+                                    z-index: 1;
+                                    bottom: 10px;
+                                    left: 10px;
+                                    width: 40%;
+                                    /* display: none; */
+                                }
+                                
+                                .carousel-inner-box+.card {
+                                    background-color: #FFFFFF;
+                                    border-radius: 3px;
+                                }
+                                
+                                .carousel-inner-box .left-text {
+                                    float: left;
+                                    margin-left: 10px;
+                                    margin-top: 10px;
+                                    font-weight: bold;
+                                }
+                                
+                                .carousel-inner-box .right-text {
+                                    float: right;
+                                    margin-right: 10px;
+                                    margin-top: 10px;
+                                    color: #006644;
+                                }
+                                
+                                .carousel-inner-box .description {
+                                    font-family: Nunito Sans;
+                                    font-style: normal;
+                                    margin-left: 10px;
+                                    margin-right: 10px;
+                                    font-weight: normal;
+                                    font-size: 14px;
+                                    line-height: 18px;
+                                    color: #006644;
+                                }
+                                
+                                .carousel-inner-box .top-rated>p {
+                                    float: right;
+                                    font-size: 14px;
+                                    margin-right: 10px;
+                                }
+                                
+                                .carousel-inner-box .top-rated>img {
+                                    height: 20px;
+                                    width: 20px;
+                                    float: right;
+                                }
+                                
+                                .carousel-inner-box .comment {
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    font-size: 16px;
+                                    line-height: 25px;
+                                    margin-right: 10px;
+                                    margin-left: 10px;
+                                    text-align: justify;
+                                    color: #006644;
+                                }
+                                
+                                .getting-started .carousel-control-next {
+                                    top: unset;
+                                    bottom: 20px;
+                                }
+                                
+                                .getting-started .carousel-control-prev {
+                                    top: unset;
+                                    left: 50%;
+                                    bottom: 20px;
+                                    right: 0;
+                                }
+                                
+                                .getting-started .carousel-indicators {
+                                    justify-content: center;
+                                    left: 50%;
+                                }
+                                
+                                .getting-started .carousel-indicators [data-mdb-target] {
+                                    width: 8px;
+                                    height: 8px;
+                                    border-radius: 50%;
+                                }
+                                
+                                .getting-started-card {
+                                    border-radius: 1rem;
+                                    box-shadow: none;
+                                }
+                                
+                                .getting-started-card h1 {
+                                    font-style: normal;
+                                    font-weight: bold;
+                                    font-size: 28px;
+                                    line-height: 38px;
+                                    text-align: center;
+                                    color: #1C1C1C;
+                                }
+                                
+                                .getting-started-card h2 {
+                                    font-family: Nunito Sans;
+                                    font-style: normal;
+                                    font-weight: normal;
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                    text-align: center;
+                                    color: #1C1C1C;
+                                }
+                                
+                                .vh-100 {
+                                    height: 100vh;
+                                }
+                                
+                                .btn-nav-link {
+                                    border: none;
+                                    background: none;
+                                    font-weight: 500;
+                                }
+                                
+                                .btn-nav-link:hover {
+                                    color: #006644;
+                                }
+                                
+                                .container {
+                                    max-width: 80vw;
+                                }
+                                
+                                @media (min-width: 768px) and (max-width:880px) {
+                                    .added-exp {
+                                        width: 150px;
+                                    }
+                                }
+                                
+                                @media (min-width: 880px) and (max-width:990px) {
+                                    .added-exp {
+                                        width: 170px;
+                                    }
+                                }
+                                
+                                @media (min-width: 990px) and (max-width:1140px) {
+                                    .added-exp {
+                                        width: 200px;
+                                    }
+                                }
+                                
+                                @media (min-width: 1140px) and (max-width:1360px) {
+                                    .added-exp {
+                                        width: 230px;
+                                    }
+                                }
+                                
+                                @media (min-width:0px) and (max-width:690px) {
+                                    .container {
+                                        max-width: 85vw;
+                                    }
+                                    .question-radio+label {
+                                        width: 90%;
+                                    }
+                                }
+                                /* ==========================================Profile page========================================== */
+                                
+                                .upload-button {
+                                    background-color: white;
+                                    margin-top: 20px;
+                                    color: #14A800;
+                                    border: 1px solid #14A800;
+                                }
+                                
+                                .change-image {
+                                    position: absolute;
+                                    bottom: 140px;
+                                    right: 10px;
+                                }
+                                
+                                .details-title {
+                                    margin-top: 50px;
+                                    margin-bottom: 0px;
+                                    font-family: 'Inter';
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    font-size: 14px;
+                                    line-height: 24px;
+                                    color: #172B4D;
+                                }
+                                
+                                .photo-details {
+                                    font-family: 'Inter';
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    font-size: 12px;
+                                    line-height: 20px;
+                                    align-items: center;
+                                    letter-spacing: -0.084px;
+                                    color: #1C1C1C;
+                                }
+                                
+                                .photo-priview {
+                                    width: 100%;
+                                    height: 100%;
+                                    border-radius: 100%;
+                                    background-size: cover;
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                }
+                                
+                                .photo-upload input[type="file"] {
+                                    display: none;
+                                }
+                                
+                                .profile-modal {
+                                    height: 200px;
+                                    width: 100%;
+                                    background-color: #CCCCCC;
+                                    position: relative;
+                                }
+                                
+                                .profile-image {
+                                    position: absolute;
+                                    top: 20px;
+                                    left: 140px;
+                                    height: 150px;
+                                    width: 150px;
+                                }
+                                
+                                #image {
+                                    display: block;
+                                    /* This rule is very important, please don't ignore this */
+                                    max-width: 100%;
+                                }

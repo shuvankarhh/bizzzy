@@ -28,6 +28,7 @@
     </script>
 
     @stack('css')
+    @stack('js')
 </head>
 
 <body>
