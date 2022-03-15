@@ -63,9 +63,88 @@ as long as it is a sibling. */
 
 /* ----------------------------------------------------------------------------------------------- */
 
-/* -------- Questions ----------------------------------------------------------------------- */
 
-/* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
+
+/* -------- Questions ----------------------------------------------------------------------- */
+/* .ts-wrapper.plugin-remove_button .item .remove{
+    color: red;
+    content: '\f1f8';
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-weight: 900;
+} */
+
+.is-invalid .ts-control{
+    border: 1px solid red;
+}
+
+
+.add-skill{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #626468;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.added-skill{
+    display:inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+.added-skill > p{
+    margin: 6px;
+}
+
+.added-skill .text{
+    border: 2px solid #14A800;
+    border-radius: 50px;
+    padding: 8px 17px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.flex{
+    display: flex;
+}
+
+.add-language{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #DFE1E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.add-language i{
+    color: #14A800;
+}
+
+.add-language + .desc{
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    color: #14A800;
+}
+
+.remove-language{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #DFE1E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.remove-language i{
+    color: #DE350B;
+    font-size: 12px;
+}
 .question{
     min-height: 80vh;
     position: relative;
@@ -84,15 +163,15 @@ as long as it is a sibling. */
 }
 
 .question-footer-height{
-    padding-bottom: 80px;
+    padding-bottom: 120px;
 }
 
+/* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
 .question-radio {
     display:none;
 }
 
-/* The label is what's left to style. 
-As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
+/* The label is what's left to style. As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
 .question-radio + label {
     padding: 1em;
     display: inline-block;
@@ -346,6 +425,11 @@ as long as it is a sibling. */
 /* ---------------------------------------------------------------- */
 
 /* --- Override defaults --- */
+
+.bizzy-tip-bio{
+    max-width: 300px;
+    float: right;
+}
 
 .invalid-feedback.js{
     margin-top: 0px;
