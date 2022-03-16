@@ -51,7 +51,7 @@
             <x-question-footer percentage=65 />
             <div class="row justify-content-end">
                 <div class="col-md-3 text-end">
-                    <button onclick="add_bio('{{ route('question.eleven') }}')" class="btn btn-bizzzy-success text-nowrap me-3"> Choose Your Area of Work </button>
+                    <button onclick="add_bio()" class="btn btn-bizzzy-success text-nowrap me-3"> Choose Your Area of Work </button>
                 </div>
             </div>
         </div>

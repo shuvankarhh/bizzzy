@@ -27,16 +27,16 @@
                                 <label class="form-check-label" for="form1Example3"> Remember password </label>
                             </div> -->
 
-                            <button class="btn btn-primary btn-lg btn-block" style="  background-color: #14A800;" type="submit">Sign Up</button>
+                            <button class="btn btn-primary btn-lg btn-block" style="  background-color: #0086FF;" type="submit">Sign Up</button>
 
                             <p style="font-family: Nunito Sans; margin-top: 30px; margin-bottom: 30px;
-                            font-style: normal;font-weight: normal;font-size: 14px;line-height: 20px;">By signing up, I accept the BIZZZY <a href="" style="color: #14A800;">Terms of Service</a> and acknowledge the <a href="" style="color: #14A800;">Privacy Policy.</a></p>
+                            font-style: normal;font-weight: normal;font-size: 14px;line-height: 20px;">By signing up, I accept the BIZZZY <a href="" style="color: #0086FF;">Terms of Service</a> and acknowledge the <a href="" style="color: #0086FF;">Privacy Policy.</a></p>
 
                             <hr class="my-4">
 
-                            <button class="btn btn-lg btn-block btn-primary" style="background-color: #FFFFFF; color: #1C1C1C;" type="button"><i class="fab fa-google me-2"></i> Continue with google</button>
-                            <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #FFFFFF; color: #1C1C1C;" type="button"><i class="fab fa-apple me-2"></i>Continue with facebook</button>
-                            <p style="margin-top: 30px; margin-bottom: 10px;"><a href="" style="color: #14A800;">Already have an Atlassian account? </a><a href="" style="color: #14A800;"> Log in</a> </p>
+                            <button class="btn btn-lg btn-block btn-primary" style="background-color: #FFFFFF; color: #1C1C1C;" type="button"><i class="fab fa-google me-2"></i> Continue with Google</button>
+                            <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #FFFFFF; color: #1C1C1C;" type="button"><i class="fab fa-apple me-2"></i>Continue with Apple</button>
+                            <p style="margin-top: 30px; margin-bottom: 10px;"><a href="" style="color: #0086FF;">Already have an Atlassian account? </a><a href="" style="color: #0086FF;"> Log in</a> </p>
                         </div>
 
                     </div>
@@ -46,7 +46,7 @@
                     font-style: normal;
                     font-weight: normal;
                     font-size: 12px;
-                    line-height: 20px;">This page is protected by reCAPTCHA and the Google <br> <a style="color: #14A800;">Privacy Policy</a> and <a style="color: #14A800;"> Terms and Conditon</a> apply</p>
+                    line-height: 20px;">This page is protected by reCAPTCHA and the Google <br> <a style="color: #0086FF;">Privacy Policy</a> and <a style="color: #0086FF;"> Terms and Conditon</a> apply</p>
                 </div>
             </div>
         </div>

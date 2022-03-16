@@ -22,7 +22,6 @@
     <!-- Bizzzy -->
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/common.css') }}" rel="stylesheet">
-    <link href="{{ asset('/css/homepage.css') }}" rel="stylesheet">
     <script>
         const APP_URL = '{{ url('/') }}'
     </script>

@@ -47,7 +47,7 @@
         <x-question-footer percentage=65/>
         <div class="row justify-content-end">
             <div class="col-md-3 text-end">
-                <button onclick="add_language('{{ route('question.eleven') }}')" class="btn btn-bizzzy-success text-nowrap me-3"> Now Share Your Skills </button>
+                <button onclick="add_language()" class="btn btn-bizzzy-success text-nowrap me-3"> Now Share Your Skills </button>
             </div>
         </div>
     </div>

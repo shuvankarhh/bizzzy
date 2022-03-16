@@ -35,7 +35,7 @@
                 <div class="collapse navbar-collapse" id="navbar_toggle">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Link 1</a>
+                            <a href="{{ route('job.index') }}" class="nav-link {{ request()->is('jobs') ? 'active' : '' }}" aria-current="page" href="#">Jobs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link 2</a>

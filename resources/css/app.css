@@ -11,7 +11,7 @@ As long as its 'for' attribute matches the input's 'id', it will maintain the fu
     padding: 0.4em;
     display: inline-block;
     cursor: pointer;
-    width: 155px;
+    min-width: 120px;
     box-shadow: 0px 3px 5px rgba(9, 30, 66, 0.2), 0px 0px 1px rgba(9, 30, 66, 0.31);
     margin-right: -2px;
     margin-left: -2px;
@@ -19,16 +19,16 @@ As long as its 'for' attribute matches the input's 'id', it will maintain the fu
 
 .register-radio.left+label {
     border-radius: 3px 0px 0px 3px;
-    border-left: 1px solid #14A800;
-    border-top: 1px solid #14A800;
-    border-bottom: 1px solid #14A800;
+    border-left: 1px solid #0086FF;
+    border-top: 1px solid #0086FF;
+    border-bottom: 1px solid #0086FF;
 }
 
 .register-radio.right+label {
     border-radius: 0px 3px 3px 0px;
-    border-right: 1px solid #14A800;
-    border-top: 1px solid #14A800;
-    border-bottom: 1px solid #14A800;
+    border-right: 1px solid #0086FF;
+    border-top: 1px solid #0086FF;
+    border-bottom: 1px solid #0086FF;
 }
 
 .blank-label {
@@ -39,7 +39,7 @@ It selects what ever element comes right after it,
 as long as it is a sibling. */
 
 .register-radio:checked+label {
-    background: #14A800;
+    background: #0086FF;
     color: #FFFFFF;
     transition: 150ms ease-in-out;
 }
@@ -96,7 +96,7 @@ font-weight: 900;
 }
 
 .added-skill .text {
-    border: 2px solid #14A800;
+    border: 2px solid #0086FF;
     border-radius: 50px;
     padding: 8px 17px;
     width: fit-content;
@@ -104,6 +104,10 @@ font-weight: 900;
 
 .flex {
     display: flex;
+}
+
+.relative{
+    position: relative;
 }
 
 .add-language {
@@ -117,14 +121,14 @@ font-weight: 900;
 }
 
 .add-language i {
-    color: #14A800;
+    color: #0086FF;
 }
 
 .add-language+.desc {
     font-family: 'Nunito Sans';
     font-style: normal;
     font-weight: 400;
-    color: #14A800;
+    color: #0086FF;
 }
 
 .remove-language {
@@ -190,7 +194,7 @@ as long as it is a sibling. */
 
 .question-radio:checked+label {
     background: #B5FBD6;
-    border: 1px solid #14A800;
+    border: 1px solid #0086FF;
     transition: 150ms ease-in-out;
 }
 
@@ -199,7 +203,7 @@ as long as it is a sibling. */
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
-    color: #14A800;
+    color: #0086FF;
     margin-top: 30px;
     font-family: Nunito Sans;
 }
@@ -291,7 +295,7 @@ as long as it is a sibling. */
 /* check-background */
 
 .battery-question .checkbox input:checked~.checkmark {
-    background-color: #14A800;
+    background-color: #0086FF;
 }
 /* Create the indicator (hidden when not checked) */
 
@@ -344,7 +348,7 @@ as long as it is a sibling. */
 }
 
 .add-exp-button i {
-    color: #14A800;
+    color: #0086FF;
 }
 
 .add-exp:hover {
@@ -358,7 +362,7 @@ as long as it is a sibling. */
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    color: #14A800;
+    color: #0086FF;
 }
 
 .added-exp {
@@ -408,7 +412,7 @@ as long as it is a sibling. */
     border-bottom: 1px solid #bdbdbd;
     border-left: 1px solid #bdbdbd;
     border-right: 0;
-    color: #14A800;
+    color: #0086FF;
 }
 
 .rate-input-group+input {
@@ -421,6 +425,10 @@ as long as it is a sibling. */
 /* ---------------------------------------------------------------- */
 /* --- Override defaults --- */
 
+.container.body{
+    min-height: 80vh;
+}
+
 .bizzy-tip-bio {
     max-width: 300px;
     float: right;
@@ -431,8 +439,8 @@ as long as it is a sibling. */
 }
 
 .btn-bizzzy-success {
-    background-color: #14A800;
-    border-color: #14A800;
+    background-color: #0086FF;
+    border-color: #0086FF;
     color: white;
 }
 
@@ -701,8 +709,8 @@ background-repeat: no-repeat; */
 .upload-button {
     background-color: white;
     margin-top: 20px;
-    color: #14A800;
-    border: 1px solid #14A800;
+    color: #0086FF;
+    border: 1px solid #0086FF;
 }
 
 .change-image {
@@ -794,3 +802,179 @@ background-repeat: no-repeat; */
 .cropper-view-box {
   outline:inherit !important;
 }
+
+
+
+/* Jobs Body ------------------------------------ */
+
+.job-body .nav-link{
+    font-family: Mulish;
+    border-bottom: solid #E2E2E2;
+    border-color: #E2E2E2;    
+    height: 100%;
+    font-weight: 500;
+}
+
+.job-body .icon{
+    display: inline-flex;
+    justify-content: center;
+}
+
+.job-body .text{
+    margin-left: 5px;
+    margin-top: 1px;
+}
+
+.job-body .nav-link.active{
+    font-weight: 900;
+}
+.job-card .row{
+    margin-left: 0;
+    margin-right: 0;
+}
+.job-card{
+    border: 1px solid #AFAFAF;
+    border-radius: 3px;
+}
+.job-card .upper-content{
+    padding: 5px;
+}
+
+.job-card .upper-content.applied-div{
+    background: rgba(112, 194, 23, 0.1);
+}
+
+.job-avater-span{
+    position: relative;
+    /* padding: 10px; */
+}
+
+.job-card .featured{
+    aspect-ratio: 1;
+}
+
+.job-card .job-avater{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+}
+
+.job-avater-icon{
+    height: 23px;
+    width: 23px;
+    position: absolute;
+    top: 20px;
+    right: -3px;
+}
+
+.job-card .badge{
+    color: white;
+}
+
+.job-card .badge-dark{
+    background-color: #1B364A;
+}
+
+.job-card .badge-danger{
+    background: #FF6937;
+}
+
+.job-card .badge-success{
+    background: #05944F;
+}
+
+.job-card .applied{
+    border: 2px solid #0086FF;
+    width: 100%;
+    border-radius: 24px 0px 0px 24px;
+    color: #0086FF;
+    background-color: white;
+}
+
+.job-card .more-text{
+    text-decoration: none;
+    color: black;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    border-bottom: 1px solid black;
+}
+.job-tag{
+    display: flex;
+    flex-wrap: wrap;
+}
+.job-tag > div{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    padding: 4px 8px;
+    margin: 5px;
+    width: fit-content;
+    background: #FFFFFF;
+    border: 2px solid #AFAFAF;    
+    border-radius: 24px;
+}
+
+.job-card .flex-text{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-text > div{
+    display: inline-flex;
+    margin: 15px;
+}
+
+.flex-text img{
+    width: 14px;
+    aspect-ratio: 1;
+}
+.flex-text .money{
+    font-family: 'Inter-Bold';
+    font-style: normal;
+    font-weight: 500;
+}
+
+.lower-text{
+    background: #F3F7FE;
+}
+
+.lower-text .apply-button{
+    border-radius: 0px;
+}
+
+.lower-text .divider{
+    border-right: 1px solid #1B364A;
+    height: 30px;
+}
+
+.lower-text .top-text{
+    font-family: 'Inter-Bold';
+    font-style: normal;
+    font-weight: 500;
+    color: #AFAFAF;
+}
+
+.lower-text .bottom-text{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+}
+
+.lower-text .stack-image{
+    position: absolute;
+}
+
+.lower-text .stack-image > img{
+    position: absolute;
+    width: 23px;
+    aspect-ratio: 1;
+}
+.lower-text .stack-image .image-1{
+    left: -12px;
+}
+.lower-text .stack-image .image-2{
+    left: -24px;
+    z-index: -1;
+}
+/* ---------------------------------------------- */

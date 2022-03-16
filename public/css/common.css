@@ -23,15 +23,16 @@
     src: url(/fonts/Nunito_Sans/NunitoSans-Regular.ttf);
 }
 
+.bizzzy-background{
+    background-color: #0086FF;
+}
 .bizzzy-color{
-    color: #14A800;
+    color: #0086FF;
 }
 
 .container {
-    /* max-width: 100vw; */
     padding-right: 0px;
     padding-left: 0px;
-    /* width: 76%; */
 }
 
 @media (max-width: 1399.98px) {
@@ -48,9 +49,9 @@
     .container {
         /* max-width: 100vw; */
         /* max-width: 100%; */
-        padding-right: 10px;
-        padding-left: 10px;
-        /* width: 76%; */
+        /* padding-right: 10px;
+        padding-left: 10px; */
+        width: 90%;
     }
 }
 
@@ -76,7 +77,7 @@
 }
 
 .nav-brand:hover {
-    color: #14A800 !important;
+    color: #0086FF !important;
 }
 
 .nav-link {
@@ -103,11 +104,11 @@
 
 .nav-link:focus,
 .nav-link:hover {
-    color: #14A800 !important;
+    color: #0086FF !important;
 }
 
 .nav-link.active {
-    color: #14A800 !important;
+    color: #0086FF !important;
     font-family: Mulish-Bold;
 }
 
@@ -115,19 +116,19 @@
     width: unset;
     padding: 0.6rem 2.375rem 0.5rem 0.5rem;
     /* padding: 0.6rem 2.375rem 0 0 ; */
-    border: 1px solid #14A800;
-    box-shadow: 0px 0px 1px rgb(20, 168, 0);
+    border: 1px solid #0086FF;
+    box-shadow: 0px 0px 1px rgb(0, 134, 255);
     border-radius: 5px;
 }
 
 .form-control:focus {
-    border-color: #14A800;
-    box-shadow: 0px 0px 3px rgb(20, 168, 0);
+    border-color: #0086FF;
+    box-shadow: 0px 0px 3px rgb(0, 134, 255);
 }
 
 .navbar_section .form-control::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #14A800;
+    color: #0086FF;
     opacity: 1;
     /* Firefox */
     font-family: Mulish-Bold;
@@ -135,13 +136,13 @@
 
 :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #14A800;
+    color: #0086FF;
     font-family: Mulish-Bold;
 }
 
 ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #14A800;
+    color: #0086FF;
     font-family: Mulish-Bold;
 }
 
@@ -190,8 +191,8 @@
 }
 
 .signup-lg {
-    background-color: #14A800;
-    border-color: #14A800;
+    background-color: #0086FF;
+    border-color: #0086FF;
     font-family: Mulish-Bold;
     padding: 0.6rem 2.7rem;
     margin-right: 17px;
