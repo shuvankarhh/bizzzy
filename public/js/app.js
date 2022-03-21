@@ -2092,7 +2092,15 @@ var removeValidation = function removeValidation() {
 var showValidation = function showValidation(obj) {
   for (var property in obj.errors) {
     var field = document.getElementById(property);
-    field.classList.add('is-invalid');
+
+    if (field.tagName === 'SELECT') {
+      field.classList.add('is-invalid');
+      var ts_element = document.querySelector('.ts-wrapper');
+      ts_element.classList.add('is-invalid');
+    } else {
+      field.classList.add('is-invalid');
+    }
+
     document.getElementById("".concat(property, "_invalid")).innerHTML = obj.errors[property];
   }
 };
@@ -2239,6 +2247,22 @@ upload_profile_image = function upload_profile_image(image) {
       console.log(error);
     }
   });
+};
+
+add_profile_information = function add_profile_information() {
+  removeValidation();
+  var form = document.getElementById('profile_information_form');
+  var formData = new FormData(form);
+  axios.post(APP_URL + '/user/create/question-thirteen', formData).then(function (response) {// location.href = response.data;
+  })["catch"](function (error) {
+    if (typeof error.response !== 'undefined') {
+      // This is for error from laravel
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
+  });
 }; // -----------
 
 
@@ -2257,8 +2281,28 @@ resend_email_verification = function resend_email_verification(ele, email) {
       // Other JS related error
       console.log(error);
     }
+
+    ele.innerHTML = temp;
   });
-};
+}; // Add Freelancer title
+
+
+add_title = function add_title() {
+  removeValidation();
+  var form = document.getElementById('title_form');
+  var formData = new FormData(form);
+  axios.post(APP_URL + '/user/create/question-five', formData).then(function (response) {
+    location.href = response.data;
+  })["catch"](function (error) {
+    if (typeof error.response !== 'undefined') {
+      // This is for error from laravel
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
+  });
+}; // --------------
 
 /***/ }),
 

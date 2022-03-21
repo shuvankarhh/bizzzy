@@ -77,6 +77,7 @@
 
             Route::get('question-four', [GetStartedController::class, 'qFour'])->name('question.');
             Route::get('question-five', [GetStartedController::class, 'qFive'])->name('question.five');
+            Route::post('question-five', [FreelancerProfileController::class, 'title_store'])->name('title.store');
             Route::get('work-experience', [WorkExperienceController::class, 'index'])->name('work.experience.index');
             Route::get('add-work-experience', [WorkExperienceController::class, 'create'])->name('work.experience.creat');
             Route::post('add-work-experience', [WorkExperienceController::class, 'store'])->name('work.experience.store');
@@ -96,6 +97,7 @@
             Route::get('question-ten', [GetStartedController::class, 'qTen'])->name('question.ten');
             Route::post('freelancer-bio', [FreelancerProfileController::class, 'bio_store'])->name('freelancer.bio.store');
             Route::get('question-thirteen', [GetStartedController::class, 'qThirteen'])->name('question.thirteen');
+            Route::post('question-thirteen', [FreelancerProfileController::class, 'profile_store'])->name('freelancer.profile.store');
 
             Route::post('uplaod_image', [FreelancerProfileController::class, 'image_store'])->name('freelancer.image.store');
 
@@ -105,6 +107,14 @@
             Route::get('/', [UserController::class, 'index']);
         });
 
-        Route::get('jobs', [JobController::class, 'index'])->name('job.index');
+        Route::prefix('jobs')->group(function () {
+            Route::get('/', [JobController::class, 'index'])->name('job.index');
+            Route::get('/create/{id}', [JobController::class, 'create'])->name('job.create');
+        });
+
+        Route::prefix('freelancers')->group(function () {
+            Route::get('/', [FreelancerProfileController::class, 'index'])->name('freelancer.index');
+            // Route::get('/create/{id}', [JobController::class, 'create'])->name('job.create');
+        });
         Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
     });

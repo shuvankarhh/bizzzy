@@ -13,7 +13,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        return view('contents.job');
+        return view('contents.jobs.job');
     }
 
     /**
@@ -21,9 +21,9 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return view('contents.jobs.apply-to-job');
     }
 
     /**

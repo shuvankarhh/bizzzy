@@ -9,82 +9,85 @@
 @endsection @section('content')
 <section class="question">
     <div class="container py-3 h-100">
-        <div class="row battery-question">
-            <div class=" col-md-1 col-lg-1 col-xl-1 col-sm-3"><a>Prev</a></div>
-            <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">    
-                <p class="main-question">A few last details - then you can check and publish your profile.</p>
-                <p class="main-question-desc">A professional photo helps you build trust with your clients. To
-                    keep things safe and simple, they’ll pay you through us - which is why we need your personal
-                    information.</p>
-                <div>
-                    <img id="imagePreview" class="photo-priview"
-                        style="height: 160px;width:160px; background:no-repeat; background-image: url({{ (is_null($photo)) ? asset('/images/general/avatar.png') : asset('storage/' . $photo) }});background-position: center;
-                        background-size: 160px 160px;"
-                        alt="">
+        <form action="#" id="profile_information_form">
+            <div class="row battery-question">
+                <div class=" col-md-1 col-lg-1 col-xl-1 col-sm-3"><a>Prev</a></div>
+                <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">    
+                    <p class="main-question">A few last details - then you can check and publish your profile.</p>
+                    <p class="main-question-desc">A professional photo helps you build trust with your clients. To
+                        keep things safe and simple, they’ll pay you through us - which is why we need your personal
+                        information.</p>
+                    <div>
+                        <img id="imagePreview" class="photo-priview"
+                            style="height: 160px;width:160px; background:no-repeat; background-image: url({{ (is_null($photo)) ? asset('/images/general/avatar.png') : asset('storage/' . $photo) }});background-position: center;
+                            background-size: 160px 160px;"
+                            alt="">
 
-                </div>
-                <div class="photo-upload">
-                    <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" name="imageUpload"
-                        class=" imageUpload" />
-                    <input type="hidden" name="base64image" name="base64image" id="base64image">
-                    <label for="imageUpload" class="btn upload-button">Upload photo</label>
-                </div>
-
-                <div style="margin-top: 30px;">
-                    <label for="country" class="custom-label">Country *</label>
-                    <select id="country" name="country" autocomplete="off">
-                        <option selected value="">Select Country</option>
-                        <x-countries/>
-                    </select>
-                </div>
-
-
-                <div class="input-group mt-3">
-                    <label class="custom-label">Street Address * (won’t show on profile)</label>
-                </div>
-                <div>
-                    <input type="text" class="form-control" placeholder="Street Address" aria-label="Street Address" aria-describedby="basic-addon1">
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6 col-xl-6 col-sm-3">
-                        <div class="input-group mt-3">
-                            <label class="custom-label">City *</label>
-                        </div>
-                        <div>
-                            <input type="text" class="form-control" placeholder="Boston"
-                                aria-describedby="basic-addon1">
-                        </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 col-xl-6 col-sm-3">
-                        <div class="input-group mt-3">
-                            <label class="custom-label">ZIP/Postal code</label>
-                        </div>
-                        <div>
-                            <input type="text" class="form-control" placeholder="Apt/Suite (Optional)"
-                                aria-describedby="basic-addon1">
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group mt-3">
-                    <label class="custom-label">Phone</label>
-                </div>
-
-                <div>
-                    <div class="pd-telephone-input">
-                        <input type="tel" class="form-control" />
+                    <div class="photo-upload">
+                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" name="imageUpload" class=" imageUpload" />
+                        <input type="hidden" name="base64image" name="base64image" id="base64image">
+                        <label for="imageUpload" class="btn upload-button">Upload photo</label>
                     </div>
 
-                </div>
+                    <div style="margin-top: 30px;">
+                        <label for="country" class="custom-label">Country *</label>
+                        <select  id="country" name="country" autocomplete="off">
+                            <option selected value="">Select Country</option>
+                            <x-countries/>
+                        </select>
+                        <div id="country_invalid" class="invalid-feedback js"></div>
+                    </div>
 
+
+                    <div class="input-group mt-3">
+                        <label class="custom-label">Street Address * (won’t show on profile)</label>
+                    </div>
+                    <div>
+                        <input id="street_address" name="street_address" type="text" class="form-control" placeholder="Street Address" aria-label="Street Address" aria-describedby="basic-addon1">
+                        <div id="street_address_invalid" class="invalid-feedback js"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-xl-6 col-sm-3">
+                            <div class="input-group mt-3">
+                                <label class="custom-label">City *</label>
+                            </div>
+                            <div>
+                                <input id="city" name="city" type="text" class="form-control" placeholder="Boston" aria-describedby="basic-addon1">
+                                <div id="city_invalid" class="invalid-feedback js"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-xl-6 col-sm-3">
+                            <div class="input-group mt-3">
+                                <label class="custom-label">ZIP/Postal code</label>
+                            </div>
+                            <div>
+                                <input id="zip_postal" name="zip_postal" type="text" class="form-control" placeholder="Apt/Suite (Optional)" aria-describedby="basic-addon1">
+                                <div id="zip_postal_invalid" class="invalid-feedback js"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mt-3">
+                        <label class="custom-label">Phone</label>
+                    </div>
+
+                    <div>
+                        <div class="pd-telephone-input">
+                            <input id="phone" name="phone" type="tel" class="form-control" />
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=65/>
         <div class="row justify-content-end">
             <div class="col-md-3 text-end">
-                <button onclick="add_language()" class="btn btn-bizzzy-success text-nowrap me-3"> Now Share Your Skills </button>
+                <button onclick="add_profile_information()" class="btn btn-bizzzy-success text-nowrap me-3"> Now Share Your Skills </button>
             </div>
         </div>
     </div>    
@@ -147,7 +150,6 @@
         
     <script>
         new TomSelect("#country", { create: false });
-
 
         const modal_element = document.getElementById('imagecrop_modal');
         var modal_toggle = new bootstrap.Modal(modal_element);

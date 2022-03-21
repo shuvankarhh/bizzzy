@@ -92,7 +92,7 @@
                           aria-labelledby="navbarDropdownMenuAvatar"
                         >
                           <li>
-                            <a class="dropdown-item" href="#">My profile</a>
+                            <a class="dropdown-item" href="{{ route('freelancer.index') }}">My profile</a>
                           </li>
                           <li>
                             <a class="dropdown-item" href="#">Settings</a>

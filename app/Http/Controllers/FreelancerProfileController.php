@@ -3,11 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use App\Models\FreelancerProfile;
 
 class FreelancerProfileController extends Controller
 {
+    public function index()
+    {
+        return view('profile.freelancer_profile')->with([
+            'profile_photo' => auth()->user()->photo,
+            'address' => auth()->user()->address,
+            'education' => auth()->user()->educations()->orderBy('start_date', 'desc')->first(),
+            'profile' => auth()->user()->freelance_profile,
+            'languages' => auth()->user()->languages,
+            'service' => auth()->user()->service_categories()->with('parent')->first(),
+            'current' => auth()->user()->work_experiences()->where('currently_working', 1)->get(),
+            'past' => auth()->user()->work_experiences()->whereNull('currently_working')->get(),
+        ]);
+    }
+
     public function bio_store(Request $request)
     {
         $request->validate([
@@ -43,5 +58,37 @@ class FreelancerProfileController extends Controller
         $user->photo = "freelancer/profile_photo/$fileName";
         $user->save();
         // return response()->json($request->all());
+    }
+
+    public function profile_store(Request $request)
+    {
+        $request->validate([
+            'country' => 'required',
+            'street_address' => 'required',
+            'city' => 'required',
+            'phone' => 'required',
+            'zip_postal' => 'string'
+        ]);
+
+        UserAddress::updateOrCreate([            
+                'address_line1' => $request->street_address,
+                'country' => $request->country,
+                'state_or_province' => 'None',
+                'city' => $request->city,
+                'postal_code' => $request->zip_postal,
+            ],
+            [ 'user_id' => auth()->id(), ]
+        );
+
+    }
+
+    public function title_store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required'
+        ]);
+        auth()->user()->freelance_profile()->update(['professional_title' => $request->title]);
+
+        return route('work.experience.index');
     }
 }

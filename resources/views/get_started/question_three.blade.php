@@ -71,7 +71,7 @@
                                 <a class="skip" href="#">Skip for now ></a>
                             </div>
                             <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12 col-xs-12">
-                                <button onclick="first_working_experience('{{ route('work.experience.index') }}')" class="btn btn-primary btn-ls text-nowrap " style="background-color: #14A800;" type="submit">Next, Create a Profile ></button>
+                                {{--  <button onclick="first_working_experience('{{ route('question.five') }}')" class="btn btn-primary btn-ls text-nowrap " style="background-color: #14A800;" type="submit">Next, Create a Profile ></button>  --}}
                             </div>
                         </div>
                     </div>
@@ -81,10 +81,10 @@
     </div>
     <div class="question-footer-height"></div>
     <div class="question-footer">
-        <x-question-footer percentage=35/>
+        <x-question-footer percentage=65/>
         <div class="row justify-content-end">
             <div class="col-md-3 text-end">
-                {{-- <button class="btn btn-bizzzy-success text-nowrap me-3">Next, Languages </button> --}}
+                <button onclick="first_working_experience('{{ route('question.five') }}')" class="btn btn-bizzzy-success text-nowrap me-3">Next, Create a Profile </button>
             </div>
         </div>
     </div>

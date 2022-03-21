@@ -35,7 +35,13 @@ let removeValidation = () => {
 let showValidation = (obj) => {
     for(const property in obj.errors){
         let field = document.getElementById(property);
-        field.classList.add('is-invalid');
+        if(field.tagName === 'SELECT'){
+            field.classList.add('is-invalid');
+            let ts_element = document.querySelector('.ts-wrapper');
+            ts_element.classList.add('is-invalid');
+        }else{
+            field.classList.add('is-invalid');
+        }
         document.getElementById(`${property}_invalid`).innerHTML = obj.errors[property];
     }
 
@@ -224,6 +230,26 @@ upload_profile_image = (image) => {
     });
 }
 
+add_profile_information = () => {
+    removeValidation();
+
+    let form = document.getElementById('profile_information_form');
+    let formData = new FormData(form);
+    
+    axios.post(APP_URL + '/user/create/question-thirteen', formData)
+    .then(function (response) {
+        // location.href = response.data;
+    })
+    .catch(function (error) {
+        if(typeof error.response !== 'undefined'){ // This is for error from laravel
+            showValidation(error.response.data);
+        }else{ // Other JS related error
+            console.log(error);
+        }
+    });
+    
+}
+
 // -----------
 
 resend_email_verification = (ele, email) => {
@@ -244,5 +270,30 @@ resend_email_verification = (ele, email) => {
         }else{ // Other JS related error
             console.log(error);
         }
+        ele.innerHTML = temp;
     });
 }
+
+
+// Add Freelancer title
+
+add_title = () => {
+    removeValidation();
+
+    let form = document.getElementById('title_form');
+    let formData = new FormData(form);
+    
+    axios.post(APP_URL + '/user/create/question-five', formData)
+    .then(function (response) {
+        location.href = response.data;
+    })
+    .catch(function (error) {
+        if(typeof error.response !== 'undefined'){ // This is for error from laravel
+            showValidation(error.response.data);
+        }else{ // Other JS related error
+            console.log(error);
+        }
+    });
+}
+
+// --------------

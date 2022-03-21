@@ -1,3 +1,5 @@
+v0.019.0 - add: freelancer-profile (2022-03-21 12:03)
+
 v0.018.0 - add: jobs (2022-03-16 16:25)
 
 v0.017.0 - add: rate, profile-image (2022-03-15 17:17)

@@ -66,5 +66,20 @@ class User extends Authenticatable
     {
         return $this->hasOne(FreelancerProfile::class);
     }
+
+    public function address()
+    {
+        return $this->hasOne(UserAddress::class);
+    }
+
+    public function languages()
+    {
+        return $this->hasMany(UserLanguage::class);
+    }
+
+    public function service_categories()
+    {
+        return $this->belongsToMany(Category::class, 'freelancer_profile_categories', 'profile_id', 'category_id');
+    }
     
 }

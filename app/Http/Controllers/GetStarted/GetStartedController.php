@@ -35,7 +35,9 @@ class GetStartedController extends Controller
 
     public function qFive()
     {
-        return view('get_started.question_five')->with('name', auth()->user()->name);
+        return view('get_started.question_five')->with([
+            'title' => auth()->user()->freelance_profile->professional_title
+        ]);
     }
 
     public function qEleven()
