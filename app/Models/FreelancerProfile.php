@@ -12,6 +12,10 @@ class FreelancerProfile extends Model
 
     protected $fillable = ['user_id', 'profile_completion_percentage', 'total_jobs', 'total_hours', 'job_success_percentage', 'average_rating', 'is_top_rated'];
 
+    protected $casts = [
+        'price_per_hour' => 'integer'
+    ];
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'freelancer_profile_categories', 'profile_id', 'category_id');

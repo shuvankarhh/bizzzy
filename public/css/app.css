@@ -252,15 +252,19 @@ as long as it is a sibling. */
     position: relative;
 }
 
+.battery-question .card-body{
+    padding: 0.5rem;
+}
+
 .battery-question .battery {
     position: absolute;
     left: 32%;
     top: 11%;
 }
 
-.battery-question .card-body {
+/* .battery-question .card-body {
     margin-top: 50px;
-}
+} */
 
 .battery-question .card-text {
     font-style: normal;
@@ -343,22 +347,22 @@ as long as it is a sibling. */
 /* Show the indicator (dot/circle) when checked */
 
 .battery-question .checkbox input:checked~.checkmark:after {
-    display: block;
+    display: flex;
+    width: 100%;
 }
-
 
 /* Style the indicator (dot/circle) */
 
 .battery-question .checkbox .checkmark:after {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #fff;
     content: '\f00c';
-    /* You should use \ and not /*/
     font-family: "Font Awesome 5 Free";
-    /* This is the correct font-family*/
     font-style: normal;
     font-weight: 900;
-    left: 16%;
-    top: 6%;
+    top: 0.1rem;
     font-size: 15px;
 }
 
@@ -467,6 +471,12 @@ as long as it is a sibling. */
 
 /* --- Override defaults --- */
 
+.space-between{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .text-secondary{
     color: #6c757d !important;
 }
@@ -509,7 +519,7 @@ as long as it is a sibling. */
 
 body {
     /* background-image: url(http://127.0.0.1:8000/images/extra_fillers/hero-green-background.svg);
-background-repeat: no-repeat; */
+    background-repeat: no-repeat; */
 }
 
 
@@ -963,12 +973,13 @@ background-repeat: no-repeat; */
     border-bottom: 1px solid black;
 }
 
-.job-tag {
+.submit-profile .job-tag {
     display: flex;
     flex-wrap: wrap;
+    color: #1A3F61;
 }
 
-.job-tag>div {
+.submit-profile .job-tag > div {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
@@ -1047,8 +1058,60 @@ background-repeat: no-repeat; */
     left: -24px;
     z-index: -1;
 }
+
+.connect-required{
+    /* primary-blue-dark */
+    background: #1B364A;
+    box-shadow: inset 0px 0px 100px rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    color: white;
+    display: inline;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.connect-required:hover {
+    cursor: context-menu;
+}
+
+.connect-available{
+    border: 2px solid #0086FF;
+    width: 100%;
+    border-radius: 40px;
+    color: #0086FF;
+    background-color: white;
+    display: inline-block;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.connect-available:hover {
+    cursor: context-menu;
+}
+
+@media (min-width:0px) and (max-width:690px) {
+    .job-body .space-between{
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
+}
 /* ---------------------------------------------- */
 
+.freelancer-profile{
+    font-family: 'Uber-Regular';
+    font-style: normal;
+}
+
+.freelancer-profile h3,h4,b{
+    font-family: 'Uber-Bold';
+}
 
 .freelancer-profile .progress-bar{
     width: 80%;
@@ -1137,7 +1200,7 @@ background-repeat: no-repeat; */
     font-weight: 600;
 }
 
-.freelancer-profile .show-all{
+.show-all{
     text-decoration: none;
     color: #1B364A;
 }
@@ -1169,10 +1232,8 @@ background-repeat: no-repeat; */
     padding: 10px;
 }
 
-/* ---------------------------------------------- */
 
 
-/* Freelancer Profile */
 
 @media (min-width:0px) and (max-width:690px) {
     .freelancer-profile{
@@ -1189,12 +1250,26 @@ background-repeat: no-repeat; */
         height: 100px;
     }
 }
-
-
 /* ---------------------------------------------- */
 
 
 /* ========================================= Submit Profile ================================== */
+
+.submit-top-header{
+    background: #EFF3FE;
+    padding: 0.3rem;
+}
+
+.submit-top-header > div{
+    display: flex;
+    align-items: center;
+}
+.submit-top-header .first{
+    justify-content: end;
+}
+.submit-top-header .second{
+    justify-content: start;
+}
 
 .profile {
     background: #FFFFFF;
@@ -1203,16 +1278,21 @@ background-repeat: no-repeat; */
 }
 
 .submit-profile-btn {
-    float: left;
-    padding: 8px 12px;
     background-color: #0086FF;
     color: #FFFFFF;
     border-radius: 0px;
 }
 
+.submit-profile-btn:hover {
+    color: #FFFFFF;
+}
+
 @media (min-width: 0px) and (max-width: 786px) {
     .submit-profile-btn {
         text-align: center;
+    }
+    .submit-top-header .second{
+        justify-content: center;
     }
 }
 
@@ -1234,14 +1314,23 @@ background-repeat: no-repeat; */
     color: #1C1C1C;
 }
 
-.profile-photo {
+.submit-profile .profile-photo {
     height: 150px;
     width: 150px;
     border: 2px solid #FFFFFF;
     border-radius: 150px;
-    margin-top: 15px;
-    margin-left: 60px;
-    margin-bottom: 15px;
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+}
+
+.submit-profile .submit-profile-title{    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.submit-profile .submit-profile-language{
+    display: flex;
 }
 
 
@@ -1253,6 +1342,17 @@ background-repeat: no-repeat; */
     .profile-info {
         margin: 15px;
         width: 100%;
+    }
+    .submit-profile .profile-photo {        
+        margin-top: 0rem;
+        margin-left: 0rem;
+    }
+    .submit-profile .submit-profile-title{ 
+        align-items: flex-start;
+        flex-direction: column;
+    }   
+    .submit-profile .submit-profile-language{
+        flex-direction: column;
     }
 }
 
@@ -1293,14 +1393,16 @@ background-repeat: no-repeat; */
     color: #1C1C1C;
 }
 
-.rate {
+.submit-profile .rate {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
     line-height: 14px;
     color: #1B364A;
-    float: right;
+    padding: .8rem;
+    background: #E6F2ED;
+    border-radius: 36px;
 }
 
 .more {

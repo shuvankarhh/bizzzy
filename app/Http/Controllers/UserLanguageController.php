@@ -41,11 +41,15 @@ class UserLanguageController extends Controller
         ]);
 
         foreach($request->language as $idx=>$item){
-            UserLanguage::create([
-                'user_id' => auth()->id(),
-                'language_code' => $item,
-                'proficiency_level' => $request->proficiency[$idx],
-            ]);
+            UserLanguage::updateOrCreate(
+                [
+                    'user_id' => auth()->id(),
+                    'language_code' => $item,
+                ],
+                [
+                    'proficiency_level' => $request->proficiency[$idx],
+                ]
+            );
         }
 
         return route('skill.index');

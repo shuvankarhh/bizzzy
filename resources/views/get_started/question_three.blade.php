@@ -19,45 +19,42 @@
                     </div>
                     <div class="col-md-12">
                         <div class="row battery-question justify-content-md-center justify-content-sm-center justify-content-xs-center justify-content-lg-left justify-content-xl-left">
-                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12">
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-xxl-4 col-sm-12">
                                 <div class="card">
-                                    <img src="{{asset('/images/card/card1.png')}}" class="card-img-top" alt="..." style="background-image: linear-gradient(0deg, #FFAB00 0%, #FF991F 99.49%);">
-                                    <img class="battery" src="{{asset('/images/card/batteries.svg')}}" alt="">
+                                    <img src="{{asset('/images/card/battery-yellow.svg')}}" class="card-img-top" alt="...">
                                     <div class="checkbox">
                                         <input type="checkbox" id="checkbox1" name="checkbox1" style="background-image: url('/images/card/plus.png');" />
                                         <label class="checkmark" for="checkbox1"></label>
                                     </div>        
-                                    <div class="card-body" style="">
-                                        <p class="card-text" style="">I’d like to find opportunities myself</p>
-                                        <p class="card-text sm" style="">Clients post jobs on our Talent Marketplace™: you can browse and bid for them, or get invited by a client.</p>
+                                    <div class="card-body">
+                                        <p class="card-text">I’d like to find opportunities myself</p>
+                                        <p class="card-text sm">Clients post jobs on our Talent Marketplace™: you can browse and bid for them, or get invited by a client.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12">
                                 <div class="card">
-                                    <img src="/images/card/card2.svg" class="card-img-top" alt="..." style="background-image: linear-gradient(0deg, #FFAB00 0%, #FF991F 99.49%);">
-                                    <img class="battery" src="{{asset('/images/card/batteries.svg')}}" alt="">
+                                    <img src="{{asset('/images/card/battery-blue.svg')}}" class="card-img-top" alt="...">
                                     <div class="checkbox">
                                         <input type="checkbox" id="checkbox2" name="checkbox2" style="background-image: url('/images/card/plus.png');" />
                                         <label class="checkmark" for="checkbox2"></label>
                                     </div>        
-                                    <div class="card-body" style="">
-                                        <p class="card-text" style="">I’d like to package up my work for clients to buy</p>
-                                        <p class="card-text sm" style="">Define your service with prices and timelines: we’ll list it in our Project Catalog™ for clients to buy right away.</p>
+                                    <div class="card-body">
+                                        <p class="card-text">I’d like to package up my work for clients to buy</p>
+                                        <p class="card-text sm">Define your service with prices and timelines: we’ll list it in our Project Catalog™ for clients to buy right away.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12">
                                 <div class="card">
-                                    <img src="{{asset('/images/card/card1.png')}}" class="card-img-top" alt="..." style="background-image: linear-gradient(0deg, #FFAB00 0%, #FF991F 99.49%);">
-                                    <img class="battery" src="{{asset('/images/card/batteries.svg')}}" alt="">
+                                    <img src="{{asset('/images/card/battery-yellow.svg')}}" class="card-img-top" alt="...">
                                     <div class="checkbox">
                                         <input type="checkbox" id="checkbox3" name="checkbox3" style="background-image: url('/images/card/plus.png');" />
                                         <label class="checkmark" for="checkbox3"></label>
                                     </div>        
-                                    <div class="card-body" style="">
-                                        <p class="card-text" style="">I’d like Upwork to act as a recruiter</p>
-                                        <p class="card-text sm" style="">Once you’ve been here for a while, our Talent Scout™ service might recruit you directly for a client.</p>
+                                    <div class="card-body">
+                                        <p class="card-text">I’d like Upwork to act as a recruiter</p>
+                                        <p class="card-text sm">Once you’ve been here for a while, our Talent Scout™ service might recruit you directly for a client.</p>
                                     </div>
                                 </div>
                             </div>

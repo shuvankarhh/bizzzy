@@ -18,11 +18,7 @@
                         keep things safe and simple, they’ll pay you through us - which is why we need your personal
                         information.</p>
                     <div>
-                        <img id="imagePreview" class="photo-priview"
-                            style="height: 160px;width:160px; background:no-repeat; background-image: url({{ (is_null($photo)) ? asset('/images/general/avatar.png') : asset('storage/' . $photo) }});background-position: center;
-                            background-size: 160px 160px;"
-                            alt="">
-
+                        <img id="imagePreview" class="photo-priview"  style="height: 160px;width:160px; background:no-repeat; background-image: url({{ (is_null($photo)) ? asset('/images/general/avatar.png') : asset('storage/' . $photo) }});background-position: center; background-size: 160px 160px;" alt="">
                     </div>
                     <div class="photo-upload">
                         <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" name="imageUpload" class=" imageUpload" />
@@ -44,7 +40,7 @@
                         <label class="custom-label">Street Address * (won’t show on profile)</label>
                     </div>
                     <div>
-                        <input id="street_address" name="street_address" type="text" class="form-control" placeholder="Street Address" aria-label="Street Address" aria-describedby="basic-addon1">
+                        <input value="{{ $address->address_line1 }}" id="street_address" name="street_address" type="text" class="form-control" placeholder="Street Address" aria-label="Street Address" aria-describedby="basic-addon1">
                         <div id="street_address_invalid" class="invalid-feedback js"></div>
                     </div>
                     <div class="row">
@@ -53,7 +49,7 @@
                                 <label class="custom-label">City *</label>
                             </div>
                             <div>
-                                <input id="city" name="city" type="text" class="form-control" placeholder="Boston" aria-describedby="basic-addon1">
+                                <input value="{{ $address->city }}" id="city" name="city" type="text" class="form-control" placeholder="Boston" aria-describedby="basic-addon1">
                                 <div id="city_invalid" class="invalid-feedback js"></div>
                             </div>
                         </div>
@@ -62,7 +58,7 @@
                                 <label class="custom-label">ZIP/Postal code</label>
                             </div>
                             <div>
-                                <input id="zip_postal" name="zip_postal" type="text" class="form-control" placeholder="Apt/Suite (Optional)" aria-describedby="basic-addon1">
+                                <input value="{{ $address->postal_code }}" id="zip_postal" name="zip_postal" type="text" class="form-control" placeholder="Apt/Suite (Optional)" aria-describedby="basic-addon1">
                                 <div id="zip_postal_invalid" class="invalid-feedback js"></div>
                             </div>
                         </div>
@@ -87,7 +83,7 @@
         <x-question-footer percentage=65/>
         <div class="row justify-content-end">
             <div class="col-md-3 text-end">
-                <button onclick="add_profile_information()" class="btn btn-bizzzy-success text-nowrap me-3"> Now Share Your Skills </button>
+                <button onclick="add_profile_information()" class="btn btn-bizzzy-success text-nowrap me-3"> Check Your Profile </button>
             </div>
         </div>
     </div>    
@@ -149,8 +145,11 @@
 @push('script')
         
     <script>
-        new TomSelect("#country", { create: false });
+        let country = new TomSelect("#country", { create: false });
 
+        country.setValue('{{ $address->country }}');
+
+        {{--  Cropper  --}}
         const modal_element = document.getElementById('imagecrop_modal');
         var modal_toggle = new bootstrap.Modal(modal_element);
         var image = document.getElementById('image');

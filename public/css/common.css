@@ -24,13 +24,18 @@
 }
 
 @font-face {
-    font-family: Uber Move;
-    src: url(/fonts/Uber_Move/UberMoveMedium.ttf);
+    font-family: Uber-Regular;
+    src: url(/fonts/Uber/UberMoveTextRegular.otf);
 }
 
 @font-face {
-    font-family: Uber-Regular;
-    src: url(/fonts/Uber/UberMoveTextRegular.otf);
+    font-family: Uber-Medium;
+    src: url(/fonts/Uber/UberMoveTextMedium.otf);
+}
+
+@font-face {
+    font-family: Uber-Bold;
+    src: url(/fonts/Uber/UberMoveTextBold.otf);
 }
 
 .bizzzy-background {

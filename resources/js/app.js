@@ -238,7 +238,7 @@ add_profile_information = () => {
     
     axios.post(APP_URL + '/user/create/question-thirteen', formData)
     .then(function (response) {
-        // location.href = response.data;
+        location.href = response.data;
     })
     .catch(function (error) {
         if(typeof error.response !== 'undefined'){ // This is for error from laravel
@@ -297,3 +297,10 @@ add_title = () => {
 }
 
 // --------------
+
+
+// Show Full Text
+show_full_text  = (e) => {
+    document.getElementById('show_text').innerHTML = document.getElementById('full_text').innerHTML
+    e.style.display = "none";
+}

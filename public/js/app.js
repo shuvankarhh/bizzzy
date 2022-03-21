@@ -2253,7 +2253,8 @@ add_profile_information = function add_profile_information() {
   removeValidation();
   var form = document.getElementById('profile_information_form');
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/question-thirteen', formData).then(function (response) {// location.href = response.data;
+  axios.post(APP_URL + '/user/create/question-thirteen', formData).then(function (response) {
+    location.href = response.data;
   })["catch"](function (error) {
     if (typeof error.response !== 'undefined') {
       // This is for error from laravel
@@ -2303,6 +2304,13 @@ add_title = function add_title() {
     }
   });
 }; // --------------
+// Show Full Text
+
+
+show_full_text = function show_full_text(e) {
+  document.getElementById('show_text').innerHTML = document.getElementById('full_text').innerHTML;
+  e.style.display = "none";
+};
 
 /***/ }),
 

@@ -1,3 +1,5 @@
+v0.020.0 - add: submit-profile, bug fix (2022-03-21 17:12)
+
 v0.019.0 - add: freelancer-profile (2022-03-21 12:03)
 
 v0.018.0 - add: jobs (2022-03-16 16:25)

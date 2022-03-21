@@ -80,6 +80,7 @@ class FreelancerProfileController extends Controller
             [ 'user_id' => auth()->id(), ]
         );
 
+        return route('profile');
     }
 
     public function title_store(Request $request)

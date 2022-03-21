@@ -198,10 +198,5 @@
     <script>
         let progress = document.querySelector(".progress");
         progress.style.width = '90%';
-
-        let show_full_text  = (e) => {
-            document.getElementById('show_text').innerHTML = document.getElementById('full_text').innerHTML
-            e.style.display = "none";
-        }
     </script>
 @endpush

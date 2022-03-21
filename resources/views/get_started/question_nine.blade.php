@@ -37,11 +37,8 @@
                 </form>
                 <div class="row justify-content-end">
                     <div class="col-md-3 col-lg-3 col-xl-3 col-sm-3 d-none d-sm-none d-md-block align-self-end">
-                        <div class="card" style="min-width: 200px"><img src="{{asset('/images/card/card1.png')}}"
-                                class="card-img-top" alt="..."
-                                style="background-image: linear-gradient(0deg, #FFAB00 0%, #FF991F 99.49%);"><img
-                                class="battery" style="left: 45%" src="{{asset('/images/card/single-battary.png')}}"
-                                alt="">
+                        <div class="card" style="min-width: 200px">
+                            <img src="{{ asset('/images/card/battery-single-yellow.svg') }}" class="card-img-top" alt="...">
                             <div class="card-body" style="margin-top: 0px">
                                 <p class="card-text" style="">Bizzzy Tip</p>
                                 <p class="card-text sm" style="">“Bizzzy’s algorithm will recommend specific job posts to you based on your skills. So choose them carefully to get the best Match!”</p>

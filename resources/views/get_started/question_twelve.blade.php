@@ -29,7 +29,7 @@
                             </div>
                         </form>
                     </div>                    
-                    <div class="col-12 mt-5">
+                    <div class="col-12">
                         <hr class="mt-0">
                     </div>
                 </div>
@@ -72,6 +72,7 @@
         </div>
 
     </div>
+    <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=25/>
         <div class="row justify-content-end">

@@ -112,7 +112,9 @@
                         </div>
                     </div>    
                 @else
-                    
+                    <div class="connect-required text-nowrap ">
+                        2 connects required
+                    </div>
                 @endif
             </div>
             <div class="col-6 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
@@ -138,7 +140,9 @@
                 </div>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3 col-xxl-3 col-sm-6 col-6 align-self-center text-end">
-                <a href="{{ route('job.create', 1) }}" role="button" class="btn btn-primary bizzzy-background apply-button">Apply to Position</a>
+                @if (!$connect)
+                    <a href="{{ route('job.create', 1) }}" role="button" class="btn btn-primary bizzzy-background apply-button">Apply to Position</a>
+                @endif
             </div>
         </div>
     </section>

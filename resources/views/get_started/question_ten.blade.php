@@ -25,11 +25,8 @@
                     <p style="float: right">At least 100 characters</p>
                 </div>
                 <div class="col-md-5 col-lg-5 col-xl-5 d-none d-sm-none d-md-block align-items-end">
-                    <div class="card bizzy-tip-bio" style=""><img src="{{ asset('/images/card/card1.png') }}"
-                            class="card-img-top" alt="..."
-                            style="background-image: linear-gradient(0deg, #FFAB00 0%, #FF991F 99.49%);"><img
-                            class="battery" style="left: 45%" src="{{ asset('/images/card/single-battary.png') }}"
-                            alt="">
+                    <div class="card bizzy-tip-bio" style="">
+                        <img src="{{ asset('/images/card/battery-single-yellow.svg') }}" class="card-img-top" alt="...">
                         <div class="card-body text-start" style="margin-top: 0px">
                             <p class="card-text text-start" style="">Bizzzy Tip</p>
                             <p class="card-text sm text-start" style="">“I’m a developer with experience in building

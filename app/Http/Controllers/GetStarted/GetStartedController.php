@@ -52,8 +52,6 @@ class GetStartedController extends Controller
     }
 
 
-
-
     public function qnine()
     {
         return view('get_started.question_nine')->with([
@@ -73,7 +71,8 @@ class GetStartedController extends Controller
     public function qThirteen()
     {
         return view('get_started.question_thirteen')->with([
-            'photo' => auth()->user()->photo
+            'photo' => auth()->user()->photo,
+            'address' => auth()->user()->address
         ]);
     }
 }
