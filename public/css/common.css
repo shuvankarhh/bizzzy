@@ -28,10 +28,16 @@
     src: url(/fonts/Uber_Move/UberMoveMedium.ttf);
 }
 
-.bizzzy-background{
+@font-face {
+    font-family: Uber-Regular;
+    src: url(/fonts/Uber/UberMoveTextRegular.otf);
+}
+
+.bizzzy-background {
     background-color: #0086FF;
 }
-.bizzzy-color{
+
+.bizzzy-color {
     color: #0086FF;
 }
 
@@ -63,7 +69,6 @@
 
 /* navbar start */
 
-
 .navbar_section {
     margin-top: 15px;
     /* width: 80%; */
@@ -91,7 +96,7 @@
     font-weight: 600;
 }
 
-.nav-link.signup-sm{
+.nav-link.signup-sm {
     display: none;
     font-family: Mulish-Bold;
     font-style: normal;
@@ -151,7 +156,7 @@
     font-family: Mulish-Bold;
 }
 
-.sm-authentication{
+.sm-authentication {
     display: none !important;
 }
 
@@ -162,18 +167,15 @@
     .sign_up {
         display: none !important;
     }
-
-    .nav-link.signup-sm{
+    .nav-link.signup-sm {
         display: block;
     }
-
-    .sm-authentication{
+    .sm-authentication {
         display: flex !important;
     }
-
-    .navbar > .container-fluid > .responsive-nav-justify{
+    .navbar>.container-fluid>.responsive-nav-justify {
         justify-content: start;
-    }    
+    }
 }
 
 

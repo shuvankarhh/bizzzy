@@ -18,6 +18,7 @@
     use App\Http\Controllers\FreelancerProfileCategoryController;
     use App\Http\Controllers\GetStarted\WorkExperienceController;
     use App\Http\Controllers\ProfileController;
+    use App\Http\Controllers\BlogController;
 
     /*
 |--------------------------------------------------------------------------
@@ -103,6 +104,7 @@
 
 
             Route::get('submit-profile', [ProfileController::class, 'submitProfile'])->name('profile');
+            Route::get('blog', [BlogController::class, 'blog'])->name('blog');
 
             Route::get('/', [UserController::class, 'index']);
         });
