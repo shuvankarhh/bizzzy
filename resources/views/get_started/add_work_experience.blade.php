@@ -6,10 +6,10 @@
 
 @section('content')
 <section class="question">
-    <div class="container py-3 mt-3 h-100">
-        <div class="row">
-            <div class=" col-md-1 col-lg-1 col-xl-1 col-sm-3 d-none d-sm-none d-md-block">
-                <a>Prev</a>
+    <div class="container py-3 mt-5 h-100">
+        <div class="row">          
+            <div class="col-1 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                <a class="btn prev-button" href="{{ route('question.five') }}">Prev</a>
             </div>
             <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">   
                 <p class="main-question" >If you have relevant work experience, add it here.</p>
@@ -37,7 +37,7 @@
                                         
                 
 
-                <div class="form-check mt-3">
+                <div class="form-check mt-3 d-inline-flex">
                     <input class="form-check-input" type="checkbox" value="" id="no_exp" />
                     <label class="form-check-label" for="no_exp">Nothing to add? Check the box and keep going</label>
                 </div>
@@ -50,11 +50,7 @@
     <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=65/>
-        <div class="row justify-content-end">
-            <div class="col-md-3 text-end">
-                <button onclick="first_working_experience('{{ route('education.index') }}')" class="btn btn-bizzzy-success text-nowrap me-3">Now, Add your Education</button>
-            </div>
-        </div>
+        <x-question-footer-content href="{{ route('question.five') }}" on-click="first_working_experience('{{ route('education.index') }}')" button-text="Now, Add your Education" />
     </div>
 </section>
 

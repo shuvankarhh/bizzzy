@@ -137,6 +137,21 @@ add_language = () => {
     });
 }
 
+remove_additional_selected_language = (number, id) => {
+    axios.delete(APP_URL + '/user/create/language/' + id)
+    .then(function (response) {        
+        var el = document.getElementById(`addition_num_${number}`);
+        el.remove();
+    })
+    .catch(function (error) {
+        if(typeof error.response !== 'undefined'){ // This is for error from laravel
+            document.getElementById('error').innerHTML = error.response.data.error;
+        }else{ // Other JS related error
+            console.log(error);
+        }
+    });
+}
+
 // -----------------------
 
 

@@ -8,7 +8,7 @@
 <section class=" question">
     <div class="container py-3 mt-5 h-100">
         <div class="row">
-            <div class=" col-md-1 col-lg-1 col-xl-1 col-sm-3 d-none d-sm-none d-md-block">
+            <div class="col-1 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
                 {{-- <a>Prev</a> --}}
             </div>
             <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">   
@@ -39,6 +39,7 @@
     <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=10/>
+        <x-question-footer-content />
         <div class="row justify-content-end">
             <div class="col-md-3 text-end">
                 {{-- <button class="btn btn-bizzzy-success text-nowrap me-3">Next, Languages </button> --}}

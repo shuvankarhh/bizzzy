@@ -6,10 +6,10 @@
 
 @section('content')
 <section class="question">
-    <div class="container py-3">
-        <div class="row d-flex justify-content-center mt-3 align-items-center">
-            <div class="col-md-1 align-self-start">
-                <a>Prev</a>
+    <div class="container py-3 mt-5">
+        <div class="row">
+            <div class="col-1 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                <a class="btn prev-button" href="{{ route('question.two') }}">Prev</a>
             </div>
             <div class="col-md-11">
                 <div class="row">
@@ -18,8 +18,8 @@
                         <p class="main-question-desc" >Different people come to Bizzzy for different reasons. We want to highlight the opportunities that fit your goals best – while still showing you all the possibilities. Which of these feels most right for you?</p>
                     </div>
                     <div class="col-md-12">
-                        <div class="row battery-question justify-content-md-center justify-content-sm-center justify-content-xs-center justify-content-lg-left justify-content-xl-left">
-                            <div class="col-md-3 col-lg-3 col-xl-3 col-xxl-4 col-sm-12">
+                        <div class="row battery-question justify-content-md-center justify-content-sm-center justify-content-center justify-content-lg-left justify-content-xl-left">
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-xxl-4 col-sm-8 col-8">
                                 <div class="card">
                                     <img src="{{asset('/images/card/battery-yellow.svg')}}" class="card-img-top" alt="...">
                                     <div class="checkbox">
@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12">
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-8 col-8">
                                 <div class="card">
                                     <img src="{{asset('/images/card/battery-blue.svg')}}" class="card-img-top" alt="...">
                                     <div class="checkbox">
@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12">
+                            <div class="col-md-3 col-lg-3 col-xl-3 col-sm-8 col-8">
                                 <div class="card">
                                     <img src="{{asset('/images/card/battery-yellow.svg')}}" class="card-img-top" alt="...">
                                     <div class="checkbox">
@@ -79,11 +79,7 @@
     <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=65/>
-        <div class="row justify-content-end">
-            <div class="col-md-3 text-end">
-                <button onclick="first_working_experience('{{ route('question.five') }}')" class="btn btn-bizzzy-success text-nowrap me-3">Next, Create a Profile </button>
-            </div>
-        </div>
+        <x-question-footer-content href="{{ route('question.two') }}" on-click="first_working_experience('{{ route('question.five') }}')" button-text="Next, Create a Profile" />
     </div>
 </section>
 @endsection

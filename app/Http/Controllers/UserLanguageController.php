@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserLanguage;
+use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 
 class UserLanguageController extends Controller
@@ -14,7 +15,10 @@ class UserLanguageController extends Controller
      */
     public function index()
     {
-        return view('get_started.language')->with('name', auth()->user()->name);
+        return view('get_started.language')->with([
+            'english' => auth()->user()->languages()->where('language_code', 'en')->first(),
+            'languages' => auth()->user()->languages()->where('language_code', '!=', 'en')->get()
+        ]);
     }
 
     /**
@@ -39,6 +43,8 @@ class UserLanguageController extends Controller
             "proficiency"    => "required|array|min:1",
             "proficiency.*"  => "required",
         ]);
+
+        UserLanguage::where('user_id', auth()->id())->delete();
 
         foreach($request->language as $idx=>$item){
             UserLanguage::updateOrCreate(
@@ -95,8 +101,12 @@ class UserLanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(UserLanguage $language)
     {
-        //
+        if($language->user_id != auth()->id()){
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+        $language->delete();
     }
 }

@@ -49,7 +49,9 @@
         Artisan::call('config:clear');
         // return what you want
     });
-
+    Route::get('/link', function () {
+        Artisan::call('storage:link');
+    });
     Route::prefix('user')->group(function () {
         Route::get('login', [AuthenticationController::class, 'userLoginCreate'])->name('user.login');
         Route::post('login', [AuthenticationController::class, 'userLoginStore']);
@@ -91,6 +93,7 @@
             Route::post('hourly_rate', [FreelancerProfileController::class, 'hourly_rate_store'])->name('hourlyRate.store');
             Route::get('language', [UserLanguageController::class, 'index'])->name('language.index');
             Route::post('language', [UserLanguageController::class, 'store'])->name('language.store');
+            Route::delete('language/{language}', [UserLanguageController::class, 'destroy'])->name('language.store');
 
 
             Route::get('skill', [UserSkillController::class, 'index'])->name('skill.index');

@@ -149,15 +149,15 @@ font-weight: 900;
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: #DFE1E6;
+    background: #E11900;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .remove-language i {
-    color: #DE350B;
-    font-size: 12px;
+    color: white;
+    font-size: 1rem;
 }
 
 .question {
@@ -468,6 +468,25 @@ as long as it is a sibling. */
 
 
 /* --- Override defaults --- */
+
+.prev-button{
+    padding: 0.3rem 0.6rem 0.3rem 0.6rem;
+    box-shadow: unset;
+    background: #EEEEEE;
+    border-radius: 0;
+    text-transform: unset;
+    color: #0086FF;
+    max-width: 3rem;
+}
+
+.prev-button:hover{
+    color: #0086FF;
+    box-shadow: unset;
+}
+
+.prev-button:focus{
+    box-shadow: unset;
+}
 
 .space-between{
     display: flex;

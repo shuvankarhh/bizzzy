@@ -8,10 +8,12 @@
 <x-navbar links="false" />
 @endsection @section('content')
 <section class="question">
-    <div class="container py-3 h-100">
+    <div class="container py-3 h-100 mt-5">
         <form action="#" id="profile_information_form">
             <div class="row battery-question">
-                <div class=" col-md-1 col-lg-1 col-xl-1 col-sm-3"><a>Prev</a></div>
+                <div class="col-1 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                    <a class="btn prev-button" href="{{ route('question.twelve') }}">Prev</a>
+                </div>
                 <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">    
                     <p class="main-question">A few last details - then you can check and publish your profile.</p>
                     <p class="main-question-desc">A professional photo helps you build trust with your clients. To
@@ -40,7 +42,7 @@
                         <label class="custom-label">Street Address * (won’t show on profile)</label>
                     </div>
                     <div>
-                        <input value="{{ $address->address_line1 }}" id="street_address" name="street_address" type="text" class="form-control" placeholder="Street Address" aria-label="Street Address" aria-describedby="basic-addon1">
+                        <input value="{{ (!is_null($address)) ? $address->address_line1 : '' }}" id="street_address" name="street_address" type="text" class="form-control" placeholder="Street Address" aria-label="Street Address" aria-describedby="basic-addon1">
                         <div id="street_address_invalid" class="invalid-feedback js"></div>
                     </div>
                     <div class="row">
@@ -49,7 +51,7 @@
                                 <label class="custom-label">City *</label>
                             </div>
                             <div>
-                                <input value="{{ $address->city }}" id="city" name="city" type="text" class="form-control" placeholder="Boston" aria-describedby="basic-addon1">
+                                <input value="{{ (!is_null($address)) ? $address->city: '' }}" id="city" name="city" type="text" class="form-control" placeholder="Boston" aria-describedby="basic-addon1">
                                 <div id="city_invalid" class="invalid-feedback js"></div>
                             </div>
                         </div>
@@ -58,7 +60,7 @@
                                 <label class="custom-label">ZIP/Postal code</label>
                             </div>
                             <div>
-                                <input value="{{ $address->postal_code }}" id="zip_postal" name="zip_postal" type="text" class="form-control" placeholder="Apt/Suite (Optional)" aria-describedby="basic-addon1">
+                                <input value="{{ (!is_null($address)) ? $address->postal_code : '' }}" id="zip_postal" name="zip_postal" type="text" class="form-control" placeholder="Apt/Suite (Optional)" aria-describedby="basic-addon1">
                                 <div id="zip_postal_invalid" class="invalid-feedback js"></div>
                             </div>
                         </div>
@@ -81,17 +83,12 @@
     <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=65/>
-        <div class="row justify-content-end">
-            <div class="col-md-3 text-end">
-                <button onclick="add_profile_information()" class="btn btn-bizzzy-success text-nowrap me-3"> Check Your Profile </button>
-            </div>
-        </div>
+        <x-question-footer-content href="{{ route('question.twelve') }}" on-click="add_profile_information()" button-text="Check Your Profile" />
     </div>    
 </section>
 
 <!-- Modal -->
-<div class="modal fade imagecrop" id="imagecrop_modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade imagecrop" id="imagecrop_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -100,7 +97,7 @@
             <div class="modal-body">
                 <div>
                     <div>
-                        <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                        <img width="400px" height="400px" id="image" src="https://avatars0.githubusercontent.com/u/3456749">
                     </div>
                     {{-- <div class="photo-upload">
                         <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" name="imageUpload"
@@ -121,11 +118,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn"
-                    style="background: #FFFFFF; border-radius: 3px; color: #42526E;"
-                    data-mdb-dismiss="modal">Close</button>
-                <button type="button" class="btn crop" id="crop"
-                    style="background: #14A800; border-radius: 3px; color:#FFFFFF">Save</button>
+                <button type="button" class="btn" style="background: #FFFFFF; border-radius: 3px; color: #42526E;" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn crop" id="crop" style="background: #14A800; border-radius: 3px; color:#FFFFFF">Save</button>
             </div>
         </div>
     </div>
@@ -147,7 +141,7 @@
     <script>
         let country = new TomSelect("#country", { create: false });
 
-        country.setValue('{{ $address->country }}');
+        country.setValue('{{ (!is_null($address)) ? $address->country : '' }}');
 
         {{--  Cropper  --}}
         const modal_element = document.getElementById('imagecrop_modal');
@@ -182,11 +176,14 @@
                 aspectRatio: 1,
                 viewMode: 1,
                 cropBoxResizable: false,
+                toggleDragModeOnDblclick: false,
+                dragMode: 'move',
             });
         });
         modal_element.addEventListener('hidden.bs.modal', function() {
             cropper.destroy();
             cropper = null;
+            document.getElementById('imageUpload').value = '';
         });
         let crop_element = document.getElementById('crop');
         crop_element.addEventListener("click", function() {

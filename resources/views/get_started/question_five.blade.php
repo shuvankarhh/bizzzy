@@ -6,11 +6,11 @@
 
 @section('content')
 <section class="question">
-    <div class="container py-3">
+    <div class="container py-3 mt-5">
         <form action="#" id="title_form">
             <div class="row">
                 <div class=" col-md-1 col-lg-1 col-xl-1 col-sm-3 d-none d-sm-none d-md-block">
-                    <a>Prev</a>
+                    <a role="button" class="btn prev-button" href="{{ route('question.three') }}">Prev</a>
                 </div>
                 <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">   
                     <p class="main-question" >Got it. Now, add a title to tell the world what you do.</p>
@@ -30,11 +30,7 @@
     <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=65/>
-        <div class="row justify-content-end">
-            <div class="col-md-3 text-end">
-                <button onclick="add_title()" class="btn btn-bizzzy-success text-nowrap me-3">Next, Add Your Experience</button>
-            </div>
-        </div>
+        <x-question-footer-content href="{{ route('question.three') }}" on-click="add_title()" button-text="Next, Add Your Experience" />
     </div>
 </section>
 @endsection

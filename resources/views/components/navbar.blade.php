@@ -38,7 +38,7 @@
                             <a href="{{ route('job.index') }}" class="nav-link {{ request()->is('jobs') ? 'active' : '' }}" aria-current="page" href="#">Jobs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link 2</a>
+                            <a class="nav-link" href="{{ route('start.message') }}">Profile Setup</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link 3</a>

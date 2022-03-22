@@ -4,9 +4,11 @@
 @endsection 
 @section('content') 
 <section class="question">
-    <div class="container py-3 h-100">
+    <div class="container py-3 mt-5 h-100">
         <div class="row justify-content-center battery-question">
-            <div class=" col-md-1 col-lg-1 col-xl-1 col-sm-3"><a>Prev</a></div>
+            <div class="col-1 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                <a class="btn prev-button" href="{{ route('language.index') }}">Prev</a>
+            </div>
             <div class="col-md-11 col-lg-11 col-xl-11 col-sm-12">
                 <form action="#" id="skill_form">
                     <div class="row">
@@ -53,11 +55,7 @@
     <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=65/>
-        <div class="row justify-content-end">
-            <div class="col-md-3 text-end">
-                <button onclick="add_skill()" class="btn btn-bizzzy-success text-nowrap me-3"> Now Write Your Bio </button>
-            </div>
-        </div>
+        <x-question-footer-content href="{{ route('language.index') }}" on-click="add_skill()" button-text="Now Write Your Bio" />
     </div>
 </section>
 @endsection
@@ -69,7 +67,10 @@
             create: false,
         });
 
-        skill_select.setValue({{ $user_skills }});
+        var text1 = '{{ $user_skills }}';
+        var text2 = text1.replace(/&quot;/g, '\"');
+
+        skill_select.setValue(JSON.parse(text2));
 
         // Inserting Skills
 

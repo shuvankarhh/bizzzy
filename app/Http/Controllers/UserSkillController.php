@@ -15,7 +15,7 @@ class UserSkillController extends Controller
      */
     public function index()
     {
-        return view('get_started.question_nine')->with([
+        return view('get_started.add_skill')->with([
             'name' => auth()->user()->name,
             'skills' => Skill::get(),
             'user_skills' => json_encode(auth()->user()->skills()->pluck('skill_id')->toArray())

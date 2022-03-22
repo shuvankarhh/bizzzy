@@ -4,9 +4,11 @@
 @endsection
 @section('content')
     <section class="question">
-        <div class="container py-3 h-100">
+        <div class="container py-3 mt-5 h-100">
             <div class="row justify-content-center battery-question">
-                <div class=" col-md-1 col-lg-1 col-xl-1 col-sm-3"><a>Prev</a></div>
+                <div class="col-1 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                    <a class="btn prev-button" href="{{ route('skill.index') }}">Prev</a>
+                </div>
                 <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
                     <p class="main-question">Great! Now write a bio to tell the world about yourself.</p>
                     <p class="main-question-desc">Help people get to know you at a glance. What work are you best at? Tell
@@ -46,11 +48,7 @@
         <div class="question-footer-height"></div>
         <div class="question-footer">
             <x-question-footer percentage=65 />
-            <div class="row justify-content-end">
-                <div class="col-md-3 text-end">
-                    <button onclick="add_bio()" class="btn btn-bizzzy-success text-nowrap me-3"> Choose Your Area of Work </button>
-                </div>
-            </div>
+            <x-question-footer-content href="{{ route('skill.index') }}" on-click="add_bio()" button-text="Choose Your Area of Work" />
         </div>
     </section>
 @endsection

@@ -8,8 +8,8 @@
 <section class="question">
     <div class="container mt-5 py-3 h-100">
         <div class="row">
-            <div class="col-md-1 col-lg-1 col-xl-1 col-sm-3 d-none d-sm-none d-md-block">
-                <a>Prev</a>
+            <div class="col-1 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                <a class="btn prev-button" href="{{ route('category.create') }}">Prev</a>
             </div>
             <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">   
                 <p class="main-question" >Now, let’s set your hourly rate.</p>
@@ -75,11 +75,7 @@
     <div class="question-footer-height"></div>
     <div class="question-footer">
         <x-question-footer percentage=25/>
-        <div class="row justify-content-end">
-            <div class="col-md-3 text-end">
-                <button onclick="add_hourly_rate()" class="btn btn-bizzzy-success text-nowrap me-3">Next, set your rate </button>
-            </div>
-        </div>
+        <x-question-footer-content href="{{ route('category.create') }}" on-click="add_hourly_rate()" button-text="Lastly: Photo and Locations" />
     </div>
 </section>
 @endsection
