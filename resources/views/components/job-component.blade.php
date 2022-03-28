@@ -15,9 +15,7 @@
             <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-1 col-1 p-0 d-md-none d-lg-none d-xl-none d-xxl-none"></div>
             <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-11 col-11 p-0 d-md-none d-lg-none d-xl-none d-xxl-none">
                 <p class="m-0" style="font-weight: bold">
-                    <span class="badge badge-dark d-md-none d-lg-none d-xl-none d-xxl-none"> <img class="featured" src="{{ asset('images\icons\job\featured.svg') }}" alt=""> FEATURED JOB</span>
-                    <span class="badge badge-danger d-md-none d-lg-none d-xl-none d-xxl-none">URGENT</span>
-                    <span class="badge badge-success d-md-none d-lg-none d-xl-none d-xxl-none">OPPERTUNITY</span>
+                    {{--  Tags for Mobile  --}}
                 </p>
             </div>
 
@@ -30,16 +28,16 @@
 
             <div class="col-md-10 col-lg-10 col-xl-10 col-xxl-10 col-sm-9 col-9 pb-3 pt-3">
                 <p class="m-0" style="font-weight: bold">
-                    Product UI Designer @ Fast-Growing SaaS
-                    <span class="badge badge-dark d-none d-sm-none d-md-inline d-lg-inline d-xl-inline d-xxl-inline"> <img class="featured" src="{{ asset('images\icons\job\featured.svg') }}" alt=""> FEATURED JOB</span>
-                    <span class="badge badge-danger d-none d-sm-none d-md-inline d-lg-inline d-xl-inline d-xxl-inline">URGENT</span>
-                    <span class="badge badge-success d-none d-sm-none d-md-inline d-lg-inline d-xl-inline d-xxl-inline">OPPERTUNITY</span>
+                    {{ $job->name }}
+                    @foreach ($job->tags as $item)
+                        <x-dynamic-component :component="'tags.' . $item->tag->name" class="mt-4" />
+                    @endforeach
                 </p>
-                <p class="m-0">Your Name</p>
+                <p class="m-0">{{ $job->recruiter->name }}</p>
             </div>
 
             @if ($applied)
-                {{--  This section is for larger screens  --}}
+                {{--  This section is for larger screens. Will be hidden for small display.  --}}
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-4 col-xs-4 p-0 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
                     <div class="applied text-center">
                         <img src="{{ asset('images\icons\job\applied.svg') }}" alt="">
@@ -50,23 +48,16 @@
         </div>
         <div class="row">
             <div class="col-11">
-                <p class="m-0">Are you tired of working on MVPs and on boring design projects? Are you an experienced designer looking to work on tough design problems and create astonishing designs ? Helpjuice (a fast-growing b2b software) is hiring for a designer. What is Helpjuice? Helpjuice is a SaaS application that empowers thousands of large and small companies (such as...</p>
-                <a class="m-0 more-text" href="">more</a>
+                <p id="show_text{{ $idx }}" class="m-0">{!! \Illuminate\Support\Str::limit($job->description, 350, $end='....<u onclick="show_full_text(this, '.$idx.')" role="button" class="m-0 job-more-button">more</u>') !!}</p>
+                <span class="d-none" id="full_text{{ $idx }}">{{ $job->description }}</span>
             </div>
             <div class="col-11 mt-3">
                 <div class="job-tag">
-                    <div>
-                        UI Design
-                    </div>
-                    <div>
-                        Adobe XD
-                    </div>
-                    <div>
-                        Website Design
-                    </div>
-                    <div>
-                        Product Design
-                    </div>
+                    @foreach ($job->categories as $item)
+                        <div>
+                            {{ $item->category->name }}
+                        </div>                        
+                    @endforeach
                 </div>
             </div>
             <div class="col-11 mt-3">
@@ -89,7 +80,7 @@
                     </div>
                     <div>
                         <img src="{{ asset('images\icons\job\time.svg') }}" alt="">
-                        <p class="ms-2 m-0"> Yesterday </p>
+                        <p class="ms-2 m-0"> {{ $job->created_at }} </p>
                     </div>
                 </div>
             </div>
@@ -121,27 +112,27 @@
                 <div class="row justify-content-center">
                     <div class="col-3 text-center">
                         <p class="m-0 top-text">Budget</p>
-                        <p class="m-0 bottom-text">$100</p>
+                        <p class="m-0 bottom-text">${{ ($job->price_type == '1') ? $job->price : $job->price . '/hr' }}</p>
                     </div>
                     <div class="col-1 align-self-center">
                         <span class="divider"></span>
                     </div>
                     <div class="col-3 text-center">
                         <p class="m-0 top-text">Time</p>
-                        <p class="m-0 bottom-text">6 months +</p>
+                        <p class="m-0 bottom-text">{{ $job->project_type }}</p>
                     </div>
                     <div class="col-1 align-self-center">
                         <span class="divider"></span>
                     </div>
-                    <div class="col-3 text-center">
-                        <p class="m-0 top-text">Looking for</p>
-                        <p class="m-0 bottom-text">Freelancer</p>
+                    <div class="col-4 text-center">
+                        <p class="m-0 top-text text-nowrap">Experience Level</p>
+                        <p class="m-0 bottom-text">{{ $job->experience_level }}</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3 col-xxl-3 col-sm-6 col-6 align-self-center text-end">
-                @if (!$connect)
-                    <a href="{{ route('job.create', 1) }}" role="button" class="btn btn-primary bizzzy-background apply-button">Apply to Position</a>
+                @if (!$applied AND !$connect)
+                    <a href="{{ route('job.apply.create', $job->id) }}" role="button" class="btn btn-primary bizzzy-background apply-button">Apply to Position</a>
                 @endif
             </div>
         </div>

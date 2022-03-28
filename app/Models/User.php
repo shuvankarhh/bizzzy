@@ -81,5 +81,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Category::class, 'freelancer_profile_categories', 'profile_id', 'category_id');
     }
+
+    public function portfolios()
+    {
+        return $this->hasMany(UserPortfolio::class);
+    }
     
 }

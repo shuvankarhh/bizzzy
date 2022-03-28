@@ -11,7 +11,7 @@
     <div class="row d-flex justify-content-center align-items-center h-50 p5">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5 col-sm-3">
             <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                <div class="card-body p-5 text-center">
+                <div class="card-body text-center">
 
                     <h3 class="mb-5" style="font-size: 16px;">Verify your email to proceed</h3>
 

@@ -19,6 +19,8 @@
     use App\Http\Controllers\GetStarted\WorkExperienceController;
     use App\Http\Controllers\ProfileController;
     use App\Http\Controllers\BlogController;
+use App\Http\Controllers\JobApplyController;
+use App\Http\Controllers\UserPortfolioController;
 
     /*
 |--------------------------------------------------------------------------
@@ -69,7 +71,7 @@
 
     Route::post('test', [GetStartedController::class, 'test'])->name('test');
 
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => ['auth', 'user.activity']], function () {
         Route::get('category/sub-category/{id}', [CategoryController::class, 'get_sub_category'])->name('category.subCategory');
 
         Route::prefix('user/create')->group(function () {
@@ -112,14 +114,25 @@
             Route::get('/', [UserController::class, 'index']);
         });
 
-        Route::prefix('jobs')->group(function () {
+        Route::prefix('job')->group(function () {
             Route::get('/', [JobController::class, 'index'])->name('job.index');
-            Route::get('/create/{id}', [JobController::class, 'create'])->name('job.create');
+            Route::post('/', [JobController::class, 'store'])->name('job.store');
+            Route::get('/create', [JobController::class, 'create'])->name('job.create');
+        });
+        
+        Route::prefix('job-apply')->group(function () {
+            Route::get('create/{id}', [JobApplyController::class, 'create'])->name('job.apply.create');
+            Route::post('/', [JobApplyController::class, 'store'])->name('job.apply.store');
         });
 
         Route::prefix('freelancers')->group(function () {
             Route::get('/', [FreelancerProfileController::class, 'index'])->name('freelancer.index');
             // Route::get('/create/{id}', [JobController::class, 'create'])->name('job.create');
+        });
+
+        Route::prefix('user_portfolio')->group(function () {
+            Route::get('/create', [UserPortfolioController::class, 'create'])->name('portfolio.create');
+            Route::post('/', [UserPortfolioController::class, 'store'])->name('portfolio.index');
         });
         Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
     });

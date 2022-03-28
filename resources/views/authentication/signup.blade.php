@@ -9,7 +9,7 @@
 <section>
     <div class="container h-100">
         <div class="row justify-content-center align-items-center h-100">
-            <div class="col-lg-4 col-md-5 col-sm-8 col-xs-12">
+            <div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
                 <form action="{{ route('user.register.email') }}">
                     <div class="card shadow-2-strong" style="border-radius: 1rem;">
                         <div class="card-body text-center">

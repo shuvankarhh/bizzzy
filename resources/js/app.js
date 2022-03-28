@@ -1,3 +1,5 @@
+const { default: axios } = require('axios');
+
 require('./bootstrap');
 window.bootstrap = require('./bootstrap_v5-0-2/bootstrap.bundle.js');
 
@@ -101,7 +103,6 @@ add_education = () => {
 
     axios.post(APP_URL + '/user/create/add-education', formData)
     .then(function (response) {
-        console.log(response);
         location.href= '';
 
     })
@@ -315,7 +316,101 @@ add_title = () => {
 
 
 // Show Full Text
-show_full_text  = (e) => {
-    document.getElementById('show_text').innerHTML = document.getElementById('full_text').innerHTML
+
+show_full_text  = (e, idx = '') => {
+    document.getElementById(`show_text${idx}`).innerHTML = document.getElementById(`full_text${idx}`).innerHTML
     e.style.display = "none";
 }
+
+// --------------
+
+// Add Portfolio
+
+let form = document.getElementById('add_protfolio_form');
+if(form){
+    form.addEventListener('submit', () => {
+        event.preventDefault();
+    
+        let formData = new FormData(form);
+    
+        axios.post(`${APP_URL}/user_portfolio`, formData)
+        .then(function (response){
+            console.log(response);
+            location.href = response.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+            if(typeof error.response !== 'undefined'){ // This is for error from laravel
+                showValidation(error.response.data);
+            }else{ // Other JS related error
+                console.log(error);
+            }
+        });
+    });
+}
+
+// --------------
+
+// Add Job
+
+add_job = (e) => {
+    event.preventDefault();
+
+    removeValidation();
+
+    let formData = new FormData(e);
+    
+    axios.post(APP_URL + '/job', formData)
+    .then(function (response) {
+        console.log(response);
+        e.reset();
+        tags_select.clear();
+        categories_select.clear();
+        languages_select.clear();
+        location.href = response.data;
+    })
+    .catch(function (error) {
+        if(typeof error.response !== 'undefined'){ //  This is for error from laravel
+            console.log(error.response.data);
+            showValidation(error.response.data);
+        }else{ // Other JS related error
+            console.log(error);
+        }
+    });
+}
+
+// --------------
+
+// Job Proposal
+let job_proposal = document.getElementById('job_proposal_form');
+if(job_proposal){
+    job_proposal.addEventListener('submit', (e) => {
+        e.preventDefault();
+        console.log(e.target);
+        // return;
+
+        removeValidation();
+    
+        let formData = new FormData(e.target);
+        
+        axios.post(APP_URL + '/job-apply', formData)
+        .then(function (response) {
+            console.log(response);
+            // e.reset();
+            // tags_select.clear();
+            // categories_select.clear();
+            // languages_select.clear();
+            location.href = response.data;
+        })
+        .catch(function (error) {
+            if(typeof error.response !== 'undefined'){ //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            }else{ // Other JS related error
+                console.log(error);
+            }
+        });
+    });
+}
+
+// --------------

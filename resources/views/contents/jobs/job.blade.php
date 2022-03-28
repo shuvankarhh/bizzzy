@@ -53,12 +53,9 @@
         <!-- Tabs content -->
         <div class="tab-content" id="ex1-content">
             <div class="tab-pane fade show active" id="all_job_tab" role="tabpanel" aria-labelledby="all_job">
-                <x-job-component applied="1" />
-                <x-job-component applied="0" />
-                <x-job-component applied="0" />
-                <x-job-component applied="0" />
-                <x-job-component applied="1" />
-                <x-job-component applied="0" />
+                @foreach ($jobs as $idx=>$item)
+                    <x-job-component :applied="$item->proposals_count" :job="$item" :idx="$idx" />
+                @endforeach
             </div>
             <div class="tab-pane fade" id="best_match_tab" role="tabpanel" aria-labelledby="best_match">
                 

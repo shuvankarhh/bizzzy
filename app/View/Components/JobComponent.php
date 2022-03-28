@@ -8,6 +8,8 @@ class JobComponent extends Component
 {
     public $applied;
     public $connect;
+    public $job;
+    public $idx;
 
 
     /**
@@ -15,10 +17,12 @@ class JobComponent extends Component
      *
      * @return void
      */
-    public function __construct($applied, $connect = 0)
+    public function __construct($applied, $job, $idx, $connect = 0)
     {
         $this->applied = $applied;
         $this->connect = $connect;
+        $this->job = $job;
+        $this->idx = $idx; 
     }
 
     /**

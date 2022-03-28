@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerification;
 use App\Models\FreelancerProfile;
+use App\Models\UserOnlinePresence;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -130,7 +131,10 @@ class AuthenticationController extends Controller
                 'acting_status' => 1,
             ]);
 
-
+            UserOnlinePresence::create([
+                'user_id' => $user->id,
+                'last_seen' => now()
+            ]);
 
             return array('user' => $user, 'token' => $token);
         });

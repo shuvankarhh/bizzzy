@@ -247,6 +247,12 @@ as long as it is a sibling. */
     color: #006644;
 }
 
+.battery-question.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px; 
+}
+
 .battery-question .card {
     /* width: 18rem; */
     position: relative;
@@ -569,11 +575,28 @@ body {
 
 /* ----- Footer ----- */
 
+.btn-gray{
+    background-color: hsl(0, 0%, 95%);
+    color: hsl(0, 0%, 50%) !important;
+}
+.btn-gray:hover{
+    color: #000000 !important;
+    background-color: #F2F2F2;
+}
 .footer {
     font-family: Nunito Sans;
     font-style: normal;
 }
+.footer a{
+    color: #444444;
+}
 
+.footer .header-text{
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 600;
+    color: #1C1C1C;
+}
 .footer-note {
     font-weight: normal;
     font-size: 12px;
@@ -625,6 +648,17 @@ body {
     text-align: left;
 }
 
+.footer-sm-content{
+    display: grid;
+    gap: 20px;
+}
+
+.footer-sm-content a,p{
+    color: #656565;
+}
+.footer-sm-content hr{
+    margin: 0.5rem 0;
+}
 
 /* Getting started carousel */
 
@@ -896,6 +930,12 @@ body {
 
 /* Jobs Body ------------------------------------ */
 
+.job-more-button{
+    display: block;
+    font-weight: bold;
+    font: 1.2rem;
+}
+
 .job-body .nav-link {
     font-family: Mulish;
     border-bottom: solid #E2E2E2;
@@ -992,13 +1032,13 @@ body {
     border-bottom: 1px solid black;
 }
 
-.submit-profile .job-tag {
+ .job-tag {
     display: flex;
     flex-wrap: wrap;
     color: #1A3F61;
 }
 
-.submit-profile .job-tag > div {
+ .job-tag > div {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
@@ -1124,7 +1164,7 @@ body {
 /* ---------------------------------------------- */
 
 .freelancer-profile{
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
 }
 
@@ -1192,9 +1232,10 @@ body {
 }
 
 .freelancer-profile .card-border{
-    border: 1px solid #AFAFAF;
+    /* border: 1px solid #AFAFAF; */
     border-radius: 5px;
-    box-shadow: 0px 0px 3px #afafaf;
+    /* box-shadow: 0px 0px 3px #afafaf; */
+    background: #FFFFFF;
 }
 
 .freelance-profile-cover-image{
@@ -1251,7 +1292,19 @@ body {
     padding: 10px;
 }
 
+.freelancer-profile .portfolio-image{
+    width: 100%;
+    height: 100%;
+}
 
+.portfolio-title{
+    color: #0086FF;
+}
+.portfolio-text{
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 400;
+}
 
 
 @media (min-width:0px) and (max-width:690px) {
@@ -1260,13 +1313,19 @@ body {
     }
     .freelancer-profile .personal-information{
         border: 0px;
-        padding-right: 1rem;
+        padding-right: 0rem;
     }
     .freelancer-profile .profile-image{
         top: -5rem;
     }
     .freelancer-profile .profile-image-div{
         height: 100px;
+    }
+    .freelancer-profile .hourly-rate{
+        border-radius: 0;
+    }
+    .freelancer-profile .card-border{
+        border-radius: 0;
     }
 }
 /* ---------------------------------------------- */
@@ -1325,7 +1384,7 @@ body {
 .profile-name {
     top: 35px;
     left: 60px;
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
@@ -1379,7 +1438,7 @@ body {
     top: 70px;
     left: 60px;
     display: flex;
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -1390,7 +1449,7 @@ body {
 .profile-details {
     top: 90px;
     left: 60px;
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -1404,7 +1463,7 @@ body {
 }
 
 .content-title {
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
@@ -1436,7 +1495,7 @@ body {
 }
 
 .content-subtitle {
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -1445,7 +1504,7 @@ body {
 }
 
 .show-all {
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -1454,7 +1513,7 @@ body {
 }
 
 .tab-title {
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -1473,7 +1532,7 @@ body {
 /* ========================================= blog ================================== */
 
 .blog-title {
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
@@ -1483,7 +1542,7 @@ body {
 }
 
 .massage {
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -1493,7 +1552,7 @@ body {
 }
 
 .letter {
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -1502,7 +1561,7 @@ body {
 }
 
 .letter-desc {
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -1512,7 +1571,7 @@ body {
 }
 
 .duration {
-    font-family: 'Uber-Regular';
+    font-family: 'Uber Move Text';
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -1522,4 +1581,35 @@ body {
 
 
 /* ========================================= blog End ================================== */
+
+
+
+/* ================= Bootstrap Responsive Width ========================================= */
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {    
+    
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+      
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+      
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+      
+}
+/* ================= Bootstrap Responsive Width End ========================================= */
 

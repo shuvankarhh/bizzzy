@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     
-                        @if (!is_null($languages))
+                        @if (!$languages->isEmpty())
                             @foreach ($languages as $idx=>$item)
                                 <div class="row mb-4 justify-content-sm-center justify-content-center" id="addition_num_{{ $idx + 1 }}">
                                     <div class="col-12"><hr></div>
@@ -127,7 +127,7 @@
                 }
             }
         }); 
-        select.setValue([{{ $english->proficiency_level }}]);
+        select.setValue([{{ (is_null($english)) ? '' : $english->proficiency_level }}]);
 
         add_additional_language = () => {
             

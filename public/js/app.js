@@ -2060,6 +2060,9 @@ module.exports = {
   \*****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
+var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"),
+    axios = _require["default"];
+
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.bootstrap = __webpack_require__(/*! ./bootstrap_v5-0-2/bootstrap.bundle.js */ "./resources/js/bootstrap_v5-0-2/bootstrap.bundle.js");
@@ -2142,7 +2145,6 @@ add_education = function add_education() {
   var form = document.getElementById('education_form');
   var formData = new FormData(form);
   axios.post(APP_URL + '/user/create/add-education', formData).then(function (response) {
-    console.log(response);
     location.href = '';
   })["catch"](function (error) {
     if (typeof error.response !== 'undefined') {
@@ -2323,9 +2325,91 @@ add_title = function add_title() {
 
 
 show_full_text = function show_full_text(e) {
-  document.getElementById('show_text').innerHTML = document.getElementById('full_text').innerHTML;
+  var idx = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  document.getElementById("show_text".concat(idx)).innerHTML = document.getElementById("full_text".concat(idx)).innerHTML;
   e.style.display = "none";
-};
+}; // --------------
+// Add Portfolio
+
+
+var form = document.getElementById('add_protfolio_form');
+
+if (form) {
+  form.addEventListener('submit', function () {
+    event.preventDefault();
+    var formData = new FormData(form);
+    axios.post("".concat(APP_URL, "/user_portfolio"), formData).then(function (response) {
+      console.log(response);
+      location.href = response.data;
+    })["catch"](function (error) {
+      console.log(error);
+
+      if (typeof error.response !== 'undefined') {
+        // This is for error from laravel
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+} // --------------
+// Add Job
+
+
+add_job = function add_job(e) {
+  event.preventDefault();
+  removeValidation();
+  var formData = new FormData(e);
+  axios.post(APP_URL + '/job', formData).then(function (response) {
+    console.log(response);
+    e.reset();
+    tags_select.clear();
+    categories_select.clear();
+    languages_select.clear();
+    location.href = response.data;
+  })["catch"](function (error) {
+    if (typeof error.response !== 'undefined') {
+      //  This is for error from laravel
+      console.log(error.response.data);
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
+  });
+}; // --------------
+// Job Proposal
+
+
+var job_proposal = document.getElementById('job_proposal_form');
+
+if (job_proposal) {
+  job_proposal.addEventListener('submit', function (e) {
+    e.preventDefault();
+    console.log(e.target); // return;
+
+    removeValidation();
+    var formData = new FormData(e.target);
+    axios.post(APP_URL + '/job-apply', formData).then(function (response) {
+      console.log(response); // e.reset();
+      // tags_select.clear();
+      // categories_select.clear();
+      // languages_select.clear();
+
+      location.href = response.data;
+    })["catch"](function (error) {
+      if (typeof error.response !== 'undefined') {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+} // --------------
 
 /***/ }),
 

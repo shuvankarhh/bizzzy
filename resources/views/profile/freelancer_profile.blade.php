@@ -20,7 +20,7 @@
                 <div class="col-md-2 col-lg-2 col-xl-2 col-xxl-2 col-sm-12 col-xs-12">
                     <div class="row justify-content-between">
                         <div class="profile-image-div col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-sm-6 col-6">
-                            <img class="profile-image" src="{{ asset('storage/' . $profile_photo) }}" alt="">
+                            <img class="profile-image" src="{{ asset('storage/' . $profile_photo) }}" alt="None">
                         </div>
                         <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-sm-5 col-5 mt-sm-2 mt-2 mb-md-2">
                             <h5 class="text-black">90%</h5>
@@ -35,11 +35,15 @@
                     <div class="row justify-content-between">
                         <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-12 col-xs-12">
                             <h4 class="text-black">{{ auth()->user()->name }}</h4>
-                            <p class="text-black"><i class="fas fa-map-marker-alt"></i>  {{ $address->city . ', ' . $address->country }}  <span class="text-secondary">{{ now()->format('h:i a') . ' local time' }}</span></p>
+                            <p class="text-black">
+                                @if (!is_null($address))
+                                    <i class="fas fa-map-marker-alt"></i> {{ $address->city . ', ' . $address->country }} 
+                                @endif
+                                <span class="text-secondary">{{ now()->format('h:i a') . ' local time' }}</span>
+                            </p>
                         </div>
-                        <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-12 col-xs-12">
-                            <p class="m-0 mb-sm-2 mb-2 text-black">{{ $education->institute_name }}</p>
-                            <!-- Dribbble -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-sm-12 col-xs-12">
+                            <p class="m-0 mb-sm-2 mb-2 text-black">{{ (is_null($education)) ? '' : $education->institute_name }}</p>
                             <p class="m-0  mb-sm-2 mb-2 profile-social-icon">
                                 <i class="fab fa-dribbble"></i>
                                 <i class="fab fa-google"></i>
@@ -53,7 +57,7 @@
                             Designed over 1000+ websites || I help startups businesses in User Experience || Web Design Expert || Front-end Developer & UI Design Expert || Redesign Expert || Freelancer
                         </div>
                     </div>
-                    <div class="row d-sm-none d-none d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-end">
+                    <div class="row d-sm-none d-none d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-end pb-2">
                         <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-12 col-xs-12 align-self-end text-end available-badge">
                             <img src="{{ asset('images\icons\job\availability.svg') }}" alt=""> <span class="ms-1"> Available Now </span>
                         </div>
@@ -73,13 +77,15 @@
             <div class="col-md-3 text-center">
                 <p class="m-0 top-text">Language</p>
                 <p class="m-0 bottom-text">
-                    @foreach ($languages as $idx=>$item)
+                    @forelse ($languages as $idx=>$item)
                         @if ($idx == 0)
                             {{ locale_get_display_language($item->language_code) }}
                         @else
                             {{ ", " . locale_get_display_language($item->language_code) }}
                         @endif
-                    @endforeach
+                    @empty
+                        No Language Selected!
+                    @endforelse
                 </p>
             </div>
             <div class="col-1 align-self-center">
@@ -88,7 +94,17 @@
 
             <div class="col-md-3 text-center">
                 <p class="m-0 top-text">Services as </p>
-                <p class="m-0 bottom-text">{{ $service->parent->name }}</p>
+                <p class="m-0 bottom-text">
+                    {{ (is_null($service)) 
+                        ? 'Not Set' 
+                        : 
+                        ( 
+                            ($service->parent_category_id == '0') 
+                            ? $service->name
+                            : $service->parent->name
+                        ) 
+                    }}
+                </p>
             </div>
             <div class="col-1 align-self-center d-md-none d-lg-none d-xl-none d-xxl-none d-sm-inline d-inline">
                 <span class="divider"></span>
@@ -121,13 +137,89 @@
             <div class="col-md-8 col-lg-8 col-xl-8 col-xxl-8 col-sm-12 col-xs-12 mt-3 ms-3">
                 <h3>{{ $profile->professional_title }}</h3>
             </div>
-            <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-12 col-xs-12 align-self-end hourly-rate me-3">
-               <p class="m-0">${{ (int)$profile->price_per_hour }}/hr</p class="m-0">
+            <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-12 col-xs-12 align-self-end hourly-rate ms-sm-4 ms-4 me-3 mt-lg-2 mt-xl-2 mt-xxl-2">
+               <p class="m-0">${{ (int)$profile->price_per_hour }}/hr</p>
             </div>
             <div class="col-10 mt-3 ms-3 mb-3">
                 <p id="show_text">{{ \Illuminate\Support\Str::limit($profile->description, 350, $end='....') }}</p>
                 <u onclick="show_full_text(this)" role="button" class="m-0">more</u>
                 <p class="d-none" id="full_text"> {{ $profile->description }} </p>
+            </div>
+        </div>
+    </section>
+    <section class="portfolio card-border mt-4">
+        <div class="row m-0 p-0">
+            <div class="col-12 card-header-profile">
+                <h3 class="pt-4">Portfolio</h3>
+                <div class="card-header-button">
+                    <i role="button" class="fas fa-pen first"></i>
+                    <a style="color: unset" role="button" href="{{ route('portfolio.create') }}"><i class="fas fa-plus second"></i></a>
+                </div>
+            </div>
+            @forelse ($portfolios as $idx=>$item)
+            @if ($idx != 3)
+                <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-6 col-6">
+            @else
+                <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-6 col-6 d-inline d-sm-inline d-md-none">
+            @endif
+                    <div class="row h-100 pb-3 pb-sm-3">
+                        @if (!is_null($item->thumbnail))                                
+                            <div class="col-12 text-center">
+                                <img class="portfolio-image" src="{{ asset('storage/' . $item->thumbnail) }}" alt="">
+                            </div>
+                        @endif
+                        <div class="col-12 portfolio-text">
+                            @if (empty($item->project_url))
+                                <p class="m-0 mt-1 portfolio-title">{{ $item->title }}</p>
+                            @else
+                                <a href="{{ $item->project_url }}" target="_blank"><p class="m-0 mt-1 portfolio-title">{{ $item->title }}</p></a>
+                            @endif
+                            <p class="m-0 d-none d-sm-none d-md-block">"{{ $item->description }}"</p>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <p class="text-center">No Portfolio Added!</p>
+            @endforelse
+            @if ($portfolios_total > 3)               
+                <div class="col-12">  
+                    <hr>
+                    <div class="text-center pb-3">
+                        <a class="show-all" href="#">Show all Experiences <i class="fas fa-chevron-down"></i></a>
+                    </div>
+                </div>   
+            @endif
+        </div>
+    </section>
+    <section class="portfolio card-border mt-4 submit-profile">
+        <div class="profile mt-4">
+            <div class="profile-content">
+                <p class="content-title">Skills</p>
+                <div>
+                    <p class="content-subtitle">UX/UI Design</p>
+                    <div class="job-tag">
+                        @foreach ($skills as $item)
+                            <div>
+                                {{ $item->name }}
+                            </div>                                
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <p class="content-subtitle">Web Development</p>
+                    <div class="job-tag">
+                        @foreach ($skills as $item)
+                            <div>
+                                {{ $item->name }}
+                            </div>                                
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center pb-3">
+                <a class="show-all" href="#">Show all Skills <i class="fas fa-chevron-down"></i></a>
             </div>
         </div>
     </section>
@@ -137,7 +229,7 @@
                 <h3 class="pt-4 ps-4">Experience</h3>
                 <div class="card-header-button">
                     <i role="button" class="fas fa-pen first"></i>
-                    <i role="button" class="fas fa-plus second"></i>
+                    <i role="button" data-mdb-target="#work_modal" data-mdb-toggle="modal" class="fas fa-plus second"></i>
                 </div>
             </div>
             <div class="col-12 ps-5 pe-5 pb-3">
@@ -162,7 +254,7 @@
                 <!-- Tabs content -->
                 <div class="tab-content" id="ex1-content">
                     <div class="tab-pane fade show active" id="current_tab" role="tabpanel" aria-labelledby="current">
-                        @foreach ($current as $idx=>$item)
+                        @forelse ($current as $idx=>$item)
                             @if ($idx != 0)
                                 <hr>
                             @endif
@@ -170,14 +262,16 @@
                             <p class="mt-2 mb-2">{{ $item->description }}</p>
                             <p class="m-0"><b class="text-black">From:</b> {{ (is_null($item->start_date)) ? '-' : $item->start_date->format('M d, Y') }}</p>
                             <p class="m-0"><b class="text-black">To:</b> {{ (is_null($item->end_date)) ? '-' : $item->end_date->format('M d, Y') }}</p>
-                        @endforeach
+                        @empty
+                            <p>No Current jobs.</p>
+                        @endforelse
                         <hr>
                         <div class="text-center">
                             <a class="show-all" href="#">Show all Experiences <i class="fas fa-chevron-down"></i></a>
                         </div>
                     </div>
                     <div class="tab-pane fade show" id="past_tab" role="tabpanel" aria-labelledby="past">
-                        @foreach ($past as $idx=>$item)
+                        @forelse ($past as $idx=>$item)
                             @if ($idx != 0)
                                 <hr>
                             @endif
@@ -185,14 +279,27 @@
                             <p class="mt-2 mb-2">{{ $item->description }}</p>
                             <p class="m-0"><b class="text-black">From:</b> {{ (is_null($item->start_date)) ? '-' : $item->start_date->format('M d, Y') }}</p>
                             <p class="m-0"><b class="text-black">To:</b> {{ (is_null($item->end_date)) ? '-' : $item->end_date->format('M d, Y') }}</p>
-                        @endforeach
+                        @empty
+                            <p>No Past jobs.</p>
+                        @endforelse
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </section>
+
+<x-add-work-experience-modal />
 @endsection
+
+@push('css')
+<style>
+    body{
+        background: #F9FAFC;
+    }
+</style>
+    
+@endpush
 
 @push('script')
     <script>

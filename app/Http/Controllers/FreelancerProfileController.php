@@ -20,6 +20,9 @@ class FreelancerProfileController extends Controller
             'service' => auth()->user()->service_categories()->with('parent')->first(),
             'current' => auth()->user()->work_experiences()->where('currently_working', 1)->get(),
             'past' => auth()->user()->work_experiences()->whereNull('currently_working')->get(),
+            'portfolios' => auth()->user()->portfolios()->limit(4)->latest()->get(),            
+            'portfolios_total' => auth()->user()->portfolios()->count('*'),            
+            'skills' => auth()->user()->skills,
         ]);
     }
 

@@ -41,7 +41,7 @@
                             <a class="nav-link" href="{{ route('start.message') }}">Profile Setup</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link 3</a>
+                            <a class="nav-link" href="{{ route('job.create') }}">Post Job</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link 4</a>

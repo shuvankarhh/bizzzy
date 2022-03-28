@@ -1,3 +1,5 @@
+v0.022.0 - add: features (2022-03-28 15:07)
+
 v0.021.0 - fix: view bug fix (2022-03-22 16:32)
 
 v0.020.0 - add: submit-profile, bug fix (2022-03-21 17:12)
