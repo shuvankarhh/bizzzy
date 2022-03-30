@@ -5,6 +5,17 @@
 @section('content')
 <section class="container body">
 <!-- Tabs navs -->
+    <div class="row justify-content-between">
+        <div class="col-auto">
+            <h1 class="pt-3 pb-3">Jobs For You</h1>
+        </div>
+        <div class="col-auto align-self-center">
+            <div class="search-input">
+                <label for="search"><img src="{{ asset('images\icons\search.svg') }}" alt=""></label>
+                <input type="search" name="search" id="search" class="form-control" placeholder="Search here">
+            </div>
+        </div>
+    </div>
     <section class="job-body">
         <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">

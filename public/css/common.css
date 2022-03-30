@@ -19,6 +19,11 @@
 }
 
 @font-face {
+    font-family: Mulish;
+    src: url(/fonts/Mulish/static/Mulish-Regular.ttf);
+}
+
+@font-face {
     font-family: Mulish-Bold;
     src: url(/fonts/Mulish/static/Mulish-Bold.ttf);
 }

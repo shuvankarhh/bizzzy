@@ -722,6 +722,13 @@ body {
     color: #006644;
 }
 
+.carousel-div{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+}
+
 .getting-started .carousel-control-next {
     top: unset;
     bottom: 20px;
@@ -928,6 +935,24 @@ body {
 
 /* Jobs Body ------------------------------------ */
 
+.search-input{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.search-input input{
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    border-radius: 0;
+    background-color: rgb(237, 237, 237, 0.5);
+    border: 0;
+}
+.search-input input:focus{
+    border-radius: 0;
+}
+.search-input label{
+    position: absolute;
+    left: 0.5rem;
+}
 .job-more-button{
     display: block;
     font-weight: bold;
@@ -945,8 +970,11 @@ body {
 .job-body .icon {
     display: inline-flex;
     justify-content: center;
+    align-items: center;
 }
-
+.job-body .icon > img {
+    width: 1.2rem;
+}
 .job-body .text {
     margin-left: 5px;
     margin-top: 1px;
@@ -954,6 +982,7 @@ body {
 
 .job-body .nav-link.active {
     font-weight: 900;
+    background-color: unset;
 }
 
 .job-card .row {
@@ -963,7 +992,8 @@ body {
 
 .job-card {
     border: 1px solid #AFAFAF;
-    border-radius: 3px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
 }
 
 .job-card .upper-content {
@@ -1069,9 +1099,6 @@ body {
     font-weight: 500;
 }
 
-.lower-text {
-    background: #F3F7FE;
-}
 
 .lower-text .apply-button {
     border-radius: 0px;
@@ -1157,25 +1184,63 @@ body {
 }
 /* ---------------------------------------------- */
 
+.freelancer-profile .job-thumbnail{
+    width: 160px;
+}
+
+.freelancer-profile .job-poster{
+    width: 50px;
+    border-radius: 50%;
+}
+
+.freelancer-profile .lower-text {
+    border-radius: 0px 0px 5px 5px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    text-align: center;
+    gap: 5px;
+    padding-bottom: 1rem;
+}
+
+.freelancer-profile .lower-text > div{
+    position: relative;
+    height: 100%;
+}
+
+.freelancer-profile .lower-text > div:not(:last-child):before{
+    content: '';
+    height: 2rem;
+    width: 1px;
+    background-color: rgb(27, 54, 74, 0.4);
+    position: absolute;
+    top: 20%;
+    right: 0;
+    /* margin-left: 4.5rem; */
+    display: flex;
+    align-items: center;
+}
+
 .freelancer-profile{
     font-family: 'Uber Move Text';
     font-style: normal;
 }
 
-.freelancer-profile h3,h4,b{
-    font-family: 'Uber-Bold';
+.freelancer-profile h1,h2,h3,h4,b{
+    font-family: 'Inter-Bold';
+    font-weight: 700, Bold;
 }
 
 .freelancer-profile .progress-bar{
     width: 80%;
     background-color: #EBECF0;
     height: 10px;
-    border-radius: 0;
+    border-radius: 6px;
 }
 
 .freelancer-profile .progress{
     background-color: #14A800;
     height: 100%;
+    border-radius: 6px;
 }
 
 .freelancer-profile .profile-image-div{
@@ -1223,6 +1288,9 @@ body {
     aspect-ratio: 1;
 }
 
+.freelancer-profile .card-padding{
+    padding: 0.7rem 1.3rem 0.7rem 1.3rem;
+}
 .freelancer-profile .card-border{
     /* border: 1px solid #AFAFAF; */
     border-radius: 5px;
@@ -1319,6 +1387,19 @@ body {
     .freelancer-profile .card-border{
         border-radius: 0;
     }
+    .freelancer-profile .lower-text {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .freelancer-profile .lower-text-line-break-div:before{
+        width: 0px !important;
+    }
+    .freelancer-profile .job-thumbnail{
+        width: 130px;
+    }
+    .freelancer-profile .job-poster{
+        width: 30px;
+    }
 }
 /* ---------------------------------------------- */
 
@@ -1339,12 +1420,6 @@ body {
 }
 .submit-top-header .second{
     justify-content: start;
-}
-
-.profile {
-    background: #FFFFFF;
-    border: 1px solid #AFAFAF;
-    border-radius: 3px;
 }
 
 .submit-profile-btn {
@@ -1382,6 +1457,11 @@ body {
     font-size: 24px;
     line-height: 24px;
     color: #1C1C1C;
+}
+
+.submit-profile > div:not(:first-child){
+    background-color: #FFFFFF;
+    margin-bottom: 1rem;
 }
 
 .submit-profile .profile-photo {
@@ -1450,7 +1530,6 @@ body {
 }
 
 .profile-content {
-    margin: 20px;
     position: relative;
 }
 

@@ -2125,7 +2125,6 @@ add_work_experience = function add_work_experience() {
     var company = response.data.company === null ? '' : response.data.company;
     var html = "<div class=\"col-md-6 mb-2\">\n                        <div class=\"added-exp\">\n                            <p class=\"m-0 font-weight-bold\">".concat(response.data.title, "</p>\n                            <p class=\"m-0\">").concat(company, "</p>\n                        </div>\n                    </div>");
     document.getElementById('added_exp').innerHTML += html;
-    console.log(response);
   })["catch"](function (error) {
     if (typeof error.response !== 'undefined') {
       // This is for error from laravel

@@ -1,11 +1,11 @@
 <div class="job-card mb-4">
     <section class="upper-content @if ($applied) applied-div @endif pe-0">
-        <div class="row pe-0">
+        <div class="row pe-0 ">
             @if ($applied) 
                 {{--  This section is for mobile view. Will be hidden in large screens.  --}}
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-8 col-8 p-0 d-md-none d-lg-none d-xl-none d-xxl-none"></div>
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-4 col-4 p-0 d-md-none d-lg-none d-xl-none d-xxl-none">
-                    <div class="applied text-center">
+                    <div class="applied text-center">fgfgsdfg
                         <img src="{{ asset('images\icons\job\applied.svg') }}" alt="">
                         Applied
                     </div>                            
@@ -19,7 +19,7 @@
                 </p>
             </div>
 
-            <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-2 col-2 pb-3 pt-3">
+            <div class="col-auto pb-3 pt-3 fit-content">
                 <span class="job-avater-span">
                     <img class="job-avater" src="{{ asset('storage/freelancer/profile_photo/1647342535.png') }}" alt="">
                     <img class="job-avater-icon" src="{{ asset('images\icons\job\plus.svg') }}" alt="">
@@ -38,7 +38,7 @@
 
             @if ($applied)
                 {{--  This section is for larger screens. Will be hidden for small display.  --}}
-                <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-4 col-xs-4 p-0 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                <div class="ms-lg-auto ms-xl-auto ms-xxl-auto ms-md-none col-md-1 col-lg-auto col-xl-1 col-xxl-1 col-sm-4 col-xs-4 p-0 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
                     <div class="applied text-center">
                         <img src="{{ asset('images\icons\job\applied.svg') }}" alt="">
                         Applied
@@ -119,7 +119,7 @@
                     </div>
                     <div class="col-3 text-center">
                         <p class="m-0 top-text">Time</p>
-                        <p class="m-0 bottom-text">{{ $job->project_type }}</p>
+                        <p class="m-0 bottom-text">{{ $job->project_time }}</p>
                     </div>
                     <div class="col-1 align-self-center">
                         <span class="divider"></span>
@@ -131,8 +131,8 @@
                 </div>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3 col-xxl-3 col-sm-6 col-6 align-self-center text-end">
-                @if (!$applied AND !$connect)
-                    <a href="{{ route('job.apply.create', $job->id) }}" role="button" class="btn btn-primary bizzzy-background apply-button">Apply to Position</a>
+                @if (!$applied AND !$connect AND $job->user_id != auth()->id())
+                    <a href="{{ route('job.apply.create', $job->id) }}" role="button" class="btn btn-primary bizzzy-background apply-button">Apply to Job</a>
                 @endif
             </div>
         </div>

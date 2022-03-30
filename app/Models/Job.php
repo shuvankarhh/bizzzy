@@ -34,9 +34,9 @@ class Job extends Model
         return $date->diffForHumans();
     }
     
-    public function getProjectTypeAttribute($value)
+    public function getProjectTimeAttribute($value)
     {
-        switch($value){
+        switch($value){ 
             case 1:
                 return 'Less than 1 month';
             case 2:

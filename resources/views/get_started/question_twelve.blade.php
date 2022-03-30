@@ -24,7 +24,7 @@
                         <form action="#" id="hourly_rate_form">
                             <div class="input-group form-outline">
                                 <span class="input-group-text rate-input-group" id="inputGroupPrepend"> <span class="font-weight-bold">$</span>/hr</span>
-                                <input value="{{ $hourly_rate }}" id="hourly_rate" name="hourly_rate" type="number" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required />
+                                <input value="{{ ($hourly_rate) ? $hourly_rate : '' }}" id="hourly_rate" name="hourly_rate" type="number" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required />
                                 <div id="hourly_rate_invalid" class="invalid-feedback"></div>
                             </div>
                         </form>

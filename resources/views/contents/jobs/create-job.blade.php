@@ -22,7 +22,7 @@
                         <option value="1">Less than 1 month</option>
                         <option value="2">1 to 3 months</option>
                         <option value="3">3 to 6 months</option>
-                        <option value="3">More than 6 months</option>
+                        <option value="4">More than 6 months</option>
                     </select>
                     <div class="invalid-reposne" id="project_time_invalid"></div>
                 </div>

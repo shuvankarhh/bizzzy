@@ -77,7 +77,6 @@ add_work_experience = () => {
                         </div>
                     </div>`;
         document.getElementById('added_exp').innerHTML += html;
-        console.log(response);
     })
     .catch(function (error) {
         if(typeof error.response !== 'undefined'){ // This is for error from laravel
@@ -92,7 +91,7 @@ add_work_experience = () => {
 
 
 // Adding Education and Appeding HTML
-
+ 
 add_education = () => {
     event.preventDefault();
 

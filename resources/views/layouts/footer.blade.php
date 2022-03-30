@@ -2,7 +2,7 @@
     <!-- Grid container -->
 
         {{--  Footer for mobile view  --}}
-        <div class="footer-sm-content mt-5 d-sm-grid d-md-none d-lg-none sm-footer ps-4 pe-4">   
+        <div class="footer-sm-content mt-5 ms-0 me-0 mb-0 d-sm-grid d-md-none d-lg-none sm-footer ps-4 pe-4">   
             <ul class="footer-list list-unstyled mb-0">
                 <li>
                     <a href="#!">About Us</a>
@@ -75,7 +75,7 @@
 
         {{--  Footer for bigger displays  --}}
         <!--Grid row-->
-        <div class="row mt-5 d-none d-sm-none d-md-flex d-lg-flex ps-5 pe-5 pt-5">
+        <div class="row d-none d-sm-none d-md-inline d-lg-flex ps-5 pe-5 pt-5 m-0">
             <!--Grid column-->
             <div class="col-lg-4 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
                 <p class="footer-agency">Agency</p>

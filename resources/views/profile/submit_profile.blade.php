@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="container py-3">
-    <div class="row submit-profile">
+    <div class="row submit-profile gx-5">
         <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12 mb-3">
             <button class="btn edit-profile-btn" type="submit">Edit Profile</button>
         </div>
