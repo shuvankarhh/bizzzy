@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Email;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class UserEmail extends Model
 {
@@ -19,5 +20,10 @@ class UserEmail extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function email()
+    {
+        return $this->belongsTo(Email::class);
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\UserEducation;
+use Laravel\Sanctum\HasApiTokens;
+use App\Models\UserWorkExperience;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -44,5 +46,45 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function work_experiences()
+    {
+        return $this->hasMany(UserWorkExperience::class);
+    }
+
+    public function educations()
+    {
+        return $this->hasMany(UserEducation::class);
+    }
+
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'user_skills');
+    }
+
+    public function freelance_profile()
+    {
+        return $this->hasOne(FreelancerProfile::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(UserAddress::class);
+    }
+
+    public function languages()
+    {
+        return $this->hasMany(UserLanguage::class);
+    }
+
+    public function service_categories()
+    {
+        return $this->belongsToMany(Category::class, 'freelancer_profile_categories', 'profile_id', 'category_id');
+    }
+
+    public function portfolios()
+    {
+        return $this->hasMany(UserPortfolio::class);
+    }
     
 }

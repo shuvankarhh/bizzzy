@@ -9,6 +9,8 @@ use App\Models\UserEmail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerification;
+use App\Models\FreelancerProfile;
+use App\Models\UserOnlinePresence;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -100,16 +102,25 @@ class AuthenticationController extends Controller
 
             $password = bcrypt($request->password);
 
-            $user_data = array(
+            $user = User::create([
                 'name' => $request->first_name . ' ' . $request->last_name,
                 'user_name' => $request->first_name,
                 'password' => $password,
                 'acting_status' => 1,
-            );
+            ]);
 
-            $user = User::create($user_data);
-
-            
+            if($request->freelancer_or_recuriter == 'freelancer'){
+                FreelancerProfile::create([
+                    'user_id' => $user->id,
+                    'profile_completion_percentage' => 0,
+                    'total_jobs' => 0,
+                    'total_hours' => 0,
+                    'job_success_percentage' => 0,
+                    'average_rating' => 0,
+                    'is_top_rated' => 0,
+                    
+                ]);
+            }
 
             $token = Str::random(10);
 
@@ -118,6 +129,11 @@ class AuthenticationController extends Controller
                 'email_id' => $email->id,
                 'verification_token' => $token,
                 'acting_status' => 1,
+            ]);
+
+            UserOnlinePresence::create([
+                'user_id' => $user->id,
+                'last_seen' => now()
             ]);
 
             return array('user' => $user, 'token' => $token);

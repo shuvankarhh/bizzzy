@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\GetStarted;
 
 use App\Http\Controllers\Controller;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 
 class GetStartedController extends Controller
@@ -34,26 +35,44 @@ class GetStartedController extends Controller
 
     public function qFive()
     {
-        return view('get_started.question_five')->with('name', auth()->user()->name);
+        return view('get_started.question_five')->with([
+            'title' => auth()->user()->freelance_profile->professional_title
+        ]);
     }
 
     public function qEleven()
     {
-        return view('get_started.question_eleven')->with('name', auth()->user()->name);
-
-
     }
 
-
+    public function qTwelve()
+    {
+        return view('get_started.question_twelve')->with([
+            'hourly_rate' =>  (int)auth()->user()->freelance_profile->price_per_hour
+        ]);
+    }
 
 
     public function qnine()
     {
-        return view('get_started.question_nine')->with('name', auth()->user()->name);
+        return view('get_started.question_nine')->with([
+            'name' => auth()->user()->name,
+            'skills' => Skill::get(),
+        ]);
     }
 
     public function qTen()
     {
-        return view('get_started.question_ten')->with('name', auth()->user()->name);
+        return view('get_started.question_ten')->with([
+            'name' => auth()->user()->name,
+            'bio' => auth()->user()->freelance_profile->description
+        ]);
+    }
+
+    public function qThirteen()
+    {
+        return view('get_started.question_thirteen')->with([
+            'photo' => auth()->user()->photo,
+            'address' => auth()->user()->address
+        ]);
     }
 }

@@ -36,9 +36,7 @@
     </style>
 </head>
 <body>
-    <div class="card" style="
-    margin-left: 80px;
-    margin-right: 100px;">
+    <div class="card">
         <div class="card-body" >            
             <div class="row">
                 <div class="grid-item mb-2">

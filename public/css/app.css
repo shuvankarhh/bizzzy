@@ -1,75 +1,199 @@
-
 /* -- Register radion input-- */
 
+
 /* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
+
 .register-radio {
-    display:none;
+    display: none;
 }
+
 
 /* The label is what's left to style. 
 As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
-.register-radio + label {
+
+.register-radio+label {
     padding: 0.4em;
     display: inline-block;
     cursor: pointer;
-    width: 155px;
+    min-width: 120px;
     box-shadow: 0px 3px 5px rgba(9, 30, 66, 0.2), 0px 0px 1px rgba(9, 30, 66, 0.31);
     margin-right: -2px;
     margin-left: -2px;
 }
 
-.register-radio.left + label  {
+.register-radio.left+label {
     border-radius: 3px 0px 0px 3px;
-    border-left: 1px solid #14A800;
-    border-top: 1px solid #14A800;
-    border-bottom: 1px solid #14A800;
+    border-left: 1px solid #0086FF;
+    border-top: 1px solid #0086FF;
+    border-bottom: 1px solid #0086FF;
 }
-.register-radio.right + label  {
+
+.register-radio.right+label {
     border-radius: 0px 3px 3px 0px;
-    border-right: 1px solid #14A800;
-    border-top: 1px solid #14A800;
-    border-bottom: 1px solid #14A800;
+    border-right: 1px solid #0086FF;
+    border-top: 1px solid #0086FF;
+    border-bottom: 1px solid #0086FF;
 }
 
 .blank-label {
     display: none;
 }
 
+
 /* The '+' is the adjacent sibling selector.
 It selects what ever element comes right after it,
 as long as it is a sibling. */
-.register-radio:checked + label {
-    background: #14A800;
+
+.register-radio:checked+label {
+    background: #0086FF;
     color: #FFFFFF;
     transition: 150ms ease-in-out;
 }
 
+
+/* -------- Selelct Option -----------------------------------------------------------------------*/
+
+.ts-wrapper .option .title {
+    display: block;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.ts-wrapper .option .desc {
+    font-size: 12px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+}
+
+
+/* ----------------------------------------------------------------------------------------------- */
+
+
 /* -------- Questions ----------------------------------------------------------------------- */
 
-/* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
-.question{
-    min-height: 500px;
+
+/* .ts-wrapper.plugin-remove_button .item .remove{
+color: red;
+content: '\f1f8';
+font-family: "Font Awesome 5 Free";
+font-style: normal;
+font-weight: 900;
+} */
+
+.is-invalid .ts-control {
+    border: 1px solid red;
+}
+
+.add-skill {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #626468;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.added-skill {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+.added-skill>p {
+    margin: 6px;
+}
+
+.added-skill .text {
+    border: 2px solid #0086FF;
+    border-radius: 50px;
+    padding: 8px 17px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.flex {
+    display: flex;
+}
+
+.relative {
     position: relative;
 }
 
-.question .form-check.custom{
+.add-language {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #DFE1E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-language i {
+    color: #0086FF;
+}
+
+.add-language+.desc {
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    color: #0086FF;
+}
+
+.remove-language {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #E11900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.remove-language i {
+    color: white;
+    font-size: 1rem;
+}
+
+.question {
+    min-height: 80vh;
+    position: relative;
+}
+
+.question .form-check.custom {
     padding-left: unset;
 }
 
-.question-footer{
+.question-footer {
     position: absolute;
     bottom: 10px;
     width: 100%;
     overflow: hidden;
+    margin-bottom: 10px;
 }
+
+.question-footer-height {
+    padding-bottom: 120px;
+}
+
+
+/* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
 
 .question-radio {
-    display:none;
+    display: none;
 }
 
-/* The label is what's left to style. 
-As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
-.question-radio + label {
+
+/* The label is what's left to style. As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
+
+.question-radio+label {
     padding: 1em;
     display: inline-block;
     cursor: pointer;
@@ -85,26 +209,28 @@ As long as its 'for' attribute matches the input's 'id', it will maintain the fu
     display: none;
 }
 
+
 /* The '+' is the adjacent sibling selector.
 It selects what ever element comes right after it,
 as long as it is a sibling. */
-.question-radio:checked + label {
+
+.question-radio:checked+label {
     background: #B5FBD6;
-    border: 1px solid #14A800;
+    border: 1px solid #0086FF;
     transition: 150ms ease-in-out;
 }
 
-.question .skip{
+.question .skip {
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
-    color: #14A800;
+    color: #0086FF;
     margin-top: 30px;
     font-family: Nunito Sans;
 }
 
-.main-question{
+.main-question {
     font-style: normal;
     font-weight: bold;
     font-size: 28px;
@@ -112,7 +238,7 @@ as long as it is a sibling. */
     color: #1C1C1C;
 }
 
-.main-question-desc{
+.main-question-desc {
     font-family: Nunito Sans;
     font-style: normal;
     font-weight: normal;
@@ -121,43 +247,53 @@ as long as it is a sibling. */
     color: #006644;
 }
 
-.battery-question .card{
+.battery-question.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px; 
+}
+
+.battery-question .card {
     /* width: 18rem; */
     position: relative;
 }
 
-.battery-question .battery{
+.battery-question .card-body{
+    padding: 0.5rem;
+}
+
+.battery-question .battery {
     position: absolute;
     left: 32%;
     top: 11%;
 }
 
-.battery-question .card-body{
+/* .battery-question .card-body {
     margin-top: 50px;
-}
+} */
 
-.battery-question .card-text{
+.battery-question .card-text {
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
     text-align: center;
-
-    
 }
 
-.battery-question .card-text.sm{
+.battery-question .card-text.sm {
     font-family: Nunito Sans;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
-    line-height: 20px;    
-    text-align: center;    
+    line-height: 20px;
+    text-align: center;
     color: #1C1C1C;
 }
 
+
 /* checkbox position */
-.battery-question .checkbox{
+
+.battery-question .checkbox {
     position: absolute;
     top: 5px;
     left: 10px;
@@ -165,7 +301,9 @@ as long as it is a sibling. */
     height: 24px;
 }
 
+
 /* hide default input */
+
 .battery-question .checkbox input {
     position: absolute;
     opacity: 0;
@@ -174,8 +312,10 @@ as long as it is a sibling. */
     width: 0;
 }
 
+
 /* create custom input */
-.battery-question .checkbox .checkmark{
+
+.battery-question .checkbox .checkmark {
     position: absolute;
     top: 0;
     left: 0;
@@ -185,42 +325,54 @@ as long as it is a sibling. */
     border-radius: 50%;
 }
 
+
 /* input hover */
-.battery-question .checkbox:hover input ~ .checkmark {
+
+.battery-question .checkbox:hover input~.checkmark {
     background-color: rgb(255, 250, 250);
     cursor: pointer;
 }
 
+
 /* check-background */
-.battery-question .checkbox input:checked ~ .checkmark {
-    background-color: #14A800;
+
+.battery-question .checkbox input:checked~.checkmark {
+    background-color: #0086FF;
 }
 
+
 /* Create the indicator (hidden when not checked) */
+
 .checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
 
+
 /* Show the indicator (dot/circle) when checked */
-.battery-question .checkbox input:checked ~ .checkmark:after {
-    display: block;
+
+.battery-question .checkbox input:checked~.checkmark:after {
+    display: flex;
+    width: 100%;
 }
 
 /* Style the indicator (dot/circle) */
+
 .battery-question .checkbox .checkmark:after {
-    color:#fff;
-    content: '\f00c'; /* You should use \ and not /*/
-    font-family: "Font Awesome 5 Free"; /* This is the correct font-family*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    content: '\f00c';
+    font-family: "Font Awesome 5 Free";
     font-style: normal;
     font-weight: 900;
-    left: 16%;
-    top: 6%;
+    top: 0.1rem;
     font-size: 15px;
 }
 
-.add-exp{
+.add-exp {
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -232,7 +384,7 @@ as long as it is a sibling. */
     box-sizing: border-box;
 }
 
-.add-exp-button{
+.add-exp-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -243,74 +395,161 @@ as long as it is a sibling. */
     margin-top: 10px;
 }
 
-.add-exp-button i{
-    color: #14A800;
+.add-exp-button i {
+    color: #0086FF;
 }
 
-.add-exp:hover{
+.add-exp:hover {
     box-shadow: 0px 5px 10px 1px #EBECF0;
     cursor: pointer;
 }
 
-.add-exp p{
+.add-exp p {
     font-family: 'Nunito Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    color: #14A800;
+    color: #0086FF;
 }
 
-.custom-label{    
+.added-exp {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: left;
+    width: 275px;
+    height: 75px;
+    background: #FFFFFF;
+    border: 1px solid #DFE1E6;
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+.custom-label {
     font-family: 'Nunito Sans';
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
 }
 
-.custom-close{
+.custom-close {
     color: #42526E;
 }
 
-.custom-close:hover{
+.custom-close:hover {
     color: #32363f;
     background-color: inherit;
 }
 
+.rate-text {
+    font-family: 'Inter-Bold';
+    font-style: normal;
+}
+
+.rate-desc {
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+}
+
+.rate-input-group {
+    padding-bottom: 0;
+    border-top: 1px solid #bdbdbd;
+    border-bottom: 1px solid #bdbdbd;
+    border-left: 1px solid #bdbdbd;
+    border-right: 0;
+    color: #0086FF;
+}
+
+.rate-input-group+input {
+    border-top: 1px solid #bdbdbd;
+    border-bottom: 1px solid #bdbdbd;
+    border-left: 0;
+    border-right: 1px solid #bdbdbd;
+    text-align: right;
+}
+
+
 /* ---------------------------------------------------------------- */
+
 
 /* --- Override defaults --- */
 
-.btn-bizzzy-success{
-    background-color: #14A800;
-    border-color: #14A800;
+.prev-button{
+    padding: 0.3rem 0.6rem 0.3rem 0.6rem;
+    box-shadow: unset;
+    background: #EEEEEE;
+    border-radius: 0;
+    text-transform: unset;
+    color: #0086FF;
+    max-width: 3rem;
+}
+
+.prev-button:hover{
+    color: #0086FF;
+    box-shadow: unset;
+}
+
+.prev-button:focus{
+    box-shadow: unset;
+}
+
+.space-between{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-secondary{
+    color: #6c757d !important;
+}
+
+.container.body {
+    min-height: 80vh;
+}
+
+.bizzy-tip-bio {
+    max-width: 300px;
+    float: right;
+}
+
+.invalid-feedback.js {
+    margin-top: 0px;
+}
+
+.btn-bizzzy-success {
+    background-color: #0086FF;
+    border-color: #0086FF;
     color: white;
 }
 
-.btn-bizzzy-success:hover{
+.btn-bizzzy-success:hover {
     color: white;
 }
 
-.progress-bar{
+.progress-bar {
     background-color: #42526E;
     border-radius: 15px;
 }
 
-.form-control.is-invalid{
+.form-control.is-invalid {
     margin-bottom: 0px;
 }
 
-.navbar{
+.navbar {
     box-shadow: none;
 }
 
-body{
+body {
     /* background-image: url(http://127.0.0.1:8000/images/extra_fillers/hero-green-background.svg);
     background-repeat: no-repeat; */
 }
 
 
 /* Search ICON */
+
 .search_input_group .form-control {
     padding-right: 2.375rem;
 }
@@ -321,7 +560,7 @@ body{
     display: block;
     width: 2.375rem;
     height: 2.375rem;
-    line-height:  2.375rem;
+    line-height: 2.375rem;
     text-align: center;
     pointer-events: none;
     color: #aaa;
@@ -329,70 +568,101 @@ body{
     cursor: pointer;
 }
 
+
 /* .form-control-feedback:hover{
 } */
 
 
 /* ----- Footer ----- */
-.footer{
+
+.btn-gray{
+    background-color: hsl(0, 0%, 95%);
+    color: hsl(0, 0%, 50%) !important;
+}
+.btn-gray:hover{
+    color: #000000 !important;
+    background-color: #F2F2F2;
+}
+.footer {
     font-family: Nunito Sans;
     font-style: normal;
 }
+.footer a{
+    color: #444444;
+}
 
-.footer-note{    
+.footer .header-text{
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 600;
+    color: #1C1C1C;
+}
+.footer-note {
     font-weight: normal;
     font-size: 12px;
     line-height: 16px;
 }
 
-.footer-agency{    
+.footer-agency {
     font-weight: bold;
     font-size: 36px;
     line-height: 49px;
 }
 
-.footer-agency-note{    
+.footer-agency-note {
     font-weight: normal;
     font-size: 18px;
     line-height: 25px;
     font-weight: 100;
 }
 
-.footer-button{
+.footer-button {
     color: white;
     border-bottom: 1px solid white;
     text-align: left;
     text-decoration: none;
 }
 
-.footer-button > i{
+.footer-button>i {
     float: right;
     transition: 200ms ease-in-out;
 }
 
-.footer-button:hover{
+.footer-button:hover {
     color: white;
 }
 
-.footer-list{
+.footer-list {
     text-align: left !important;
 }
 
-.footer-button > i.active{
+.footer-button>i.active {
     transform: rotate(180deg);
 }
 
-.footer-list li{
+.footer-list li {
     padding: 5px;
 }
 
-.sm-footer .text-footer{
+.sm-footer .text-footer {
     text-align: left;
+}
+
+.footer-sm-content{
+    display: grid;
+    gap: 20px;
+}
+
+.footer-sm-content a,p{
+    color: #656565;
+}
+.footer-sm-content hr{
+    margin: 0.5rem 0;
 }
 
 /* Getting started carousel */
 
-.carousel-inner-box{
+.carousel-inner-box {
     position: absolute;
     z-index: 1;
     bottom: 10px;
@@ -401,96 +671,104 @@ body{
     /* display: none; */
 }
 
-.carousel-inner-box + .card{
+.carousel-inner-box+.card {
     background-color: #FFFFFF;
-    border-radius: 3px; 
+    border-radius: 3px;
 }
 
-.carousel-inner-box .left-text{
+.carousel-inner-box .left-text {
     float: left;
     margin-left: 10px;
     margin-top: 10px;
     font-weight: bold;
 }
 
-.carousel-inner-box .right-text{
+.carousel-inner-box .right-text {
     float: right;
     margin-right: 10px;
     margin-top: 10px;
     color: #006644;
 }
 
-.carousel-inner-box .description{
+.carousel-inner-box .description {
     font-family: Nunito Sans;
     font-style: normal;
     margin-left: 10px;
     margin-right: 10px;
     font-weight: normal;
     font-size: 14px;
-    line-height: 18px; color: #006644;
+    line-height: 18px;
+    color: #006644;
 }
 
-.carousel-inner-box .top-rated > p{
+.carousel-inner-box .top-rated>p {
     float: right;
     font-size: 14px;
     margin-right: 10px;
 }
 
-.carousel-inner-box .top-rated > img{
+.carousel-inner-box .top-rated>img {
     height: 20px;
     width: 20px;
     float: right;
 }
 
-.carousel-inner-box .comment{
+.carousel-inner-box .comment {
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 25px;
     margin-right: 10px;
     margin-left: 10px;
-    text-align: justify;                            
+    text-align: justify;
     color: #006644;
 }
 
-.getting-started .carousel-control-next{
+.carousel-div{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+}
+
+.getting-started .carousel-control-next {
     top: unset;
     bottom: 20px;
 }
 
-.getting-started .carousel-control-prev{
+.getting-started .carousel-control-prev {
     top: unset;
     left: 50%;
     bottom: 20px;
     right: 0;
 }
 
-.getting-started .carousel-indicators{
+.getting-started .carousel-indicators {
     justify-content: center;
     left: 50%;
 }
 
-.getting-started .carousel-indicators [data-mdb-target]{
+.getting-started .carousel-indicators [data-mdb-target] {
     width: 8px;
     height: 8px;
     border-radius: 50%;
 }
 
-.getting-started-card{
+.getting-started-card {
     border-radius: 1rem;
     box-shadow: none;
 }
 
-.getting-started-card h1{    
+.getting-started-card h1 {
     font-style: normal;
     font-weight: bold;
     font-size: 28px;
-    line-height: 38px;    
-    text-align: center;    
+    line-height: 38px;
+    text-align: center;
     color: #1C1C1C;
 }
 
-.getting-started-card h2{    
+.getting-started-card h2 {
     font-family: Nunito Sans;
     font-style: normal;
     font-weight: normal;
@@ -500,30 +778,917 @@ body{
     color: #1C1C1C;
 }
 
-.vh-100{
+.vh-100 {
     height: 100vh;
 }
 
-.btn-nav-link{
+.btn-nav-link {
     border: none;
     background: none;
     font-weight: 500;
 }
 
-.btn-nav-link:hover{
+.btn-nav-link:hover {
     color: #006644;
 }
 
-.container{
+.container {
     max-width: 80vw;
 }
 
-@media (min-width:0px) and (max-width:690px) {
-    .container{
-        max-width: 85vw;
+@media (min-width: 768px) and (max-width:880px) {
+    .added-exp {
+        width: 150px;
     }
+}
 
-    .question-radio + label{
+@media (min-width: 880px) and (max-width:990px) {
+    .added-exp {
+        width: 170px;
+    }
+}
+
+@media (min-width: 990px) and (max-width:1140px) {
+    .added-exp {
+        width: 200px;
+    }
+}
+
+@media (min-width: 1140px) and (max-width:1360px) {
+    .added-exp {
+        width: 230px;
+    }
+}
+
+@media (min-width:0px) and (max-width:690px) {
+    .container {
+        max-width: 90vw;
+    }
+    .question-radio+label {
         width: 90%;
     }
 }
+
+
+/* ==========================================Profile page========================================== */
+
+.upload-button {
+    background-color: white;
+    margin-top: 20px;
+    color: #0086FF;
+    border: 1px solid #0086FF;
+}
+
+.change-image {
+    position: absolute;
+    bottom: 140px;
+    right: 10px;
+}
+
+.details-title {
+    margin-top: 50px;
+    margin-bottom: 0px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: #172B4D;
+}
+
+.photo-details {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    align-items: center;
+    letter-spacing: -0.084px;
+    color: #1C1C1C;
+}
+
+.photo-priview {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.photo-upload input[type="file"] {
+    display: none;
+}
+
+.profile-modal {
+    height: 200px;
+    width: 100%;
+    background-color: #CCCCCC;
+    position: relative;
+}
+
+/* .profile-image {
+    position: absolute;
+    top: 20px;
+    left: 140px;
+    height: 150px;
+    width: 150px;
+} */
+
+#image {
+    display: block;
+    /* This rule is very important, please don't ignore this */
+    max-width: 100%;
+}
+
+#image {
+    display: block;
+    /* This rule is very important, please don't ignore this */
+    max-width: 100%;
+}
+
+.cropper-crop-box,
+.cropper-view-box {
+    border-radius: 50%;
+}
+
+.cropper-view-box {
+    box-shadow: 0 0 0 1px #39f;
+    outline: 0;
+}
+
+.cropper-face {
+    background-color: inherit !important;
+}
+
+.cropper-dashed,
+.cropper-point.point-se,
+.cropper-point.point-sw,
+.cropper-point.point-nw,
+.cropper-point.point-ne,
+.cropper-line {
+    display: none !important;
+}
+
+.cropper-view-box {
+    outline: inherit !important;
+}
+
+
+/* Jobs Body ------------------------------------ */
+
+.search-input{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.search-input input{
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    border-radius: 0;
+    background-color: rgb(237, 237, 237, 0.5);
+    border: 0;
+}
+.search-input input:focus{
+    border-radius: 0;
+}
+.search-input label{
+    position: absolute;
+    left: 0.5rem;
+}
+.job-more-button{
+    display: block;
+    font-weight: bold;
+    font: 1.2rem;
+}
+
+.job-body .nav-link {
+    font-family: Mulish;
+    border-bottom: solid #E2E2E2;
+    border-color: #E2E2E2;
+    height: 100%;
+    font-weight: 500;
+}
+
+.job-body .icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.job-body .icon > img {
+    width: 1.2rem;
+}
+.job-body .text {
+    margin-left: 5px;
+    margin-top: 1px;
+}
+
+.job-body .nav-link.active {
+    font-weight: 900;
+    background-color: unset;
+}
+
+.job-card .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.job-card {
+    border: 1px solid #AFAFAF;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+.job-card .upper-content {
+    padding: 5px;
+}
+
+.job-card .upper-content.applied-div {
+    background: rgba(112, 194, 23, 0.1);
+}
+
+.job-avater-span {
+    position: relative;
+    /* padding: 10px; */
+}
+
+.job-card .featured {
+    aspect-ratio: 1;
+}
+
+.job-card .job-avater {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+}
+
+.job-avater-icon {
+    height: 23px;
+    width: 23px;
+    position: absolute;
+    top: 20px;
+    right: -3px;
+}
+
+.job-card .badge {
+    color: white;
+}
+
+.job-card .badge-dark {
+    background-color: #1B364A;
+}
+
+.job-card .badge-danger {
+    background: #FF6937;
+}
+
+.job-card .badge-success {
+    background: #05944F;
+}
+
+.job-card .applied {
+    border: 2px solid #0086FF;
+    width: 100%;
+    border-radius: 24px 0px 0px 24px;
+    color: #0086FF;
+    background-color: white;
+}
+
+.job-card .more-text {
+    text-decoration: none;
+    color: black;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    border-bottom: 1px solid black;
+}
+
+ .job-tag {
+    display: flex;
+    flex-wrap: wrap;
+    color: #1A3F61;
+}
+
+ .job-tag > div {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    padding: 4px 8px;
+    margin: 5px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background: #FFFFFF;
+    border: 2px solid #AFAFAF;
+    border-radius: 24px;
+}
+
+.job-card .flex-text {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-text>div {
+    display: inline-flex;
+    margin: 15px;
+}
+
+.flex-text img {
+    width: 14px;
+    aspect-ratio: 1;
+}
+
+.flex-text .money {
+    font-family: 'Inter-Bold';
+    font-style: normal;
+    font-weight: 500;
+}
+
+
+.lower-text .apply-button {
+    border-radius: 0px;
+}
+
+.lower-text .divider {
+    border-right: 1px solid #1B364A;
+    height: 30px;
+}
+
+.lower-text .top-text {
+    font-family: 'Inter-Bold';
+    font-style: normal;
+    font-weight: 500;
+    color: #AFAFAF;
+}
+
+.lower-text .bottom-text {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+}
+
+.lower-text .stack-image {
+    position: absolute;
+}
+
+.lower-text .stack-image>img {
+    position: absolute;
+    width: 23px;
+    aspect-ratio: 1;
+}
+
+.lower-text .stack-image .image-1 {
+    left: -12px;
+}
+
+.lower-text .stack-image .image-2 {
+    left: -24px;
+    z-index: -1;
+}
+
+.connect-required{
+    /* primary-blue-dark */
+    background: #1B364A;
+    box-shadow: inset 0px 0px 100px rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    color: white;
+    display: inline;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.connect-required:hover {
+    cursor: context-menu;
+}
+
+.connect-available{
+    border: 2px solid #0086FF;
+    width: 100%;
+    border-radius: 40px;
+    color: #0086FF;
+    background-color: white;
+    display: inline-block;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.connect-available:hover {
+    cursor: context-menu;
+}
+
+@media (min-width:0px) and (max-width:690px) {
+    .job-body .space-between{
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+    }
+}
+/* ---------------------------------------------- */
+
+.freelancer-profile .job-thumbnail{
+    width: 160px;
+}
+
+.freelancer-profile .job-poster{
+    width: 50px;
+    border-radius: 50%;
+}
+
+.freelancer-profile .lower-text {
+    border-radius: 0px 0px 5px 5px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    text-align: center;
+    gap: 5px;
+    padding-bottom: 1rem;
+}
+
+.freelancer-profile .lower-text > div{
+    position: relative;
+    height: 100%;
+}
+
+.freelancer-profile .lower-text > div:not(:last-child):before{
+    content: '';
+    height: 2rem;
+    width: 1px;
+    background-color: rgb(27, 54, 74, 0.4);
+    position: absolute;
+    top: 20%;
+    right: 0;
+    /* margin-left: 4.5rem; */
+    display: flex;
+    align-items: center;
+}
+
+.freelancer-profile{
+    font-family: 'Uber Move Text';
+    font-style: normal;
+}
+
+.freelancer-profile h1,h2,h3,h4,b{
+    font-family: 'Inter-Bold';
+    font-weight: 700, Bold;
+}
+
+.freelancer-profile .progress-bar{
+    width: 80%;
+    background-color: #EBECF0;
+    height: 10px;
+    border-radius: 6px;
+}
+
+.freelancer-profile .progress{
+    background-color: #14A800;
+    height: 100%;
+    border-radius: 6px;
+}
+
+.freelancer-profile .profile-image-div{
+    position: relative;
+    height: 130px;
+}
+.freelancer-profile .profile-image{
+    border: 2px solid white;
+    width: 150px;
+    border-radius: 50%;
+    position: absolute;
+    top: -3rem;
+}
+
+.freelancer-profile .profile-social-icon .fab{
+    border: 3px solid #EBECF0;
+    border-radius: 50%;
+    padding: 4  px;
+}
+
+.freelancer-profile .available-badge{
+    margin-right: 20px;
+    color: #0086FF;
+
+    border: 2px solid #0086FF;
+    box-shadow: inset -5px -5px 250px rgba(255, 255, 255, 0.02);
+
+    -webkit-backdrop-filter: blur(42px);
+
+            backdrop-filter: blur(42px);
+    /* Note: backdrop-filter has minimal browser support */
+
+    border-radius: 50px;
+
+    /* padding: 5px; */
+    /* margin: 10px; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 150px;
+}
+
+.freelancer-profile .available-badge img{
+    width: 15px;
+    aspect-ratio: 1;
+}
+
+.freelancer-profile .card-padding{
+    padding: 0.7rem 1.3rem 0.7rem 1.3rem;
+}
+.freelancer-profile .card-border{
+    /* border: 1px solid #AFAFAF; */
+    border-radius: 5px;
+    /* box-shadow: 0px 0px 3px #afafaf; */
+    background: #FFFFFF;
+}
+
+.freelance-profile-cover-image{
+    width: 100%;
+    height: 145px;
+    border-radius: 0px;
+}
+
+.freelancer-profile .hourly-rate{
+    background: #E6F2ED;
+    border-radius: 36px;
+    max-width: 80px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.freelancer-profile .hourly-rate p{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+}
+
+.show-all{
+    text-decoration: none;
+    color: #1B364A;
+}
+
+.freelancer-profile .card-header-profile{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.freelancer-profile .card-header-button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.freelancer-profile .card-header-button i{
+    border: 1px solid #626468;
+    border-radius: 50%;
+}
+
+.freelancer-profile .card-header-button .first{
+    padding: 8px;
+    font-size: 0.8rem;
+}
+
+.freelancer-profile .card-header-button .second{
+    padding: 10px;
+}
+
+.freelancer-profile .portfolio-image{
+    width: 100%;
+    height: 100%;
+}
+
+.portfolio-title{
+    color: #0086FF;
+}
+.portfolio-text{
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+@media (min-width:0px) and (max-width:690px) {
+    .freelancer-profile{
+        max-width: 100vw;
+    }
+    .freelancer-profile .personal-information{
+        border: 0px;
+        padding-right: 0rem;
+    }
+    .freelancer-profile .profile-image{
+        top: -5rem;
+    }
+    .freelancer-profile .profile-image-div{
+        height: 100px;
+    }
+    .freelancer-profile .hourly-rate{
+        border-radius: 0;
+    }
+    .freelancer-profile .card-border{
+        border-radius: 0;
+    }
+    .freelancer-profile .lower-text {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .freelancer-profile .lower-text-line-break-div:before{
+        width: 0px !important;
+    }
+    .freelancer-profile .job-thumbnail{
+        width: 130px;
+    }
+    .freelancer-profile .job-poster{
+        width: 30px;
+    }
+}
+/* ---------------------------------------------- */
+
+
+/* ========================================= Submit Profile ================================== */
+
+.submit-top-header{
+    background: #EFF3FE;
+    padding: 0.3rem;
+}
+
+.submit-top-header > div{
+    display: flex;
+    align-items: center;
+}
+.submit-top-header .first{
+    justify-content: end;
+}
+.submit-top-header .second{
+    justify-content: start;
+}
+
+.submit-profile-btn {
+    background-color: #0086FF;
+    color: #FFFFFF;
+    border-radius: 0px;
+}
+
+.submit-profile-btn:hover {
+    color: #FFFFFF;
+}
+
+@media (min-width: 0px) and (max-width: 786px) {
+    .submit-profile-btn {
+        text-align: center;
+    }
+    .submit-top-header .second{
+        justify-content: center;
+    }
+}
+
+.edit-profile-btn {
+    color: #0086FF;
+    float: right;
+    border: 1px solid #0086FF;
+    border-radius: 0px;
+}
+
+.profile-name {
+    top: 35px;
+    left: 60px;
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+    color: #1C1C1C;
+}
+
+.submit-profile > div:not(:first-child){
+    background-color: #FFFFFF;
+    margin-bottom: 1rem;
+}
+
+.submit-profile .profile-photo {
+    height: 150px;
+    width: 150px;
+    border: 2px solid #FFFFFF;
+    border-radius: 150px;
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+}
+
+.submit-profile .submit-profile-title{    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.submit-profile .submit-profile-language{
+    display: flex;
+}
+
+
+/* .photo-sm.col-sm-12 {
+    background: #006644;
+} */
+
+@media (min-width: 0px) and (max-width: 786px) {
+    .profile-info {
+        margin: 15px;
+        width: 100%;
+    }
+    .submit-profile .profile-photo {        
+        margin-top: 0rem;
+        margin-left: 0rem;
+    }
+    .submit-profile .submit-profile-title{ 
+        align-items: flex-start;
+        flex-direction: column;
+    }   
+    .submit-profile .submit-profile-language{
+        flex-direction: column;
+    }
+}
+
+.profile-location {
+    top: 70px;
+    left: 60px;
+    display: flex;
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: #1C1C1C;
+}
+
+.profile-details {
+    top: 90px;
+    left: 60px;
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #444444;
+}
+
+.profile-content {
+    position: relative;
+}
+
+.content-title {
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+    color: #1C1C1C;
+}
+
+.submit-profile .rate {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 14px;
+    color: #1B364A;
+    padding: .8rem;
+    background: #E6F2ED;
+    border-radius: 36px;
+}
+
+.more {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    -webkit-text-decoration-line: underline;
+            text-decoration-line: underline;
+    color: #1C1C1C;
+}
+
+.content-subtitle {
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #1C1C1C;
+}
+
+.show-all {
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #1B364A;
+}
+
+.tab-title {
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    color: #1C1C1C;
+}
+
+.tab-border {
+    border: 1px solid #DFE1E6;
+}
+
+
+/* ========================================= Submit Profile End ================================== */
+
+
+/* ========================================= blog ================================== */
+
+.blog-title {
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 56px;
+    color: #1C1C1C;
+    width: 30%;
+}
+
+.massage {
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #000000;
+    opacity: 0.7;
+}
+
+.letter {
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 14px;
+    color: #1C1C1C;
+}
+
+.letter-desc {
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #444444;
+    width: 50%;
+}
+
+.duration {
+    font-family: 'Uber Move Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #AFAFAF;
+}
+
+
+/* ========================================= blog End ================================== */
+
+
+
+/* ================= Bootstrap Responsive Width ========================================= */
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {    
+    
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+      
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+      
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+      
+}
+/* ================= Bootstrap Responsive Width End ========================================= */
+

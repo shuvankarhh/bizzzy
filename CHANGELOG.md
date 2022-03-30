@@ -1,3 +1,23 @@
+v0.023.0 - add: jobs (2022-03-30 10:18)
+
+v0.022.0 - add: features (2022-03-28 15:07)
+
+v0.021.0 - fix: view bug fix (2022-03-22 16:32)
+
+v0.020.0 - add: submit-profile, bug fix (2022-03-21 17:12)
+
+v0.019.0 - add: freelancer-profile (2022-03-21 12:03)
+
+v0.018.0 - add: jobs (2022-03-16 16:25)
+
+v0.017.0 - add: rate, profile-image (2022-03-15 17:17)
+
+v0.016.0 - add: skill, language (2022-03-15 10:00)
+
+v0.015.0 - add: work, education insert (2022-03-14 12:00)
+
+v0.015.0 - add: hourly rate (2022-03-13 11:07)
+
 v0.014.0 - add: work, education experience (2022-03-13 09:53)
 
 v0.013.0 - fix: upto question three (2022-03-12 11:53)

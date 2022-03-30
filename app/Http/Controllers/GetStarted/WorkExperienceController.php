@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\GetStarted;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WorkExperienceRequest;
 use Illuminate\Http\Request;
 
 class WorkExperienceController extends Controller
@@ -14,7 +15,10 @@ class WorkExperienceController extends Controller
      */
     public function index()
     {
-        return view('get_started.add_work_experience')->with('name', auth()->user()->name);
+        return view('get_started.add_work_experience')->with([
+            'name' => auth()->user()->name,
+            'experiences' => auth()->user()->work_experiences
+        ]);
     }
 
     /**
@@ -33,9 +37,19 @@ class WorkExperienceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WorkExperienceRequest $request)
     {
-        //
+        $work = auth()->user()->work_experiences()->create([
+            'title' => $request->title,
+            'company' => $request->company,
+            'location' => $request->location,
+            'currently_working' => $request->currently_working,
+            'start_date' => (!empty($request->year_start)) ? $request->year_start . '-' . $request->month_start . '-' . '01' : NULL,
+            'end_date' => (!empty($request->year_end)) ? $request->year_end . '-' . $request->month_end . '-' . '01' : NULL,
+            'description' => $request->description,
+        ]);
+
+        return response()->json($work);
     }
 
     /**

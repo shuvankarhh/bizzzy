@@ -24,10 +24,10 @@ class CreateJobsTable extends Migration
             $table->unsignedTinyInteger('experience_level');
             $table->unsignedTinyInteger('price_type');
             $table->decimal('price', 13, 3);
-            $table->unsignedTinyInteger('hours_per_week');
+            $table->unsignedTinyInteger('hours_per_week')->nullable();
             $table->unsignedSmallInteger('total_proposals');
             $table->unsignedSmallInteger('total_invitation_sent');
-            $table->unsignedTinyInteger('average_rating');
+            $table->unsignedTinyInteger('average_rating')->nullable();
             $table->decimal('money_spent', 13, 3);
             $table->timestamps();
         });

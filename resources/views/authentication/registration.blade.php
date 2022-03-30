@@ -10,7 +10,7 @@
     <div class="container py-3 h-100">
 
         <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-8 col-lg-6 col-xl-5 col-sm-10">
+            <div class="col-md-8 col-lg-6 col-xl-5 col-sm-12 col-xs-12">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body text-center">
                         <form action="{{ route('user.register') }}" method="post">
@@ -61,11 +61,13 @@
                                     </select>
                                 </div>
                                 <p style="text-align: center;">I want to become:</p>
-                                <div class="form-check">
-                                    <input class="register-radio left" type="radio" id="freelancer" name="freelancer_or_recuriter" value="freelancer" checked/>
-                                    <label for="freelancer">Freelancer</label>
-                                    <input class="register-radio right" type="radio" id="recruiter" name="freelancer_or_recuriter" value="recruiter" />
-                                    <label for="recruiter">Recruiter</label>
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="register-radio left" type="radio" id="freelancer" name="freelancer_or_recuriter" value="freelancer" checked/>
+                                        <label for="freelancer">Freelancer</label>
+                                        <input class="register-radio right" type="radio" id="recruiter" name="freelancer_or_recuriter" value="recruiter" />
+                                        <label for="recruiter">Recruiter</label>
+                                    </div>
                                 </div>
                             </div>
 
@@ -84,12 +86,12 @@
                                 font-weight: normal;
                                 font-size: 14px;
                                 line-height: 20px;
-                                color: rgba(0, 0, 0, 0.856)">Yes, I understand and agree to the <a style="color: #14A800;" >Bizzzy Terms of Service</a>, including the 
-                                <a style="color: #14A800;">User Agreement</a>  and <a style="color: #14A800;" > Privacy Policy</a>. </label>
+                                color: rgba(0, 0, 0, 0.856)">Yes, I understand and agree to the <a style="color: #0086FF;" >Bizzzy Terms of Service</a>, including the 
+                                <a style="color: #0086FF;">User Agreement</a>  and <a style="color: #0086FF;" > Privacy Policy</a>. </label>
                                 <div class="invalid-feedback">@error('aggrement') {{ $message }} @enderror</div>
                             </div>
 
-                            <button class="btn btn-primary btn-lg btn-block" style="  background-color: #14A800;" type="submit">Create My Account</button>
+                            <button class="btn btn-primary btn-lg btn-block" style="  background-color: #0086FF;" type="submit">Create My Account</button>
 
                         </form>
                     </div>
