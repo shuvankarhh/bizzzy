@@ -15,6 +15,7 @@ class JobComponent extends Component
     /**
      * Create a new component instance.
      *
+     * @param applied $applied Boolean
      * @return void
      */
     public function __construct($applied, $job, $idx, $connect = 0)

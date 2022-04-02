@@ -1,3 +1,5 @@
+v0.024.0 - add: Job Post, Accept, Propose (2022-04-02 14:40)
+
 v0.023.0 - add: jobs (2022-03-30 10:18)
 
 v0.022.0 - add: features (2022-03-28 15:07)

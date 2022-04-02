@@ -86,5 +86,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserPortfolio::class);
     }
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
     
 }

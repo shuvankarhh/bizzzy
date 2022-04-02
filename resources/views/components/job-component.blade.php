@@ -5,7 +5,7 @@
                 {{--  This section is for mobile view. Will be hidden in large screens.  --}}
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-8 col-8 p-0 d-md-none d-lg-none d-xl-none d-xxl-none"></div>
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-4 col-4 p-0 d-md-none d-lg-none d-xl-none d-xxl-none">
-                    <div class="applied text-center">fgfgsdfg
+                    <div class="applied text-center">
                         <img src="{{ asset('images\icons\job\applied.svg') }}" alt="">
                         Applied
                     </div>                            
@@ -112,7 +112,7 @@
                 <div class="row justify-content-center">
                     <div class="col-3 text-center">
                         <p class="m-0 top-text">Budget</p>
-                        <p class="m-0 bottom-text">${{ ($job->price_type == '1') ? $job->price : $job->price . '/hr' }}</p>
+                        <p class="m-0 bottom-text">${{ ($job->price_type == 'Fixed') ? $job->price : $job->price . '/hr' }}</p>
                     </div>
                     <div class="col-1 align-self-center">
                         <span class="divider"></span>

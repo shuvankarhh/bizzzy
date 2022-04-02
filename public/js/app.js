@@ -2070,9 +2070,9 @@ languages = "<option value=\"af\">Afrikaans</option> <option value=\"sq\">Albani
 var fa_spinning = '<i style="font-size: 1.2em" class="fas fa-circle-notch fa-spin"></i>'; // Fotter down arrow rotate
 
 toggleFoooterIcon = function toggleFoooterIcon(e) {
-  var child = e.querySelector('.fas');
+  var child = e.querySelector(".fas");
   console.log(child);
-  child.classList.toggle('active');
+  child.classList.toggle("active");
 }; // --------------
 // Question One
 
@@ -2086,22 +2086,22 @@ first_working_experience = function first_working_experience(link) {
 }; // Helper Functions
 
 
-var removeValidation = function removeValidation() {
-  Array.from(document.querySelectorAll('.is-invalid')).forEach(function (el) {
-    el.classList.remove('is-invalid');
+removeValidation = function removeValidation() {
+  Array.from(document.querySelectorAll(".is-invalid")).forEach(function (el) {
+    el.classList.remove("is-invalid");
   });
 };
 
-var showValidation = function showValidation(obj) {
+showValidation = function showValidation(obj) {
   for (var property in obj.errors) {
     var field = document.getElementById(property);
 
-    if (field.tagName === 'SELECT') {
-      field.classList.add('is-invalid');
-      var ts_element = document.querySelector('.ts-wrapper');
-      ts_element.classList.add('is-invalid');
+    if (field.tagName === "SELECT") {
+      field.classList.add("is-invalid");
+      var ts_element = document.querySelector(".ts-wrapper");
+      ts_element.classList.add("is-invalid");
     } else {
-      field.classList.add('is-invalid');
+      field.classList.add("is-invalid");
     }
 
     document.getElementById("".concat(property, "_invalid")).innerHTML = obj.errors[property];
@@ -2118,15 +2118,15 @@ var modal_form_close = function modal_form_close(id, modal) {
 add_work_experience = function add_work_experience() {
   event.preventDefault();
   removeValidation();
-  var form = document.getElementById('work_experience_form');
+  var form = document.getElementById("work_experience_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/add-work-experience', formData).then(function (response) {
-    modal_form_close('work_experience_form', 'work_modal');
-    var company = response.data.company === null ? '' : response.data.company;
-    var html = "<div class=\"col-md-6 mb-2\">\n                        <div class=\"added-exp\">\n                            <p class=\"m-0 font-weight-bold\">".concat(response.data.title, "</p>\n                            <p class=\"m-0\">").concat(company, "</p>\n                        </div>\n                    </div>");
-    document.getElementById('added_exp').innerHTML += html;
+  axios.post(APP_URL + "/user/create/add-work-experience", formData).then(function (response) {
+    modal_form_close("work_experience_form", "work_modal");
+    var company = response.data.company === null ? "" : response.data.company;
+    var html = "<div class=\"col-md-6 mb-2\">\n                    <div class=\"added-exp\">\n                        <p class=\"m-0 font-weight-bold\">".concat(response.data.title, "</p>\n                        <p class=\"m-0\">").concat(company, "</p>\n                    </div>\n                </div>");
+    document.getElementById("added_exp").innerHTML += html;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2141,12 +2141,12 @@ add_work_experience = function add_work_experience() {
 add_education = function add_education() {
   event.preventDefault();
   removeValidation();
-  var form = document.getElementById('education_form');
+  var form = document.getElementById("education_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/add-education', formData).then(function (response) {
-    location.href = '';
+  axios.post(APP_URL + "/user/create/add-education", formData).then(function (response) {
+    location.href = "";
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2159,15 +2159,15 @@ add_education = function add_education() {
 
 
 add_language = function add_language() {
-  document.getElementById('error').innerHTML = '';
-  var form = document.getElementById('language_form');
+  document.getElementById("error").innerHTML = "";
+  var form = document.getElementById("language_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/language', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/language", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
-      document.getElementById('error').innerHTML = 'Please fill all inputs!';
+      document.getElementById("error").innerHTML = "Please fill all inputs!";
     } else {
       // Other JS related error
       console.log(error);
@@ -2176,13 +2176,13 @@ add_language = function add_language() {
 };
 
 remove_additional_selected_language = function remove_additional_selected_language(number, id) {
-  axios["delete"](APP_URL + '/user/create/language/' + id).then(function (response) {
+  axios["delete"](APP_URL + "/user/create/language/" + id).then(function (response) {
     var el = document.getElementById("addition_num_".concat(number));
     el.remove();
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
-      document.getElementById('error').innerHTML = error.response.data.error;
+      document.getElementById("error").innerHTML = error.response.data.error;
     } else {
       // Other JS related error
       console.log(error);
@@ -2194,12 +2194,12 @@ remove_additional_selected_language = function remove_additional_selected_langua
 
 add_bio = function add_bio() {
   removeValidation();
-  var form = document.getElementById('bio_form');
+  var form = document.getElementById("bio_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/freelancer-bio', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/freelancer-bio", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2213,12 +2213,12 @@ add_bio = function add_bio() {
 
 add_category = function add_category() {
   removeValidation();
-  var form = document.getElementById('category_form');
+  var form = document.getElementById("category_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/category', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/category", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2232,12 +2232,12 @@ add_category = function add_category() {
 
 add_hourly_rate = function add_hourly_rate() {
   removeValidation();
-  var form = document.getElementById('hourly_rate_form');
+  var form = document.getElementById("hourly_rate_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/hourly_rate', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/hourly_rate", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2252,10 +2252,10 @@ add_hourly_rate = function add_hourly_rate() {
 upload_profile_image = function upload_profile_image(image) {
   var image_input = document.getElementById("base64image");
   var formData = new FormData();
-  formData.append('image', image_input.value);
-  axios.post(APP_URL + '/user/create/uplaod_image', formData).then(function (response) {// location.href = response.data;
+  formData.append("image", image_input.value);
+  axios.post(APP_URL + "/user/create/uplaod_image", formData).then(function (response) {// location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2267,12 +2267,12 @@ upload_profile_image = function upload_profile_image(image) {
 
 add_profile_information = function add_profile_information() {
   removeValidation();
-  var form = document.getElementById('profile_information_form');
+  var form = document.getElementById("profile_information_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/question-thirteen', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/question-thirteen", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2287,12 +2287,12 @@ resend_email_verification = function resend_email_verification(ele, email) {
   var temp = ele.innerHTML;
   ele.innerHTML = fa_spinning;
   var formData = new FormData();
-  formData.append('email', email);
-  axios.post(APP_URL + '/user/resend_verification', formData).then(function (response) {
+  formData.append("email", email);
+  axios.post(APP_URL + "/user/resend_verification", formData).then(function (response) {
     // location.href = response.data;
     ele.innerHTML = temp;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {// This is for error from laravel
+    if (typeof error.response !== "undefined") {// This is for error from laravel
       // showValidation(error.response.data);
     } else {
       // Other JS related error
@@ -2306,12 +2306,12 @@ resend_email_verification = function resend_email_verification(ele, email) {
 
 add_title = function add_title() {
   removeValidation();
-  var form = document.getElementById('title_form');
+  var form = document.getElementById("title_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/question-five', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/question-five", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2324,17 +2324,17 @@ add_title = function add_title() {
 
 
 show_full_text = function show_full_text(e) {
-  var idx = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  var idx = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
   document.getElementById("show_text".concat(idx)).innerHTML = document.getElementById("full_text".concat(idx)).innerHTML;
   e.style.display = "none";
 }; // --------------
 // Add Portfolio
 
 
-var form = document.getElementById('add_protfolio_form');
+var form = document.getElementById("add_protfolio_form");
 
 if (form) {
-  form.addEventListener('submit', function () {
+  form.addEventListener("submit", function () {
     event.preventDefault();
     var formData = new FormData(form);
     axios.post("".concat(APP_URL, "/user_portfolio"), formData).then(function (response) {
@@ -2343,7 +2343,7 @@ if (form) {
     })["catch"](function (error) {
       console.log(error);
 
-      if (typeof error.response !== 'undefined') {
+      if (typeof error.response !== "undefined") {
         // This is for error from laravel
         showValidation(error.response.data);
       } else {
@@ -2360,7 +2360,7 @@ add_job = function add_job(e) {
   event.preventDefault();
   removeValidation();
   var formData = new FormData(e);
-  axios.post(APP_URL + '/job', formData).then(function (response) {
+  axios.post(APP_URL + "/job", formData).then(function (response) {
     console.log(response);
     e.reset();
     tags_select.clear();
@@ -2368,7 +2368,7 @@ add_job = function add_job(e) {
     languages_select.clear();
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       //  This is for error from laravel
       console.log(error.response.data);
       showValidation(error.response.data);
@@ -2381,16 +2381,16 @@ add_job = function add_job(e) {
 // Job Proposal
 
 
-var job_proposal = document.getElementById('job_proposal_form');
+var job_proposal = document.getElementById("job_proposal_form");
 
 if (job_proposal) {
-  job_proposal.addEventListener('submit', function (e) {
+  job_proposal.addEventListener("submit", function (e) {
     e.preventDefault();
     console.log(e.target); // return;
 
     removeValidation();
     var formData = new FormData(e.target);
-    axios.post(APP_URL + '/job-apply', formData).then(function (response) {
+    axios.post(APP_URL + "/job-apply", formData).then(function (response) {
       console.log(response); // e.reset();
       // tags_select.clear();
       // categories_select.clear();
@@ -2398,7 +2398,7 @@ if (job_proposal) {
 
       location.href = response.data;
     })["catch"](function (error) {
-      if (typeof error.response !== 'undefined') {
+      if (typeof error.response !== "undefined") {
         //  This is for error from laravel
         console.log(error.response.data);
         showValidation(error.response.data);

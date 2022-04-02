@@ -68,7 +68,7 @@
                         
                     {{-- </li> --}}
                     
-                    
+                    <span class="me-2">{{ auth()->user()->name }}</span>
                     <!-- Avatar -->
                     <div class="dropdown">
                         <a
@@ -93,6 +93,12 @@
                         >
                           <li>
                             <a class="dropdown-item" href="{{ route('freelancer.index') }}">My profile</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ route('recruiter.job.index') }}">Posted Jobs</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ route('job.offer.index') }}">Job Offers</a>
                           </li>
                           <li>
                             <a class="dropdown-item" href="#">Settings</a>

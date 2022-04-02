@@ -159,7 +159,7 @@
             </div>
             <div class="col-12 m-0 p-0">
                 <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
-                    <li class="nav-item col-4">
+                    <li class="nav-item">
                         <a class="nav-link active" id="current" data-mdb-toggle="tab" href="#completeted_jobs" role="tab" aria-controls="current" aria-selected="true">
                             <span class="icon">
                                 <img src="{{ asset('images\icons\job\all.svg') }}" alt="Briefcase">                           
@@ -167,7 +167,7 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item col-4">
+                    <li class="nav-item">
                         <a class="nav-link" id="past" data-mdb-toggle="tab" href="#in_progress_jobs" role="tab" aria-controls="past" aria-selected="false">
                             <span class="icon">
                                 <img src="{{ asset('images\icons\job\hourly.svg') }}" alt="Briefcase">
@@ -175,7 +175,7 @@
                             </span>                    
                         </a>
                     </li>
-                    <li class="nav-item col-4">
+                    <li class="nav-item">
                         <a class="nav-link" id="past" data-mdb-toggle="tab" href="#canceled_jobs" role="tab" aria-controls="past" aria-selected="false">
                             <span class="icon">
                                 <img src="{{ asset('images\icons\job\hourly.svg') }}" alt="Briefcase">
@@ -188,7 +188,7 @@
                 <div class="tab-content" id="ex1-content">
                     <div class="tab-pane fade show active" id="completeted_jobs" role="tabpanel" aria-labelledby="current">
                         <div class="freelancer-job row">
-                            <div class="col-sm-5 col-5 col-md-auto m-0 p-0">
+                            <div class="col-sm-5 col-5 col-md-auto">
                                 <div>
                                     <img class="job-thumbnail" src="{{ asset('images/general/porfolio-1.png') }}" alt="">
                                 </div>
@@ -199,7 +199,7 @@
                                     <x-profile-job-price />
                                 </div>
                             </div>
-                            <div class="col-sm-7 col-7 col-md-auto m-0 p-0">
+                            <div class="col-sm-7 col-7 col-md">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row">
