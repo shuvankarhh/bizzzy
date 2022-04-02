@@ -57,6 +57,9 @@ Route::get('/clear-cache', function () {
 Route::get('/link', function () {
     Artisan::call('storage:link');
 });
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+});
 Route::prefix('user')->group(function () {
     Route::get('login', [AuthenticationController::class, 'userLoginCreate'])->name('user.login');
     Route::post('login', [AuthenticationController::class, 'userLoginStore']);

@@ -108,6 +108,10 @@ class JobProposalController extends Controller
             }])->with('tags.tag', 'categories.category')->where('id', decrypt($job_id));
         }])->first();
 
+        // Job::where('user_id', auth()->id())->with(['proposals' => function ($query) use ($freelancer) {
+        //     $query->where('user_id', $freelancer);
+        // }])->with('tags.tag', 'categories.category')->where('id', decrypt($job_id))->first();
+
         $this->authorize('view', $job_proposal->jobs[0]);
 
         return view('contents.jobs.job-proposal')->with([

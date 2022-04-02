@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-body">            
             <div class="row">
-                <div class="col-auto">
+                <div class="col-6">
                     <h3>{{ $contract->job->name }}</h3>
                     <p class="m-0">Offer Date: {{ $contract->created_at->format('M d, Y') }}</p>
                     <p class="m-0">Status: <strong>{{ $contract->contract_status }}</strong></p>
@@ -34,7 +34,16 @@
                     </p>
                     @if (!$contract->milestones->isEmpty())
                         <hr>
-                        This is a tes
+                        <h4>Milestones</h4>
+                        <ul class="list-group">
+                            @foreach ($contract->milestones as $item)
+                                <li class="list-group-item" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
+                                    <p class="m-0">Title: <strong>{{$item->name}}</strong></p>
+                                    <p class="m-0">Amount: <strong>{{(int)$item->deposit_amount}}</strong></p>
+                                    <p class="m-0">End Date: <strong>@php $date = new DateTime($item->end_date); echo $date->format('M d, Y'); @endphp</strong></p>
+                                </li>
+                            @endforeach
+                        </ul>
                     @endif
                     @if ($contract->payment_type === 2)
                         <hr>

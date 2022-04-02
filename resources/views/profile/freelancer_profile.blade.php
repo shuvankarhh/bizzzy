@@ -268,9 +268,9 @@
             </div>
             @forelse ($portfolios as $idx=>$item)
             @if ($idx != 3)
-                <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-6 col-6 m-0 p-0">
+                <div class="col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-sm-6 col-6 m-2 p-0">
             @else
-                <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-6 col-6 d-inline d-sm-inline d-md-none m-0 p-0">
+                <div class="col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-sm-6 col-6 d-inline d-sm-inline d-md-none m-2 p-0">
             @endif
                     <div class="row h-100 pb-3 pb-sm-3">
                         @if (!is_null($item->thumbnail))                                

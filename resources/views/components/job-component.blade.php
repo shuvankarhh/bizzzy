@@ -48,7 +48,7 @@
         </div>
         <div class="row">
             <div class="col-11">
-                <p id="show_text{{ $idx }}" class="m-0">{!! \Illuminate\Support\Str::limit($job->description, 350, $end='....<u onclick="show_full_text(this, '.$idx.')" role="button" class="m-0 job-more-button">more</u>') !!}</p>
+                <p id="show_text{{ $idx }}" class="m-0 job-description">{!! \Illuminate\Support\Str::limit($job->description, 350, $end='....<u onclick="show_full_text(this, '.$idx.')" role="button" class="m-0 job-more-button">more</u>') !!}</p>
                 <span class="d-none" id="full_text{{ $idx }}">{{ $job->description }}</span>
             </div>
             <div class="col-11 mt-3">

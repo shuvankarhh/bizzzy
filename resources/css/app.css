@@ -935,6 +935,10 @@ body {
 
 /* Jobs Body ------------------------------------ */
 
+.job-description{
+    /* max-width: 100ch; */
+}
+
 .search-input{
     position: relative;
     display: flex;
