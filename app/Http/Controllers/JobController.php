@@ -66,8 +66,8 @@ class JobController extends Controller
                 'money_spent' => 0,
             ]);
 
-            if($request->file('optional_files')){
-                foreach($request->file('optional_files') as $item){
+            if ($request->file('optional_files')) {
+                foreach ($request->file('optional_files') as $item) {
                     $path = $item->store('job', ['disk' => 'public']);
                     JobFile::create([
                         'job_id' => $job->id,
@@ -77,9 +77,9 @@ class JobController extends Controller
                 }
             }
 
-            if($request->languages){
-                foreach($request->languages as $item){
-                    JobPreferredLanguage::create([                
+            if ($request->languages) {
+                foreach ($request->languages as $item) {
+                    JobPreferredLanguage::create([
                         'job_id' => $job->id,
                         'language_code' => $item,
                         'proficiency_level' => 0,
@@ -87,18 +87,18 @@ class JobController extends Controller
                 }
             }
 
-            if($request->tags){
-                foreach($request->tags as $item){
-                    JobTag::create([                
+            if ($request->tags) {
+                foreach ($request->tags as $item) {
+                    JobTag::create([
                         'job_id' => $job->id,
                         'tag_id' => $item,
                     ]);
                 }
             }
 
-            if($request->categories){
-                foreach($request->categories as $item){
-                    JobCategory::create([                
+            if ($request->categories) {
+                foreach ($request->categories as $item) {
+                    JobCategory::create([
                         'job_id' => $job->id,
                         'category_id' => $item,
                     ]);

@@ -19,8 +19,10 @@
     use App\Http\Controllers\GetStarted\WorkExperienceController;
     use App\Http\Controllers\ProfileController;
     use App\Http\Controllers\BlogController;
-use App\Http\Controllers\JobApplyController;
-use App\Http\Controllers\UserPortfolioController;
+    use App\Http\Controllers\JobApplyController;
+    use App\Http\Controllers\UserPortfolioController;
+    use App\Http\Controllers\Admin\AuthController;
+    use App\Http\Controllers\Admin\AdminController;
 
     /*
 |--------------------------------------------------------------------------
@@ -119,7 +121,7 @@ use App\Http\Controllers\UserPortfolioController;
             Route::post('/', [JobController::class, 'store'])->name('job.store');
             Route::get('/create', [JobController::class, 'create'])->name('job.create');
         });
-        
+
         Route::prefix('job-apply')->group(function () {
             Route::get('create/{id}', [JobApplyController::class, 'create'])->name('job.apply.create');
             Route::post('/', [JobApplyController::class, 'store'])->name('job.apply.store');
@@ -135,4 +137,22 @@ use App\Http\Controllers\UserPortfolioController;
             Route::post('/', [UserPortfolioController::class, 'store'])->name('portfolio.index');
         });
         Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
+    });
+
+
+
+    // ====================================admin===================================
+    Route::prefix('admin')->group(function () {
+        Route::get('login', [AuthController::class, 'showLoginFrom']);
+        Route::post('login', [AuthController::class, 'adminLoginStore'])->name('admin.login');
+        Route::get('home', [AdminController::class, 'index']);
+    });
+    Route::group(['middleware' => 'auth:admin'], function () {
+        Route::get('add-staff', [AdminController::class, 'staffCreate'])->name('staff.add');
+        Route::post('store-staff', [AdminController::class, 'staffStore'])->name('staff.store');
+        Route::get('list-staff', [AdminController::class, 'staffList'])->name('staff.list');
+        Route::get('edit-staff/{id}', [AdminController::class, 'staffEdit'])->name('staff.edit');
+        Route::post('edit-update', [AdminController::class, 'staffUpdate'])->name('staff.update');
+
+        Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
     });
