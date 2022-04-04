@@ -24,6 +24,8 @@ use App\Http\Controllers\JobProposalController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerJobController;
 use App\Http\Controllers\RecruiterJobController;
 use App\Http\Controllers\UserPortfolioController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -150,7 +152,7 @@ Route::group(['middleware' => ['auth', 'user.activity']], function () {
     Route::prefix('recruiter-job')->group(function () {
         Route::get('/', [RecruiterJobController::class, 'index'])->name('recruiter.job.index');
     });
-
+    
     Route::prefix('recruiter-job-proposal')->group(function () {
         Route::post('/', [JobProposalController::class, 'store'])->name('job.proposal.store');
         Route::get('/{freelancer}/{job_id}', [JobProposalController::class, 'show'])->name('job.proposal.show');
@@ -172,4 +174,20 @@ Route::group(['middleware' => ['auth', 'user.activity']], function () {
     });
 
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
+});
+
+// ====================================admin===================================
+Route::prefix('admin')->group(function () {
+    Route::get('login', [AuthController::class, 'showLoginFrom']);
+    Route::post('login', [AuthController::class, 'adminLoginStore'])->name('admin.login');
+    Route::get('home', [AdminController::class, 'index']);
+});
+Route::group(['middleware' => 'auth:admin'], function () {
+    Route::get('add-staff', [AdminController::class, 'staffCreate'])->name('staff.add');
+    Route::post('store-staff', [AdminController::class, 'staffStore'])->name('staff.store');
+    Route::get('list-staff', [AdminController::class, 'staffList'])->name('staff.list');
+    Route::get('edit-staff/{id}', [AdminController::class, 'staffEdit'])->name('staff.edit');
+    Route::post('edit-update', [AdminController::class, 'staffUpdate'])->name('staff.update');
+
+    Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });

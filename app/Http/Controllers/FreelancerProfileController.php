@@ -20,8 +20,8 @@ class FreelancerProfileController extends Controller
             'service' => auth()->user()->service_categories()->with('parent')->first(),
             'current' => auth()->user()->work_experiences()->where('currently_working', 1)->get(),
             'past' => auth()->user()->work_experiences()->whereNull('currently_working')->get(),
-            'portfolios' => auth()->user()->portfolios()->limit(4)->latest()->get(),            
-            'portfolios_total' => auth()->user()->portfolios()->count('*'),            
+            'portfolios' => auth()->user()->portfolios()->limit(4)->latest()->get(),
+            'portfolios_total' => auth()->user()->portfolios()->count('*'),
             'skills' => auth()->user()->skills,
             'contracts' => auth()->user()->freelancerContracts()
             ->with(['job' => function ($query) {
@@ -41,7 +41,6 @@ class FreelancerProfileController extends Controller
         auth()->user()->freelance_profile()->update(['description' => $request->bio]);
 
         return route('category.create');
-        
     }
 
     public function hourly_rate_store(Request $request)
@@ -53,13 +52,12 @@ class FreelancerProfileController extends Controller
         auth()->user()->freelance_profile()->update(['price_per_hour' => $request->hourly_rate]);
 
         return route('question.thirteen');
-        
     }
 
     public function image_store(Request $request)
     {
         $extension = explode('/', mime_content_type($request->image))[1];
-        $fileName = time().'.'.$extension; 
+        $fileName = time() . '.' . $extension;
         $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $request->image));
         file_put_contents(storage_path("app/public/freelancer/profile_photo/$fileName"), $data);
 
@@ -79,14 +77,15 @@ class FreelancerProfileController extends Controller
             'zip_postal' => 'string'
         ]);
 
-        UserAddress::updateOrCreate([            
+        UserAddress::updateOrCreate(
+            [
                 'address_line1' => $request->street_address,
                 'country' => $request->country,
                 'state_or_province' => 'None',
                 'city' => $request->city,
                 'postal_code' => $request->zip_postal,
             ],
-            [ 'user_id' => auth()->id(), ]
+            ['user_id' => auth()->id(),]
         );
 
         return route('profile');
