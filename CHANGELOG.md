@@ -1,3 +1,5 @@
+v0.026.0 - add: Tag, Skill, Category (2022-04-04 14:13)
+
 v0.025.0 - add: Job Proposal accept, show (2022-04-04 10:00)
 
 v0.024.0 - add: Job Post, Accept, Propose (2022-04-02 14:40)

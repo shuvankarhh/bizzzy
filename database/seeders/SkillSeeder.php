@@ -16,34 +16,54 @@ class SkillSeeder extends Seeder
     {
         $arr = [
             [
-                'name' => 'Web Development'
+                'name' => 'Web Development',
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ],
             [
-                'name' => 'HTML'
+                'name' => 'HTML',
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ],
             [
-                'name' => 'CSS'
+                'name' => 'CSS',
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ],
             [
-                'name' => 'Javascript'
+                'name' => 'Javascript',
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ],
             [
-                'name' => 'Laravel'
+                'name' => 'Laravel',
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ],
             [
-                'name' => 'Vue'
+                'name' => 'Vue',
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ],
             [
-                'name' => 'Python'
+                'name' => 'Python',
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ],
             [
-                'name' => 'Time Management'
+                'name' => 'Time Management',
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ],
             [
-                'name' => 'Risk assesment'
+                'name' => 'Risk assesment',
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ],
             [
-                'name' => 'Leadership'
+                'name' => 'Leadership',
+                'createdAt' => now(),
+                'updatedAt' => now(),
             ],
         ];
         Skill::insert(

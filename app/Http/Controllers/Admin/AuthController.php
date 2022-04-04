@@ -37,18 +37,15 @@ class AuthController extends Controller
      * @return void
      */
 
-
-
     public function showLoginFrom()
     {
         if (Auth::guard('admin')->id()) {
+        // if (Auth::guard('admin')->id()) {
             return redirect('admin/home');
-        } else {
-            return view('admin.authentication.login');
         }
+
+        return view('admin.authentication.login');
     }
-
-
 
     public function adminLoginStore(Request $request)
     {
@@ -59,16 +56,13 @@ class AuthController extends Controller
 
         $email = Email::where('email', $request->email)->first();
 
-
         if (is_null($email)) {
             return back()->withErrors([
                 'email' => 'Email Does Not Exist.',
             ]);
         }
 
-
         if (Auth::guard('admin')->attempt(['account_email_id' => $email->id, 'password' => $request->password])) {
-            // dd('in');
             $request->session()->regenerate();
 
             return redirect()->intended('admin/home');

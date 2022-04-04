@@ -26,6 +26,8 @@ use App\Http\Controllers\RecruiterJobController;
 use App\Http\Controllers\UserPortfolioController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +40,33 @@ use App\Http\Controllers\Admin\AdminController;
 |
 */
 
+/**
+ * ---------------------------
+ * Artisan Commands
+ * ---------------------------
+ * 
+ * Currently without auth. Later will be under admin auth!
+ */ 
+Route::get('production-cache', function (){
+    Artisan::call('view:cache');
+});
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    // return what you want
+});
+Route::get('/link', function () {
+    Artisan::call('storage:link');
+});
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+});
+
 Route::get('/', function () {
     return view('home');
 });
+
 
 Route::get('email-template', function () {
     return view('templates.email-verification')
@@ -51,17 +77,6 @@ Route::get('email-template', function () {
         ]);
 });
 
-Route::get('/clear-cache', function () {
-    Artisan::call('cache:clear');
-    Artisan::call('config:clear');
-    // return what you want
-});
-Route::get('/link', function () {
-    Artisan::call('storage:link');
-});
-Route::get('/migrate', function () {
-    Artisan::call('migrate');
-});
 Route::prefix('user')->group(function () {
     Route::get('login', [AuthenticationController::class, 'userLoginCreate'])->name('user.login');
     Route::post('login', [AuthenticationController::class, 'userLoginStore']);
@@ -103,7 +118,7 @@ Route::group(['middleware' => ['auth', 'user.activity']], function () {
         Route::get('add-education', [EducationController::class, 'create'])->name('education.create');
         Route::post('add-education', [EducationController::class, 'store'])->name('education.store');
 
-        Route::get('category', [FreelancerProfileCategoryController::class, 'create'])->name('category.create');
+        Route::get('category', [FreelancerProfileCategoryController::class, 'create'])->name('user.category.create');
         Route::post('category', [FreelancerProfileCategoryController::class, 'store'])->name('category.store');
 
         Route::get('question-twelve', [GetStartedController::class, 'qTwelve'])->name('question.twelve');
@@ -114,8 +129,8 @@ Route::group(['middleware' => ['auth', 'user.activity']], function () {
         Route::post('language', [UserLanguageController::class, 'store'])->name('language.store');
         Route::delete('language/{language}', [UserLanguageController::class, 'destroy'])->name('language.store');
 
-        Route::get('skill', [UserSkillController::class, 'index'])->name('skill.index');
-        Route::post('skill', [UserSkillController::class, 'store'])->name('skill.store');
+        Route::get('skill', [UserSkillController::class, 'index'])->name('user.skill.index');
+        Route::post('skill', [UserSkillController::class, 'store'])->name('user.skill.store');
 
         Route::get('question-ten', [GetStartedController::class, 'qTen'])->name('question.ten');
 
@@ -169,25 +184,44 @@ Route::group(['middleware' => ['auth', 'user.activity']], function () {
     });
 
     Route::prefix('skill')->group(function () {
-        Route::get('/create', [UserSkillController::class, 'create'])->name('skill.create');
-        Route::patch('/', [UserSkillController::class, 'update'])->name('skill.update');
+        Route::get('/create', [UserSkillController::class, 'create'])->name('user.skill.create');
+        Route::patch('/', [UserSkillController::class, 'update'])->name('user.skill.update');
     });
 
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
 });
 
-// ====================================admin===================================
+// ========= admin ========
 Route::prefix('admin')->group(function () {
     Route::get('login', [AuthController::class, 'showLoginFrom']);
     Route::post('login', [AuthController::class, 'adminLoginStore'])->name('admin.login');
     Route::get('home', [AdminController::class, 'index']);
 });
 Route::group(['middleware' => 'auth:admin'], function () {
-    Route::get('add-staff', [AdminController::class, 'staffCreate'])->name('staff.add');
-    Route::post('store-staff', [AdminController::class, 'staffStore'])->name('staff.store');
-    Route::get('list-staff', [AdminController::class, 'staffList'])->name('staff.list');
-    Route::get('edit-staff/{id}', [AdminController::class, 'staffEdit'])->name('staff.edit');
-    Route::post('edit-update', [AdminController::class, 'staffUpdate'])->name('staff.update');
+
+    Route::prefix('staff')->group(function (){
+        Route::get('/create', [StaffController::class, 'create'])->name('staff.add');
+        Route::post('/', [StaffController::class, 'store'])->name('staff.store');
+        Route::get('/', [StaffController::class, 'index'])->name('staff.index');
+        Route::get('/{id}/edit', [StaffController::class, 'edit'])->name('staff.edit');
+        Route::post('/{id}', [StaffController::class, 'update'])->name('staff.update');
+    });
+
+    Route::prefix('tag')->group(function (){
+        Route::get('', [TagController::class, 'index'])->name('tag.index');
+    });
+
+    Route::prefix('skill')->group(function (){
+        Route::get('', [SkillController::class, 'index'])->name('skill.index');
+        Route::post('/', [SkillController::class, 'store'])->name('skill.store');
+        Route::patch('/{skill}', [SkillController::class, 'update'])->name('skill.update');
+    });
+
+    Route::prefix('category')->group(function (){
+        Route::get('', [CategoryController::class, 'index'])->name('category.index');
+        Route::post('/', [CategoryController::class, 'store'])->name('category.store');
+        Route::patch('/{category}', [CategoryController::class, 'update'])->name('category.update');
+    });
 
     Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });

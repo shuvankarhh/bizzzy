@@ -7,9 +7,8 @@
 @section('content')
     <section>
         <div class="container py-3 h-100">
-            <form action="{{ route('staff.update') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('staff.update', $staff->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" value="{{ $staff->id }}">
                 <div class="col-4">
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label" required>Full Name</label>

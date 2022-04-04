@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserLanguage;
-use Dotenv\Exception\ValidationException;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class UserLanguageController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,8 @@ class UserLanguageController extends Controller
      */
     public function index()
     {
-        return view('get_started.language')->with([
-            'english' => auth()->user()->languages()->where('language_code', 'en')->first(),
-            'languages' => auth()->user()->languages()->where('language_code', '!=', 'en')->get()
+        return view('admin.tags.tags')->with([
+            'tags' => Tag::paginate(10)
         ]);
     }
 
@@ -39,26 +37,7 @@ class UserLanguageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            "proficiency"    => "required|array|min:1",
-            "proficiency.*"  => "required",
-        ]);
-
-        UserLanguage::where('user_id', auth()->id())->delete();
-
-        foreach($request->language as $idx=>$item){
-            UserLanguage::updateOrCreate(
-                [
-                    'user_id' => auth()->id(),
-                    'language_code' => $item,
-                ],
-                [
-                    'proficiency_level' => $request->proficiency[$idx],
-                ]
-            );
-        }
-
-        return route('user.skill.index');
+        //
     }
 
     /**
@@ -101,12 +80,8 @@ class UserLanguageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserLanguage $language)
+    public function destroy($id)
     {
-        if($language->user_id != auth()->id()){
-            return response()->json(['error' => 'Unauthenticated.'], 401);
-        }
-
-        $language->delete();
+        //
     }
 }

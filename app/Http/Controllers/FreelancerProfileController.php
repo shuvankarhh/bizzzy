@@ -40,7 +40,7 @@ class FreelancerProfileController extends Controller
 
         auth()->user()->freelance_profile()->update(['description' => $request->bio]);
 
-        return route('category.create');
+        return route('user.category.create');
     }
 
     public function hourly_rate_store(Request $request)

@@ -12,22 +12,22 @@
                 <div class="col-4">
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label" required>Full Name</label>
-                        <input type="text" name="name" class="form-control" id="formGroupExampleInput"
+                        <input type="text" name="name" id="name" class="form-control" id="formGroupExampleInput"
                             placeholder="Example input placeholder">
                     </div>
                     <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">User Name</label>
-                        <input type="text" name="user_name" class="form-control" id="formGroupExampleInput2"
+                        <input type="text" name="user_name" id="user_name" class="form-control" id="formGroupExampleInput2"
                             placeholder="Another input placeholder">
                     </div>
                     <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Email</label>
-                        <input type="text" name="email" class="form-control" id="formGroupExampleInput2"
+                        <input type="text" name="email" id="email" class="form-control" id="formGroupExampleInput2"
                             placeholder="Another input placeholder">
                     </div>
                     <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="formGroupExampleInput2"
+                        <input type="password" id="password" name="password" class="form-control" id="formGroupExampleInput2"
                             placeholder="Another input placeholder">
                     </div>
                     <div class="mb-3">
