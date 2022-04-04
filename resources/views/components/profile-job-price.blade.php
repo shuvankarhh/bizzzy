@@ -1,1 +1,0 @@
-<p><span class="text-black">$30</span> <span>Fixed Price</span></p>

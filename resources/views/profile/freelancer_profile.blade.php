@@ -248,7 +248,9 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="in_progress_jobs" role="tabpanel" aria-labelledby="current">
-                        In Progress
+                        @foreach ($contracts as $item)                            
+                            <x-profile-job-component :contract="$item"/>
+                        @endforeach
                     </div>
                     <div class="tab-pane fade" id="canceled_jobs" role="tabpanel" aria-labelledby="current">
                         Canceled
@@ -307,12 +309,12 @@
                 <h2 class="content-title">Skills</h2>
                 <div class="card-header-button">
                     <i role="button" class="fas fa-pen first"></i>
-                    <a style="color: unset" role="button" href="{{ route('portfolio.create') }}"><i class="fas fa-plus second"></i></a>
+                    <button id="profile_skill_modal" data-mdb-toggle="modal" data-mdb-target="#skill_modal"><i class="fas fa-plus second"></i></button>
                 </div>
             </div>
             <div class="col-12 m-0 p-0">
                 <div>
-                    <p class="content-subtitle">UX/UI Design</p>
+                    {{-- <p class="content-subtitle">UX/UI Design</p> --}}
                     <div class="job-tag">
                         @foreach ($skills as $item)
                             <div>
@@ -322,7 +324,7 @@
                     </div>
                 </div>
 
-                <div class="mt-3">
+                {{-- <div class="mt-3">
                     <p class="content-subtitle">Web Development</p>
                     <div class="job-tag">
                         @foreach ($skills as $item)
@@ -331,7 +333,7 @@
                             </div>                                
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
                 <hr>
                 <div class="text-center">
                     <a class="show-all" href="#">Show all Skills <i class="fas fa-chevron-down"></i></a>
@@ -413,13 +415,33 @@
     </section>
 </section>
 
+<div class="modal fade" id="skill_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form action="#" id="profile_skill_form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Skill</h5>
+                </div>
+                <div class="modal-body p-4">
+                    <select id="skills" name="name[]" multiple placeholder="Select skill">
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button id="skill_modal_close_button" type="button" class="btn btn-link custom-close" data-mdb-dismiss="modal" style="">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <x-add-work-experience-modal />
 @endsection
 
 @push('css')
 <style>
     body{
-        background: #F9FAFC;
+        background: #f9fafc;
     }
 </style>
     

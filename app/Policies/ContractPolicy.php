@@ -32,7 +32,13 @@ class ContractPolicy
      */
     public function view(User $user, Contract $contract)
     {
-        //
+        if($contract->created_by_user === $user->id){
+            return true;
+        }else if($contract->freelancer_id === $user->id){
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -63,9 +69,9 @@ class ContractPolicy
      * @param  \App\Models\Contract  $contract
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Contract $contract)
+    public function freelancerUpdate(User $user, Contract $contract)
     {
-        //
+        return $user->id === $contract->freelancer_id;
     }
 
     /**

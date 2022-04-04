@@ -23,6 +23,12 @@ class FreelancerProfileController extends Controller
             'portfolios' => auth()->user()->portfolios()->limit(4)->latest()->get(),            
             'portfolios_total' => auth()->user()->portfolios()->count('*'),            
             'skills' => auth()->user()->skills,
+            'contracts' => auth()->user()->freelancerContracts()
+            ->with(['job' => function ($query) {
+                $query->select('id', 'name', 'description');
+            }])->with( ['recruiter' => function ($query){
+                $query->select('id', 'name', 'photo');
+            }])->get()
         ]);
     }
 

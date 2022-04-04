@@ -9,9 +9,4 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Tag extends Model
 {
     use HasFactory;
-
-    public function getNameAttribute($value)
-    {
-        return Str::kebab($value);
-    }
 }

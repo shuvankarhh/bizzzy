@@ -1350,6 +1350,12 @@ body {
     gap: 1rem;
 }
 
+
+.freelancer-profile .card-header-button button{
+    border: unset;
+    background-color: white;
+}
+
 .freelancer-profile .card-header-button i{
     border: 1px solid #626468;
     border-radius: 50%;

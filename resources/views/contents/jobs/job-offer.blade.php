@@ -53,10 +53,19 @@
                         <hr>
                         <p class="m-0"><strong>Client Message:</strong> {{ $contract->additional_message }}</p>
                     @endif
-                    <div class="col-12 text-end mt-4">
-                        <button class="btn btn-primary">Accept Offer</button>
-                        <button class="btn btn-succes">Decline Offer</button>
-                    </div>
+                    @if ($contract->contract_status === 'Active')
+                        <div class="col-12 text-end mt-4">
+                            <span class="badge badge-success">Offer Accepted</span>
+                        </div>                        
+                    @else
+                        @if ($contract->freelancer_id === auth()->id())
+                            <input type="hidden" id="contract" value="{{ encrypt($contract->id) }}">
+                            <div class="col-12 text-end mt-4">
+                                <button class="btn btn-primary" id="offer_accept_button">Accept Offer</button>
+                                <button class="btn btn-succes" id="offer_decile_button">Decline Offer</button>
+                            </div>                        
+                        @endif
+                    @endif
                 </div>
                 <div class="col-auto ms-5">
                     <h3>Parties</h3>
@@ -87,3 +96,9 @@
     <div style="padding-bottom: 2rem"></div>
 </div>
 @endsection
+
+@push('script')
+    <script>
+        
+    </script>
+@endpush

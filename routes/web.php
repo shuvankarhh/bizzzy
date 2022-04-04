@@ -88,29 +88,37 @@ Route::group(['middleware' => ['auth', 'user.activity']], function () {
         Route::get('question-one', [GetStartedController::class, 'qOne'])->name('question.one');
         Route::get('question-two', [GetStartedController::class, 'qTwo'])->name('question.two');
         Route::get('question-three', [GetStartedController::class, 'qThree'])->name('question.three');
-
         Route::get('question-four', [GetStartedController::class, 'qFour'])->name('question.');
         Route::get('question-five', [GetStartedController::class, 'qFive'])->name('question.five');
+
         Route::post('question-five', [FreelancerProfileController::class, 'title_store'])->name('title.store');
+
         Route::get('work-experience', [WorkExperienceController::class, 'index'])->name('work.experience.index');
         Route::get('add-work-experience', [WorkExperienceController::class, 'create'])->name('work.experience.creat');
         Route::post('add-work-experience', [WorkExperienceController::class, 'store'])->name('work.experience.store');
+
         Route::get('education', [EducationController::class, 'index'])->name('education.index');
         Route::get('add-education', [EducationController::class, 'create'])->name('education.create');
         Route::post('add-education', [EducationController::class, 'store'])->name('education.store');
+
         Route::get('category', [FreelancerProfileCategoryController::class, 'create'])->name('category.create');
         Route::post('category', [FreelancerProfileCategoryController::class, 'store'])->name('category.store');
+
         Route::get('question-twelve', [GetStartedController::class, 'qTwelve'])->name('question.twelve');
+
         Route::post('hourly_rate', [FreelancerProfileController::class, 'hourly_rate_store'])->name('hourlyRate.store');
+
         Route::get('language', [UserLanguageController::class, 'index'])->name('language.index');
         Route::post('language', [UserLanguageController::class, 'store'])->name('language.store');
         Route::delete('language/{language}', [UserLanguageController::class, 'destroy'])->name('language.store');
 
-
         Route::get('skill', [UserSkillController::class, 'index'])->name('skill.index');
         Route::post('skill', [UserSkillController::class, 'store'])->name('skill.store');
+
         Route::get('question-ten', [GetStartedController::class, 'qTen'])->name('question.ten');
+
         Route::post('freelancer-bio', [FreelancerProfileController::class, 'bio_store'])->name('freelancer.bio.store');
+        
         Route::get('question-thirteen', [GetStartedController::class, 'qThirteen'])->name('question.thirteen');
         Route::post('question-thirteen', [FreelancerProfileController::class, 'profile_store'])->name('freelancer.profile.store');
 
@@ -151,11 +159,16 @@ Route::group(['middleware' => ['auth', 'user.activity']], function () {
     Route::prefix('job-offers')->group(function () {
         Route::get('', [FreelancerJobController::class, 'index'])->name('job.offer.index');
         Route::get('/{contract}', [FreelancerJobController::class, 'show'])->name('job.offer.show');
+        Route::post('/{contract_id}', [FreelancerJobController::class, 'store'])->name('job.offer.store');
     });
 
     Route::prefix('user_portfolio')->group(function () {
         Route::get('/create', [UserPortfolioController::class, 'create'])->name('portfolio.create');
-        Route::post('/', [UserPortfolioController::class, 'store'])->name('portfolio.index');
+    });
+
+    Route::prefix('skill')->group(function () {
+        Route::get('/create', [UserSkillController::class, 'create'])->name('skill.create');
+        Route::patch('/', [UserSkillController::class, 'update'])->name('skill.update');
     });
 
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');

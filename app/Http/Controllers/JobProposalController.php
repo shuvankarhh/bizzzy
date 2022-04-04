@@ -35,7 +35,7 @@ class JobProposalController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Make Contract!
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

@@ -1,4 +1,5 @@
 const { default: axios } = require("axios");
+const { get } = require("lodash");
 
 require("./bootstrap");
 window.bootstrap = require("./bootstrap_v5-0-2/bootstrap.bundle.js");
@@ -446,3 +447,95 @@ if (job_proposal) {
 }
 
 // --------------
+
+
+// Accepting Job Offers --------
+let accept_button = document.getElementById("offer_accept_button");
+if(accept_button){
+    let contract = document.getElementById('contract').value;
+    accept_button.addEventListener('click', () => {
+        axios
+        .post(APP_URL + `/job-offers/${contract}`, {
+            type: 'accept'
+        })
+        .then(function (response) {
+            console.log(response.data);
+            location.href = response.data;
+        })
+        .catch(function (error) {
+            accept_button.style.backgroundColor = '#dc3545';
+            setTimeout(() => {
+                accept_button.style.backgroundColor = '#1266f1';
+            }, 1000);
+        });
+    });
+}
+// -----------------------------
+
+// Add/Update Skill from profile----
+
+let button = document.getElementById("profile_skill_modal");
+if(button){
+    button.addEventListener('click', () => {
+        axios
+        .get(APP_URL + '/skill/create')
+        .then(function (response) {
+            console.log(response.data.user_skills);
+            let select = new TomSelect('#skills',{
+                plugins: ['remove_button'],
+                valueField: 'id',
+                searchField: 'title',
+                options: response.data.skills,
+                render: {
+                    option: function(data, escape) {
+                        return '<div>' +
+                                '<span>' + escape(data.title) + '</span>' +
+                            '</div>';
+                    },
+                    item: function(data, escape) {
+                        return '<div title="' + escape(data.desc) + '">' + escape(data.title) + '</div>';
+                    }
+                }
+            }); 
+            select.setValue(JSON.parse(response.data.user_skills));
+        })
+        .catch(function (error) {
+
+        });
+    });
+}
+
+let profile_skill_form = document.getElementById("profile_skill_form");
+if(profile_skill_form){
+    profile_skill_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(profile_skill_form);
+        for (var value of formData.keys()) {
+            console.log(value);
+        }
+        formData.append('_method', 'PATCH');
+        axios
+        .post(APP_URL + '/skill', formData)
+        .then(function (response) {
+            console.log(response);
+            location.reload();
+            // e.reset();
+            // tags_select.clear();
+            // categories_select.clear();
+            // languages_select.clear();
+            // location.href = response.data;
+        })
+        .catch(function (error) {
+            if (typeof error.response !== "undefined") {
+                //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
+    });
+}
+
+// ---------------------------------

@@ -91,5 +91,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Job::class);
     }
+
+    public function freelancerContracts()
+    {
+        return $this->hasMany(Contract::class, 'freelancer_id');
+    }
     
 }

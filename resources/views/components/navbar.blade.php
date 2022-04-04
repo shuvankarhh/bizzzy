@@ -101,6 +101,9 @@
                             <a class="dropdown-item" href="{{ route('job.offer.index') }}">Job Offers</a>
                           </li>
                           <li>
+                            <a class="dropdown-item" href="{{ route('job.offer.index') }}">Job Offers</a>
+                          </li>
+                          <li>
                             <a class="dropdown-item" href="#">Settings</a>
                           </li>
                           <li>
