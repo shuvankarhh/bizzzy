@@ -104,7 +104,7 @@
 | fix | fixed homepage and footer |
   
 
-## 0.01.0  - dd: 
+## 0.01.0 (2022-03-09 14:04)
 | Type | Description |
 | -- | -- |
-| add | first commit)) |
+| add | First commit |
