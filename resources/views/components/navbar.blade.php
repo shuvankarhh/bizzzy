@@ -121,13 +121,15 @@
                         </ul>
                     </div>
                 @endauth
-                @guest
+                @guest('admin')
+                    @guest()
                     {{-- <li class="nav-item"> --}}
-                        <a class="nav-link login" aria-current="page" href="{{ route('user.login') }}">Sign In</a>
-                    {{-- </li> --}}
-                    {{-- <li class="nav-item"> --}}
-                        <a class="btn btn-outline-success signup-lg" role="button" href="{{ route('user.register') }}">Sign Up</a>
-                    {{-- </li> --}}
+                            <a class="nav-link login" aria-current="page" href="{{ route('user.login') }}">Sign In</a>
+                        {{-- </li> --}}
+                        {{-- <li class="nav-item"> --}}
+                            <a class="btn btn-outline-success signup-lg" role="button" href="{{ route('user.register') }}">Sign Up</a>
+                        {{-- </li> --}}
+                    @endguest
                 @endguest
             </div>
         </div>

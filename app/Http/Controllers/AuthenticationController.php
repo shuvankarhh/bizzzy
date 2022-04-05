@@ -12,11 +12,17 @@ use App\Mail\EmailVerification;
 use App\Models\FreelancerProfile;
 use App\Models\UserOnlinePresence;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class AuthenticationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+    }
     public function userLoginCreate(Request $request)
     {
         if(Auth::check()){
@@ -139,7 +145,10 @@ class AuthenticationController extends Controller
             return array('user' => $user, 'token' => $token);
         });
 
-        // Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
+        if(App::environment('production')){
+            dd('in');
+            Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
+        }
 
         return redirect()->route('user.verification-need.email', ['email' => $request->email]);
     }

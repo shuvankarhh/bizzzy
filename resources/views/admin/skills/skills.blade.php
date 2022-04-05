@@ -8,7 +8,7 @@
 <div class="container pt-3">
     <div class="row justify-content-center mb-3">
         <div class="col-auto">
-            <form action="{{ route('user.skill.store') }}" method="POST">
+            <form action="{{ route('skill.store') }}" method="POST">
                 @csrf
                 <div class="card">
                     <h5 class="pt-2 ps-2">Add Skill</h5>

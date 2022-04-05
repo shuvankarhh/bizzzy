@@ -63,6 +63,9 @@ Route::get('/migrate', function () {
     Artisan::call('migrate');
 });
 
+Route::get('/home', function () {
+    return view('home');
+});
 Route::get('/', function () {
     return view('home');
 });
@@ -77,7 +80,7 @@ Route::get('email-template', function () {
         ]);
 });
 
-Route::prefix('user')->group(function () {
+Route::group(['middleware' => ['guest', 'guest:admin'], 'prefix' => 'user'], function () {
     Route::get('login', [AuthenticationController::class, 'userLoginCreate'])->name('user.login');
     Route::post('login', [AuthenticationController::class, 'userLoginStore']);
     Route::get('register-email', [AuthenticationController::class, 'userRegisterEmail'])->name('user.register.email');
@@ -94,7 +97,7 @@ Route::get('callback', [SocialController::class, 'callback']);
 
 Route::post('test', [GetStartedController::class, 'test'])->name('test');
 
-Route::group(['middleware' => ['auth', 'user.activity']], function () {
+Route::group(['middleware' => ['auth:web,admin', 'user.activity']], function () {
     Route::get('category/sub-category/{id}', [CategoryController::class, 'get_sub_category'])->name('category.subCategory');
 
     /**
@@ -193,11 +196,11 @@ Route::group(['middleware' => ['auth', 'user.activity']], function () {
 
 // ========= admin ========
 Route::prefix('admin')->group(function () {
-    Route::get('login', [AuthController::class, 'showLoginFrom']);
+    Route::get('login', [AuthController::class, 'showLoginFrom'])->name('admin.login');
     Route::post('login', [AuthController::class, 'adminLoginStore'])->name('admin.login');
     Route::get('home', [AdminController::class, 'index']);
 });
-Route::group(['middleware' => 'auth:admin'], function () {
+Route::group(['prefix'=>'admin', 'middleware' => 'auth:admin'], function () {
 
     Route::prefix('staff')->group(function (){
         Route::get('/create', [StaffController::class, 'create'])->name('staff.add');
@@ -210,13 +213,13 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::prefix('tag')->group(function (){
         Route::get('', [TagController::class, 'index'])->name('tag.index');
     });
-
+    
     Route::prefix('skill')->group(function (){
         Route::get('', [SkillController::class, 'index'])->name('skill.index');
         Route::post('/', [SkillController::class, 'store'])->name('skill.store');
         Route::patch('/{skill}', [SkillController::class, 'update'])->name('skill.update');
     });
-
+    
     Route::prefix('category')->group(function (){
         Route::get('', [CategoryController::class, 'index'])->name('category.index');
         Route::post('/', [CategoryController::class, 'store'])->name('category.store');

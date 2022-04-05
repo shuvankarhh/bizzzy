@@ -42,7 +42,7 @@ class CategoryController extends Controller
         ]);
         Category::create([
             'name' => $request->category,
-            'parent_category_id' => $request->parent,
+            'parent_category_id' => (is_null($request->parent)) ? 0 : $request->parent,
         ]);
         return back();
     }

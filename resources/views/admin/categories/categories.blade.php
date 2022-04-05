@@ -46,7 +46,7 @@
                         @continue
                     @endif
                     <tr>
-                        <td>
+                        <td> 
                             <form action="{{ route('category.update', $item->id) }}" method="post">
                                 @csrf
                                 <input type="hidden" name="_method" value="patch">
