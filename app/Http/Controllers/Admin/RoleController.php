@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Skill;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
 
-class SkillController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class SkillController extends Controller
      */
     public function index()
     {
-        return view('admin.skills.skills')->with([
-            'skills' => Skill::latest()->paginate(10)
+        return view('admin.authorization.roles')->with([
+            'roles' => Role::get(),
         ]);
     }
 
@@ -38,12 +39,9 @@ class SkillController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'skill' => 'required'
+            'role_name' => 'required'
         ]);
-
-        Skill::create([
-            'name' => $request->skill
-        ]);
+        Role::create(['guard_name' => $request->guard, 'name' => $request->role_name]);
 
         return back();
     }
@@ -77,12 +75,9 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Skill $skill)
+    public function update(Request $request, $id)
     {
-        $skill->name = $request->updated_name;
-        $skill->save();
-
-        return back();
+        //
     }
 
     /**

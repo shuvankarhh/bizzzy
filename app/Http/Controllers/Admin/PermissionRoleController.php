@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
-class CategoryController extends Controller
+class PermissionRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.categories.categories')->with([
-            'categories' => Category::with('children')->where('parent_category_id', 0)->paginate()
+        return view('admin.authorization.add-permission-to-role')->with([
+            'roles' => Role::get()
         ]);
     }
 
@@ -26,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -37,14 +39,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'category' => 'required'
-        ]);
-        Category::create([
-            'name' => $request->category,
-            'parent_category_id' => (is_null($request->parent)) ? 0 : $request->parent,
-        ]);
-        return back();
+        $role = Role::find($request->role);
+        $role->syncPermissions($request->permission);
+        return response()->json($request->all());
     }
 
     /**
@@ -53,9 +50,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $guard)
     {
-        //
+        $permissions = Permission::withCount(['roles' => function($query) use ($id){
+            $query->where('roles.id', $id);
+        }])->where('guard_name', $guard)->get();
+        return view('components.permission-role')->with('permissions', $permissions);
     }
 
     /**
@@ -76,12 +76,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        $category->name = $request->updated_name;
-        $category->save();
-
-        return back();
+        //
     }
 
     /**
@@ -93,12 +90,5 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function get_sub_category($id)
-    {
-        return view('templates.subcategory')->with([
-            'categories' => Category::where('parent_category_id', $id)->get()
-        ])->render();
     }
 }

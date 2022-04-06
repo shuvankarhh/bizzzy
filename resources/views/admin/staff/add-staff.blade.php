@@ -32,8 +32,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Role</label>
-                        <input type="text" name="role" class="form-control" id="formGroupExampleInput2"
-                            placeholder="Another input placeholder">
+                        <select name="role" id="role" class="form-control">
+                            <option value="">None</option>
+                            @foreach ($roles as $item)
+                                <option value="{{ $item->name }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Photo</label>

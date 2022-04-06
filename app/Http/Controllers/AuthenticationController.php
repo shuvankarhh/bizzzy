@@ -18,11 +18,6 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthenticationController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-        $this->middleware('guest:admin')->except('logout');
-    }
     public function userLoginCreate(Request $request)
     {
         if(Auth::check()){
@@ -40,7 +35,7 @@ class AuthenticationController extends Controller
 
         $email = Email::with('userEmail')->where('email', $request->email)->first();
 
-        if(is_null($email)){
+        if(is_null($email) OR is_null($email->userEmail)){
             return back()->withErrors([
                 'email' => 'Email Does Not Exist.',
             ]);

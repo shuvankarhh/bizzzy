@@ -23,7 +23,11 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->user_name }}</td>
                             <td>{{ $item->acting_status }}</td>
-                            <td>{{ $item->staff_role_id }}</td>
+                            <td>
+                                @foreach ($item->roles as $item)
+                                    <span class="badge badge-primary">{{ $item->name }}</span>
+                                @endforeach
+                            </td>
                             <td>
                                 <form action="{{ route('staff.edit', ['id' => $item->id]) }}">
                                     <button type="submit" class="btn btn-link btn-sm btn-rounded">

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Tag;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class TagController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        return view('admin.tags.tags')->with([
-            'tags' => Tag::paginate(10)
+        return view('admin.categories.categories')->with([
+            'categories' => Category::with('children')->where('parent_category_id', 0)->paginate()
         ]);
     }
 
@@ -26,7 +27,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -37,7 +38,14 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category' => 'required'
+        ]);
+        Category::create([
+            'name' => $request->category,
+            'parent_category_id' => (is_null($request->parent)) ? 0 : $request->parent,
+        ]);
+        return back();
     }
 
     /**
@@ -69,9 +77,12 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->name = $request->updated_name;
+        $category->save();
+
+        return back();
     }
 
     /**
@@ -83,5 +94,12 @@ class TagController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function get_sub_category($id)
+    {
+        return view('templates.subcategory')->with([
+            'categories' => Category::where('parent_category_id', $id)->get()
+        ])->render();
     }
 }

@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Email;
 use App\Models\Staff;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
 
 class StaffController extends Controller
 {
@@ -15,7 +17,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $list = Staff::all();
+        $list = Staff::with('roles')->get();
 
         return view('admin.staff.list-staff', ['lists' => $list]);
     }
@@ -27,7 +29,9 @@ class StaffController extends Controller
      */
     public function create()
     {
-        return view('admin.staff.add-staff');
+        return view('admin.staff.add-staff')->with([
+            'roles' => Role::where('guard_name', 'staff')->get()
+        ]);
     }
 
     /**
@@ -58,7 +62,7 @@ class StaffController extends Controller
         if ($request->File('photo')) {
             $path = $request->photo->store('staff', ['disk' => 'public']);
 
-            Staff::create([
+            $staff = Staff::create([
                 'name' => $request->name,
                 'user_name' => $request->user_name,
                 'account_email_id' => $email->id,
@@ -68,7 +72,7 @@ class StaffController extends Controller
                 'acting_status' => 1,
             ]);
         } else {
-            Staff::create([
+            $staff = Staff::create([
                 'name' => $request->name,
                 'user_name' => $request->user_name,
                 'account_email_id' => $email->id,
@@ -76,6 +80,7 @@ class StaffController extends Controller
                 'staff_role_id' => 1,
                 'acting_status' => 1,
             ]);
+            $staff->assignRole($request->role);
         };
         return redirect()->route('staff.index');
     }

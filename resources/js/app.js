@@ -539,3 +539,75 @@ if(profile_skill_form){
 }
 
 // ---------------------------------
+
+// Get Permissions of role
+
+// let permission_role = document.getElementById('permission_role');
+// if(permission_role){
+//     permission_role.addEventListener('click', (e) => {
+//         console.log(e.target.dataset.id);
+//         axios
+//         .get(APP_URL + `/admin/permission-role/${e.target.dataset.id}/${e.target.dataset.guard}`)
+//         .then(function (response) {
+//             console.log(response);
+//             document.getElementById('permissions_body').innerHTML = response.data;
+//             // location.reload();
+//             // e.reset();
+//             // tags_select.clear();
+//             // categories_select.clear();
+//             // languages_select.clear();
+//             // location.href = response.data;
+//         })
+//         .catch(function (error) {
+
+//         });
+//     })
+// }
+
+get_permission = (e) => {
+    axios
+    .get(APP_URL + `/admin/permission-role/${e.dataset.id}/${e.dataset.guard}`)
+    .then(function (response) {
+        console.log(response);
+        document.getElementById('role').value = e.dataset.id;
+        document.getElementById('permissions_body').innerHTML = response.data;
+        // location.reload();
+        // e.reset();
+        // tags_select.clear();
+        // categories_select.clear();
+        // languages_select.clear();
+        // location.href = response.data;
+    })
+    .catch(function (error) {
+
+    });
+}
+
+let permission_role_form = document.getElementById('permission_role_form');
+if(permission_role_form){
+    permission_role_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(permission_role_form);
+        axios
+        .post(APP_URL + '/admin/permission-role', formData)
+        .then(function (response) {
+            console.log(response);
+            location.reload();
+            // e.reset();
+            // tags_select.clear();
+            // categories_select.clear();
+            // languages_select.clear();
+            // location.href = response.data;
+        })
+        .catch(function (error) {
+            if (typeof error.response !== "undefined") {
+                //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
+    });
+}

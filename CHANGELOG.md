@@ -1,6 +1,11 @@
 ## 0.027.0 (2022-04-05 11:52)
 | Type | Description |
 | -- | -- |
+| add | Permission to Role |
+
+## 0.027.0 (2022-04-05 11:52)
+| Type | Description |
+| -- | -- |
 | fix | Multi auth | 
 
 ## 0.026.0 (2022-04-04 14:13)

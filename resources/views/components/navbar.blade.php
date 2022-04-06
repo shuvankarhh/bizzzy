@@ -110,6 +110,28 @@
                             <a class="dropdown-item" href="{{ route('category.index') }}">Categories</a>
                           </li>
                           <li>
+                            <a class="dropdown-item" href="{{ route('staff.create') }}">Add Staff</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ route('staff.index') }}">Staff List</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="#">
+                              &laquo; Authorization
+                            </a>
+                            <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                              <li>
+                                <a class="dropdown-item" href="{{ route('permission.index') }}">Permissions</a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="{{ route('role.index') }}">Roles</a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="{{ route('permission.role.index') }}">Permission to Role</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
                             <a class="dropdown-item" href="#">Settings</a>
                           </li>
                           <li>

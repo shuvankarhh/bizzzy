@@ -3,31 +3,35 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SocialController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JobApplyController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\UserSkillController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SkillController;
+use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\JobProposalController;
 use App\Http\Controllers\ResendEmailController;
 use App\Http\Controllers\VerifyEmailController;
+use App\Http\Controllers\RecruiterJobController;
 use App\Http\Controllers\UserLanguageController;
+use App\Http\Controllers\UserPortfolioController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PermissionRoleController;
 use App\Http\Controllers\FreelancerProfileController;
 use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\GetStarted\GetStartedController;
 use App\Http\Controllers\FreelancerProfileCategoryController;
 use App\Http\Controllers\GetStarted\WorkExperienceController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\JobApplyController;
-use App\Http\Controllers\JobProposalController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerJobController;
-use App\Http\Controllers\RecruiterJobController;
-use App\Http\Controllers\UserPortfolioController;
-use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\StaffController;
-use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,10 +51,14 @@ use App\Http\Controllers\TagController;
  * 
  * Currently without auth. Later will be under admin auth!
  */ 
-Route::get('production-cache', function (){
+Route::get('production-cache', function (){    
+    Artisan::call('optimize:clear');
+    Artisan::call('route:cache');
     Artisan::call('view:cache');
+    Artisan::call('config:cache');
 });
 Route::get('/clear-cache', function () {
+    Artisan::call('optimize:clear');
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
     Artisan::call('view:clear');
@@ -95,8 +103,6 @@ Route::group(['middleware' => ['guest', 'guest:admin'], 'prefix' => 'user'], fun
 Route::get('redirect', [SocialController::class, 'redirect']);
 Route::get('callback', [SocialController::class, 'callback']);
 
-Route::post('test', [GetStartedController::class, 'test'])->name('test');
-
 Route::group(['middleware' => ['auth:web,admin', 'user.activity']], function () {
     Route::get('category/sub-category/{id}', [CategoryController::class, 'get_sub_category'])->name('category.subCategory');
 
@@ -122,7 +128,7 @@ Route::group(['middleware' => ['auth:web,admin', 'user.activity']], function () 
         Route::post('add-education', [EducationController::class, 'store'])->name('education.store');
 
         Route::get('category', [FreelancerProfileCategoryController::class, 'create'])->name('user.category.create');
-        Route::post('category', [FreelancerProfileCategoryController::class, 'store'])->name('category.store');
+        Route::post('category', [FreelancerProfileCategoryController::class, 'store'])->name('user.category.store');
 
         Route::get('question-twelve', [GetStartedController::class, 'qTwelve'])->name('question.twelve');
 
@@ -130,7 +136,7 @@ Route::group(['middleware' => ['auth:web,admin', 'user.activity']], function () 
 
         Route::get('language', [UserLanguageController::class, 'index'])->name('language.index');
         Route::post('language', [UserLanguageController::class, 'store'])->name('language.store');
-        Route::delete('language/{language}', [UserLanguageController::class, 'destroy'])->name('language.store');
+        Route::delete('language/{language}', [UserLanguageController::class, 'destroy'])->name('language.destroy');
 
         Route::get('skill', [UserSkillController::class, 'index'])->name('user.skill.index');
         Route::post('skill', [UserSkillController::class, 'store'])->name('user.skill.store');
@@ -195,15 +201,15 @@ Route::group(['middleware' => ['auth:web,admin', 'user.activity']], function () 
 });
 
 // ========= admin ========
-Route::prefix('admin')->group(function () {
-    Route::get('login', [AuthController::class, 'showLoginFrom'])->name('admin.login');
+Route::group(['middleware' => ['guest', 'guest:admin'], 'prefix' => 'admin'], function () {
+    Route::get('login', [AuthController::class, 'showLoginFrom'])->name('admin.show');
     Route::post('login', [AuthController::class, 'adminLoginStore'])->name('admin.login');
     Route::get('home', [AdminController::class, 'index']);
 });
 Route::group(['prefix'=>'admin', 'middleware' => 'auth:admin'], function () {
 
     Route::prefix('staff')->group(function (){
-        Route::get('/create', [StaffController::class, 'create'])->name('staff.add');
+        Route::get('/create', [StaffController::class, 'create'])->name('staff.create');
         Route::post('/', [StaffController::class, 'store'])->name('staff.store');
         Route::get('/', [StaffController::class, 'index'])->name('staff.index');
         Route::get('/{id}/edit', [StaffController::class, 'edit'])->name('staff.edit');
@@ -226,5 +232,19 @@ Route::group(['prefix'=>'admin', 'middleware' => 'auth:admin'], function () {
         Route::patch('/{category}', [CategoryController::class, 'update'])->name('category.update');
     });
 
+    Route::prefix('permission')->group(function (){
+        Route::get('', [PermissionController::class, 'index'])->name('permission.index');
+        Route::post('/', [PermissionController::class, 'store'])->name('permission.store');
+    });
+
+    Route::prefix('role')->group(function (){
+        Route::get('', [RoleController::class, 'index'])->name('role.index');
+        Route::post('/', [RoleController::class, 'store'])->name('role.store');
+    });
+    Route::prefix('permission-role')->group(function (){
+        Route::get('', [PermissionRoleController::class, 'index'])->name('permission.role.index');
+        Route::post('/', [PermissionRoleController::class, 'store'])->name('permission.role.store');
+        Route::get('/{id}/{guard}', [PermissionRoleController::class, 'show'])->name('permission.role.show');
+    });
     Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });

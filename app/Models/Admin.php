@@ -12,7 +12,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    // use HasApiTokens, HasFactory, Notifiable;
+
+    protected $guard = 'admin';
 
     /**
      * The attributes that are mass assignable.

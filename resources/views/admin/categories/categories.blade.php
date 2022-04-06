@@ -69,13 +69,13 @@
                                 <tbody> --}}
                                     @foreach ($item->children as $child_item)
                                         <tr style="background-color: #fceecf;">
-                                            <td>
+                                            <td class="ps-5 w-50">
                                                 <form action="{{ route('category.update', $child_item->id) }}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="patch">
                                                     <input style="border: 0" class="form-control" type="text" name="updated_name" id="updated_name" value="{{ $child_item->name }}">
                                                 </form>
-                                            </td>
+                                             </td>
                                             <td>{{ $child_item->created_at->format('M d, Y') }}</td>
                                             <td>
                                                 <span class="badge badge-primary">Active</span>
