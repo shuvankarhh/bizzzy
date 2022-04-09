@@ -36,7 +36,7 @@
 
                             <button class="btn btn-lg btn-block btn-primary" style="background-color: #FFFFFF; color: #1C1C1C;" type="button"><i class="fab fa-google me-2"></i> Continue with Google</button>
                             <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #FFFFFF; color: #1C1C1C;" type="button"><i class="fab fa-apple me-2"></i>Continue with Apple</button>
-                            <p style="margin-top: 30px; margin-bottom: 10px;"><a href="" style="color: #0086FF;">Already have an Atlassian account? </a><a href="" style="color: #0086FF;"> Log in</a> </p>
+                            <p style="margin-top: 30px; margin-bottom: 10px;"><a href="{{ route('user.login') }}" style="color: #0086FF;">Already have an Bizzzy account? </a><a href="" style="color: #0086FF;"> Log in</a> </p>
                         </div>
 
                     </div>

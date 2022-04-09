@@ -30,7 +30,9 @@ use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\GetStarted\GetStartedController;
 use App\Http\Controllers\FreelancerProfileCategoryController;
 use App\Http\Controllers\GetStarted\WorkExperienceController;
+use App\Http\Controllers\Jobs\Freelancer\FreelancerActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerJobController;
+use App\Http\Controllers\Staff\StaffAuthController;
 use App\Http\Controllers\UserRoleController;
 
 /*
@@ -103,7 +105,7 @@ Route::group(['middleware' => ['guest', 'guest:admin'], 'prefix' => 'user'], fun
 Route::get('redirect', [SocialController::class, 'redirect']);
 Route::get('callback', [SocialController::class, 'callback']);
 
-Route::group(['middleware' => ['auth:web,admin', 'user.activity']], function () {
+Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], function () {
     Route::get('category/sub-category/{id}', [CategoryController::class, 'get_sub_category'])->name('category.subCategory');
 
     /**
@@ -168,7 +170,7 @@ Route::group(['middleware' => ['auth:web,admin', 'user.activity']], function () 
         Route::post('/', [JobApplyController::class, 'store'])->name('job.apply.store');
     });
 
-    Route::prefix('freelancers')->group(function () {
+    Route::prefix('f')->group(function () {
         Route::get('/', [FreelancerProfileController::class, 'index'])->name('freelancer.index');
         // Route::get('/create/{id}', [JobController::class, 'create'])->name('job.create');
     });
@@ -197,14 +199,29 @@ Route::group(['middleware' => ['auth:web,admin', 'user.activity']], function () 
         Route::patch('/', [UserSkillController::class, 'update'])->name('user.skill.update');
     });
 
+    /**
+     * f indicates freelancer
+     */
+    Route::prefix('f/contracts')->group(function () {
+        Route::get('/', [FreelancerActiveJobController::class, 'index'])->name('freelancer.contract.index');
+    });
+
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
 });
 
-// ========= admin ========
-Route::group(['middleware' => ['guest', 'guest:admin'], 'prefix' => 'admin'], function () {
-    Route::get('login', [AuthController::class, 'showLoginFrom'])->name('admin.show');
-    Route::post('login', [AuthController::class, 'adminLoginStore'])->name('admin.login');
-    Route::get('home', [AdminController::class, 'index']);
+Route::group(['middleware' => ['guest', 'guest:admin']], function () {
+    // ========= admin ========
+    Route::prefix('admin')->group(function (){
+        Route::get('login', [AuthController::class, 'showLoginFrom'])->name('admin.show');
+        Route::post('login', [AuthController::class, 'adminLoginStore'])->name('admin.login');
+        Route::get('home', [AdminController::class, 'index']);
+    });
+
+    // ========= staff ========
+    Route::prefix('staff')->group(function (){
+        Route::get('login', [StaffAuthController::class, 'index'])->name('staff.login');
+        Route::post('login', [StaffAuthController::class, 'store']);
+    });
 });
 Route::group(['prefix'=>'admin', 'middleware' => 'auth:admin'], function () {
 

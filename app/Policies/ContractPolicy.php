@@ -49,6 +49,9 @@ class ContractPolicy
      */
     public function create(User $user, Job $job, User $freelancer)
     {
+        /**
+         *  !!!! This does not work for some-reason !!!!
+         */
         $freelancer_has_job_proposal = JobProposal::where('job_id', $job->id)->where('user_id', $freelancer->id)->first();
         if (is_null($freelancer_has_job_proposal)) {
             return false;

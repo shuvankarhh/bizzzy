@@ -8,7 +8,8 @@
             <p>Netherlands</p>
         </div>
         <div class="d-sm-inline d-inline d-md-none">
-            <p><span class="text-black">$30</span> <span>Fixed Price</span></p>
+            <p><span clas 
+                 s="text-black">$30</span> <span>Fixed Price</span></p>
         </div>
     </div>
     <div class="col-sm-7 col-7 col-md">

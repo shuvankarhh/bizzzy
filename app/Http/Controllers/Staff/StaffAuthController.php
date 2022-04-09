@@ -1,15 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Jobs\Freelancer;
+namespace App\Http\Controllers\Staff;
 
-use App\Models\Contract;
+use App\Models\Email;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Gate;
-use App\Http\Requests\FreelancerJobContractRequest;
+use Illuminate\Support\Facades\Auth;
 
-class FreelancerJobController extends Controller
+class StaffAuthController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication Controller for Staff
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +27,7 @@ class FreelancerJobController extends Controller
      */
     public function index()
     {
-        return view('contents.jobs.freelancer-job-offers')->with([
-            'offers' => Contract::with('job')->where('freelancer_id', auth()->id())->where('contract_status', '1')->get()
-        ]);
+        return view('staff.auth.login');
     }
 
     /**
@@ -38,19 +46,30 @@ class FreelancerJobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FreelancerJobContractRequest $request, $contract_id)
+    public function store(Request $request)
     {
-        $contract_id = decrypt($contract_id);
-        $contract = Contract::with('freelancer')->find($contract_id);
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
 
-        Gate::forUser($contract->freelancer)->authorize('freelancerUpdate', $contract);
-        
-        $contract->is_confirmed_by_freelancer = 1;
-        $contract->contract_status = 2;
-        $contract->contract_confirmation_date = now();
-        $contract->save();
+        $email = Email::where('email', $request->email)->first();
 
-        return route('job.offer.index');
+        if (is_null($email)) {
+            return back()->withErrors([
+                'email' => 'Email Does Not Exist.',
+            ]);
+        }
+
+        if (Auth::guard('staff')->attempt(['account_email_id' => $email->id, 'password' => $request->password])) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('home');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     /**
@@ -61,14 +80,7 @@ class FreelancerJobController extends Controller
      */
     public function show($id)
     {
-        $id = decrypt($id);
-        $contract = Contract::with('job.categories.category', 'milestones', 'recruiter.freelance_profile', 'freelancer.freelance_profile')->find($id);
-
-        Gate::authorize('view', $contract);
-
-        return view('contents.jobs.job-offer')->with([
-            'contract' => $contract,
-        ]);
+        //
     }
 
     /**

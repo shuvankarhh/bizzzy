@@ -35,6 +35,7 @@ class CreateStaffTable extends Migration
      */
     public function down()
     {
+        Schema::dropColumns();
         Schema::dropIfExists('staff');
     }
 }

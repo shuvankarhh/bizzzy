@@ -44,8 +44,11 @@
                             <a class="nav-link" href="{{ route('job.create') }}">Post Job</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link 4</a>
+                            <a class="text-warning nav-link" href="{{ route('admin.login') }}">Admin</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="text-secondary nav-link" href="{{ route('staff.login') }}">Staff</a>
+                        </li>                        
                     {{-- </ul> --}}
                     {{-- <form class="d-flex"> --}}
                         {{-- <ul class="nav justify-content-center"> --}}
@@ -91,15 +94,21 @@
                           class="dropdown-menu dropdown-menu-end"
                           aria-labelledby="navbarDropdownMenuAvatar"
                         >
+                        @auth('web')
                           <li>
                             <a class="dropdown-item" href="{{ route('freelancer.index') }}">My profile</a>
-                          </li>
+                          </li>                            
                           <li>
                             <a class="dropdown-item" href="{{ route('recruiter.job.index') }}">Posted Jobs</a>
                           </li>
                           <li>
                             <a class="dropdown-item" href="{{ route('job.offer.index') }}">Job Offers</a>
                           </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ route('freelancer.contract.index') }}">Active Contracts</a>
+                          </li>
+                        @endauth
+                        @auth('admin')
                           <li>
                             <a class="dropdown-item" href="{{ route('tag.index') }}">Tags</a>
                           </li>
@@ -131,6 +140,7 @@
                               </li>
                             </ul>
                           </li>
+                        @endauth
                           <li>
                             <a class="dropdown-item" href="#">Settings</a>
                           </li>

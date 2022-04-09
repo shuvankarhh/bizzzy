@@ -26,7 +26,7 @@
                         <div class="progress-bar">
                             <div class="progress"></div>
                         </div>
-                        <p class="m-0 text-secondary">Job Success</p>
+                        <p class="m-0 text-gray">Job Success</p>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                             @if (!is_null($address))
                                 <i class="fas fa-map-marker-alt"></i> {{ $address->city . ', ' . $address->country }} 
                             @endif
-                            <span class="text-secondary">{{ now()->format('h:i a') . ' local time' }}</span>
+                            <span class="text-gray">{{ now()->format('h:i a') . ' local time' }}</span>
                         </p>
                     </div>
                     <div class="col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-sm-12 col-xs-12">
