@@ -2060,8 +2060,17 @@ module.exports = {
   \*****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"),
     axios = _require["default"];
+
+var _require2 = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"),
+    get = _require2.get;
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
@@ -2409,6 +2418,157 @@ if (job_proposal) {
     });
   });
 } // --------------
+// Accepting Job Offers --------
+
+
+var accept_button = document.getElementById("offer_accept_button");
+
+if (accept_button) {
+  var contract = document.getElementById('contract').value;
+  accept_button.addEventListener('click', function () {
+    axios.post(APP_URL + "/job-offers/".concat(contract), {
+      type: 'accept'
+    }).then(function (response) {
+      console.log(response.data);
+      location.href = response.data;
+    })["catch"](function (error) {
+      accept_button.style.backgroundColor = '#dc3545';
+      setTimeout(function () {
+        accept_button.style.backgroundColor = '#1266f1';
+      }, 1000);
+    });
+  });
+} // -----------------------------
+// Add/Update Skill from profile----
+
+
+var button = document.getElementById("profile_skill_modal");
+
+if (button) {
+  button.addEventListener('click', function () {
+    axios.get(APP_URL + '/skill/create').then(function (response) {
+      console.log(response.data.user_skills);
+      var select = new TomSelect('#skills', {
+        plugins: ['remove_button'],
+        valueField: 'id',
+        searchField: 'title',
+        options: response.data.skills,
+        render: {
+          option: function option(data, escape) {
+            return '<div>' + '<span>' + escape(data.title) + '</span>' + '</div>';
+          },
+          item: function item(data, escape) {
+            return '<div title="' + escape(data.desc) + '">' + escape(data.title) + '</div>';
+          }
+        }
+      });
+      select.setValue(JSON.parse(response.data.user_skills));
+    })["catch"](function (error) {});
+  });
+}
+
+var profile_skill_form = document.getElementById("profile_skill_form");
+
+if (profile_skill_form) {
+  profile_skill_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(profile_skill_form);
+
+    var _iterator = _createForOfIteratorHelper(formData.keys()),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var value = _step.value;
+        console.log(value);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    formData.append('_method', 'PATCH');
+    axios.post(APP_URL + '/skill', formData).then(function (response) {
+      console.log(response);
+      location.reload(); // e.reset();
+      // tags_select.clear();
+      // categories_select.clear();
+      // languages_select.clear();
+      // location.href = response.data;
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+} // ---------------------------------
+// Get Permissions of role
+// let permission_role = document.getElementById('permission_role');
+// if(permission_role){
+//     permission_role.addEventListener('click', (e) => {
+//         console.log(e.target.dataset.id);
+//         axios
+//         .get(APP_URL + `/admin/permission-role/${e.target.dataset.id}/${e.target.dataset.guard}`)
+//         .then(function (response) {
+//             console.log(response);
+//             document.getElementById('permissions_body').innerHTML = response.data;
+//             // location.reload();
+//             // e.reset();
+//             // tags_select.clear();
+//             // categories_select.clear();
+//             // languages_select.clear();
+//             // location.href = response.data;
+//         })
+//         .catch(function (error) {
+//         });
+//     })
+// }
+
+
+get_permission = function get_permission(e) {
+  axios.get(APP_URL + "/admin/permission-role/".concat(e.dataset.id, "/").concat(e.dataset.guard)).then(function (response) {
+    console.log(response);
+    document.getElementById('role').value = e.dataset.id;
+    document.getElementById('permissions_body').innerHTML = response.data; // location.reload();
+    // e.reset();
+    // tags_select.clear();
+    // categories_select.clear();
+    // languages_select.clear();
+    // location.href = response.data;
+  })["catch"](function (error) {});
+};
+
+var permission_role_form = document.getElementById('permission_role_form');
+
+if (permission_role_form) {
+  permission_role_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(permission_role_form);
+    axios.post(APP_URL + '/admin/permission-role', formData).then(function (response) {
+      console.log(response);
+      location.reload(); // e.reset();
+      // tags_select.clear();
+      // categories_select.clear();
+      // languages_select.clear();
+      // location.href = response.data;
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+}
 
 /***/ }),
 

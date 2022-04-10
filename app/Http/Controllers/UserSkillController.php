@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SkillSelectionResource;
 use App\Models\Skill;
 use App\Models\UserSkill;
 use Illuminate\Http\Request;
@@ -23,13 +24,16 @@ class UserSkillController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Creating this resource from profile.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return response()->json([
+            'skills' => SkillSelectionResource::collection(Skill::get()),
+            'user_skills' => json_encode(auth()->user()->skills()->pluck('skill_id')->toArray())
+        ]);
     }
 
     /**
@@ -86,9 +90,20 @@ class UserSkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|array|min:1'
+        ]);
+
+        UserSkill::where('user_id', auth()->id())->delete();
+        foreach($request->name as $item){
+            $arr[] = [
+                'skill_id' => $item,
+                'user_id' => auth()->id()
+            ];
+        }
+        UserSkill::insert($arr);
     }
 
     /**

@@ -32,7 +32,13 @@ class ContractPolicy
      */
     public function view(User $user, Contract $contract)
     {
-        //
+        if($contract->created_by_user === $user->id){
+            return true;
+        }else if($contract->freelancer_id === $user->id){
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -43,6 +49,9 @@ class ContractPolicy
      */
     public function create(User $user, Job $job, User $freelancer)
     {
+        /**
+         *  !!!! This does not work for some-reason !!!!
+         */
         $freelancer_has_job_proposal = JobProposal::where('job_id', $job->id)->where('user_id', $freelancer->id)->first();
         if (is_null($freelancer_has_job_proposal)) {
             return false;
@@ -63,9 +72,9 @@ class ContractPolicy
      * @param  \App\Models\Contract  $contract
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Contract $contract)
+    public function freelancerUpdate(User $user, Contract $contract)
     {
-        //
+        return $user->id === $contract->freelancer_id;
     }
 
     /**

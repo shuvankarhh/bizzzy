@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Jobs\Freelancer;
 
-use App\Http\Controllers\Controller;
 use App\Models\Contract;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\FreelancerJobContractRequest;
 
 class FreelancerJobController extends Controller
 {
@@ -16,7 +18,7 @@ class FreelancerJobController extends Controller
     public function index()
     {
         return view('contents.jobs.freelancer-job-offers')->with([
-            'offers' => Contract::with('job')->where('freelancer_id', auth()->id())->get()
+            'offers' => Contract::with('job')->where('freelancer_id', auth()->id())->where('contract_status', '1')->get()
         ]);
     }
 
@@ -36,9 +38,19 @@ class FreelancerJobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FreelancerJobContractRequest $request, $contract_id)
     {
-        //
+        $contract_id = decrypt($contract_id);
+        $contract = Contract::with('freelancer')->find($contract_id);
+
+        Gate::forUser($contract->freelancer)->authorize('freelancerUpdate', $contract);
+        
+        $contract->is_confirmed_by_freelancer = 1;
+        $contract->contract_status = 2;
+        $contract->contract_confirmation_date = now();
+        $contract->save();
+
+        return route('job.offer.index');
     }
 
     /**
@@ -50,9 +62,12 @@ class FreelancerJobController extends Controller
     public function show($id)
     {
         $id = decrypt($id);
-        // dd(Contract::with('job.categories.category', 'milestones', 'recruiter.freelance_profile', 'freelancer.freelance_profile')->find($id));
+        $contract = Contract::with('job.categories.category', 'milestones', 'recruiter.freelance_profile', 'freelancer.freelance_profile')->find($id);
+
+        Gate::authorize('view', $contract);
+
         return view('contents.jobs.job-offer')->with([
-            'contract' => Contract::with('job.categories.category', 'milestones', 'recruiter.freelance_profile', 'freelancer.freelance_profile')->find($id),
+            'contract' => $contract,
         ]);
     }
 

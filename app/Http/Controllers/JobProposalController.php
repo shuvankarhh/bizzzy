@@ -35,7 +35,7 @@ class JobProposalController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Make Contract!
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -55,7 +55,7 @@ class JobProposalController extends Controller
             abort(403);
         }
 
-        $transaction = DB::transaction(function () use ($request, $freelancer_id, $job_id, $freelancer_gave_job_proposal) {
+        $transaction = DB::transaction(function () use ($request, $freelancer_id, $job_id, $freelancer_gave_job_proposal, $job_belongs_to_user) {
             $contract = Contract::create([
                 'payment_type' => $request->payment_type,
                 'price' => $request->price,
@@ -74,17 +74,29 @@ class JobProposalController extends Controller
                 'additional_message' => $request->additional_message,
             ]);
 
-            if ($request->payment_type == 'fixed' and !empty($request->milestone_name[0])) {
-                foreach ($request->milestone_name as $idx => $item) {
-                    $mile_stones[] = [
+            if ($request->payment_type == 'fixed') {
+                if(!empty($request->milestone_name[0])){
+                    foreach ($request->milestone_name as $idx => $item) {
+                        $mile_stones[] = [
+                            'contract_id' => $contract->id,
+                            'name' => $item,
+                            'deposit_amount' => $request->deposit_amount[$idx],
+                            'end_date' => $request->due_date[$idx],
+                            'is_complete' => 0,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+                    }
+                    ContractMilestone::insert($mile_stones);
+                }else{
+                    ContractMilestone::create([
                         'contract_id' => $contract->id,
-                        'name' => $item,
-                        'deposit_amount' => $request->deposit_amount[$idx],
-                        'end_date' => $request->due_date[$idx],
+                        'name' => $job_belongs_to_user->name,
+                        'deposit_amount' => $request->price,
+                        'end_date' => NULL,
                         'is_complete' => 0,
-                    ];
+                    ]);
                 }
-                ContractMilestone::insert($mile_stones);
             }
 
             $freelancer_gave_job_proposal->contract_id = $contract->id;

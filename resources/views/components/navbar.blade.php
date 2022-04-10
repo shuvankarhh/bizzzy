@@ -44,8 +44,11 @@
                             <a class="nav-link" href="{{ route('job.create') }}">Post Job</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link 4</a>
+                            <a class="text-warning nav-link" href="{{ route('admin.login') }}">Admin</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="text-secondary nav-link" href="{{ route('staff.login') }}">Staff</a>
+                        </li>                        
                     {{-- </ul> --}}
                     {{-- <form class="d-flex"> --}}
                         {{-- <ul class="nav justify-content-center"> --}}
@@ -91,15 +94,53 @@
                           class="dropdown-menu dropdown-menu-end"
                           aria-labelledby="navbarDropdownMenuAvatar"
                         >
+                        @auth('web')
                           <li>
                             <a class="dropdown-item" href="{{ route('freelancer.index') }}">My profile</a>
-                          </li>
+                          </li>                            
                           <li>
                             <a class="dropdown-item" href="{{ route('recruiter.job.index') }}">Posted Jobs</a>
                           </li>
                           <li>
                             <a class="dropdown-item" href="{{ route('job.offer.index') }}">Job Offers</a>
                           </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ route('freelancer.contract.index') }}">Active Contracts</a>
+                          </li>
+                        @endauth
+                        @auth('admin')
+                          <li>
+                            <a class="dropdown-item" href="{{ route('tag.index') }}">Tags</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ route('skill.index') }}">Skills</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ route('category.index') }}">Categories</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ route('staff.create') }}">Add Staff</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="{{ route('staff.index') }}">Staff List</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="#">
+                              &laquo; Authorization
+                            </a>
+                            <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                              <li>
+                                <a class="dropdown-item" href="{{ route('permission.index') }}">Permissions</a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="{{ route('role.index') }}">Roles</a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="{{ route('permission.role.index') }}">Permission to Role</a>
+                              </li>
+                            </ul>
+                          </li>
+                        @endauth
                           <li>
                             <a class="dropdown-item" href="#">Settings</a>
                           </li>
@@ -112,13 +153,15 @@
                         </ul>
                     </div>
                 @endauth
-                @guest
+                @guest('admin')
+                    @guest()
                     {{-- <li class="nav-item"> --}}
-                        <a class="nav-link login" aria-current="page" href="{{ route('user.login') }}">Sign In</a>
-                    {{-- </li> --}}
-                    {{-- <li class="nav-item"> --}}
-                        <a class="btn btn-outline-success signup-lg" role="button" href="{{ route('user.register') }}">Sign Up</a>
-                    {{-- </li> --}}
+                            <a class="nav-link login" aria-current="page" href="{{ route('user.login') }}">Sign In</a>
+                        {{-- </li> --}}
+                        {{-- <li class="nav-item"> --}}
+                            <a class="btn btn-outline-success signup-lg" role="button" href="{{ route('user.register') }}">Sign Up</a>
+                        {{-- </li> --}}
+                    @endguest
                 @endguest
             </div>
         </div>

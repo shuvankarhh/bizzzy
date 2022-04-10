@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
+        return view('admin.categories.categories')->with([
+            'categories' => Category::with('children')->where('parent_category_id', 0)->paginate()
+        ]);
     }
 
     /**
@@ -35,7 +38,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category' => 'required'
+        ]);
+        Category::create([
+            'name' => $request->category,
+            'parent_category_id' => (is_null($request->parent)) ? 0 : $request->parent,
+        ]);
+        return back();
     }
 
     /**
@@ -67,9 +77,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->name = $request->updated_name;
+        $category->save();
+
+        return back();
     }
 
     /**

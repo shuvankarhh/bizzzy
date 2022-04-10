@@ -4,6 +4,7 @@
 @endsection
 @section('content')
 <div class="container">
+    <h2>Recruiter Posted Jobs</h2>
     @foreach ($jobs as $idx=>$item)
         <x-job-component :applied="false" :job="$item" :idx="$idx" />
         @foreach ($item->proposals as $proposal_item)

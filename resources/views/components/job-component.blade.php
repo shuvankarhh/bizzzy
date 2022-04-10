@@ -30,7 +30,7 @@
                 <p class="m-0" style="font-weight: bold">
                     {{ $job->name }}
                     @foreach ($job->tags as $item)
-                        <x-dynamic-component :component="'tags.' . $item->tag->name" class="mt-4" />
+                        <x-dynamic-component :component="'tags.' . Str::kebab($item->tag->name)" class="mt-4" />
                     @endforeach
                 </p>
                 <p class="m-0">{{ $job->recruiter->name }}</p>
