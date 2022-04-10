@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\UserAccount;
 use App\Models\UserEducation;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserWorkExperience;
@@ -97,5 +98,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contract::class, 'freelancer_id');
     }
-    
+
+    public function userAccount()
+    {
+        return $this->hasMany(UserAccount::class);
+    }
+
+    public function isRecruiter()
+    {
+        $userAccount = $this->userAccount()->where('client_or_freelancer', 1)->first();
+        if (is_null($userAccount)) {
+            return false;
+        }
+
+        return true;
+    }
 }

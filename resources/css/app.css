@@ -475,6 +475,11 @@ as long as it is a sibling. */
 
 /* --- Override defaults --- */
 
+.dp-image{
+    width: 80px;
+    border-radius: 50%;
+}
+
 .prev-button{
     padding: 0.3rem 0.6rem 0.3rem 0.6rem;
     box-shadow: unset;

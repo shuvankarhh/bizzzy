@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Jobs\Freelancer;
+namespace App\Http\Controllers\Jobs\Recruiter;
 
 use App\Models\Contract;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class FreelancerActiveJobController extends Controller
+class RecruiterActiveJobController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,7 @@ class FreelancerActiveJobController extends Controller
      */
     public function index()
     {
-        // dd(Contract::groupBy('payment_type')->count());
-        $counts_db = Contract::select(DB::raw("count(*) as contract_count, payment_type"))->where('contract_status', 2)->where('freelancer_id', auth()->id())->groupBy('payment_type')->get();
+        $counts_db = Contract::select(DB::raw("count(*) as contract_count, payment_type"))->where('contract_status', 2)->where('created_by_user', auth()->id())->groupBy('payment_type')->get();
         $counts = array(
             'fixed' => 0,
             'hourly' => 0,
@@ -30,21 +29,8 @@ class FreelancerActiveJobController extends Controller
             }
         }
 
-        /**
-         * |---- IMPORTANT ----|
-         * In strict mode group by clause must contain every column in select statement!
-         * Here only the first, not complete milestone is required for each contract. So here milestone relationship is being gropped by using contract id!
-         * Disabling strict mode only for this query as it interfears with the group by claus!
-         */
-        config()->set('database.connections.mysql.strict', false);
-        DB::reconnect();
-
-        return view('contents.jobs.freelancer-active-contracts')->with([
-            'offers' => Contract::with('job')->with([
-                'milestones' => function ($query) {
-                    $query->where('is_complete', 0)->oldest()->groupBy('contract_id');
-                }
-            ])->where('freelancer_id', auth()->id())->where('contract_status', '2')->get(),
+        return view('contents.jobs.recruiter-active-contracts')->with([
+            'offers' => Contract::with('job', 'milestones')->where('created_by_user', auth()->id())->where('contract_status', '2')->get(),
             'counts' => $counts
         ]);
     }
@@ -78,7 +64,9 @@ class FreelancerActiveJobController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('contents.jobs.recruiter-active-contract')->with([
+            'contract' => Contract::with('freelancer', 'job', 'milestones')->find(decrypt($id))
+        ]);
     }
 
     /**

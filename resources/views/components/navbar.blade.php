@@ -1,3 +1,6 @@
+@auth  
+  $recuiter = auth()->user()->isRecruiter();
+@endauth
 <section class="container navbar_section text-center">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
@@ -105,7 +108,7 @@
                             <a class="dropdown-item" href="{{ route('job.offer.index') }}">Job Offers</a>
                           </li>
                           <li>
-                            <a class="dropdown-item" href="{{ route('freelancer.contract.index') }}">Active Contracts</a>
+                            <a class="dropdown-item" href="{{ ($recuiter) ? route('recruiter.contract.index') : route('freelancer.contract.index') }}">Active Contracts</a>
                           </li>
                         @endauth
                         @auth('admin')

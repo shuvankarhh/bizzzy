@@ -1,3 +1,8 @@
+## 0.029.0 (2022-04-10 17:38)
+| Type | Description |
+| -- | -- |
+| add | Milestone view for recruiter |
+
 ## 0.028.0 (2022-04-09 15:52)
 | Type | Description |
 | -- | -- |

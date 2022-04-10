@@ -88,7 +88,10 @@
                 @if ($item->payment_type == '2')
                     @continue
                 @endif
-                <div class="card m-3">
+                @php
+                    $id = encrypt($item->id)
+                @endphp
+                <div class="card m-3" style="cursor: pointer" onclick="location.href='{{ route('job.offer.show', [$id]) }}'">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-auto">
@@ -96,7 +99,7 @@
                                 <p class="m-0">{{ $item->created_at->diffForHumans() }}</p>
                             </div>
                             <div class="col">
-                                <a href="{{ route('job.offer.show', [encrypt($item->id)]) }}">{{ $item->job->name }}</a>
+                                <a href="{{ route('job.offer.show', [$id]) }}">{{ $item->job->name }}</a>
                                 <p class="">{{ $item->job->description }}</p>
                             </div>
                             <div class="col">
@@ -105,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                </div>        
+                </div>
             @endforeach
         </div>
         <div class="tab-pane fade show" id="awaiting_milestone_tab" role="tabpanel" aria-labelledby="awaiting_milestone_tab">

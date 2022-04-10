@@ -96,6 +96,11 @@ class Job extends Model
         return $this->belongsToMany(User::class, 'job_proposals', 'job_id', 'user_id')->withPivot('price_type', 'price', 'description', 'project_time', 'id', 'contract_id');
     }
 
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
+    }
+
     /**
      * Will attempt later!
      */

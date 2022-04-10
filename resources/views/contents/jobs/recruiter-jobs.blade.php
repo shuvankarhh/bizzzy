@@ -8,7 +8,7 @@
     @foreach ($jobs as $idx=>$item)
         <x-job-component :applied="false" :job="$item" :idx="$idx" />
         @foreach ($item->proposals as $proposal_item)
-            <div class="card m-2">
+            <div style="cursor: pointer" class="card m-2" onclick="{{ (is_null($proposal_item->pivot->contract_id)) ? '' : "location.href='".route('job.offer.show', [encrypt($proposal_item->pivot->contract_id)])."'"}}">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
