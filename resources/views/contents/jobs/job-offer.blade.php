@@ -17,7 +17,7 @@
                         Job Categories:
                         <span>
                             @foreach ($contract->job->categories as $item)
-                                <span class="badge badge-primary">{{ $item->category->name }}as</span>
+                                <span class="badge badge-primary">{{ $item->category->name }}</span>
                             @endforeach
                         </span>
                     </p>
