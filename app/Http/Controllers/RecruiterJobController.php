@@ -14,7 +14,7 @@ class RecruiterJobController extends Controller
     public function index()
     {
         return view('contents.jobs.recruiter-jobs')->with([
-            'jobs' => auth()->user()->jobs()->with('proposals', 'tags.tag', 'categories.category')->get()
+            'jobs' => auth()->user()->jobs()->with('proposals', 'tags.tag', 'categories.category')->latest()->get()
         ]);
     }
 

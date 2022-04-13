@@ -79,11 +79,6 @@ class User extends Authenticatable
         return $this->hasMany(UserLanguage::class);
     }
 
-    public function service_categories()
-    {
-        return $this->belongsToMany(Category::class, 'freelancer_profile_categories', 'profile_id', 'category_id');
-    }
-
     public function portfolios()
     {
         return $this->hasMany(UserPortfolio::class);

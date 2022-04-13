@@ -3,7 +3,7 @@
     <x-navbar links="true" />
 @endsection
 @section('content')
-<div class="container">
+<div class="container" style="min-height: 75vh">
     <header><h2>Offers ({{ $offers->count() }})</h2></header>
     @foreach ($offers as $item)
         <div class="card m-3 {{ ($item->contract_status == 'Active') ? 'bg-success' : '' }}" style="color: white">

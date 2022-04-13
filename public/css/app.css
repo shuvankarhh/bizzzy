@@ -249,7 +249,7 @@ as long as it is a sibling. */
 
 .battery-question.grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
     gap: 30px; 
 }
 

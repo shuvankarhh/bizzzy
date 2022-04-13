@@ -17,18 +17,18 @@ class TagsSeeder extends Seeder
         $arr =[            
             [
                 'name' => 'Featured Jobs',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Urgent',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Opportunity',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],  
         ];
         Tag::insert(

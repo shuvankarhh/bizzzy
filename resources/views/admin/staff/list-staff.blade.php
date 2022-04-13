@@ -7,6 +7,7 @@
 @section('content')
     <section>
         <div class="container py-3 h-100">
+            <h3>Staffs</h3>
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                     <tr>

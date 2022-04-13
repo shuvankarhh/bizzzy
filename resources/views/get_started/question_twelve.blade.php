@@ -6,7 +6,7 @@
 
 @section('content')
 <section class="question">
-    <div class="container mt-5 py-3 h-100">
+    <div class="container pt-5 pb-3" style="min-height: 75vh">
         <div class="row">
             <div class="col-1 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
                 <a class="btn prev-button" href="{{ route('user.category.create') }}">Prev</a>

@@ -72,13 +72,13 @@
                             </div>
 
                             <!-- Checkbox -->
-                            <div class="form-check justify-content-start mb-4">
-                                <input style="margin-right: 0px" class="form-check-input" type="checkbox" value="yes" id="" name="subscription" />
-                                <label class="form-check-label" for="" style="text-align: left; font-style: normal;
+                            <div class="form-check mb-4">
+                                <input style="margin-right: 0px" class="form-check-input" type="checkbox" value="yes" id="subscription" name="subscription" />
+                                <label class="form-check-label" for="subscription" style="text-align: left !important; font-style: normal;
                                 font-weight: normal;
                                 font-size: 14px;
                                 line-height: 20px;
-                                color: rgba(0, 0, 0, 0.856)"> Send me useful emails every now and then to help me get the most out ofBizzzy.</label>
+                                color: rgba(0, 0, 0, 0.856)"> Send me useful emails every now and then to help me get the most out of Bizzzy. <span class="me-5"></span></label>
                             </div>
                             <div class="form-check justify-content-start mb-4">
                                 <input style="margin-right: 0px" class="form-check-input @error('aggrement') is-invalid @enderror" type="checkbox" value="yes" id="aggrement" name="aggrement" value="{{ old('aggrement') }}"/>

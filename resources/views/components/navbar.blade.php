@@ -39,9 +39,15 @@
             @if ($links !== 'false')
                 <div class="collapse navbar-collapse" id="navbar_toggle">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
+                      @if (session('user_type', 'none') == 1)
                         <li class="nav-item">
-                            <a href="{{ route('job.index') }}" class="nav-link {{ request()->is('jobs') ? 'active' : '' }}" aria-current="page" href="#">Jobs</a>
-                        </li>
+                            <a href="{{ route('freelancer.index') }}" class="nav-link {{ request()->is('jobs') ? 'active' : '' }}" aria-current="page" href="#">Hire</a>
+                        </li>                          
+                      @elseif (session('user_type', 'none') == 2)
+                        <li class="nav-item">
+                            <a href="{{ route('job.index') }}" class="nav-link {{ request()->is('jobs') ? 'active' : '' }}" aria-current="page" href="#">Find Jobs</a>
+                        </li>                          
+                      @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('start.message') }}">Profile Setup</a>
                         </li>
@@ -101,7 +107,7 @@
                         >
                         @auth('web')
                           <li>
-                            <a class="dropdown-item" href="{{ route('freelancer.index') }}">My profile</a>
+                            <a class="dropdown-item" href="{{ route('freelancer.profile.index') }}">My profile</a>
                           </li>                            
                           <li>
                             <a class="dropdown-item" href="{{ route('recruiter.job.index') }}">Posted Jobs</a>

@@ -4,35 +4,35 @@
 @endsection
 @section('content')
 <div class="container">
-    <x-job-component :applied="false" :job="$job_proposal->jobs[0]" :idx="0" />
+    <x-job-component :applied="false" :job="$job_proposal" :idx="0" />
     <div class="card m-2">
         <div class="card-body">
             <div class="row">
                 <div class="col-6">
                     <h3>Proposed Offer</h3>
-                    <p class="m-0 p-0"> {{ $job_proposal->jobs[0]->proposals[0]->name }} </p>
-                    <p class="m-0 p-0"> ${{ (int)$job_proposal->jobs[0]->proposals[0]->pivot->price }} </p>
-                    <p class="m-0 p-0"> {{ $job_proposal->jobs[0]->proposals[0]->pivot->description }} </p>
+                    <p class="m-0 p-0"> {{ $job_proposal->proposals[0]->name }} </p>
+                    <p class="m-0 p-0"> ${{ (int)$job_proposal->proposals[0]->pivot->price }} </p>
+                    <p class="m-0 p-0"> {{ $job_proposal->proposals[0]->pivot->description }} </p>
                 </div>
                 {{-- <div class="col-6 text-end align-self-center">
-                    <a role="button" href="{{ route('job.proposal.show', [encrypt($job_proposal->jobs[0]->proposals[0]->pivot->user_id), encrypt($job_proposal->jobs[0]->proposals[0]->pivot->job_id)]) }}" class="btn btn-primary">Accept Proposal</a>
+                    <a role="button" href="{{ route('job.proposal.show', [encrypt($job_proposal->proposals[0]->pivot->user_id), encrypt($job_proposal->proposals[0]->pivot->job_id)]) }}" class="btn btn-primary">Accept Proposal</a>
                 </div> --}}
                 <form action="#" id="hire_freelancer">
-                    <input type="hidden" name="freelancer" value="{{ encrypt($job_proposal->jobs[0]->proposals[0]->pivot->user_id) }}">
-                    <input type="hidden" name="job_id" value="{{ encrypt($job_proposal->jobs[0]->id) }}">
-                    <input type="hidden" id="payment_type" name="payment_type" value="{{ strtolower($job_proposal->jobs[0]->price_type) }}">
+                    <input type="hidden" name="freelancer" value="{{ encrypt($job_proposal->proposals[0]->pivot->user_id) }}">
+                    <input type="hidden" name="job_id" value="{{ encrypt($job_proposal->id) }}">
+                    <input type="hidden" id="payment_type" name="payment_type" value="{{ strtolower($job_proposal->price_type) }}">
                     <div class="col-12 mt-3">
                         <hr>
                         <h3>Given Offer</h3>
-                        <div id="hourly" class="{{ ($job_proposal->jobs[0]->price_type == 'Hourly') ? '' : 'd-none' }}">
+                        <div id="hourly" class="{{ ($job_proposal->price_type == 'Hourly') ? '' : 'd-none' }}">
                             <div class="hourly row">
                                 <b>Hourly</b>
                                 <div class="col-auto">
                                     <label for="hourly_rate">Rate</label>
-                                    <input type="text" name="hourly_rate" id="hourly_rate" class="form-control mb-3" value="{{ (int)$job_proposal->jobs[0]->price }}">
+                                    <input type="text" name="hourly_rate" id="hourly_rate" class="form-control mb-3" value="{{ (int)$job_proposal->price }}">
                     
                                     <label for="hour_per_week">Max Hours Per Week</label>
-                                    <input type="text" name="hour_per_week" id="hour_per_week" class="form-control" value="{{ (int)$job_proposal->jobs[0]->hours_per_week }}">
+                                    <input type="text" name="hour_per_week" id="hour_per_week" class="form-control" value="{{ (int)$job_proposal->hours_per_week }}">
                                     <!-- Default checkbox -->
                                     <div class="form-check mb-3">
                                         <input class="form-check-input" type="checkbox" value="" id="manual_tracking" />
@@ -42,12 +42,12 @@
                             </div>
                             <button type="button" id="switch_to_fixed" class="btn btn-primary">Switch To Fixed Price</button>
                         </div>
-                        <div id="fixed" class="{{ ($job_proposal->jobs[0]->price_type == 'Hourly') ? 'd-none' : '' }}">
+                        <div id="fixed" class="{{ ($job_proposal->price_type == 'Hourly') ? 'd-none' : '' }}">
                             <div class="fixed row">
                                 <b>Fixed</b>
                                 <div class="col-auto">
                                     <label for="price">Estimate</label>
-                                    <input type="text" name="price" id="price" class="form-control mb-3" value="{{ (int)$job_proposal->jobs[0]->price }}">
+                                    <input type="text" name="price" id="price" class="form-control mb-3" value="{{ (int)$job_proposal->price }}">
                     
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="deposit_type" id="deposit_type1" value="full" checked/>
@@ -117,7 +117,7 @@
                             <label class="form-check-label" for="terms">I agree to terms and condition</label>
                             <div id="terms_invalid" class="-reponse"></div>
                         </div>
-                        <button id="hire_button" class="btn mt-3" disabled>Hire, {{ $job_proposal->jobs[0]->proposals[0]->name }}</button>
+                        <button id="hire_button" class="btn mt-3" disabled>Hire, {{ $job_proposal->proposals[0]->name }}</button>
                     </div>
                 </form>
             </div>

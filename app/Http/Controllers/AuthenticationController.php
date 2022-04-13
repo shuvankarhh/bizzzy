@@ -48,6 +48,7 @@ class AuthenticationController extends Controller
 
         if (Auth::attempt(['account_email_id' => $email->id, 'password' => $request->password])) {
             $request->session()->regenerate();
+            $request->session()->put('user_type', auth()->user()->userAccount[0]->client_or_freelancer);
 
             return redirect()->intended('user/create/get-started');
         }
@@ -124,6 +125,12 @@ class AuthenticationController extends Controller
                 UserAccount::create([
                     'user_id' => $user->id,
                     'client_or_freelancer' => 2,
+                    'company_or_individual' => 2,
+                ]);
+            }else{
+                UserAccount::create([
+                    'user_id' => $user->id,
+                    'client_or_freelancer' => 1,
                     'company_or_individual' => 2,
                 ]);
             }

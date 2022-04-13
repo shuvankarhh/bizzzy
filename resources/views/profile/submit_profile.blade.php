@@ -11,7 +11,7 @@
         <p class="m-0">Make any edits you want, then submit your profile. You can make more changes after it’s live.</p>
     </div>
     <div class="col-md-3 col-lg-3 col-xl-3 col-xxl-3 col-sm-12 col-12 second">
-        <a href="{{ route('freelancer.index') }}" role="button" class="btn submit-profile-btn">Submit Profile</a>
+        <a href="{{ route('freelancer.profile.index') }}" role="button" class="btn submit-profile-btn">Submit Profile</a>
     </div>
 </div>
 <div class="container py-3">
@@ -168,7 +168,7 @@
         </div>
     </div>
     <div class="row mt-5 ">
-        <div class="text-center col-12 mt-5"><a href="{{ route('freelancer.index') }}" role="button" class="btn submit-profile-btn">Submit Profile</a></div>
+        <div class="text-center col-12 mt-5"><a href="{{ route('freelancer.profile.index') }}" role="button" class="btn submit-profile-btn">Submit Profile</a></div>
     </div>
 </div>
 @endsection

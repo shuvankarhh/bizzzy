@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <section class="question">
-        <div class="container py-3 mt-5 h-100">
+        <div class="container pt-5 pb-3" style="min-height: 75vh">
             <div class="row justify-content-center battery-question">
                 <div class="col-1 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
                     <a class="btn prev-button" href="{{ route('user.skill.index') }}">Prev</a>

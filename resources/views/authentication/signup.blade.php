@@ -7,7 +7,7 @@
 @section('content')
     
 <section>
-    <div class="container h-100">
+    <div class="container h-100 pt-3 pb-3">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-lg-4 col-md-6 col-sm-8 col-xs-12">
                 <form action="{{ route('user.register.email') }}">

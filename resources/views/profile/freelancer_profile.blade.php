@@ -94,13 +94,13 @@
             <div class="lower-text-line-break-div">
                 <p class="m-0 top-text">Services as </p>
                 <p class="m-0 bottom-text">
-                    {{ (is_null($service)) 
+                    {{ (is_null($profile->service_categories[0])) 
                         ? 'Not Set' 
                         : 
                         ( 
-                            ($service->parent_category_id == '0') 
-                            ? $service->name
-                            : $service->parent->name
+                            ($profile->service_categories[0]->parent_category_id == '0') 
+                            ? $profile->service_categories[0]->name
+                            : "{$profile->service_categories[0]->parent->name}: {$profile->service_categories[0]->name}"
                         ) 
                     }}
                 </p>
@@ -263,10 +263,12 @@
         <div class="row m-0 p-0">
             <div class="col-12 card-header-profile m-0 p-0">
                 <h2>Portfolio</h2>
-                <div class="card-header-button">
-                    <i role="button" class="fas fa-pen first"></i>
-                    <a style="color: unset" role="button" href="{{ route('portfolio.create') }}"><i class="fas fa-plus second"></i></a>
-                </div>
+                @if ($self)
+                    <div class="card-header-button">
+                        <i role="button" class="fas fa-pen first"></i>
+                        <a style="color: unset" role="button" href="{{ route('portfolio.create') }}"><i class="fas fa-plus second"></i></a>
+                    </div>                    
+                @endif
             </div>
             @forelse ($portfolios as $idx=>$item)
             @if ($idx != 3)
@@ -307,10 +309,12 @@
         <div class="row m-0 p-0">
             <div class="col-12 card-header-profile m-0 p-0">
                 <h2 class="content-title">Skills</h2>
-                <div class="card-header-button">
-                    <i role="button" class="fas fa-pen first"></i>
-                    <button id="profile_skill_modal" data-mdb-toggle="modal" data-mdb-target="#skill_modal"><i class="fas fa-plus second"></i></button>
-                </div>
+                @if ($self)
+                    <div class="card-header-button">
+                        <i role="button" class="fas fa-pen first"></i>
+                        <button id="profile_skill_modal" data-mdb-toggle="modal" data-mdb-target="#skill_modal"><i class="fas fa-plus second"></i></button>
+                    </div>
+                @endif
             </div>
             <div class="col-12 m-0 p-0">
                 <div>
@@ -353,10 +357,12 @@
         <div class="row m-0 p-0">
             <div class="col-12 card-header-profile m-0 p-0">
                 <h2 class="">Experience</h2>
-                <div class="card-header-button">
-                    <i role="button" class="fas fa-pen first"></i>
-                    <i role="button" data-mdb-target="#work_modal" data-mdb-toggle="modal" class="fas fa-plus second"></i>
-                </div>
+                @if ($self)
+                    <div class="card-header-button">
+                        <i role="button" class="fas fa-pen first"></i>
+                        <i role="button" data-mdb-target="#work_modal" data-mdb-toggle="modal" class="fas fa-plus second"></i>
+                    </div>
+                @endif
             </div>
             <div class="col-12 m-0 p-0">
                 <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">

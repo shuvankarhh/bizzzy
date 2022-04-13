@@ -28,7 +28,8 @@ class FreelancerProfileController extends Controller
                 $query->select('id', 'name', 'description');
             }])->with( ['recruiter' => function ($query){
                 $query->select('id', 'name', 'photo');
-            }])->get()
+            }])->get(),
+            'self' => true
         ]);
     }
 

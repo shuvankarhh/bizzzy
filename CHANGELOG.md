@@ -1,3 +1,8 @@
+## 0.030.0 (2022-04-13 17:38)
+| Type | Description |
+| -- | -- |
+| add | Recruiter login and freelancer view |
+
 ## 0.029.0 (2022-04-10 17:38)
 | Type | Description |
 | -- | -- |

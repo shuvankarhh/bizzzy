@@ -8,7 +8,7 @@
 <x-navbar links="false" />
 @endsection @section('content')
 <section class="question">
-    <div class="container py-3 h-100 mt-5">
+    <div class="container pt-5 pb-3" style="min-height: 75vh">
         <form action="#" id="profile_information_form">
             <div class="row battery-question">
                 <div class="col-1 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">

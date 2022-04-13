@@ -9,7 +9,6 @@
 @endpush
 
 @section('content')
-
 <section class="home">
     <section class="container top_hero_section">
         <div class="row">

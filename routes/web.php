@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PermissionRoleController;
+use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\FreelancerProfileController;
 use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\GetStarted\GetStartedController;
@@ -172,7 +173,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     });
 
     Route::prefix('f')->group(function () {
-        Route::get('/', [FreelancerProfileController::class, 'index'])->name('freelancer.index');
+        Route::get('/', [FreelancerProfileController::class, 'index'])->name('freelancer.profile.index');
         // Route::get('/create/{id}', [JobController::class, 'create'])->name('job.create');
     });
 
@@ -214,6 +215,9 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::get('/', [RecruiterActiveJobController::class, 'index'])->name('recruiter.contract.index');
         Route::get('/{id}', [RecruiterActiveJobController::class, 'show'])->name('recruiter.contract.show');
     });
+
+    Route::get('freelancers', [FreelancerController::class, 'index'])->name('freelancer.index');
+    Route::get('freelancers/{freelancer}', [FreelancerController::class, 'show'])->name('freelancer.show');
 
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
 });

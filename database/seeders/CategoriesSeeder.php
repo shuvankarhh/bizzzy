@@ -18,38 +18,38 @@ class CategoriesSeeder extends Seeder
             [
                 'name' => 'Web Development',
                 'parent_category_id' => 0,
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Full Stack',
                 'parent_category_id' => 1,
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Back End',
                 'parent_category_id' => 1,
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Front End',
                 'parent_category_id' => 1,
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Voice Acting',
                 'parent_category_id' => 0,
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Content Creator',
                 'parent_category_id' => 0,
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]
         ];
         Category::insert(

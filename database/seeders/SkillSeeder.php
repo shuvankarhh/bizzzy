@@ -17,53 +17,53 @@ class SkillSeeder extends Seeder
         $arr = [
             [
                 'name' => 'Web Development',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'HTML',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'CSS',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Javascript',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Laravel',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Vue',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Python',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Time Management',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Risk assesment',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Leadership',
-                'createdAt' => now(),
-                'updatedAt' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
         Skill::insert(
