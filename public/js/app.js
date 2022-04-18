@@ -2463,6 +2463,27 @@ if (accept_button) {
     });
   });
 } // -----------------------------
+// Declining Job Offers --------
+
+
+var decline_button = document.getElementById("offer_decline_button");
+
+if (decline_button) {
+  var _contract = document.getElementById('contract').value;
+  decline_button.addEventListener('click', function () {
+    axios.post(APP_URL + "/job-offers/".concat(_contract), {
+      type: 'decline'
+    }).then(function (response) {
+      console.log(response.data);
+      location.href = response.data;
+    })["catch"](function (error) {
+      decline_button.style.backgroundColor = '#dc3545';
+      setTimeout(function () {
+        accept_button.style.backgroundColor = '#1266f1';
+      }, 1000);
+    });
+  });
+} // -----------------------------
 // Add/Update Skill from profile----
 
 

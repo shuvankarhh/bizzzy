@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <div class="container" style="min-height: 75vh">
-    <header><h2>Offers ({{ $offers->count() }})</h2></header>
+    <header><h3>Offers ({{ $offers->count() }})</h3></header>
     @foreach ($offers as $item)
         <div class="card m-3 {{ ($item->contract_status == 'Active') ? 'bg-success' : '' }}" style="color: white">
             <div class="card-body">
@@ -21,5 +21,6 @@
             </div>
         </div>        
     @endforeach
+    {{ $offers->links() }}
 </div>
 @endsection

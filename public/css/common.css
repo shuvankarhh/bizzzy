@@ -89,6 +89,10 @@
     /* width: 80%; */
 }
 
+.nav-wrapper{
+    border-bottom: 1px solid #bdbcbc;
+}
+
 .navbar_section .container-fluid {
     padding-right: 0px;
     padding-left: 0px;
@@ -139,21 +143,22 @@
 
 .navbar_section .form-control {
     width: unset;
-    padding: 0.6rem 2.375rem 0.5rem 0.5rem;
+    padding: 0.7rem 2.375rem 0.5rem 0.5rem;
     /* padding: 0.6rem 2.375rem 0 0 ; */
-    border: 1px solid #0086FF;
-    box-shadow: 0px 0px 1px rgb(0, 134, 255);
+    border: 0;
+    /* box-shadow: 0px 0px 1px rgb(0, 134, 255); */
     border-radius: 5px;
+    background-color: #EEEEEE;
 }
 
 .form-control:focus {
-    border-color: #0086FF;
-    box-shadow: 0px 0px 3px rgb(0, 134, 255);
+    border-color: #EEEEEE;
+    box-shadow: 0px 0px 3px #EEEEEE;
 }
 
 .navbar_section .form-control::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #0086FF;
+    color: #757575;
     opacity: 1;
     /* Firefox */
     font-family: Mulish-Bold;
@@ -200,17 +205,7 @@
     }
 } */
 
-.search_input_group {
-    position: relative;
-    margin-left: 3vw !important;
-    margin-right: 3% !important;
-}
 
-.search_icon_input {
-    position: absolute;
-    top: 12px;
-    right: 5%;
-}
 
 .signup-lg {
     background-color: #0086FF;

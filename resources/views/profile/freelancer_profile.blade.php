@@ -187,70 +187,18 @@
                 <!-- Tabs content -->
                 <div class="tab-content" id="ex1-content">
                     <div class="tab-pane fade show active" id="completeted_jobs" role="tabpanel" aria-labelledby="current">
-                        <div class="freelancer-job row">
-                            <div class="col-sm-5 col-5 col-md-auto">
-                                <div>
-                                    <img class="job-thumbnail" src="{{ asset('images/general/porfolio-1.png') }}" alt="">
-                                </div>
-                                <div class="d-sm-inline d-inline d-md-none">
-                                    <x-profile-job-poster test="test" />
-                                </div>
-                                <div class="d-sm-inline d-inline d-md-none">
-                                    <x-profile-job-price />
-                                </div>
-                            </div>
-                            <div class="col-sm-7 col-7 col-md">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-auto">
-                                                <h3>Redesign minimalistic website</h3>
-                                            </div>
-                                            <div class="col-auto align-items-center d-sm-none d-none d-md-inline">
-                                                <x-profile-job-price />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <p>"I provided Abdul with a very simple Figma prototype. In a matter of hours, he was able to create a couple of extremely well designed prototypes. Looking forward to working with him again."</p>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-auto d-sm-none d-none d-md-inline">
-                                                <img class="job-poster" src="{{ asset('images/general/porfolio-1.png') }}" alt="">
-                                            </div>
-                                            <div class="col-auto d-sm-none d-none d-md-inline">
-                                                <x-profile-job-poster />
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="row">
-                                                    <div class="col-auto">
-                                                        <span>
-                                                            <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                                            <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                                            <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                                            <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                                            <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                                        </span>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <p>5.00</p>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <p>Jan 25, 2022 - Feb 1, 2022</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @forelse ($completed_contracts as $item)
+                            <x-profile-job-component :contract="$item"/>
+                        @empty
+                            <p class="text-center">No Jobs!</p>
+                        @endforelse                        
                     </div>
                     <div class="tab-pane fade" id="in_progress_jobs" role="tabpanel" aria-labelledby="current">
-                        @foreach ($contracts as $item)                            
+                        @forelse ($active_contracts as $item)
                             <x-profile-job-component :contract="$item"/>
-                        @endforeach
+                        @empty
+                            <p class="text-center">No Jobs!</p>
+                        @endforelse
                     </div>
                     <div class="tab-pane fade" id="canceled_jobs" role="tabpanel" aria-labelledby="current">
                         Canceled

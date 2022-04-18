@@ -8,7 +8,7 @@
     <title>Homepage - Bizzzy</title>
 
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap -->
     <link href="{{ asset('/css/vendor/bootstrap_v5-0-2/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Google Fonts -->
@@ -34,10 +34,9 @@
     {{--  <img src="{{asset('/images/extra_fillers/hero-green-background.svg')}}" style="position: absolute;top: 0;left: 0;z-index: -1;height: 140vh;">  --}}
 
     @yield('navbar')
-    <div class="inner-content" style="background-color: rgb(229, 229, 229, 0.2)">
+    <div class="inner-content pb-5 pt-3" style="background-color: rgb(229, 229, 229, 0.2)">
         @yield('content')
     </div>
-
     @include('layouts.footer')
 
     <!-- Bizzzy -->

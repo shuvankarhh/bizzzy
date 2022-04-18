@@ -545,6 +545,20 @@ as long as it is a sibling. */
     box-shadow: none;
 }
 
+.nav-bar-freelancer{
+    padding: 0.8rem 1rem 0.8rem 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-bar-freelancer .nav-text strong{
+    white-space: nowrap
+}
+
+.dropdown-menu{
+    /* background-color: #F3F7FE; */
+}
+
 body {
     /* background-image: url(http://127.0.0.1:8000/images/extra_fillers/hero-green-background.svg);
     background-repeat: no-repeat; */
@@ -554,7 +568,21 @@ body {
 /* Search ICON */
 
 .search_input_group .form-control {
-    padding-right: 2.375rem;
+    padding-left: 2.475rem !important;
+    padding-right: 0.5rem !important;
+    border-color: unset;
+}
+
+.search_input_group {
+    position: relative;
+    margin-left: 3vw !important;
+    margin-right: 3% !important;
+}
+
+.search_icon_input {
+    position: absolute;
+    top: 12px;
+    left: 5%;
 }
 
 .has-search .form-control-feedback {
