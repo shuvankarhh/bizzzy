@@ -6,7 +6,7 @@
 
 @section('content')
     
-<section class="vh-100" style="margin-top: 80px">
+<section class="container pt-5 pb-5" style="min-height: 50vh">
 
     <div class="row d-flex justify-content-center align-items-center h-50 p5">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5 col-sm-3">

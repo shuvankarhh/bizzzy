@@ -12,7 +12,21 @@ class Job extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'job_visibility', 'name', 'description', 'project_time', 'project_type', 'experience_level', 'price_type', 'price', 'hours_per_week', 'total_proposals', 'total_invitation_sent', 'average_rating', 'money_spent'];
-    
+
+    /**
+     * Mutators for Contract
+     * 
+     * @return Attribute
+     */
+    public function setPriceTypeAttribute($value)
+    {
+        if (strtolower($value) === 'fixed') {
+            $this->attributes['price_type'] = 1;
+        } else {
+            $this->attributes['price_type'] = 2;
+        }
+    }
+
     /**
      * The attributes that should be cast.
      *
@@ -33,10 +47,10 @@ class Job extends Model
         $date = new Carbon($value);
         return $date->diffForHumans();
     }
-    
+
     public function getProjectTimeAttribute($value)
     {
-        switch($value){ 
+        switch ($value) {
             case 1:
                 return 'Less than 1 month';
             case 2:
@@ -47,16 +61,26 @@ class Job extends Model
                 return 'More than 6 months';
         }
     }
-    
+
     public function getExperienceLevelAttribute($value)
     {
-        switch($value){
+        switch ($value) {
             case 1:
                 return 'Entry';
             case 2:
                 return 'Intermediate';
             case 3:
                 return 'Expert';
+        }
+    }
+
+    public function getPriceTypeAttribute($value)
+    {
+        switch ($value) {
+            case 1:
+                return 'Fixed';
+            case 2:
+                return 'Hourly';
         }
     }
 
@@ -83,7 +107,12 @@ class Job extends Model
 
     public function proposals()
     {
-        return $this->belongsToMany(User::class, 'job_proposals', 'job_id', 'user_id');
+        return $this->belongsToMany(User::class, 'job_proposals', 'job_id', 'user_id')->withPivot('price_type', 'price', 'description', 'project_time', 'id', 'contract_id');
+    }
+
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class);
     }
 
     /**

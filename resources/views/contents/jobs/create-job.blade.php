@@ -55,8 +55,8 @@
                 <div class="form-group mt-2">
                     <select class="form-control" name="price_type" id="price_type">
                         <option value="">Select Payment Type</option>
-                        <option value="1">Fixed</option>
-                        <option value="2">Hourly</option>
+                        <option value="fixed">Fixed</option>
+                        <option value="hourly">Hourly</option>
                     </select>
                     <div class="invalid-reposne" id="price_type_invalid"></div>
                 </div>

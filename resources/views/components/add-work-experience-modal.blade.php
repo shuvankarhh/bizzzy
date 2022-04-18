@@ -61,9 +61,9 @@
                                 <div class="col-6">
                                     <select name="year_start" id="year_start" class="form-select" aria-label="Default select example">
                                         <option value="" selected>Year</option>
-                                        <option >2020</option>
-                                        <option >2021</option>
-                                        <option >2022</option>
+                                        <option>2020</option>
+                                        <option>2021</option>
+                                        <option>2022</option>
                                     </select>
                                 </div>
                             </div>

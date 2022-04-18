@@ -50,7 +50,7 @@ class UserPortfolioController extends Controller
             'thumbnail' => $path,
         ]);
 
-        return route('freelancer.index');
+        return route('freelancer.profile.index');
     }
 
     /**

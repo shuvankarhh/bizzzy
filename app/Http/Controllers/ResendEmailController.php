@@ -13,6 +13,7 @@ class ResendEmailController extends Controller
     public function store(Request $request)
     {
         $email = Email::with('userEmail.user')->where('email', $request->email)->first();
-        Mail::to($email->email)->send(new EmailVerification($email->userEmail->user, $email->userEmail->verification_token, $email->email));
+        $temp = Mail::to($email->email)->send(new EmailVerification($email->userEmail->user, $email->userEmail->verification_token, $email->email));
+        print_r($temp);
     }
 }

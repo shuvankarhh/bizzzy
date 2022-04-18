@@ -58,7 +58,7 @@ class UserLanguageController extends Controller
             );
         }
 
-        return route('skill.index');
+        return route('user.skill.index');
     }
 
     /**

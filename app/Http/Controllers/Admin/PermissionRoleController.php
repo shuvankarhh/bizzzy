@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Skill;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
-class SkillController extends Controller
+class PermissionRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,9 @@ class SkillController extends Controller
      */
     public function index()
     {
-        
+        return view('admin.authorization.add-permission-to-role')->with([
+            'roles' => Role::get()
+        ]);
     }
 
     /**
@@ -35,7 +39,9 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $role = Role::find($request->role);
+        $role->syncPermissions($request->permission);
+        return response()->json($request->all());
     }
 
     /**
@@ -44,9 +50,12 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $guard)
     {
-        //
+        $permissions = Permission::withCount(['roles' => function($query) use ($id){
+            $query->where('roles.id', $id);
+        }])->where('guard_name', $guard)->get();
+        return view('components.permission-role')->with('permissions', $permissions);
     }
 
     /**

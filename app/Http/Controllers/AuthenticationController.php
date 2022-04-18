@@ -10,8 +10,10 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerification;
 use App\Models\FreelancerProfile;
+use App\Models\UserAccount;
 use App\Models\UserOnlinePresence;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -19,7 +21,7 @@ class AuthenticationController extends Controller
 {
     public function userLoginCreate(Request $request)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return view('home');
         }
         return view('authentication.login');
@@ -34,23 +36,24 @@ class AuthenticationController extends Controller
 
         $email = Email::with('userEmail')->where('email', $request->email)->first();
 
-        if(is_null($email)){
+        if (is_null($email) or is_null($email->userEmail)) {
             return back()->withErrors([
                 'email' => 'Email Does Not Exist.',
             ]);
         }
 
-        if(is_null($email->userEmail->verified_at)){
+        if (is_null($email->userEmail->verified_at)) {
             return redirect()->route('user.verification-need.email', ['email' => $email->email]);
         }
 
         if (Auth::attempt(['account_email_id' => $email->id, 'password' => $request->password])) {
             $request->session()->regenerate();
- 
+            $request->session()->put('user_type', auth()->user()->userAccount[0]->client_or_freelancer);
+
             return redirect()->intended('user/create/get-started');
         }
- 
-        return back()->withErrors([ 
+
+        return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
@@ -59,20 +62,20 @@ class AuthenticationController extends Controller
     {
         $request->validate(['email' => 'required']);
 
-        $email = Email::where('email' , $request->email)->first();
+        $email = Email::where('email', $request->email)->first();
 
-        if(is_null($email)){
+        if (is_null($email)) {
             return view('authentication.registration', [
                 'email' => $request->email
             ]);
         }
 
         $user = User::where('account_email_id', $email->id)->first();
-        if(!is_null($user)){
+        if (!is_null($user)) {
             return redirect()->route('user.login')->with('message', 'Email Already exists! Please Login!');
         }
 
-        if($email->userEmail){
+        if ($email->userEmail) {
             return view('authentication.verify_email', [
                 'email' => $email->email
             ]);
@@ -109,7 +112,7 @@ class AuthenticationController extends Controller
                 'acting_status' => 1,
             ]);
 
-            if($request->freelancer_or_recuriter == 'freelancer'){
+            if ($request->freelancer_or_recuriter == 'freelancer') {
                 FreelancerProfile::create([
                     'user_id' => $user->id,
                     'profile_completion_percentage' => 0,
@@ -118,7 +121,17 @@ class AuthenticationController extends Controller
                     'job_success_percentage' => 0,
                     'average_rating' => 0,
                     'is_top_rated' => 0,
-                    
+                ]);
+                UserAccount::create([
+                    'user_id' => $user->id,
+                    'client_or_freelancer' => 2,
+                    'company_or_individual' => 2,
+                ]);
+            }else{
+                UserAccount::create([
+                    'user_id' => $user->id,
+                    'client_or_freelancer' => 1,
+                    'company_or_individual' => 2,
                 ]);
             }
 
@@ -139,7 +152,7 @@ class AuthenticationController extends Controller
             return array('user' => $user, 'token' => $token);
         });
 
-        // Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
+        Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
 
         return redirect()->route('user.verification-need.email', ['email' => $request->email]);
     }
@@ -147,11 +160,11 @@ class AuthenticationController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-    
+
         $request->session()->invalidate();
-    
+
         $request->session()->regenerateToken();
-    
+
         return redirect('/');
     }
 
@@ -164,11 +177,11 @@ class AuthenticationController extends Controller
     {
         $verified = Email::with('userEmail.user')->where('email', $email)->first();
 
-        if(is_null($verified)){
+        if (is_null($verified)) {
             return;
         }
 
-        if(!is_null($verified->userEmail->verified_at)){
+        if (!is_null($verified->userEmail->verified_at)) {
             return redirect()->route('user.login')->with('message', 'Email already verified!');
         }
 

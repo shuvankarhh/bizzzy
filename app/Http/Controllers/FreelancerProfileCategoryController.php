@@ -66,7 +66,7 @@ class FreelancerProfileCategoryController extends Controller
         }
 
         FreelancerProfileCategory::updateOrCreate(
-            [ 'profile_id' => auth()->user()->freelance_profile->id],
+            [ 'profile_id' => auth()->user()->freelance_profile->id ],
             [ 'category_id' => $category ]
         );
 

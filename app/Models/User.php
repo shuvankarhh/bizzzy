@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\UserAccount;
 use App\Models\UserEducation;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserWorkExperience;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -77,14 +79,33 @@ class User extends Authenticatable
         return $this->hasMany(UserLanguage::class);
     }
 
-    public function service_categories()
-    {
-        return $this->belongsToMany(Category::class, 'freelancer_profile_categories', 'profile_id', 'category_id');
-    }
-
     public function portfolios()
     {
         return $this->hasMany(UserPortfolio::class);
     }
-    
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
+
+    public function freelancerContracts()
+    {
+        return $this->hasMany(Contract::class, 'freelancer_id');
+    }
+
+    public function userAccount()
+    {
+        return $this->hasMany(UserAccount::class);
+    }
+
+    public function isRecruiter()
+    {
+        $userAccount = $this->userAccount()->where('client_or_freelancer', 1)->first();
+        if (is_null($userAccount)) {
+            return false;
+        }
+
+        return true;
+    }
 }

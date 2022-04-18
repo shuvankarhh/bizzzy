@@ -26,7 +26,7 @@
                         <div class="progress-bar">
                             <div class="progress"></div>
                         </div>
-                        <p class="m-0 text-secondary">Job Success</p>
+                        <p class="m-0 text-gray">Job Success</p>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                             @if (!is_null($address))
                                 <i class="fas fa-map-marker-alt"></i> {{ $address->city . ', ' . $address->country }} 
                             @endif
-                            <span class="text-secondary">{{ now()->format('h:i a') . ' local time' }}</span>
+                            <span class="text-gray">{{ now()->format('h:i a') . ' local time' }}</span>
                         </p>
                     </div>
                     <div class="col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-sm-12 col-xs-12">
@@ -94,13 +94,13 @@
             <div class="lower-text-line-break-div">
                 <p class="m-0 top-text">Services as </p>
                 <p class="m-0 bottom-text">
-                    {{ (is_null($service)) 
+                    {{ (is_null($profile->service_categories[0])) 
                         ? 'Not Set' 
                         : 
                         ( 
-                            ($service->parent_category_id == '0') 
-                            ? $service->name
-                            : $service->parent->name
+                            ($profile->service_categories[0]->parent_category_id == '0') 
+                            ? $profile->service_categories[0]->name
+                            : "{$profile->service_categories[0]->parent->name}: {$profile->service_categories[0]->name}"
                         ) 
                     }}
                 </p>
@@ -159,7 +159,7 @@
             </div>
             <div class="col-12 m-0 p-0">
                 <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
-                    <li class="nav-item col-4">
+                    <li class="nav-item">
                         <a class="nav-link active" id="current" data-mdb-toggle="tab" href="#completeted_jobs" role="tab" aria-controls="current" aria-selected="true">
                             <span class="icon">
                                 <img src="{{ asset('images\icons\job\all.svg') }}" alt="Briefcase">                           
@@ -167,7 +167,7 @@
                             </span>
                         </a>
                     </li>
-                    <li class="nav-item col-4">
+                    <li class="nav-item">
                         <a class="nav-link" id="past" data-mdb-toggle="tab" href="#in_progress_jobs" role="tab" aria-controls="past" aria-selected="false">
                             <span class="icon">
                                 <img src="{{ asset('images\icons\job\hourly.svg') }}" alt="Briefcase">
@@ -175,7 +175,7 @@
                             </span>                    
                         </a>
                     </li>
-                    <li class="nav-item col-4">
+                    <li class="nav-item">
                         <a class="nav-link" id="past" data-mdb-toggle="tab" href="#canceled_jobs" role="tab" aria-controls="past" aria-selected="false">
                             <span class="icon">
                                 <img src="{{ asset('images\icons\job\hourly.svg') }}" alt="Briefcase">
@@ -188,7 +188,7 @@
                 <div class="tab-content" id="ex1-content">
                     <div class="tab-pane fade show active" id="completeted_jobs" role="tabpanel" aria-labelledby="current">
                         <div class="freelancer-job row">
-                            <div class="col-sm-5 col-5 col-md-auto m-0 p-0">
+                            <div class="col-sm-5 col-5 col-md-auto">
                                 <div>
                                     <img class="job-thumbnail" src="{{ asset('images/general/porfolio-1.png') }}" alt="">
                                 </div>
@@ -199,7 +199,7 @@
                                     <x-profile-job-price />
                                 </div>
                             </div>
-                            <div class="col-sm-7 col-7 col-md-auto m-0 p-0">
+                            <div class="col-sm-7 col-7 col-md">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row">
@@ -248,7 +248,9 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="in_progress_jobs" role="tabpanel" aria-labelledby="current">
-                        In Progress
+                        @foreach ($contracts as $item)                            
+                            <x-profile-job-component :contract="$item"/>
+                        @endforeach
                     </div>
                     <div class="tab-pane fade" id="canceled_jobs" role="tabpanel" aria-labelledby="current">
                         Canceled
@@ -261,16 +263,18 @@
         <div class="row m-0 p-0">
             <div class="col-12 card-header-profile m-0 p-0">
                 <h2>Portfolio</h2>
-                <div class="card-header-button">
-                    <i role="button" class="fas fa-pen first"></i>
-                    <a style="color: unset" role="button" href="{{ route('portfolio.create') }}"><i class="fas fa-plus second"></i></a>
-                </div>
+                @if ($self)
+                    <div class="card-header-button">
+                        <i role="button" class="fas fa-pen first"></i>
+                        <a style="color: unset" role="button" href="{{ route('portfolio.create') }}"><i class="fas fa-plus second"></i></a>
+                    </div>                    
+                @endif
             </div>
             @forelse ($portfolios as $idx=>$item)
             @if ($idx != 3)
-                <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-6 col-6 m-0 p-0">
+                <div class="col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-sm-6 col-6 m-2 p-0">
             @else
-                <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-6 col-6 d-inline d-sm-inline d-md-none m-0 p-0">
+                <div class="col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-sm-6 col-6 d-inline d-sm-inline d-md-none m-2 p-0">
             @endif
                     <div class="row h-100 pb-3 pb-sm-3">
                         @if (!is_null($item->thumbnail))                                
@@ -305,14 +309,16 @@
         <div class="row m-0 p-0">
             <div class="col-12 card-header-profile m-0 p-0">
                 <h2 class="content-title">Skills</h2>
-                <div class="card-header-button">
-                    <i role="button" class="fas fa-pen first"></i>
-                    <a style="color: unset" role="button" href="{{ route('portfolio.create') }}"><i class="fas fa-plus second"></i></a>
-                </div>
+                @if ($self)
+                    <div class="card-header-button">
+                        <i role="button" class="fas fa-pen first"></i>
+                        <button id="profile_skill_modal" data-mdb-toggle="modal" data-mdb-target="#skill_modal"><i class="fas fa-plus second"></i></button>
+                    </div>
+                @endif
             </div>
             <div class="col-12 m-0 p-0">
                 <div>
-                    <p class="content-subtitle">UX/UI Design</p>
+                    {{-- <p class="content-subtitle">UX/UI Design</p> --}}
                     <div class="job-tag">
                         @foreach ($skills as $item)
                             <div>
@@ -322,7 +328,7 @@
                     </div>
                 </div>
 
-                <div class="mt-3">
+                {{-- <div class="mt-3">
                     <p class="content-subtitle">Web Development</p>
                     <div class="job-tag">
                         @foreach ($skills as $item)
@@ -331,7 +337,7 @@
                             </div>                                
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
                 <hr>
                 <div class="text-center">
                     <a class="show-all" href="#">Show all Skills <i class="fas fa-chevron-down"></i></a>
@@ -351,10 +357,12 @@
         <div class="row m-0 p-0">
             <div class="col-12 card-header-profile m-0 p-0">
                 <h2 class="">Experience</h2>
-                <div class="card-header-button">
-                    <i role="button" class="fas fa-pen first"></i>
-                    <i role="button" data-mdb-target="#work_modal" data-mdb-toggle="modal" class="fas fa-plus second"></i>
-                </div>
+                @if ($self)
+                    <div class="card-header-button">
+                        <i role="button" class="fas fa-pen first"></i>
+                        <i role="button" data-mdb-target="#work_modal" data-mdb-toggle="modal" class="fas fa-plus second"></i>
+                    </div>
+                @endif
             </div>
             <div class="col-12 m-0 p-0">
                 <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
@@ -413,13 +421,33 @@
     </section>
 </section>
 
+<div class="modal fade" id="skill_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form action="#" id="profile_skill_form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Skill</h5>
+                </div>
+                <div class="modal-body p-4">
+                    <select id="skills" name="name[]" multiple placeholder="Select skill">
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button id="skill_modal_close_button" type="button" class="btn btn-link custom-close" data-mdb-dismiss="modal" style="">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <x-add-work-experience-modal />
 @endsection
 
 @push('css')
 <style>
     body{
-        background: #F9FAFC;
+        background: #f9fafc;
     }
 </style>
     

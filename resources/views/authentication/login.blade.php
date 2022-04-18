@@ -7,7 +7,7 @@
 @section('content')
     
 <section>
-    <div class="container h-100">
+    <div class="container h-100 pt-3 pb-3">
         <div class="row d-flex justify-content-center mt-5 h-100">
             <div class="col-12 col-md-8 col-lg-5 col-xl-4">
                 <form action="{{ route('user.login') }}" method="post">

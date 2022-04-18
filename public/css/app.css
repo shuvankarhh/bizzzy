@@ -249,7 +249,7 @@ as long as it is a sibling. */
 
 .battery-question.grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
     gap: 30px; 
 }
 
@@ -477,6 +477,11 @@ as long as it is a sibling. */
 
 /* --- Override defaults --- */
 
+.dp-image{
+    width: 80px;
+    border-radius: 50%;
+}
+
 .prev-button{
     padding: 0.3rem 0.6rem 0.3rem 0.6rem;
     box-shadow: unset;
@@ -502,7 +507,7 @@ as long as it is a sibling. */
     justify-content: space-between;
 }
 
-.text-secondary{
+.text-gray{
     color: #6c757d !important;
 }
 
@@ -794,6 +799,7 @@ body {
 
 .container {
     max-width: 80vw;
+    /* padding-top: 2rem; */
 }
 
 @media (min-width: 768px) and (max-width:880px) {
@@ -936,6 +942,10 @@ body {
 
 
 /* Jobs Body ------------------------------------ */
+
+.job-description{
+    /* max-width: 100ch; */
+}
 
 .search-input{
     position: relative;
@@ -1346,6 +1356,12 @@ body {
     gap: 1rem;
 }
 
+
+.freelancer-profile .card-header-button button{
+    border: unset;
+    background-color: white;
+}
+
 .freelancer-profile .card-header-button i{
     border: 1px solid #626468;
     border-radius: 50%;
@@ -1692,3 +1708,24 @@ body {
 }
 /* ================= Bootstrap Responsive Width End ========================================= */
 
+.dropdown-menu li {
+    position: relative;
+}
+.dropdown-menu .dropdown-submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0px;
+}
+.dropdown-menu .dropdown-submenu-left {
+    right: 100%;
+    left: auto;
+}
+.dropdown-menu > li:hover > .dropdown-submenu {
+    display: block;
+}
+.btn-xs{
+    padding: .35rem 0.7rem .35rem;
+    font-size: .7rem;
+    line-height: 1;
+}

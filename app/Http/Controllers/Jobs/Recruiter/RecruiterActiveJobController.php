@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Jobs\Recruiter;
 
-use App\Models\Category;
+use App\Models\Contract;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class RecruiterActiveJobController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,23 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
+        $counts_db = Contract::select(DB::raw("count(*) as contract_count, payment_type"))->where('contract_status', 2)->where('created_by_user', auth()->id())->groupBy('payment_type')->get();
+        $counts = array(
+            'fixed' => 0,
+            'hourly' => 0,
+        );
+        foreach ($counts_db as $item) {
+            if ($item->payment_type === 1) {
+                $counts['fixed'] = $item->contract_count;
+            } else {
+                $counts['hourly'] = $item->contract_count;
+            }
+        }
+
+        return view('contents.jobs.recruiter-active-contracts')->with([
+            'offers' => Contract::with('job', 'milestones')->where('created_by_user', auth()->id())->where('contract_status', '2')->get(),
+            'counts' => $counts
+        ]);
     }
 
     /**
@@ -24,7 +42,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -46,7 +64,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('contents.jobs.recruiter-active-contract')->with([
+            'contract' => Contract::with('freelancer', 'job', 'milestones')->find(decrypt($id))
+        ]);
     }
 
     /**
@@ -81,12 +101,5 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function get_sub_category($id)
-    {
-        return view('templates.subcategory')->with([
-            'categories' => Category::where('parent_category_id', $id)->get()
-        ])->render();
     }
 }

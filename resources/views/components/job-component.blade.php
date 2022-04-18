@@ -5,7 +5,7 @@
                 {{--  This section is for mobile view. Will be hidden in large screens.  --}}
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-8 col-8 p-0 d-md-none d-lg-none d-xl-none d-xxl-none"></div>
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-4 col-4 p-0 d-md-none d-lg-none d-xl-none d-xxl-none">
-                    <div class="applied text-center">fgfgsdfg
+                    <div class="applied text-center">
                         <img src="{{ asset('images\icons\job\applied.svg') }}" alt="">
                         Applied
                     </div>                            
@@ -30,7 +30,7 @@
                 <p class="m-0" style="font-weight: bold">
                     {{ $job->name }}
                     @foreach ($job->tags as $item)
-                        <x-dynamic-component :component="'tags.' . $item->tag->name" class="mt-4" />
+                        <x-dynamic-component :component="'tags.' . Str::kebab($item->tag->name)" class="mt-4" />
                     @endforeach
                 </p>
                 <p class="m-0">{{ $job->recruiter->name }}</p>
@@ -48,7 +48,7 @@
         </div>
         <div class="row">
             <div class="col-11">
-                <p id="show_text{{ $idx }}" class="m-0">{!! \Illuminate\Support\Str::limit($job->description, 350, $end='....<u onclick="show_full_text(this, '.$idx.')" role="button" class="m-0 job-more-button">more</u>') !!}</p>
+                <p id="show_text{{ $idx }}" class="m-0 job-description">{!! \Illuminate\Support\Str::limit($job->description, 350, $end='....<u onclick="show_full_text(this, '.$idx.')" role="button" class="m-0 job-more-button">more</u>') !!}</p>
                 <span class="d-none" id="full_text{{ $idx }}">{{ $job->description }}</span>
             </div>
             <div class="col-11 mt-3">
@@ -112,7 +112,7 @@
                 <div class="row justify-content-center">
                     <div class="col-3 text-center">
                         <p class="m-0 top-text">Budget</p>
-                        <p class="m-0 bottom-text">${{ ($job->price_type == '1') ? $job->price : $job->price . '/hr' }}</p>
+                        <p class="m-0 bottom-text">${{ ($job->price_type == 'Fixed') ? $job->price : $job->price . '/hr' }}</p>
                     </div>
                     <div class="col-1 align-self-center">
                         <span class="divider"></span>

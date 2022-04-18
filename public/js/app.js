@@ -2060,8 +2060,17 @@ module.exports = {
   \*****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"),
     axios = _require["default"];
+
+var _require2 = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"),
+    get = _require2.get;
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
@@ -2070,9 +2079,9 @@ languages = "<option value=\"af\">Afrikaans</option> <option value=\"sq\">Albani
 var fa_spinning = '<i style="font-size: 1.2em" class="fas fa-circle-notch fa-spin"></i>'; // Fotter down arrow rotate
 
 toggleFoooterIcon = function toggleFoooterIcon(e) {
-  var child = e.querySelector('.fas');
+  var child = e.querySelector(".fas");
   console.log(child);
-  child.classList.toggle('active');
+  child.classList.toggle("active");
 }; // --------------
 // Question One
 
@@ -2086,22 +2095,22 @@ first_working_experience = function first_working_experience(link) {
 }; // Helper Functions
 
 
-var removeValidation = function removeValidation() {
-  Array.from(document.querySelectorAll('.is-invalid')).forEach(function (el) {
-    el.classList.remove('is-invalid');
+removeValidation = function removeValidation() {
+  Array.from(document.querySelectorAll(".is-invalid")).forEach(function (el) {
+    el.classList.remove("is-invalid");
   });
 };
 
-var showValidation = function showValidation(obj) {
+showValidation = function showValidation(obj) {
   for (var property in obj.errors) {
     var field = document.getElementById(property);
 
-    if (field.tagName === 'SELECT') {
-      field.classList.add('is-invalid');
-      var ts_element = document.querySelector('.ts-wrapper');
-      ts_element.classList.add('is-invalid');
+    if (field.tagName === "SELECT") {
+      field.classList.add("is-invalid");
+      var ts_element = document.querySelector(".ts-wrapper");
+      ts_element.classList.add("is-invalid");
     } else {
-      field.classList.add('is-invalid');
+      field.classList.add("is-invalid");
     }
 
     document.getElementById("".concat(property, "_invalid")).innerHTML = obj.errors[property];
@@ -2118,15 +2127,15 @@ var modal_form_close = function modal_form_close(id, modal) {
 add_work_experience = function add_work_experience() {
   event.preventDefault();
   removeValidation();
-  var form = document.getElementById('work_experience_form');
+  var form = document.getElementById("work_experience_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/add-work-experience', formData).then(function (response) {
-    modal_form_close('work_experience_form', 'work_modal');
-    var company = response.data.company === null ? '' : response.data.company;
-    var html = "<div class=\"col-md-6 mb-2\">\n                        <div class=\"added-exp\">\n                            <p class=\"m-0 font-weight-bold\">".concat(response.data.title, "</p>\n                            <p class=\"m-0\">").concat(company, "</p>\n                        </div>\n                    </div>");
-    document.getElementById('added_exp').innerHTML += html;
+  axios.post(APP_URL + "/user/create/add-work-experience", formData).then(function (response) {
+    modal_form_close("work_experience_form", "work_modal");
+    var company = response.data.company === null ? "" : response.data.company;
+    var html = "<div class=\"col-md-6 mb-2\">\n                    <div class=\"added-exp\">\n                        <p class=\"m-0 font-weight-bold\">".concat(response.data.title, "</p>\n                        <p class=\"m-0\">").concat(company, "</p>\n                    </div>\n                </div>");
+    document.getElementById("added_exp").innerHTML += html;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2141,12 +2150,12 @@ add_work_experience = function add_work_experience() {
 add_education = function add_education() {
   event.preventDefault();
   removeValidation();
-  var form = document.getElementById('education_form');
+  var form = document.getElementById("education_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/add-education', formData).then(function (response) {
-    location.href = '';
+  axios.post(APP_URL + "/user/create/add-education", formData).then(function (response) {
+    location.href = "";
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2159,15 +2168,15 @@ add_education = function add_education() {
 
 
 add_language = function add_language() {
-  document.getElementById('error').innerHTML = '';
-  var form = document.getElementById('language_form');
+  document.getElementById("error").innerHTML = "";
+  var form = document.getElementById("language_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/language', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/language", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
-      document.getElementById('error').innerHTML = 'Please fill all inputs!';
+      document.getElementById("error").innerHTML = "Please fill all inputs!";
     } else {
       // Other JS related error
       console.log(error);
@@ -2176,13 +2185,13 @@ add_language = function add_language() {
 };
 
 remove_additional_selected_language = function remove_additional_selected_language(number, id) {
-  axios["delete"](APP_URL + '/user/create/language/' + id).then(function (response) {
+  axios["delete"](APP_URL + "/user/create/language/" + id).then(function (response) {
     var el = document.getElementById("addition_num_".concat(number));
     el.remove();
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
-      document.getElementById('error').innerHTML = error.response.data.error;
+      document.getElementById("error").innerHTML = error.response.data.error;
     } else {
       // Other JS related error
       console.log(error);
@@ -2194,12 +2203,12 @@ remove_additional_selected_language = function remove_additional_selected_langua
 
 add_bio = function add_bio() {
   removeValidation();
-  var form = document.getElementById('bio_form');
+  var form = document.getElementById("bio_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/freelancer-bio', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/freelancer-bio", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2213,12 +2222,12 @@ add_bio = function add_bio() {
 
 add_category = function add_category() {
   removeValidation();
-  var form = document.getElementById('category_form');
+  var form = document.getElementById("category_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/category', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/category", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2232,12 +2241,12 @@ add_category = function add_category() {
 
 add_hourly_rate = function add_hourly_rate() {
   removeValidation();
-  var form = document.getElementById('hourly_rate_form');
+  var form = document.getElementById("hourly_rate_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/hourly_rate', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/hourly_rate", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2252,10 +2261,10 @@ add_hourly_rate = function add_hourly_rate() {
 upload_profile_image = function upload_profile_image(image) {
   var image_input = document.getElementById("base64image");
   var formData = new FormData();
-  formData.append('image', image_input.value);
-  axios.post(APP_URL + '/user/create/uplaod_image', formData).then(function (response) {// location.href = response.data;
+  formData.append("image", image_input.value);
+  axios.post(APP_URL + "/user/create/uplaod_image", formData).then(function (response) {// location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2267,12 +2276,12 @@ upload_profile_image = function upload_profile_image(image) {
 
 add_profile_information = function add_profile_information() {
   removeValidation();
-  var form = document.getElementById('profile_information_form');
+  var form = document.getElementById("profile_information_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/question-thirteen', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/question-thirteen", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2287,12 +2296,12 @@ resend_email_verification = function resend_email_verification(ele, email) {
   var temp = ele.innerHTML;
   ele.innerHTML = fa_spinning;
   var formData = new FormData();
-  formData.append('email', email);
-  axios.post(APP_URL + '/user/resend_verification', formData).then(function (response) {
+  formData.append("email", email);
+  axios.post(APP_URL + "/user/resend_verification", formData).then(function (response) {
     // location.href = response.data;
     ele.innerHTML = temp;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {// This is for error from laravel
+    if (typeof error.response !== "undefined") {// This is for error from laravel
       // showValidation(error.response.data);
     } else {
       // Other JS related error
@@ -2306,12 +2315,12 @@ resend_email_verification = function resend_email_verification(ele, email) {
 
 add_title = function add_title() {
   removeValidation();
-  var form = document.getElementById('title_form');
+  var form = document.getElementById("title_form");
   var formData = new FormData(form);
-  axios.post(APP_URL + '/user/create/question-five', formData).then(function (response) {
+  axios.post(APP_URL + "/user/create/question-five", formData).then(function (response) {
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
       // This is for error from laravel
       showValidation(error.response.data);
     } else {
@@ -2324,17 +2333,17 @@ add_title = function add_title() {
 
 
 show_full_text = function show_full_text(e) {
-  var idx = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  var idx = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
   document.getElementById("show_text".concat(idx)).innerHTML = document.getElementById("full_text".concat(idx)).innerHTML;
   e.style.display = "none";
 }; // --------------
 // Add Portfolio
 
 
-var form = document.getElementById('add_protfolio_form');
+var form = document.getElementById("add_protfolio_form");
 
 if (form) {
-  form.addEventListener('submit', function () {
+  form.addEventListener("submit", function () {
     event.preventDefault();
     var formData = new FormData(form);
     axios.post("".concat(APP_URL, "/user_portfolio"), formData).then(function (response) {
@@ -2343,7 +2352,7 @@ if (form) {
     })["catch"](function (error) {
       console.log(error);
 
-      if (typeof error.response !== 'undefined') {
+      if (typeof error.response !== "undefined") {
         // This is for error from laravel
         showValidation(error.response.data);
       } else {
@@ -2360,7 +2369,7 @@ add_job = function add_job(e) {
   event.preventDefault();
   removeValidation();
   var formData = new FormData(e);
-  axios.post(APP_URL + '/job', formData).then(function (response) {
+  axios.post(APP_URL + "/job", formData).then(function (response) {
     console.log(response);
     e.reset();
     tags_select.clear();
@@ -2368,7 +2377,31 @@ add_job = function add_job(e) {
     languages_select.clear();
     location.href = response.data;
   })["catch"](function (error) {
-    if (typeof error.response !== 'undefined') {
+    if (typeof error.response !== "undefined") {
+      //  This is for error from laravel
+      console.log(error.response.data);
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
+  });
+}; // --------------
+// Add Direct Job
+
+
+add_direct_job = function add_direct_job(e) {
+  event.preventDefault();
+  removeValidation();
+  var formData = new FormData(e);
+  axios.post(APP_URL + "/f/dj", formData).then(function (response) {
+    console.log(response); // e.reset();
+    // tags_select.clear();
+    // categories_select.clear();
+    // languages_select.clear();
+    // location.href = response.data;
+  })["catch"](function (error) {
+    if (typeof error.response !== "undefined") {
       //  This is for error from laravel
       console.log(error.response.data);
       showValidation(error.response.data);
@@ -2381,16 +2414,16 @@ add_job = function add_job(e) {
 // Job Proposal
 
 
-var job_proposal = document.getElementById('job_proposal_form');
+var job_proposal = document.getElementById("job_proposal_form");
 
 if (job_proposal) {
-  job_proposal.addEventListener('submit', function (e) {
+  job_proposal.addEventListener("submit", function (e) {
     e.preventDefault();
     console.log(e.target); // return;
 
     removeValidation();
     var formData = new FormData(e.target);
-    axios.post(APP_URL + '/job-apply', formData).then(function (response) {
+    axios.post(APP_URL + "/job-apply", formData).then(function (response) {
       console.log(response); // e.reset();
       // tags_select.clear();
       // categories_select.clear();
@@ -2398,7 +2431,7 @@ if (job_proposal) {
 
       location.href = response.data;
     })["catch"](function (error) {
-      if (typeof error.response !== 'undefined') {
+      if (typeof error.response !== "undefined") {
         //  This is for error from laravel
         console.log(error.response.data);
         showValidation(error.response.data);
@@ -2409,6 +2442,157 @@ if (job_proposal) {
     });
   });
 } // --------------
+// Accepting Job Offers --------
+
+
+var accept_button = document.getElementById("offer_accept_button");
+
+if (accept_button) {
+  var contract = document.getElementById('contract').value;
+  accept_button.addEventListener('click', function () {
+    axios.post(APP_URL + "/job-offers/".concat(contract), {
+      type: 'accept'
+    }).then(function (response) {
+      console.log(response.data);
+      location.href = response.data;
+    })["catch"](function (error) {
+      accept_button.style.backgroundColor = '#dc3545';
+      setTimeout(function () {
+        accept_button.style.backgroundColor = '#1266f1';
+      }, 1000);
+    });
+  });
+} // -----------------------------
+// Add/Update Skill from profile----
+
+
+var button = document.getElementById("profile_skill_modal");
+
+if (button) {
+  button.addEventListener('click', function () {
+    axios.get(APP_URL + '/skill/create').then(function (response) {
+      console.log(response.data.user_skills);
+      var select = new TomSelect('#skills', {
+        plugins: ['remove_button'],
+        valueField: 'id',
+        searchField: 'title',
+        options: response.data.skills,
+        render: {
+          option: function option(data, escape) {
+            return '<div>' + '<span>' + escape(data.title) + '</span>' + '</div>';
+          },
+          item: function item(data, escape) {
+            return '<div title="' + escape(data.desc) + '">' + escape(data.title) + '</div>';
+          }
+        }
+      });
+      select.setValue(JSON.parse(response.data.user_skills));
+    })["catch"](function (error) {});
+  });
+}
+
+var profile_skill_form = document.getElementById("profile_skill_form");
+
+if (profile_skill_form) {
+  profile_skill_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(profile_skill_form);
+
+    var _iterator = _createForOfIteratorHelper(formData.keys()),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var value = _step.value;
+        console.log(value);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    formData.append('_method', 'PATCH');
+    axios.post(APP_URL + '/skill', formData).then(function (response) {
+      console.log(response);
+      location.reload(); // e.reset();
+      // tags_select.clear();
+      // categories_select.clear();
+      // languages_select.clear();
+      // location.href = response.data;
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+} // ---------------------------------
+// Get Permissions of role
+// let permission_role = document.getElementById('permission_role');
+// if(permission_role){
+//     permission_role.addEventListener('click', (e) => {
+//         console.log(e.target.dataset.id);
+//         axios
+//         .get(APP_URL + `/admin/permission-role/${e.target.dataset.id}/${e.target.dataset.guard}`)
+//         .then(function (response) {
+//             console.log(response);
+//             document.getElementById('permissions_body').innerHTML = response.data;
+//             // location.reload();
+//             // e.reset();
+//             // tags_select.clear();
+//             // categories_select.clear();
+//             // languages_select.clear();
+//             // location.href = response.data;
+//         })
+//         .catch(function (error) {
+//         });
+//     })
+// }
+
+
+get_permission = function get_permission(e) {
+  axios.get(APP_URL + "/admin/permission-role/".concat(e.dataset.id, "/").concat(e.dataset.guard)).then(function (response) {
+    console.log(response);
+    document.getElementById('role').value = e.dataset.id;
+    document.getElementById('permissions_body').innerHTML = response.data; // location.reload();
+    // e.reset();
+    // tags_select.clear();
+    // categories_select.clear();
+    // languages_select.clear();
+    // location.href = response.data;
+  })["catch"](function (error) {});
+};
+
+var permission_role_form = document.getElementById('permission_role_form');
+
+if (permission_role_form) {
+  permission_role_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(permission_role_form);
+    axios.post(APP_URL + '/admin/permission-role', formData).then(function (response) {
+      console.log(response);
+      location.reload(); // e.reset();
+      // tags_select.clear();
+      // categories_select.clear();
+      // languages_select.clear();
+      // location.href = response.data;
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+}
 
 /***/ }),
 
