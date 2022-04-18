@@ -411,6 +411,39 @@ add_job = (e) => {
 
 // --------------
 
+// Add Direct Job
+
+add_direct_job = (e) => {
+    event.preventDefault();
+
+    removeValidation();
+
+    let formData = new FormData(e);
+
+    axios
+    .post(APP_URL + "/f/dj", formData)
+    .then(function (response) {
+        console.log(response);
+        // e.reset();
+        // tags_select.clear();
+        // categories_select.clear();
+        // languages_select.clear();
+        // location.href = response.data;
+    })
+    .catch(function (error) {
+        if (typeof error.response !== "undefined") {
+            //  This is for error from laravel
+            console.log(error.response.data);
+            showValidation(error.response.data);
+        } else {
+            // Other JS related error
+            console.log(error);
+        }
+    });
+};
+
+// --------------
+
 // Job Proposal
 let job_proposal = document.getElementById("job_proposal_form");
 if (job_proposal) {
@@ -464,6 +497,29 @@ if(accept_button){
         })
         .catch(function (error) {
             accept_button.style.backgroundColor = '#dc3545';
+            setTimeout(() => {
+                accept_button.style.backgroundColor = '#1266f1';
+            }, 1000);
+        });
+    });
+}
+// -----------------------------
+
+// Declining Job Offers --------
+let decline_button = document.getElementById("offer_decline_button");
+if(decline_button){
+    let contract = document.getElementById('contract').value;
+    decline_button.addEventListener('click', () => {
+        axios
+        .post(APP_URL + `/job-offers/${contract}`, {
+            type: 'decline'
+        })
+        .then(function (response) {
+            console.log(response.data);
+            location.href = response.data;
+        })
+        .catch(function (error) {
+            decline_button.style.backgroundColor = '#dc3545';
             setTimeout(() => {
                 accept_button.style.backgroundColor = '#1266f1';
             }, 1000);

@@ -1,3 +1,8 @@
+## 0.031.0 (2022-04-13 17:38)
+| Type | Description |
+| -- | -- |
+| add | Freelancer search & hire |
+
 ## 0.030.0 (2022-04-13 17:38)
 | Type | Description |
 | -- | -- |

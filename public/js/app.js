@@ -2387,6 +2387,30 @@ add_job = function add_job(e) {
     }
   });
 }; // --------------
+// Add Direct Job
+
+
+add_direct_job = function add_direct_job(e) {
+  event.preventDefault();
+  removeValidation();
+  var formData = new FormData(e);
+  axios.post(APP_URL + "/f/dj", formData).then(function (response) {
+    console.log(response); // e.reset();
+    // tags_select.clear();
+    // categories_select.clear();
+    // languages_select.clear();
+    // location.href = response.data;
+  })["catch"](function (error) {
+    if (typeof error.response !== "undefined") {
+      //  This is for error from laravel
+      console.log(error.response.data);
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
+  });
+}; // --------------
 // Job Proposal
 
 

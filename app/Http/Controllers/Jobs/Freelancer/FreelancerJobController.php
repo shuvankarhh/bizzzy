@@ -18,7 +18,7 @@ class FreelancerJobController extends Controller
     public function index()
     {
         return view('contents.jobs.freelancer-job-offers')->with([
-            'offers' => Contract::with('job')->where('freelancer_id', auth()->id())->where('contract_status', '1')->get()
+            'offers' => Contract::with('job')->where('freelancer_id', auth()->id())->where('contract_status', '1')->latest()->get()
         ]);
     }
 
@@ -45,10 +45,18 @@ class FreelancerJobController extends Controller
 
         Gate::forUser($contract->freelancer)->authorize('freelancerUpdate', $contract);
         
-        $contract->is_confirmed_by_freelancer = 1;
-        $contract->contract_status = 2;
-        $contract->contract_confirmation_date = now();
-        $contract->save();
+        if($request->type == 'decline'){
+            $contract->is_confirmed_by_freelancer = 0;
+            $contract->contract_status = 6;
+            $contract->save();
+        }
+
+        if($request->type == 'accept'){
+            $contract->is_confirmed_by_freelancer = 1;
+            $contract->contract_status = 2;
+            $contract->contract_confirmation_date = now();
+            $contract->save();
+        }
 
         return route('job.offer.index');
     }

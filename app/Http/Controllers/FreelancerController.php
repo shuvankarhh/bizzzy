@@ -19,7 +19,8 @@ class FreelancerController extends Controller
         return view('contents.freelancer.freelancer-list')->with([
             'freelancers' => FreelancerProfile::with(['user' => function($q){
                                 $q->with('address', 'skills');
-                            }], 'service_categories')
+                            }])
+                            ->with('service_categories')
                             ->whereHas('user', function($q) use($request){
                                 $q->whereHas('skills', function($q) use($request){
                                     if($request->search){
@@ -43,7 +44,7 @@ class FreelancerController extends Controller
                             ->when($request->experience, function ($query) use($request) {
                                 return $query->where('experience_level', '=', $request->experience);
                             })
-                            ->get(),
+                            ->paginate(2),
             'categories' => Category::with('children')->where('parent_category_id', 0)->get(),
             'searchParam' => $request->all()
         ]);
@@ -78,8 +79,9 @@ class FreelancerController extends Controller
      */
     public function show(User $freelancer)
     {
-        return view('profile.freelancer_profile')->with([
+        return view('contents.freelancer.freelancer-show')->with([
             'profile_photo' => $freelancer->photo,
+            'name' => $freelancer->name,
             'address' => $freelancer->address,
             'education' => $freelancer->educations()->orderBy('start_date', 'desc')->first(),
             'profile' => $freelancer->freelance_profile::with('service_categories.parent')->first(),

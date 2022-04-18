@@ -9,7 +9,7 @@ class Contract extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['payment_type', 'price', 'service_charge_type', 'service_charge', 'paid_amount', 'is_fully_paid', 'end_date', 'contract_status', 'contract_confirmation_date', 'created_by_user', 'is_confirmed_by_client', 'is_confirmed_by_freelancer', 'job_id', 'freelancer_id', 'additional_message'];
+    protected $fillable = ['payment_type', 'price', 'service_charge_type', 'service_charge', 'paid_amount', 'is_fully_paid', 'end_date', 'contract_status', 'contract_confirmation_date', 'created_by_user', 'is_confirmed_by_client', 'is_confirmed_by_freelancer', 'job_id', 'freelancer_id', 'additional_message', 'hours_per_week'];
 
     /**
      * Accessors for Contract
@@ -39,7 +39,7 @@ class Contract extends Model
      */
     public function setPaymentTypeAttribute($value)
     {
-        if ($value === 'fixed') {
+        if (strtolower($value) === 'fixed') {
             $this->attributes['payment_type'] = 1;
         } else {
             $this->attributes['payment_type'] = 2;

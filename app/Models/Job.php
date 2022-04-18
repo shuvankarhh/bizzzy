@@ -14,6 +14,20 @@ class Job extends Model
     protected $fillable = ['user_id', 'job_visibility', 'name', 'description', 'project_time', 'project_type', 'experience_level', 'price_type', 'price', 'hours_per_week', 'total_proposals', 'total_invitation_sent', 'average_rating', 'money_spent'];
 
     /**
+     * Mutators for Contract
+     * 
+     * @return Attribute
+     */
+    public function setPriceTypeAttribute($value)
+    {
+        if (strtolower($value) === 'fixed') {
+            $this->attributes['price_type'] = 1;
+        } else {
+            $this->attributes['price_type'] = 2;
+        }
+    }
+
+    /**
      * The attributes that should be cast.
      *
      * @var array

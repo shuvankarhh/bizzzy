@@ -120,6 +120,21 @@
                         <button id="hire_button" class="btn mt-3" disabled>Hire, {{ $job_proposal->proposals[0]->name }}</button>
                     </div>
                 </form>
+                <template id="additional_milestone_contente">
+                    <li>
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" name="milestone_name[]" id="" class="form-control mb-3" placeholder="Milestone Name">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="deposit_amount[]" id="" class="form-control mb-3" placeholder="Desposit Amount">
+                            </div>
+                            <div class="col">
+                                <input type="date" name="due_date[]" id="" class="form-control mb-3">
+                            </div>
+                        </div>
+                    </li>
+                </template>
             </div>
         </div>
     </div>

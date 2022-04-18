@@ -32,6 +32,7 @@ use App\Http\Controllers\GetStarted\GetStartedController;
 use App\Http\Controllers\FreelancerProfileCategoryController;
 use App\Http\Controllers\GetStarted\WorkExperienceController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerActiveJobController;
+use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerJobController;
 use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
 use App\Http\Controllers\Staff\StaffAuthController;
@@ -216,8 +217,17 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::get('/{id}', [RecruiterActiveJobController::class, 'show'])->name('recruiter.contract.show');
     });
 
-    Route::get('freelancers', [FreelancerController::class, 'index'])->name('freelancer.index');
-    Route::get('freelancers/{freelancer}', [FreelancerController::class, 'show'])->name('freelancer.show');
+    /**
+     * fs indicated Freelancers
+     */
+    Route::get('fs', [FreelancerController::class, 'index'])->name('freelancer.index');
+    Route::get('fs/{freelancer}', [FreelancerController::class, 'show'])->name('freelancer.show');
+
+    /**
+     * f indicated Freelancer, dj indicates direct job
+     */
+    Route::get('f/dj/{freelancer}', [FreelancerDirectJobController::class, 'create'])->name('freelancer.hire.create');
+    Route::post('f/dj', [FreelancerDirectJobController::class, 'store'])->name('freelancer.hire.store');
 
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
 });

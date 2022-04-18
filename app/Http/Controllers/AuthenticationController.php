@@ -152,10 +152,7 @@ class AuthenticationController extends Controller
             return array('user' => $user, 'token' => $token);
         });
 
-        if (App::environment('production')) {
-            dd('in');
-            Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
-        }
+        Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
 
         return redirect()->route('user.verification-need.email', ['email' => $request->email]);
     }
