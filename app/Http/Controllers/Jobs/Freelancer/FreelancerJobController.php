@@ -18,7 +18,7 @@ class FreelancerJobController extends Controller
     public function index()
     {
         return view('contents.jobs.freelancer-job-offers')->with([
-            'offers' => Contract::with('job')->where('freelancer_id', auth()->id())->where('contract_status', '1')->latest()->get()
+            'offers' => Contract::with('job')->where('freelancer_id', auth()->id())->where('contract_status', '1')->latest()->paginate(10)
         ]);
     }
 

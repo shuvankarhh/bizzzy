@@ -67,6 +67,7 @@
                 @foreach ($jobs as $idx=>$item)
                     <x-job-component :applied="$item->proposals_count" :job="$item" :idx="$idx" />
                 @endforeach
+                {{ $jobs->links() }}
             </div>
             <div class="tab-pane fade" id="best_match_tab" role="tabpanel" aria-labelledby="best_match">
                 

@@ -1,4 +1,9 @@
-## 0.031.0 (2022-04-13 17:38)
+## 0.032.0 (2022-04-18 17:38)
+| Type | Description |
+| -- | -- |
+| fix | Navbar & pagination |
+
+## 0.031.0 (2022-04-18 11:38)
 | Type | Description |
 | -- | -- |
 | add | Freelancer search & hire |
