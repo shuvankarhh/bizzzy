@@ -201,7 +201,11 @@
                         @endforelse
                     </div>
                     <div class="tab-pane fade" id="canceled_jobs" role="tabpanel" aria-labelledby="current">
-                        Canceled
+                        @forelse ($canceled_contracts as $item)
+                            <x-profile-job-component :contract="$item"/>
+                        @empty
+                            <p class="text-center">No Jobs!</p>
+                        @endforelse
                     </div>
                 </div>
             </div>

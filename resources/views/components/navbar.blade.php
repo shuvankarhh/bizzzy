@@ -208,7 +208,13 @@
                         aria-expanded="false"
                       >
                         <img
-                          src="{{ asset('storage/' . auth()->user()->photo) }}"
+                          src="
+                          @if (file_exists(public_path('storage/' . auth()->user()->photo)))
+                            {{ asset('storage/' . auth()->user()->photo) }}
+                          @else
+                            {{ asset('images\general\avatar.png') }}
+                          @endif
+                          "
                           class="rounded-circle"
                           height="25"
                           alt="Black and White Portrait of a Man"
@@ -254,7 +260,13 @@
                       @endauth
                       <li>
                         <div class="nav-bar-freelancer">
-                          <img src="{{ asset('storage/' . auth()->user()->photo) }}" class="rounded-circle" height="45" alt="Black and White Portrait of a Man" loading="lazy" />
+                          <img src="
+                          @if (file_exists(public_path('storage/' . auth()->user()->photo)))
+                            {{ asset('storage/' . auth()->user()->photo) }}
+                          @else
+                            {{ asset('images\general\avatar.png') }}
+                          @endif
+                          " class="rounded-circle" height="45" alt="Black and White Portrait of a Man" loading="lazy" />
                           <div class="nav-text">
                             <strong>{{ auth()->user()->name }}</strong>
                             Freelancer

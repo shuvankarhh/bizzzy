@@ -52,7 +52,7 @@
     <section class="container service_section">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " style="position: relative;">
-                <h1 class="hero_header">The Service We Provide <br>For You</h1>
+                <h1 class="hero_header text-center">The Service We Provide <br>For You</h1>
                 <div>
                     <img class="sub_img" src="{{asset('/images/extra_fillers/triangles-blue.png')}}" style="position: absolute;left: 90px;top: 90px; z-index: -1;" alt="">
                 </div>
