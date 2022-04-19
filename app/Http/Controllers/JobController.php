@@ -25,7 +25,7 @@ class JobController extends Controller
         return view('contents.jobs.job')->with([
             'jobs' => Job::with('tags.tag', 'recruiter', 'categories.category')->withCount(['proposals' => function ($query){
                 return $query->where('user_id', auth()->id());
-            }])->where('job_visibility', '2')->latest()->get()
+            }])->where('job_visibility', '2')->latest()->paginate(10)
         ]);
     }
 

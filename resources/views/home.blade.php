@@ -52,7 +52,7 @@
     <section class="container service_section">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " style="position: relative;">
-                <h1 class="hero_header">The Service We Provide <br>For You</h1>
+                <h1 class="hero_header text-center">The Service We Provide <br>For You</h1>
                 <div>
                     <img class="sub_img" src="{{asset('/images/extra_fillers/triangles-blue.png')}}" style="position: absolute;left: 90px;top: 90px; z-index: -1;" alt="">
                 </div>
@@ -125,7 +125,7 @@
                 <h3 class="consultant_header">What is Lorem Ipsum?</h3>
                 <p class="consultant_details">It is a long established fact that a reader will be distracted by the readable content of a page when looking.</p>
                 <p class="consultant_details">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                <button class="btn btn-success consultant_cta" type="submit">BTN</button>
+                <button class="btn btn-success " type="submit">BTN</button>
             </div>
             <!-- <div class="col-lg-1 col-md-12 col-sm-12 col-xs-12">
 
@@ -140,7 +140,7 @@
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                 <h3 class="consultant_header">What is Lorem Ipsum?</h3>
                 <p class="consultant_sub_details">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                <button class="btn btn-success consultant_cta" type="submit">BTN</button>
+                <button class="btn btn-success " type="submit">BTN</button>
             </div>
             <div class="col-lg-1 col-md-12 col-sm-12 col-xs-12">
 

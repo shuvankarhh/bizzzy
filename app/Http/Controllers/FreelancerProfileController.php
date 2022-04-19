@@ -22,12 +22,30 @@ class FreelancerProfileController extends Controller
             'portfolios' => auth()->user()->portfolios()->limit(4)->latest()->get(),
             'portfolios_total' => auth()->user()->portfolios()->count('*'),
             'skills' => auth()->user()->skills,
-            'contracts' => auth()->user()->freelancerContracts()
+            'active_contracts' => auth()->user()->freelancerContracts()
             ->with(['job' => function ($query) {
                 $query->select('id', 'name', 'description');
             }])->with( ['recruiter' => function ($query){
                 $query->select('id', 'name', 'photo');
-            }])->get(),
+            }])
+            ->where('contract_status', 2)
+            ->limit(3)->get(),
+            'completed_contracts' => auth()->user()->freelancerContracts()
+            ->with(['job' => function ($query) {
+                $query->select('id', 'name', 'description');
+            }])->with( ['recruiter' => function ($query){
+                $query->select('id', 'name', 'photo');
+            }])
+            ->where('contract_status', 3)
+            ->limit(3)->get(),
+            'canceled_contracts' => auth()->user()->freelancerContracts()
+            ->with(['job' => function ($query) {
+                $query->select('id', 'name', 'description');
+            }])->with( ['recruiter' => function ($query){
+                $query->select('id', 'name', 'photo');
+            }])
+            ->where('contract_status', 7)
+            ->limit(3)->get(),
             'self' => true
         ]);
     }
