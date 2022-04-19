@@ -25,7 +25,13 @@ class JobController extends Controller
         return view('contents.jobs.job')->with([
             'jobs' => Job::with('tags.tag', 'recruiter', 'categories.category')->withCount(['proposals' => function ($query){
                 return $query->where('user_id', auth()->id());
-            }])->where('job_visibility', '2')->latest()->paginate(10)
+            }])->where('job_visibility', '2')->latest()->paginate(10),
+            'fixed_jobs' => Job::with('tags.tag', 'recruiter', 'categories.category')->withCount(['proposals' => function ($query){
+                return $query->where('user_id', auth()->id());
+            }])->where('job_visibility', '2')->where('price_type', 1)->latest()->paginate(10),
+            'hourly_jobs' => Job::with('tags.tag', 'recruiter', 'categories.category')->withCount(['proposals' => function ($query){
+                return $query->where('user_id', auth()->id());
+            }])->where('job_visibility', '2')->where('price_type', 2)->latest()->paginate(10),
         ]);
     }
 

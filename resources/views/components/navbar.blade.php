@@ -1,6 +1,6 @@
 @auth  
   @php
-    $recuiter = auth()->user()->isRecruiter();
+    $recruiter = auth()->user()->isRecruiter();
   @endphp
 @endauth
 <div class="nav-wrapper">
@@ -55,7 +55,7 @@
                       </ul>
                       <ul class="navbar-nav ms-auto">
                         {{-- <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex"> --}}
-                          @if ($recuiter)
+                          @if ($recruiter)
                             <li class="nav-item dropdown">
                               <a class="nav-link text-reset me-2 dropdown-toggle hidden-arrow" href="#" id="jobsDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false" > Jobs </a>
                               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="jobsDropdown" >
@@ -127,13 +127,13 @@
                                     <a class="dropdown-item" href="{{ route('freelancer.profile.index') }}">Profile</a>
                                 </li>
                                 <li>
-                                  <a class="dropdown-item" href="">My Stats</a>
+                                  <a class="dropdown-item" href="#">My Stats</a>
                                 </li>
                                 <li>
-                                  <a class="dropdown-item" href="">Bizzzy readiness test</a>
+                                  <a class="dropdown-item" href="#">Bizzzy readiness test</a>
                                 </li>
                                 <li>
-                                  <a class="dropdown-item" href="">My project dashboard</a>
+                                  <a class="dropdown-item" href="#">My project dashboard</a>
                                 </li>
                               </ul>
                             </li>
@@ -259,7 +259,15 @@
                         </li>
                       @endauth
                       <li>
-                        <div class="nav-bar-freelancer">
+                        <div class="form-check" style="display: inline-block; white-space: nowrap; text-align: center; padding: 1rem">
+                            <input class="register-radio left" type="radio" id="freelancer" name="freelancer_or_recuriter" value="freelancer" checked/>
+                            <label for="freelancer">Online</label>
+                            <input class="register-radio right" type="radio" id="recruiter" name="freelancer_or_recuriter" value="recruiter" />
+                            <label for="recruiter">Invisible</label>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="nav-bar-freelancer" onclick="location.href='{{ ($recruiter) ? '#' : route('freelancer.profile.index') }}'" style="cursor: pointer">
                           <img src="
                           @if (file_exists(public_path('storage/' . auth()->user()->photo)))
                             {{ asset('storage/' . auth()->user()->photo) }}
@@ -269,7 +277,11 @@
                           " class="rounded-circle" height="45" alt="Black and White Portrait of a Man" loading="lazy" />
                           <div class="nav-text">
                             <strong>{{ auth()->user()->name }}</strong>
-                            Freelancer
+                            @if ($recruiter)
+                            <p>Recruiter</p>
+                            @else
+                            <p>Freelancer</p>
+                            @endif
                           </div>
                         </div>
                       </li>

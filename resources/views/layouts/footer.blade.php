@@ -78,7 +78,7 @@
         <div class="row d-none d-sm-none d-md-inline d-lg-flex ps-5 pe-5 pt-5 m-0">
             <!--Grid column-->
             <div class="col-lg-4 col-md-3 col-sm-12 mb-4 mb-md-0 mt-1 p-5">
-                <p class="footer-agency">Agency</p>
+                <p class="footer-agency">Bizzzy</p>
 
                 <p class="footer-agency-note">
                     There are many variations of passages of lorem lpsum available, but the majority have suffered
@@ -161,7 +161,7 @@
             <!--Grid column-->
 
             <div class="col-12 mb-4 mb-md-0 text-center">
-                <p class="footer-note">© 2021 Agency - All Rights Reserved.</p>
+                <p class="footer-note">© 2021 Bizzzy - All Rights Reserved.</p>
             </div>
 
         </div>

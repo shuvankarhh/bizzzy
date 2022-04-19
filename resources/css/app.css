@@ -1,3 +1,7 @@
+.card{
+    border-radius: 0;
+}
+
 /* -- Register radion input-- */
 
 
@@ -12,7 +16,7 @@
 As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
 
 .register-radio+label {
-    padding: 0.4em;
+    padding: 0.15em 0.4em 0.15em 0.4em;
     display: inline-block;
     cursor: pointer;
     min-width: 120px;
@@ -1748,3 +1752,62 @@ body {
     font-size: .7rem;
     line-height: 1;
 }
+
+
+/* Star rating */
+.star-rating-display {
+    font-size: 2em;
+    unicode-bidi: bidi-override;
+    color: #eee;
+    display: inline-block;
+    position: relative;
+  }
+  .star-rating-display:before, .star-rating-display:after {
+    content: "★★★★★";
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .star-rating-display:before {
+    color: #ffd200;
+    position: absolute;
+    z-index: 1;
+    left: 0px;
+    overflow: hidden;
+  }
+  .star-rating-display:after {
+    z-index: 0;
+  }
+  .star-rating-display[data-average-score="0"]:before {
+    width: 0%;
+  }
+  .star-rating-display[data-average-score="0.5"]:before {
+    width: 10%;
+  }
+  .star-rating-display[data-average-score="1"]:before {
+    width: 20%;
+  }
+  .star-rating-display[data-average-score="1.5"]:before {
+    width: 30%;
+  }
+  .star-rating-display[data-average-score="2"]:before {
+    width: 40%;
+  }
+  .star-rating-display[data-average-score="2.5"]:before {
+    width: 50%;
+  }
+  .star-rating-display[data-average-score="3"]:before {
+    width: 60%;
+  }
+  .star-rating-display[data-average-score="3.5"]:before {
+    width: 70%;
+  }
+  .star-rating-display[data-average-score="4"]:before {
+    width: 80%;
+  }
+  .star-rating-display[data-average-score="4.5"]:before {
+    width: 90%;
+  }
+  .star-rating-display[data-average-score="5"]:before {
+    width: 100%;
+  }
+  

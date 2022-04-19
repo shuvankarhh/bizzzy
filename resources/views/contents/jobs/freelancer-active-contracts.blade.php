@@ -3,7 +3,7 @@
     <x-navbar links="true" />
 @endsection
 @section('content')
-<div class="container pt-3 pb-3">
+<div class="container pt-3 pb-3" style="font-family: 'Uber Move Text';font-style: normal;">
     <h2>My Jobs</h2>
     <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
         <li class="nav-item" role="presentation">
@@ -46,7 +46,7 @@
     <div class="tab-content" id="ex1-content">
         <div class="tab-pane fade show active" id="all_tab" role="tabpanel" aria-labelledby="all_job">
             @foreach ($offers as $item)
-                <div class="card m-3">
+                <div class="card m-3" >
                     <div class="card-body">
                         <div class="row">
                             <div class="col-auto">

@@ -73,10 +73,16 @@
                 
             </div>
             <div class="tab-pane fade" id="hourly_tab" role="tabpanel" aria-labelledby="hourly">
-                Hourly
+                @foreach ($hourly_jobs as $idx=>$item)
+                    <x-job-component :applied="$item->proposals_count" :job="$item" :idx="$idx" />
+                @endforeach
+                {{ $hourly_jobs->links() }}
             </div>
             <div class="tab-pane fade" id="fixed_rate_tab" role="tabpanel" aria-labelledby="fixed_rate">
-                
+                @foreach ($fixed_jobs as $idx=>$item)
+                    <x-job-component :applied="$item->proposals_count" :job="$item" :idx="$idx" />
+                @endforeach
+                {{ $fixed_jobs->links() }}
             </div>
             <div class="tab-pane fade" id="saved_jobs_tab" role="tabpanel" aria-labelledby="saved_jobs">
                 Tab Saved content
