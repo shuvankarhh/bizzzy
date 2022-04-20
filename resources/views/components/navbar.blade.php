@@ -209,7 +209,7 @@
                       >
                         <img
                           src="
-                          @if (file_exists(public_path('storage/' . auth()->user()->photo)))
+                          @if (!empty(auth()->user()->photo) AND file_exists(public_path('storage/' . auth()->user()->photo)))
                             {{ asset('storage/' . auth()->user()->photo) }}
                           @else
                             {{ asset('images\general\avatar.png') }}
@@ -269,7 +269,7 @@
                       <li>
                         <div class="nav-bar-freelancer" onclick="location.href='{{ ($recruiter) ? '#' : route('freelancer.profile.index') }}'" style="cursor: pointer">
                           <img src="
-                          @if (file_exists(public_path('storage/' . auth()->user()->photo)))
+                          @if (!empty(auth()->user()->photo) AND file_exists(public_path('storage/' . auth()->user()->photo)))
                             {{ asset('storage/' . auth()->user()->photo) }}
                           @else
                             {{ asset('images\general\avatar.png') }}
