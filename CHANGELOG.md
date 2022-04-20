@@ -1,3 +1,9 @@
+## 0.033.0 (2022-04-19 17:30)
+| Type | Description |
+| -- | -- |
+| fix | Several Views |
+
+
 ## 0.032.0 (2022-04-18 17:38)
 | Type | Description |
 | -- | -- |

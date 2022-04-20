@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Jobs\Freelancer;
 
+use App\Models\Job;
 use App\Models\Contract;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,13 @@ class FreelancerJobController extends Controller
     public function index()
     {
         return view('contents.jobs.freelancer-job-offers')->with([
-            'offers' => Contract::with('job')->where('freelancer_id', auth()->id())->where('contract_status', '1')->latest()->paginate(10)
+            'offers' => Contract::with('job')->where('freelancer_id', auth()->id())->where('contract_status', '1')->latest()->paginate(5),
+            'proposals' => Job::with('proposals')
+            ->whereHas('proposals', function($q){
+                $q->where('user_id', auth()->id());
+            })
+            ->doesntHave('contracts')
+            ->paginate(5)
         ]);
     }
 

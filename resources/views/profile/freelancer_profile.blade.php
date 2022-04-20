@@ -231,7 +231,9 @@
                     <div class="row h-100 pb-3 pb-sm-3">
                         @if (!is_null($item->thumbnail))                                
                             <div class="col-12 text-center">
-                                <img class="portfolio-image" src="{{ asset('storage/' . $item->thumbnail) }}" alt="">
+                                @if (!empty($item->thumbnail) AND file_exists(public_path('storage/' . $item->thumbnail)))
+                                    <img class="portfolio-image" src="{{ asset('storage/' . $item->thumbnail) }}" alt="">
+                                @endif
                             </div>
                         @endif
                         <div class="col-12 portfolio-text">
