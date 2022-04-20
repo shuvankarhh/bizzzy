@@ -8,91 +8,114 @@
     <form action="#" id="add_job_form" onsubmit="add_job(this)">
         <div class="row justify-content-center">
             <div class="col-6">
-                <div class="form-group">
-                    <input class="form-control" type="text" name="name" id="name" placeholder="Name">
-                    <div class="invalid-reposne" id="name_invalid"></div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-start">Job Title & Description <img width="15px" src="{{ asset('images/icons/question.svg') }}" alt="" style="cursor: pointer" data-mdb-toggle="tooltip" title="Adding a proper description will get you better proposals!"></h5>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="name" id="name" placeholder="Name">
+                            <div class="invalid-reposne" id="name_invalid"></div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <textarea class="form-control" name="description" id="description" cols="30" rows="3" placeholder="Description"></textarea>
+                            <div class="invalid-reposne" id="description_invalid"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group mt-2">
-                    <textarea class="form-control" name="description" id="description" cols="30" rows="3" placeholder="Description"></textarea>
-                    <div class="invalid-reposne" id="description_invalid"></div>
-                </div>  
-                <div class="form-group mt-2">
-                    <select class="form-control" name="project_time" id="project_time">
-                        <option value="">Select Project Time</option>
-                        <option value="1">Less than 1 month</option>
-                        <option value="2">1 to 3 months</option>
-                        <option value="3">3 to 6 months</option>
-                        <option value="4">More than 6 months</option>
-                    </select>
-                    <div class="invalid-reposne" id="project_time_invalid"></div>
+                <hr>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-start">Job Type & Duration </h5>
+                        <div class="form-group mt-2">
+                            <select class="form-control" name="project_time" id="project_time">
+                                <option value="">Select Project Time</option>
+                                <option value="1">Less than 1 month</option>
+                                <option value="2">1 to 3 months</option>
+                                <option value="3">3 to 6 months</option>
+                                <option value="4">More than 6 months</option>
+                            </select>
+                            <div class="invalid-reposne" id="project_time_invalid"></div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <select class="form-control" name="project_type" id="project_type">
+                                <option value="">Select Project Type</option>
+                                <option value="1">One-time project</option>
+                                <option value="2">Ongoing project</option>
+                            </select>
+                            <div class="invalid-reposne" id="project_type_invalid"></div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <select class="form-control" name="experience_level" id="experience_level">
+                                <option value="">Select Freelancer Experience Level</option>
+                                <option value="1">Entry</option>
+                                <option value="2">Intermediate</option>
+                                <option value="3">Expert</option>
+                            </select>
+                            <div class="invalid-reposne" id="experience_level_invalid"></div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <select class="form-control" name="job_visibility" id="job_visibility">
+                                <option value="">Select Job Visibility</option>
+                                <option value="1">Private</option>
+                                <option value="2">Public</option>
+                                <option value="3">This App Users Only</option>
+                            </select>
+                            <div class="invalid-reposne" id="job_visibility_invalid"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group mt-2">
-                    <select class="form-control" name="project_type" id="project_type">
-                        <option value="">Select Project Type</option>
-                        <option value="1">One-time project</option>
-                        <option value="2">Ongoing project</option>
-                    </select>
-                    <div class="invalid-reposne" id="project_type_invalid"></div>
+                <hr>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-start"> Pricing Type </h5>
+                        <div class="form-group mt-2">
+                            <select class="form-control" name="price_type" id="price_type">
+                                <option value="">Select Payment Type</option>
+                                <option value="fixed">Fixed</option>
+                                <option value="hourly">Hourly</option>
+                            </select>
+                            <div class="invalid-reposne" id="price_type_invalid"></div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <input class="form-control d-none" type="number" name="hours_per_week" id="hours_per_week" placeholder="Hours Per Week">
+                        </div>
+                        <div class="form-group mt-2">
+                            <input class="form-control" type="number" name="price" id="price" placeholder="Price (in $)">
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group mt-2">
-                    <select class="form-control" name="experience_level" id="experience_level">
-                        <option value="">Select Freelancer Experience Level</option>
-                        <option value="1">Entry</option>
-                        <option value="2">Intermediate</option>
-                        <option value="3">Expert</option>
-                    </select>
-                    <div class="invalid-reposne" id="experience_level_invalid"></div>
-                </div>
-                <div class="form-group mt-2">
-                    <select class="form-control" name="job_visibility" id="job_visibility">
-                        <option value="">Select Job Visibility</option>
-                        <option value="1">Private</option>
-                        <option value="2">Public</option>
-                        <option value="3">This App Users Only</option>
-                    </select>
-                    <div class="invalid-reposne" id="job_visibility_invalid"></div>
-                </div>
-                <div class="form-group mt-2">
-                    <select class="form-control" name="price_type" id="price_type">
-                        <option value="">Select Payment Type</option>
-                        <option value="fixed">Fixed</option>
-                        <option value="hourly">Hourly</option>
-                    </select>
-                    <div class="invalid-reposne" id="price_type_invalid"></div>
-                </div>
-                <div class="form-group mt-2">
-                    <input class="form-control d-none" type="number" name="hours_per_week" id="hours_per_week" placeholder="Hours Per Week">
-                </div>
-                <div class="form-group mt-2">
-                    <input class="form-control" type="number" name="price" id="price" placeholder="Price (in $)">
-                </div>
-                <div class="form-group mt-2 d-none tom_select_div">
-                    <select id="tags" name="tags[]" multiple placeholder="Select tags">
-                        @foreach ($tags as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group mt-2 d-none tom_select_div">
-                    <select id="categories" name="categories[]" multiple placeholder="Select categories">
-                        <option value=""></option>
-                        @foreach ($categories as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group mt-2 d-none tom_select_div">
-                    <select id="languages" name="languages[]" multiple placeholder="Select perferred language">
-                        <option value=""></option>
-                        <x-languages />
-                    </select>
+                <hr>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-start"> Additionaly Information <img width="15px" src="{{ asset('images/icons/question.svg') }}" alt="" style="cursor: pointer" data-mdb-toggle="tooltip" title="Adding proper tags will recomend your job to relevant freelancers!"> </h5>
+                        <div class="form-group mt-2 d-none tom_select_div">
+                            <select id="tags" name="tags[]" multiple placeholder="Select tags">
+                                @foreach ($tags as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group mt-2 d-none tom_select_div">
+                            <select id="categories" name="categories[]" multiple placeholder="Select categories">
+                                <option value=""></option>
+                                @foreach ($categories as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group mt-2 d-none tom_select_div">
+                            <select id="languages" name="languages[]" multiple placeholder="Select perferred language">
+                                <option value=""></option>
+                                <x-languages />
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="form-group mt-2">
+                <div class="form-group mt-2 text-start">
                     <input class="form-control-file" type="file" name="optional_files[]" id="optional_files" multiple>
                     <div class="invalid-reposne" id="optional_files_invalid"></div>
                 </div>
-                <button class="btn btn-success mt-2 mb-2">Submit</button>
+                <button class="btn btn-success mt-2 mb-2">Post Job</button>
             </div>
         </div>
     </form>
@@ -123,7 +146,7 @@
     let price_type = document.getElementById('price_type');
     price_type.addEventListener('change', (elem) => {
         let hour_per_week = document.getElementById('hours_per_week');
-        if(price_type.value == '2'){
+        if(price_type.value == 'hourly'){
             hour_per_week.classList.remove("d-none");
         }else{
             hour_per_week.classList.add("d-none");

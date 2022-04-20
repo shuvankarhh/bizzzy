@@ -58,15 +58,45 @@
         <div class="card-body">
             <div style="display: flex; gap: 1rem">
                 <div>
-                    <img class="dp-image" src="{{ asset('storage/' . $item->user->photo) }}" alt="" onclick="location.href='{{ route('freelancer.show', $item->user->id) }}'" style="cursor: pointer">
-                    <button class="btn btn-secondary mt-3 ps-2 pe-2" style="font-size: 0.7rem; border-radius: 0"> <i class="fas fa-heart"></i> Save</button>
+                    <img class="dp-image" src="{{ asset('storage/' . $item->user->photo) }}" alt="" onclick="location.href='{{ route('freelancer.show', $item->user->id) }}'" style="cursor: pointer;">
+                    {{-- <button class="btn btn-secondary mt-3 ps-2 pe-2" style="font-size: 0.7rem; border-radius: 0"> <i class="fas fa-heart"></i> Save</button> --}}
                 </div>
                 <div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; align-items: end;">
                         <div>
-                            <p onclick="location.href='{{ route('freelancer.show', $item->user->id) }}'" style="cursor: pointer" class="m-0">{{ $item->user->name }} ({{ $item->service_categories[0]->name }})</p>
-                            <p class="m-0" style="font-size: 1.23rem;">{{ $item->professional_title }} <span style="font-size: 1rem">({{ $item->average_rating }}) ({{ $item->experience_level }})</span> </p>
-                            <strong style="font-size: 1rem">{{ is_null($item->user->address) ? '' : $item->user->address->country }}</strong>
+                            <p onclick="location.href='{{ route('freelancer.show', $item->user->id) }}'" style="cursor: pointer; width: max-content;" class="m-0">{{ $item->user->name }} ({{ $item->service_categories[0]->name }})</p>
+                            <p class="m-0" style="font-size: 1.23rem;">{{ $item->professional_title }} <span style="font-size: 1rem">({{ $item->experience_level }})</span> </p>
+                            @if (is_null($item->average_rating))
+                                <p>No Rating!</p>
+                            @else
+                                <div style="display: flex; align-items: center; gap: 0.5rem">
+                                    <div id="one" class="star-rating-display" data-average-score="@php
+                                        if($item->average_rating > 4.5){
+                                            echo '5';
+                                        }else if($item->average_rating > 4){
+                                            echo '4.5';
+                                        }else if($item->average_rating > 3.5){
+                                            echo '4';
+                                        }else if($item->average_rating > 3){
+                                            echo '3.5';
+                                        }else if($item->average_rating > 2.5){
+                                            echo '3';
+                                        }else if($item->average_rating > 2){
+                                            echo '2.5';
+                                        }else if($item->average_rating > 1.5){
+                                            echo '2';
+                                        }else if($item->average_rating > 1){
+                                            echo '1.5';
+                                        }else{
+                                            echo '1';
+                                        }
+                                    @endphp">
+                                    </div>
+                                    <p class="m-0 p-0">({{ $item->average_rating }})</p>
+                                </div>
+                            @endif
+                            
+                            <p><strong style="font-size: 1rem">{{ is_null($item->user->address) ? '' : $item->user->address->country }}</strong></p>
                             <p>
                                 @foreach ($item->user->skills as $skill)
                                     <span class="badge badge-primary">{{ $skill->name }}</span>

@@ -271,7 +271,16 @@
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 newsletter_box">
                     <form action="" style="position: relative;">
                         <input class="form-control" type="email" name="" id="" placeholder="Enter your email...">
-                        <button class="btn btn-success newsletter_cta" type="submit">BTN</button>
+                        <button class="btn btn-success" style="margin-top: 4px;
+                        margin-right: 4px;
+                        padding: 12px 40px;
+                        width: 110px;
+                        height: 47px;
+                        background: #14A800;
+                        border-radius: 4px;
+                        position: absolute;
+                        right: 0;
+                        top: 0;" type="submit">BTN</button>
                     </form>
                 </div>
             </div>
