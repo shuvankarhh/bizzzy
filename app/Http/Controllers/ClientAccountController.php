@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Jobs\Recruiter;
+namespace App\Http\Controllers;
 
-use App\Models\Contract;
+use App\Models\CompanyProfile;
+use App\Models\UserAccount;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 
-class RecruiterActiveJobController extends Controller
+class ClientAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +15,7 @@ class RecruiterActiveJobController extends Controller
      */
     public function index()
     {
-        $counts_db = Contract::select(DB::raw("count(*) as contract_count, payment_type"))->where('contract_status', 2)->where('created_by_user', auth()->id())->groupBy('payment_type')->get();
-        $counts = array(
-            'fixed' => 0,
-            'hourly' => 0,
-        );
-        foreach ($counts_db as $item) {
-            if ($item->payment_type === 1) {
-                $counts['fixed'] = $item->contract_count;
-            } else {
-                $counts['hourly'] = $item->contract_count;
-            }
-        }
-
-        return view('contents.jobs.recruiter-active-contracts')->with([
-            'offers' => Contract::with('job', 'milestones')->where('created_by_user', auth()->id())->where('contract_status', '2')->get(),
-            'counts' => $counts
-        ]);
+        //
     }
 
     /**
@@ -42,7 +25,7 @@ class RecruiterActiveJobController extends Controller
      */
     public function create()
     {
-        //
+        return view('contents.settings.new-client-account');
     }
 
     /**
@@ -53,7 +36,20 @@ class RecruiterActiveJobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'company_name' => 'required'
+        ]);
+
+        CompanyProfile::create([
+            'user_id' => auth()->id(),
+            'name' => $request->company_name
+        ]);
+
+        UserAccount::create([
+            'user_id' => auth()->id(),
+            'client_or_freelancer' => 1,
+            'company_or_individual' => 1
+        ]);
     }
 
     /**
@@ -64,9 +60,7 @@ class RecruiterActiveJobController extends Controller
      */
     public function show($id)
     {
-        return view('contents.jobs.recruiter-active-contract')->with([
-            'contract' => Contract::with('freelancer', 'job', 'milestones')->find(decrypt($id))
-        ]);
+        //
     }
 
     /**
@@ -89,7 +83,7 @@ class RecruiterActiveJobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        //
     }
 
     /**

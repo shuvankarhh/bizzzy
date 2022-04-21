@@ -25,6 +25,9 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PermissionRoleController;
+use App\Http\Controllers\ChangeAccountTypeController;
+use App\Http\Controllers\ClientAccountController;
+use App\Http\Controllers\ContractMilestoneController;
 use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\FreelancerProfileController;
 use App\Http\Controllers\GetStarted\EducationController;
@@ -35,6 +38,7 @@ use App\Http\Controllers\Jobs\Freelancer\FreelancerActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerJobController;
 use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Staff\StaffAuthController;
 use App\Http\Controllers\UserRoleController;
 
@@ -78,7 +82,7 @@ Route::get('/migrate', function () {
 
 Route::get('/home', function () {
     return view('home');
-});
+})->name('home');
 Route::get('/', function () {
     return view('home');
 });
@@ -217,6 +221,10 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::get('/{id}', [RecruiterActiveJobController::class, 'show'])->name('recruiter.contract.show');
     });
 
+    Route::prefix('r/contract-milestone')->group(function () {
+        Route::post('/{id}', [ContractMilestoneController::class, 'update'])->name('contract.milestone.update');
+    });
+
     /**
      * fs indicated Freelancers
      */
@@ -230,6 +238,16 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::post('f/dj', [FreelancerDirectJobController::class, 'store'])->name('freelancer.hire.store');
 
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
+
+    Route::prefix('setting')->group(function () {
+        Route::get('/', [SettingController::class, 'index'])->name('setting.index');
+    });
+    Route::prefix('create-client-account')->group(function () {
+        Route::get('/create', [ClientAccountController::class, 'create'])->name('client.account.create');
+        Route::post('/', [ClientAccountController::class, 'store'])->name('client.account.store');
+    });
+
+    Route::post('change-account/{type}', [ChangeAccountTypeController::class, 'update'])->name('change.account');
 });
 
 Route::group(['middleware' => ['guest', 'guest:admin']], function () {

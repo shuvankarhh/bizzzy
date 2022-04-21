@@ -2,6 +2,13 @@
     border-radius: 0;
 }
 
+.inner-content{
+    background-color: rgb(229, 229, 229, 0.2)
+}
+.invalid-response{
+    color: #f93154;
+}
+
 /* -- Register radion input-- */
 
 
@@ -551,14 +558,20 @@ as long as it is a sibling. */
     box-shadow: none;
 }
 
-.nav-bar-freelancer{
+.navbar-freelancer{
     padding: 0.8rem 1rem 0.8rem 1rem;
     display: flex;
     gap: 1rem;
 }
 
-.nav-bar-freelancer .nav-text strong{
+.navbar-freelancer .nav-text strong{
     white-space: nowrap
+}
+
+.navbar-freelancer.active{
+    background: #b0b6ff;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
 }
 
 .dropdown-menu{
@@ -1819,4 +1832,10 @@ body {
   .star-rating-display[data-average-score="5"]:before {
     width: 100%;
   }
-  
+
+
+  /* ===================== Settings ============================= */
+
+  .setting-links a{
+      text-align: start;
+  }

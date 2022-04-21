@@ -161,6 +161,8 @@ class AuthenticationController extends Controller
     {
         Auth::logout();
 
+        $request->session()->flush();
+
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();

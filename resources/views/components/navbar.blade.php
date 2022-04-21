@@ -1,6 +1,7 @@
 @auth  
   @php
-    $recruiter = auth()->user()->isRecruiter();
+    $recruiter = (session('user_type') == 2) ? false : true;
+    $user_account = auth()->user()->userAccount;
   @endphp
 @endauth
 <div class="nav-wrapper">
@@ -267,26 +268,26 @@
                         </div>
                       </li>
                       <li>
-                        <div class="nav-bar-freelancer" onclick="location.href='{{ ($recruiter) ? '#' : route('freelancer.profile.index') }}'" style="cursor: pointer">
-                          <img src="
-                          @if (!empty(auth()->user()->photo) AND file_exists(public_path('storage/' . auth()->user()->photo)))
-                            {{ asset('storage/' . auth()->user()->photo) }}
-                          @else
-                            {{ asset('images\general\avatar.png') }}
-                          @endif
-                          " class="rounded-circle" height="45" alt="Black and White Portrait of a Man" loading="lazy" />
-                          <div class="nav-text">
-                            <strong>{{ auth()->user()->name }}</strong>
-                            @if ($recruiter)
-                            <p>Recruiter</p>
+                        @foreach ($user_account as $item)
+                          <div class="navbar-freelancer @if ($item->client_or_freelancer == session('user_type')) active @endif" @if ($item->client_or_freelancer != session('user_type')) onclick="change_type({{ $item->client_or_freelancer }})" @endif style="cursor: pointer">
+                            <img src="@if (!empty(auth()->user()->photo) AND file_exists(public_path('storage/' . auth()->user()->photo)))
+                              {{ asset('storage/' . auth()->user()->photo) }}
                             @else
-                            <p>Freelancer</p>
-                            @endif
+                              {{ asset('images\general\avatar.png') }}
+                            @endif" class="rounded-circle" height="45" alt="Black and White Portrait of a Man" loading="lazy" />
+                            <div class="nav-text">
+                              <strong>{{ ($item->client_or_freelancer == '1' AND !is_null(auth()->user()->company_profile)) ? auth()->user()->company_profile->name : auth()->user()->name }}</strong>
+                              @if ($item->client_or_freelancer == '1')
+                              <p class="m-0 p-0">Recruiter</p>
+                              @else
+                              <p class="m-0 p-0">Freelancer</p>
+                              @endif
+                            </div>
                           </div>
-                        </div>
+                        @endforeach                        
                       </li>
                         <li>
-                          <a class="dropdown-item" href="#"><i class="fa-solid fa-gear"></i><span class="ms-2">Settings</span></a>
+                          <a class="dropdown-item" href="{{ route('setting.index') }}"><i class="fa-solid fa-gear"></i><span class="ms-2">Settings</span></a>
                         </li>
                         <li>
                           <form action="{{ route('user.logout') }}" method="post">

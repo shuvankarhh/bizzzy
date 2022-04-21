@@ -667,3 +667,29 @@ if(permission_role_form){
         });
     });
 }
+
+// Change account type
+
+change_type = (type) => {
+    axios
+    .post(APP_URL + `/change-account/${type}`)
+    .then(function (response) {
+        console.log(response);
+        // location.reload();
+        // e.reset();
+        // tags_select.clear();
+        // categories_select.clear();
+        // languages_select.clear();
+        location.href = response.data;
+    })
+    .catch(function (error) {
+        if (typeof error.response !== "undefined") {
+            //  This is for error from laravel
+            console.log(error.response.data);
+            showValidation(error.response.data);
+        } else {
+            // Other JS related error
+            console.log(error);
+        }
+    });
+}

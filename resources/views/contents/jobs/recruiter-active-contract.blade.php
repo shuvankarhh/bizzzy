@@ -41,7 +41,10 @@
                                 <td>{{ $item->end_date }}</td>
                                 <td>
                                     @if ($item->is_complete == 0 AND !$relase_fund)
-                                    <button class="btn btn-success">Release Fund</button>
+                                        <form action="{{ route('contract.milestone.update', encrypt($item->id)) }}" method="post">
+                                            @csrf
+                                            <button class="btn btn-success">Release Fund</button>
+                                        </form>
                                         @php
                                             $relase_fund = true;
                                         @endphp

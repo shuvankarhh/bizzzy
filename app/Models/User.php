@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\UserAccount;
 use App\Models\UserEducation;
+use App\Models\CompanyProfile;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserWorkExperience;
 use Spatie\Permission\Traits\HasRoles;
@@ -99,6 +100,11 @@ class User extends Authenticatable
         return $this->hasMany(UserAccount::class);
     }
 
+    public function company_profile()
+    {
+        return $this->hasOne(CompanyProfile::class);
+    }
+
     public function isRecruiter()
     {
         $userAccount = $this->userAccount()->where('client_or_freelancer', 1)->first();
@@ -107,5 +113,10 @@ class User extends Authenticatable
         }
 
         return true;
+    }
+
+    public function email()
+    {
+        return $this->belongsTo(Email::class, 'account_email_id');
     }
 }

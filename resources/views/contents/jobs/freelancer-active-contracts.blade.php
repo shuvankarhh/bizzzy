@@ -104,7 +104,11 @@
                             </div>
                             <div class="col">
                                 Milestone:
-                                <p>{{ $item->milestones[0]->name }}</p>
+                                @if ($item->milestones->isEmpty())
+                                    <p>All milestone completed</p>
+                                @else
+                                    {{-- <p>{{ $item->milestones[0]->name }}</p> --}}
+                                @endif
                             </div>
                         </div>
                     </div>

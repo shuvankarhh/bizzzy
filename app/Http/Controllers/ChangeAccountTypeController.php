@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Jobs\Recruiter;
+namespace App\Http\Controllers;
 
-use App\Models\Contract;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 
-class RecruiterActiveJobController extends Controller
+class ChangeAccountTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +13,7 @@ class RecruiterActiveJobController extends Controller
      */
     public function index()
     {
-        $counts_db = Contract::select(DB::raw("count(*) as contract_count, payment_type"))->where('contract_status', 2)->where('created_by_user', auth()->id())->groupBy('payment_type')->get();
-        $counts = array(
-            'fixed' => 0,
-            'hourly' => 0,
-        );
-        foreach ($counts_db as $item) {
-            if ($item->payment_type === 1) {
-                $counts['fixed'] = $item->contract_count;
-            } else {
-                $counts['hourly'] = $item->contract_count;
-            }
-        }
-
-        return view('contents.jobs.recruiter-active-contracts')->with([
-            'offers' => Contract::with('job', 'milestones')->where('created_by_user', auth()->id())->where('contract_status', '2')->get(),
-            'counts' => $counts
-        ]);
+        //
     }
 
     /**
@@ -64,9 +45,7 @@ class RecruiterActiveJobController extends Controller
      */
     public function show($id)
     {
-        return view('contents.jobs.recruiter-active-contract')->with([
-            'contract' => Contract::with('freelancer', 'job', 'milestones')->find(decrypt($id))
-        ]);
+        //
     }
 
     /**
@@ -87,9 +66,10 @@ class RecruiterActiveJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $type)
     {
-        
+        $request->session()->put('user_type', $type);
+        return route('home');
     }
 
     /**

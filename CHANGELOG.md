@@ -1,3 +1,8 @@
+## 0.034.0 (2022-04-21 17:20)
+| Type | Description |
+| -- | -- |
+| add | Dual Account & Contrac fund release |
+
 ## 0.033.0 (2022-04-19 17:30)
 | Type | Description |
 | -- | -- |

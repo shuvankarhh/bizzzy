@@ -34,7 +34,7 @@
     {{--  <img src="{{asset('/images/extra_fillers/hero-green-background.svg')}}" style="position: absolute;top: 0;left: 0;z-index: -1;height: 140vh;">  --}}
 
     @yield('navbar')
-    <div class="inner-content pb-5 pt-3" style="background-color: rgb(229, 229, 229, 0.2)">
+    <div class="inner-content pb-5 pt-3">
         @yield('content')
     </div>
     @include('layouts.footer')
