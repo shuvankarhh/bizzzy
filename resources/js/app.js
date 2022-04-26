@@ -693,3 +693,64 @@ change_type = (type) => {
         }
     });
 }
+
+//Freelancer toggle visibility!
+let visibility = document.getElementById('visibility');
+if(visibility){
+    visibility.addEventListener('change', () => {
+
+        axios
+        .post(APP_URL + '/visibility',{
+            'visibility': document.getElementById('visibility').value
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            //
+        });
+    })
+}
+
+//Freelancer toggle preferance!
+let preference = document.getElementById('preference');
+if(preference){
+    preference.addEventListener('change', () => {
+
+        axios
+        .post(APP_URL + '/preference',{
+            'preference': document.getElementById('preference').value
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            //
+        });
+    })
+}
+
+//Freelancer change experience level
+function change_level(event) {
+    let loaderList = document.getElementById('loader').classList;
+    let successList = document.getElementById('success').classList;
+    loaderList.remove('loader-hidden');
+    axios
+    .post(APP_URL + '/experience',{
+        'experience': event.target.value
+    })
+    .then(function (response) {
+        loaderList.add('loader-hidden');
+        successList.remove('loader-hidden');
+        setTimeout(()=>{
+            successList.add('loader-hidden');
+        }, 200);
+        console.log('ended');
+    })
+    .catch(function (error) {
+        //
+    });
+}
+document.querySelectorAll("input[name='experience_level']").forEach((input) => {
+    input.addEventListener('change', change_level);
+});

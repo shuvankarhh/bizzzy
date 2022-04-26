@@ -11,11 +11,12 @@ class FreelancerProfileController extends Controller
 {
     public function index()
     {
+        // dd(auth()->user()->freelance_profile);
         return view('profile.freelancer_profile')->with([
             'profile_photo' => auth()->user()->photo,
             'address' => auth()->user()->address,
             'education' => auth()->user()->educations()->orderBy('start_date', 'desc')->first(),
-            'profile' => auth()->user()->freelance_profile::with('service_categories.parent')->first(),
+            'profile' => auth()->user()->freelance_profile,
             'languages' => auth()->user()->languages,
             'current' => auth()->user()->work_experiences()->where('currently_working', 1)->get(),
             'past' => auth()->user()->work_experiences()->whereNull('currently_working')->get(),
@@ -23,29 +24,29 @@ class FreelancerProfileController extends Controller
             'portfolios_total' => auth()->user()->portfolios()->count('*'),
             'skills' => auth()->user()->skills,
             'active_contracts' => auth()->user()->freelancerContracts()
-            ->with(['job' => function ($query) {
-                $query->select('id', 'name', 'description');
-            }])->with( ['recruiter' => function ($query){
-                $query->select('id', 'name', 'photo');
-            }])
-            ->where('contract_status', 2)
-            ->limit(3)->get(),
+                ->with(['job' => function ($query) {
+                    $query->select('id', 'name', 'description');
+                }])->with(['recruiter' => function ($query) {
+                    $query->select('id', 'name', 'photo');
+                }])
+                ->where('contract_status', 2)
+                ->limit(3)->get(),
             'completed_contracts' => auth()->user()->freelancerContracts()
-            ->with(['job' => function ($query) {
-                $query->select('id', 'name', 'description');
-            }])->with( ['recruiter' => function ($query){
-                $query->select('id', 'name', 'photo');
-            }])
-            ->where('contract_status', 3)
-            ->limit(3)->get(),
+                ->with(['job' => function ($query) {
+                    $query->select('id', 'name', 'description');
+                }])->with(['recruiter' => function ($query) {
+                    $query->select('id', 'name', 'photo');
+                }])
+                ->where('contract_status', 3)
+                ->limit(3)->get(),
             'canceled_contracts' => auth()->user()->freelancerContracts()
-            ->with(['job' => function ($query) {
-                $query->select('id', 'name', 'description');
-            }])->with( ['recruiter' => function ($query){
-                $query->select('id', 'name', 'photo');
-            }])
-            ->where('contract_status', 7)
-            ->limit(3)->get(),
+                ->with(['job' => function ($query) {
+                    $query->select('id', 'name', 'description');
+                }])->with(['recruiter' => function ($query) {
+                    $query->select('id', 'name', 'photo');
+                }])
+                ->where('contract_status', 7)
+                ->limit(3)->get(),
             'self' => true
         ]);
     }

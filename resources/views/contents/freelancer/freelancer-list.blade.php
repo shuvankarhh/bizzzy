@@ -65,7 +65,7 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; align-items: end;">
                         <div>
                             <p onclick="location.href='{{ route('freelancer.show', $item->user->id) }}'" style="cursor: pointer; width: max-content;" class="m-0">{{ $item->user->name }} ({{ $item->service_categories[0]->name }})</p>
-                            <p class="m-0" style="font-size: 1.23rem;">{{ $item->professional_title }} <span style="font-size: 1rem">({{ $item->experience_level }})</span> </p>
+                            <p class="m-0" style="font-size: 1.23rem;">{{ $item->professional_title }} <span style="font-size: 1rem">{{ (empty($item->experience_level)) ? '' : "({$item->experience_level})" }}</span> </p>
                             @if (is_null($item->average_rating))
                                 <p>No Rating!</p>
                             @else

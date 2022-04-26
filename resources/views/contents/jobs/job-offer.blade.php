@@ -25,7 +25,7 @@
                     <p class="m-0">
                         Budget:
                         <span>
-                            @if ($contract->payment_type === 1)
+                            @if ($contract->payment_type == '1')
                                 <strong>${{$contract->price}}</strong>
                             @else
                                 <strong>${{ $contract->price }}/hr</strong>
@@ -47,7 +47,7 @@
                     @endif
                     @if ($contract->payment_type === 2)
                         <hr>
-                        <p class="m-0">Maximum Hours Per Week: <strong>{{ $contract->hours_per_week }}</strong></p>
+                        <p class="m-0">Maximum Hours Per Week: <strong>{{ $contract->hours_per_week .' '. Str::plural('hour', $contract->hours_per_week) }}</strong></p>
                     @endif
                     @if ($contract->additional_message)
                         <hr>
@@ -72,15 +72,19 @@
                     <h5>Offer Made By:</h5>
                     <div style="display: flex; gap: 1rem">
                         <div>
-                            <img style="border-radius: 50%" width="70px" src="{{ asset('storage/' . $contract->recruiter->photo) }}" alt="This is image">
+                            <img style="border-radius: 50%" width="70px" src="@if (file_exists(asset('storage/' . $contract->recruiter->photo)))
+                            {{ asset('storage/' . $contract->recruiter->photo) }}
+                            @else
+                            {{ asset('images/general/avatar.png') }}
+                            @endif " alt="This is image">
                         </div>
                         <div>
                             <p class="m-0"><strong>{{ $contract->recruiter->name }}</strong></p>
-                            <p class="m-0">{{ $contract->recruiter->freelance_profile->professional_title }}</p>
+                            {{-- <p class="m-0">{{ $contract->recruiter->freelance_profile->professional_title }}</p> --}}
                         </div>
                     </div>
                     <h5 class="mt-4">Offer Made To:</h5>
-                    <div style="display: flex; gap: 1rem">
+                    <d  iv style="display: flex; gap: 1rem">
                         <div>
                             <img style="border-radius: 50%" width="70px" src="{{ asset('storage/' . $contract->freelancer->photo) }}" alt="This is image">
                         </div>
@@ -88,7 +92,7 @@
                             <p class="m-0"><strong>{{ $contract->freelancer->name }}</strong></p>
                             <p class="m-0">{{ $contract->freelancer->freelance_profile->professional_title }}</p>
                         </div>
-                    </div>
+                    </d>
                 </div>
             </div>
         </div>

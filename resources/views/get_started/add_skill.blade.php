@@ -10,7 +10,7 @@
                 <a class="btn prev-button" href="{{ route('language.index') }}">Prev</a>
             </div>
             <div class="col-md-11 col-lg-11 col-xl-11 col-sm-12">
-                <form action="#" id="skill_form">
+                <form action="#" id="skill_form" onsubmit="add_skill()">
                     <div class="row">
                         <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
                             <p class="main-question">Nearly there ! What work are you here to do?</p>

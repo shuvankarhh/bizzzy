@@ -28,6 +28,9 @@ use App\Http\Controllers\Admin\PermissionRoleController;
 use App\Http\Controllers\ChangeAccountTypeController;
 use App\Http\Controllers\ClientAccountController;
 use App\Http\Controllers\ContractMilestoneController;
+use App\Http\Controllers\Freelancer\ExperienceController;
+use App\Http\Controllers\Freelancer\PreferenceController;
+use App\Http\Controllers\Freelancer\VisibilityController;
 use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\FreelancerProfileController;
 use App\Http\Controllers\GetStarted\EducationController;
@@ -172,6 +175,18 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::get('/create', [JobController::class, 'create'])->name('job.create');
     });
 
+    Route::prefix('visibility')->group(function () {
+        Route::post('/', [VisibilityController::class, 'store'])->name('visibility.store');
+    });
+
+    Route::prefix('preference')->group(function () {
+        Route::post('/', [PreferenceController::class, 'store'])->name('preference.store');
+    });
+
+    Route::prefix('experience')->group(function () {
+        Route::post('/', [ExperienceController::class, 'store'])->name('experience.store');
+    });
+
     Route::prefix('job-apply')->group(function () {
         Route::get('create/{id}', [JobApplyController::class, 'create'])->name('job.apply.create');
         Route::post('/', [JobApplyController::class, 'store'])->name('job.apply.store');
@@ -199,6 +214,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
 
     Route::prefix('user_portfolio')->group(function () {
         Route::get('/create', [UserPortfolioController::class, 'create'])->name('portfolio.create');
+        Route::post('/', [UserPortfolioController::class, 'store'])->name('portfolio.store');
     });
 
     Route::prefix('skill')->group(function () {

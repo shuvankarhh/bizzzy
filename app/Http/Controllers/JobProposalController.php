@@ -72,10 +72,11 @@ class JobProposalController extends Controller
                 'job_id' => $job_id,
                 'freelancer_id' => $freelancer_id,
                 'additional_message' => $request->additional_message,
+                'hours_per_week' => $request->hour_per_week
             ]);
 
             if ($request->payment_type == 'fixed') {
-                if(!empty($request->milestone_name[0])){
+                if (!empty($request->milestone_name[0])) {
                     foreach ($request->milestone_name as $idx => $item) {
                         $mile_stones[] = [
                             'contract_id' => $contract->id,
@@ -88,7 +89,7 @@ class JobProposalController extends Controller
                         ];
                     }
                     ContractMilestone::insert($mile_stones);
-                }else{
+                } else {
                     ContractMilestone::create([
                         'contract_id' => $contract->id,
                         'name' => $job_belongs_to_user->name,

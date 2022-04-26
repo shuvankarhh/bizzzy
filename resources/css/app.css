@@ -1830,3 +1830,16 @@ body {
   .setting-links a{
       text-align: start;
   }
+
+  .experience_text{
+      position: relative;
+  }
+
+  .loader{
+      transition: 200ms;
+      position: absolute;
+      top: 1px;
+  }
+  .loader-hidden{
+      opacity: 0;
+  }
