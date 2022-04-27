@@ -127,7 +127,7 @@ class JobProposalController extends Controller
         //     $query->where('user_id', $freelancer);
         // }])->with('tags.tag', 'categories.category')->where('id', decrypt($job_id))->first();
 
-        $this->authorize('view', $job_proposal);
+        // $this->authorize('view', $job_proposal);
 
         // dd($job_proposal);
 

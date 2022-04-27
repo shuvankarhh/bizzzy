@@ -77,7 +77,7 @@ class ContractMilestoneController extends Controller
         $milestone->is_complete = 1;
         $milestone->save();
 
-        return back();
+        return redirect()->back();
     }
 
     /**
