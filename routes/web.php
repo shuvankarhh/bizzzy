@@ -44,6 +44,7 @@ use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Staff\StaffAuthController;
 use App\Http\Controllers\UserRoleController;
+use App\Http\Controllers\Admin\AdminUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -288,6 +289,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/', [StaffController::class, 'index'])->name('staff.index');
         Route::get('/{id}/edit', [StaffController::class, 'edit'])->name('staff.edit');
         Route::post('/{id}', [StaffController::class, 'update'])->name('staff.update');
+    });
+    Route::prefix('user')->group(function () {
+        // Route::get('/create', [AdminUserController::class, 'create'])->name('user.create');
+        Route::post('/', [AdminUserController::class, 'store'])->name('user.store');
+        Route::get('/', [AdminUserController::class, 'index'])->name('user.index');
+        Route::get('/{id}/edit', [AdminUserController::class, 'edit'])->name('user.edit');
+        Route::post('/{id}', [AdminUserController::class, 'update'])->name('user.update');
+        Route::get('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
     });
 
     Route::prefix('tag')->group(function () {

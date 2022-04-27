@@ -99,6 +99,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserAccount::class);
     }
+    public function email()
+    {
+        return $this->belongsTo(Email::class, 'account_email_id');
+    }
 
     public function company_profile()
     {
@@ -113,10 +117,5 @@ class User extends Authenticatable
         }
 
         return true;
-    }
-
-    public function email()
-    {
-        return $this->belongsTo(Email::class, 'account_email_id');
     }
 }
