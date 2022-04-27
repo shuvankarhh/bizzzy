@@ -127,7 +127,7 @@ class AuthenticationController extends Controller
                     'client_or_freelancer' => 2,
                     'company_or_individual' => 2,
                 ]);
-            }else{
+            } else {
                 UserAccount::create([
                     'user_id' => $user->id,
                     'client_or_freelancer' => 1,
@@ -152,7 +152,7 @@ class AuthenticationController extends Controller
             return array('user' => $user, 'token' => $token);
         });
 
-        Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
+        // Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
 
         return redirect()->route('user.verification-need.email', ['email' => $request->email]);
     }

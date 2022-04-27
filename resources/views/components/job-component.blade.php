@@ -131,7 +131,7 @@
                 </div>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3 col-xxl-3 col-sm-6 col-6 align-self-center text-end">
-                @if (!$applied AND !$connect AND $job->user_id != auth()->id())
+                @if (!$applied AND !$connect AND session('user_type') == '2')
                     <a href="{{ route('job.apply.create', $job->id) }}" role="button" class="btn btn-primary bizzzy-background apply-button">Apply to Job</a>
                 @endif
             </div>

@@ -242,7 +242,8 @@
                             @else
                                 <a href="{{ $item->project_url }}" target="_blank"><p class="m-0 mt-1 portfolio-title">{{ $item->title }}</p></a>
                             @endif
-                            <p class="m-0 d-none d-sm-none d-md-block">"{{ $item->description }}"</p>
+                            <p id="show_text{{ $idx }}" class="m-0 d-none d-sm-none d-md-block">{!! \Illuminate\Support\Str::limit($item->description, 100, $end='....<u onclick="show_full_text(this, '.$idx.')" role="button" class="m-0 job-more-button">more</u>') !!}</p>
+                            <span class="d-none" id="full_text{{ $idx }}">{{ $item->description }}</span>
                         </div>
                     </div>
                 </div>

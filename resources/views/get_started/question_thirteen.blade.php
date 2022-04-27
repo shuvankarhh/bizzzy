@@ -16,9 +16,7 @@
                 </div>
                 <div class=" col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">    
                     <p class="main-question">A few last details - then you can check and publish your profile.</p>
-                    <p class="main-question-desc">A professional photo helps you build trust with your clients. To
-                        keep things safe and simple, they’ll pay you through us - which is why we need your personal
-                        information.</p>
+                    <p class="main-question-desc">A professional photo helps you build trust with your clients. To keep things safe and simple, they’ll pay you through us - which is why we need your personal information.</p>
                     <div>
                         <img id="imagePreview" class="photo-priview"  style="height: 160px;width:160px; background:no-repeat; background-image: url({{ (is_null($photo)) ? asset('/images/general/avatar.png') : asset('storage/' . $photo) }});background-position: center; background-size: 160px 160px;" alt="">
                     </div>
@@ -68,7 +66,6 @@
                     <div class="input-group mt-3">
                         <label class="custom-label">Phone</label>
                     </div>
-
                     <div>
                         <div class="pd-telephone-input">
                             <input id="phone" name="phone" type="tel" class="form-control" />

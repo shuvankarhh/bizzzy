@@ -21,11 +21,11 @@ class FreelancerJobController extends Controller
         return view('contents.jobs.freelancer-job-offers')->with([
             'offers' => Contract::with('job')->where('freelancer_id', auth()->id())->where('contract_status', '1')->latest()->paginate(5),
             'proposals' => Job::with('proposals')
-            ->whereHas('proposals', function($q){
-                $q->where('user_id', auth()->id());
-            })
-            ->doesntHave('contracts')
-            ->paginate(5)
+                ->whereHas('proposals', function ($q) {
+                    $q->where('user_id', auth()->id());
+                })
+                ->doesntHave('contracts')
+                ->paginate(5)
         ]);
     }
 
@@ -50,15 +50,15 @@ class FreelancerJobController extends Controller
         $contract_id = decrypt($contract_id);
         $contract = Contract::with('freelancer')->find($contract_id);
 
-        // Gate::forUser($contract->freelancer)->authorize('freelancerUpdate', $contract);
-        
-        if($request->type == 'decline'){
+        Gate::forUser($contract->freelancer)->authorize('freelancerUpdate', $contract);
+
+        if ($request->type == 'decline') {
             $contract->is_confirmed_by_freelancer = 0;
             $contract->contract_status = 6;
             $contract->save();
         }
 
-        if($request->type == 'accept'){
+        if ($request->type == 'accept') {
             $contract->is_confirmed_by_freelancer = 1;
             $contract->contract_status = 2;
             $contract->contract_confirmation_date = now();
@@ -79,9 +79,7 @@ class FreelancerJobController extends Controller
         $id = decrypt($id);
         $contract = Contract::with('job.categories.category', 'milestones', 'recruiter.freelance_profile', 'freelancer.freelance_profile')->find($id);
 
-        // dd($contract);
-
-        // Gate::authorize('view', $contract);
+        $this->authorize('view', $contract);
 
         return view('contents.jobs.job-offer')->with([
             'contract' => $contract,

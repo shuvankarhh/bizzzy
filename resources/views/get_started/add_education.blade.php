@@ -81,29 +81,21 @@
 
                     <div class="row mb-4">
                         <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
-                            <label class="custom-label" for="start_date_div">From</label>                            
-                            <select name="year_start" id="year_start" class="form-select" aria-label="Default select example">
+                            <label class="custom-label" for="year_start">From</label>                            
+                            <select name="year_start" id="year_start" aria-label="Default select example">
                                 <option value="" selected>From</option>
-                                <option >2022</option>
-                                <option >2021</option>
-                                <option >2020</option>
-                                <option >2019</option>
-                                <option >2018</option>
-                                <option >2017</option>
-                                <option >2016</option>
+                                @for ($i = date('Y'); $i > (date('Y') - 80); $i--)
+                                    <option>{{ $i }}</option>
+                                @endfor
                             </select>
                         </div>
                         <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
-                            <label class="custom-label" for="start_date_div">To</label>                            
-                            <select name="year_start" id="year_start" class="form-select" aria-label="Default select example">
+                            <label class="custom-label" for="year_end">To</label>                            
+                            <select name="year_end" id="year_end" aria-label="Default select example">
                                 <option value="" selected>To</option>
-                                <option >2022</option>
-                                <option >2021</option>
-                                <option >2020</option>
-                                <option >2019</option>
-                                <option >2018</option>
-                                <option >2017</option>
-                                <option >2016</option>
+                                @for ($i = date('Y'); $i > (date('Y') - 80); $i--)
+                                    <option>{{ $i }}</option>
+                                @endfor
                             </select>
                         </div>
                     </div>
@@ -135,3 +127,9 @@
     </div>
 </div>
 @endsection
+@push('script')
+    <script>        
+        new TomSelect("#year_start", { create: false }); 
+        new TomSelect("#year_end", { create: false }); 
+    </script>
+@endpush

@@ -7,7 +7,7 @@
 @section('content')
 <section class="question">
     <div class="container pt-5 pb-3" style="min-height: 75vh">
-        <form action="#" id="title_form">
+        <form action="#" id="title_form" onsubmit="add_title()">
             <div class="row">
                 <div class=" col-md-1 col-lg-1 col-xl-1 col-sm-3 d-none d-sm-none d-md-block">
                     <a role="button" class="btn prev-button" href="{{ route('question.three') }}">Prev</a>
