@@ -73,6 +73,27 @@ class Job extends Model
                 return 'Expert';
         }
     }
+    public function getJobVisibilityAttribute($value)
+    {
+        switch ($value) {
+            case 1:
+                return 'Private';
+            case 2:
+                return 'Public';
+            case 3:
+                return 'This App Users Only';
+        }
+    }
+
+    public function getProjectTypeAttribute($value)
+    {
+        switch ($value) {
+            case 1:
+                return 'One-time project';
+            case 2:
+                return 'Ongoing project';
+        }
+    }
 
     public function getPriceTypeAttribute($value)
     {

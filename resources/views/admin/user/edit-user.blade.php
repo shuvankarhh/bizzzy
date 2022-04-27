@@ -21,12 +21,18 @@
                             id="formGroupExampleInput2" placeholder="Another input placeholder">
                     </div>
                     <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Email</label>
+                        <input type="email" name="email"
+                            value="{{ is_null($user->email) ? 'Not Verifired' : $user->email->email }}" readonly
+                            class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+                    </div>
+                    <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Status</label>
-                        <input type="text" name="role" value="{{ $user->acting_status }}" class="form-control"
+                        <input type="text" name="acting_status" value="{{ $user->acting_status }}" class="form-control"
                             id="formGroupExampleInput2" placeholder="Another input placeholder">
                     </div>
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Photo</label>
+                        <label for="formFile" class="form-label">Update Photo</label>
                         <input class="form-control" name="photo" type="file" id="formFile">
                     </div>
                     <button class="btn btn-primary btn-lg btn-block" style="  background-color: #0086FF;"

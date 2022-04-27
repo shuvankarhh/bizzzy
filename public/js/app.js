@@ -2492,7 +2492,7 @@ var button = document.getElementById("profile_skill_modal");
 if (button) {
   button.addEventListener('click', function () {
     axios.get(APP_URL + '/skill/create').then(function (response) {
-      console.log(response.data.user_skills);
+      //console.log(response.data.user_skills);
       var select = new TomSelect('#skills', {
         plugins: ['remove_button'],
         valueField: 'id',
@@ -2535,7 +2535,7 @@ if (profile_skill_form) {
 
     formData.append('_method', 'PATCH');
     axios.post(APP_URL + '/skill', formData).then(function (response) {
-      console.log(response);
+      //console.log(response);
       location.reload(); // e.reset();
       // tags_select.clear();
       // categories_select.clear();
@@ -2578,7 +2578,7 @@ if (profile_skill_form) {
 
 get_permission = function get_permission(e) {
   axios.get(APP_URL + "/admin/permission-role/".concat(e.dataset.id, "/").concat(e.dataset.guard)).then(function (response) {
-    console.log(response);
+    //console.log(response);
     document.getElementById('role').value = e.dataset.id;
     document.getElementById('permissions_body').innerHTML = response.data; // location.reload();
     // e.reset();
@@ -2596,12 +2596,230 @@ if (permission_role_form) {
     e.preventDefault();
     var formData = new FormData(permission_role_form);
     axios.post(APP_URL + '/admin/permission-role', formData).then(function (response) {
-      console.log(response);
+      //console.log(response);
       location.reload(); // e.reset();
       // tags_select.clear();
       // categories_select.clear();
       // languages_select.clear();
       // location.href = response.data;
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+} // edit user
+
+
+loadsingleuser = function loadsingleuser(id) {
+  axios.get(APP_URL + "/admin/user/".concat(id, "/edit")).then(function (response) {
+    //console.log(response);
+    document.getElementById('name').value = response.data.name;
+    document.getElementById('user_name').value = response.data.user_name;
+    document.getElementById('acting_status').value = response.data.acting_status;
+    document.getElementById('user_id').value = response.data.id;
+    var path_img = response.data.photo;
+    $('.photo').attr("src", "".concat(APP_URL, "/storage/").concat(path_img));
+  })["catch"](function (error) {});
+}; //update user
+
+
+var user_update_form = document.getElementById('user_update_form');
+
+if (user_update_form) {
+  user_update_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(user_update_form);
+    var id = document.getElementById('user_id');
+    axios.post(APP_URL + "/admin/user/".concat(id.value), formData).then(function (response) {
+      // console.log(response);
+      location.reload();
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+} // load staff
+
+
+loadsinglestaff = function loadsinglestaff(id) {
+  axios.get(APP_URL + "/admin/staff/".concat(id, "/edit")).then(function (response) {
+    //console.log(response);
+    document.getElementById('name').value = response.data.name;
+    document.getElementById('user_name').value = response.data.user_name;
+    document.getElementById('acting_status').value = response.data.acting_status;
+    document.getElementById('user_id').value = response.data.id;
+    var path_img = response.data.photo;
+    $('.photo').attr("src", "".concat(APP_URL, "/storage/").concat(path_img));
+  })["catch"](function (error) {});
+}; //update staff
+
+
+var staff_update_form = document.getElementById('staff_update_form');
+
+if (staff_update_form) {
+  staff_update_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(staff_update_form);
+    var id = document.getElementById('user_id');
+    axios.post(APP_URL + "/admin/staff/".concat(id.value), formData).then(function (response) {
+      // console.log(response);
+      location.reload();
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+} //add staff
+
+
+var staff_add_form = document.getElementById('staff_add_form');
+
+if (staff_add_form) {
+  staff_add_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(staff_add_form);
+    axios.post(APP_URL + '/admin/staff/store', formData).then(function (response) {
+      //console.log(response);
+      location.reload();
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+} // load roles
+
+
+loadroles = function loadroles() {
+  axios.get(APP_URL + '/admin/staff/role').then(function (response) {
+    //console.log(response.data);
+    var c = document.getElementById('role');
+    response.data.forEach(function (element) {
+      var option = document.createElement("option");
+      option.text = element['name'];
+      option.value = element['id'];
+      c.appendChild(option);
+    });
+  })["catch"](function (error) {});
+}; // load job
+
+
+loadsinglejob = function loadsinglejob(id) {
+  axios.get(APP_URL + "/admin/job/".concat(id, "/edit")).then(function (response) {
+    console.log(response);
+    document.getElementById('job_id').value = response.data.id;
+    document.getElementById('name').value = response.data.name;
+    document.getElementById('description').value = response.data.description; //job job_visibility
+
+    if (response.data.job_visibility == 'Private') {
+      document.getElementById('job_visibility').value = '1';
+    } else if (response.data.job_visibility == 'Public') {
+      document.getElementById('job_visibility').value = '2';
+    } else if (response.data.job_visibility == 'This App Users Only') {
+      document.getElementById('job_visibility').value = '3';
+    } //project time
+
+
+    if (response.data.project_time == 'Less than 1 Month') {
+      document.getElementById('project_time').value = '1';
+    } else if (response.data.project_time == '1 to 3 Months') {
+      document.getElementById('project_time').value = '2';
+    } else if (response.data.project_time == '3 to 6 Months') {
+      document.getElementById('project_time').value = '3';
+    } else if (response.data.project_time == 'More than 6 months') {
+      document.getElementById('project_time').value = '4';
+    } //job project_type
+
+
+    if (response.data.project_type == 'One-time project') {
+      document.getElementById('project_type').value = '1';
+    } else if (response.data.project_type == 'Ongoing project') {
+      document.getElementById('project_type').value = '2';
+    } //job experience_level
+
+
+    if (response.data.experience_level == 'Entry') {
+      document.getElementById('experience_level').value = '1';
+    } else if (response.data.experience_level == 'Intermediate') {
+      document.getElementById('experience_level').value = '2';
+    } else if (response.data.experience_level == 'Expert') {
+      document.getElementById('experience_level').value = '3';
+    } //job price_type 
+
+
+    document.getElementById('price_type').value = response.data.price_type;
+    document.getElementById('price').value = response.data.price;
+  })["catch"](function (error) {});
+}; //update job
+
+
+var job_update_form = document.getElementById('job_update_form');
+
+if (job_update_form) {
+  job_update_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(job_update_form);
+    var id = document.getElementById('job_id');
+    axios.post(APP_URL + "/admin/job/".concat(id.value), formData).then(function (response) {
+      //console.log(response);
+      location.reload();
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+} /// load skill
+
+
+loadsingleskill = function loadsingleskill(id) {
+  axios.get(APP_URL + "/admin/skill/".concat(id, "/edit")).then(function (response) {
+    //console.log(response);
+    document.getElementById('name').value = response.data.name;
+    document.getElementById('acting_status').value = response.data.acting_status;
+    document.getElementById('skill_id').value = response.data.id;
+  })["catch"](function (error) {});
+}; //update skill
+
+
+var skill_update_form = document.getElementById('skill_update_form');
+
+if (skill_update_form) {
+  skill_update_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(skill_update_form);
+    var id = document.getElementById('skill_id');
+    axios.post(APP_URL + "/admin/skill/".concat(id.value), formData).then(function (response) {
+      //console.log(response);
+      location.reload();
     })["catch"](function (error) {
       if (typeof error.response !== "undefined") {
         //  This is for error from laravel

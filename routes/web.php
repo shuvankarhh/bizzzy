@@ -38,6 +38,7 @@ use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
 use App\Http\Controllers\Staff\StaffAuthController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -232,13 +233,14 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
 
     Route::post('user/logout', [AuthenticationController::class, 'logout'])->name('user.logout');
 });
-
+Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dash');
 Route::group(['middleware' => ['guest', 'guest:admin']], function () {
     // ========= admin ========
     Route::prefix('admin')->group(function () {
         Route::get('login', [AuthController::class, 'showLoginFrom'])->name('admin.show');
         Route::post('login', [AuthController::class, 'adminLoginStore'])->name('admin.login');
-        Route::get('home', [AdminController::class, 'index']);
+
+        //Route::get('/dashboard', [AdminController::class, 'admin'])->name('permission.role.index');
     });
 
     // ========= staff ========
@@ -251,18 +253,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
 
     Route::prefix('staff')->group(function () {
         Route::get('/create', [StaffController::class, 'create'])->name('staff.create');
-        Route::post('/', [StaffController::class, 'store'])->name('staff.store');
+        Route::post('/store', [StaffController::class, 'store'])->name('staff.store');
         Route::get('/', [StaffController::class, 'index'])->name('staff.index');
+        Route::get('/role', [StaffController::class, 'loadroles'])->name('staff.role');
         Route::get('/{id}/edit', [StaffController::class, 'edit'])->name('staff.edit');
         Route::post('/{id}', [StaffController::class, 'update'])->name('staff.update');
+        Route::DELETE('/{id}', [StaffController::class, 'destroy'])->name('staff.delete');
     });
     Route::prefix('user')->group(function () {
-        // Route::get('/create', [AdminUserController::class, 'create'])->name('user.create');
-        Route::post('/', [AdminUserController::class, 'store'])->name('user.store');
         Route::get('/', [AdminUserController::class, 'index'])->name('user.index');
         Route::get('/{id}/edit', [AdminUserController::class, 'edit'])->name('user.edit');
         Route::post('/{id}', [AdminUserController::class, 'update'])->name('user.update');
         Route::get('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
+        Route::DELETE('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
+    });
+    Route::prefix('job')->group(function () {
+        Route::get('/', [AdminJobController::class, 'index'])->name('job.index');
+        Route::get('/{id}/edit', [AdminJobController::class, 'edit'])->name('job.edit');
+        Route::post('/{id}', [AdminJobController::class, 'update'])->name('job.update');
+        Route::DELETE('/{id}', [AdminJobController::class, 'destroy'])->name('job.delete');
     });
 
     Route::prefix('tag')->group(function () {
@@ -272,7 +281,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::prefix('skill')->group(function () {
         Route::get('', [SkillController::class, 'index'])->name('skill.index');
         Route::post('/', [SkillController::class, 'store'])->name('skill.store');
-        Route::patch('/{skill}', [SkillController::class, 'update'])->name('skill.update');
+        Route::get('/{id}/edit', [SkillController::class, 'edit'])->name('skill.edit');
+        Route::post('/{id}', [SkillController::class, 'update'])->name('skill.update');
+        Route::DELETE('/{id}', [SkillController::class, 'destroy'])->name('skill.delete');
     });
 
     Route::prefix('category')->group(function () {
