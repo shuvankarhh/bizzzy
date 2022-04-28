@@ -287,9 +287,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     });
 
     Route::prefix('category')->group(function () {
-        Route::get('', [CategoryController::class, 'index'])->name('category.index');
-        Route::post('/', [CategoryController::class, 'store'])->name('category.store');
-        Route::patch('/{category}', [CategoryController::class, 'update'])->name('category.update');
+        Route::get('', [CategoryController::class, 'index'])->name('admin.category.index');
+        Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');
+        Route::post('/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
+        Route::post('/', [CategoryController::class, 'store'])->name('admin.category.store');
+        Route::DELETE('/{id}', [CategoryController::class, 'destroy'])->name('admin.category.delete');
+        Route::get('/{id}/sub-catogory', [CategoryController::class, 'get_sub_category'])->name('admin.subcategory');
     });
 
     Route::prefix('permission')->group(function () {
