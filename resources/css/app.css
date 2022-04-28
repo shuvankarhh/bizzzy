@@ -1767,7 +1767,7 @@ body {
 }
 
 
-/* Star rating */
+/* =================== Star rating =================== */
 .star-rating-display {
     font-size: 2em;
     unicode-bidi: bidi-override;
@@ -1822,6 +1822,101 @@ body {
   }
   .star-rating-display[data-average-score="5"]:before {
     width: 100%;
+  }
+
+  /* ===================== Star rating input ==================== */
+  .rating-wrapper{
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+  }
+
+  .rating-wrapper > label{
+      font-size: 1.2rem;
+  }
+
+  .rating {
+    display: inline-block;
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    font-size: 2rem;
+  }
+  
+  .rating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .rating label:last-child {
+    position: static;
+  }
+  
+  .rating label:nth-child(1) {
+    z-index: 5;
+  }
+  
+  .rating label:nth-child(2) {
+    z-index: 4;
+  }
+  
+  .rating label:nth-child(3) {
+    z-index: 3;
+  }
+  
+  .rating label:nth-child(4) {
+    z-index: 2;
+  }
+  
+  .rating label:nth-child(5) {
+    z-index: 1;
+  }
+  
+  .rating label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+  
+  .rating label .icon {
+    float: left;
+    color: transparent;
+  }
+  
+  .rating label:last-child .icon {
+    color: #000;
+  }
+  
+  .rating:not(:hover) label input:checked ~ .icon,
+  .rating:hover label:hover input ~ .icon {
+    color: #09f;
+  }
+  
+  .rating label input:focus:not(:checked) ~ .icon:last-child {
+    color: #000;
+    text-shadow: 0 0 5px #09f;
+  }
+
+  /* ===================== Contract ============================= */
+  .job-dropdown-parent{
+      position: relative; 
+  }
+  .job-dropdown{
+      position: absolute;
+      top: 0;
+      right: 0;
+  }
+
+  .job-dropdown .dropdown-menu{
+      min-width: 14rem;
+  }
+
+  .dropdown-menu{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   }
 
 

@@ -46,6 +46,7 @@ use App\Http\Controllers\Staff\StaffAuthController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminJobController;
+use App\Http\Controllers\Recruiter\RecruiterEndContractController;
 
 /*
 |--------------------------------------------------------------------------
@@ -172,9 +173,9 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     });
 
     Route::prefix('job')->group(function () {
-        Route::get('/', [JobController::class, 'index'])->name('job.index');
-        Route::post('/', [JobController::class, 'store'])->name('job.store');
-        Route::get('/create', [JobController::class, 'create'])->name('job.create');
+        Route::get('/', [JobController::class, 'index'])->name('user.job.index');
+        Route::post('/', [JobController::class, 'store'])->name('freelancer.job.store');
+        Route::get('/create', [JobController::class, 'create'])->name('recruiter.job.create');
     });
 
     Route::prefix('visibility')->group(function () {
@@ -238,7 +239,10 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::get('/', [RecruiterActiveJobController::class, 'index'])->name('recruiter.contract.index');
         Route::get('/{id}', [RecruiterActiveJobController::class, 'show'])->name('recruiter.contract.show');
     });
-
+    Route::prefix('r/end-contract')->group(function () {
+        Route::get('/create/{id}', [RecruiterEndContractController::class, 'create'])->name('recruiter.end.contract.create');
+        Route::post('/', [RecruiterEndContractController::class, 'store'])->name('recruiter.end.contract.store');
+    });
     Route::prefix('r/contract-milestone')->group(function () {
         Route::post('/{id}', [ContractMilestoneController::class, 'update'])->name('contract.milestone.update');
     });

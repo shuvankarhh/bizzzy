@@ -1020,3 +1020,30 @@ function change_level(event) {
 document.querySelectorAll("input[name='experience_level']").forEach((input) => {
     input.addEventListener('change', change_level);
 });
+
+// End Contract
+let endContract = document.getElementById('recruiter_end_contract_form');
+if(endContract){
+    endContract.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let contract = document.getElementById('contract');
+        let formData = new FormData(endContract);
+        axios
+        .post(APP_URL + `/r/end-contract`, formData)
+        .then(function(response) {
+            location.href = response.data;
+
+        })
+        .catch(function(error) {
+            if (typeof error.response !== "undefined") {
+                //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
+        console.log('done');
+    });
+}

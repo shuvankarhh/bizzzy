@@ -1,3 +1,9 @@
+## 0.036.0 (2022-04-28 15:20)
+
+| Type | Description         |
+| ---- | ------------------- |
+| add  | Recruiter End Contract Feedback |
+
 ## 0.035.0 (2022-04-26 19:10)
 
 | Type | Description         |

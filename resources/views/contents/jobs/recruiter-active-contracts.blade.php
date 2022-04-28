@@ -68,7 +68,7 @@
                     @continue
                 @endif
                 <div class="card m-3">
-                    <div class="card-body">
+                    <div class="card-body job-dropdown-parent">
                         <div class="row">
                             <div class="col-auto">
                                 <p class="m-0">Received: {{ $item->created_at->format('M d, Y') }}</p>
@@ -78,6 +78,14 @@
                                 <a href="{{ route('job.offer.show', [encrypt($item->id)]) }}">{{ $item->job->name }}</a>
                                 <p class="">{{ $item->job->description }}</p>
                             </div>
+                        </div>                        
+                        <div class="dropdown job-dropdown">
+                            <a class="nav-link text-reset me-2 dropdown-toggle hidden-arrow" href="#" id="findWorkDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false" > <i class="fa-solid fa-ellipsis"></i> </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <li><button class="dropdown-item btn-link" href="#"><i class="fa-solid fa-money-bill-transfer me-2"></i>Refund Contract</button></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{{ route('recruiter.end.contract.create', encrypt($item->id)) }}"> <i class="fa-solid fa-check me-2"></i> End Contract</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>        
