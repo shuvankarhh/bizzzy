@@ -1037,4 +1037,106 @@ if(endContract){
             document.getElementById('error').classList.remove('d-none');
         });
     });
+// load category
+loadsinglecategory = (id) => {
+    closemodal();
+    axios
+        .get(APP_URL + `/admin/category/${id}/edit`)
+        .then(function(response) {
+            //console.log(response);
+            document.getElementById('name').value = response.data.name;
+            document.getElementById('category_id').value = response.data.id;
+
+
+        })
+        .catch(function(error) {
+
+        });
+}
+
+closemodal = () => {
+    $('#sub_category').modal('hide');
+}
+
+//update main Category
+let main_category_update_form = document.getElementById('main_category_update_form');
+if (main_category_update_form) {
+    main_category_update_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(main_category_update_form);
+        let id = document.getElementById('category_id');
+        axios
+            .post(APP_URL + `/admin/category/${id.value}`, formData)
+            .then(function(response) {
+                //console.log(response);
+                location.reload();
+
+            })
+            .catch(function(error) {
+                if (typeof error.response !== "undefined") {
+                    //  This is for error from laravel
+                    console.log(error.response.data);
+                    showValidation(error.response.data);
+                } else {
+                    // Other JS related error
+                    console.log(error);
+                }
+            });
+    });
+}
+
+// load subcategory
+loadsubcategory = (id) => {
+    axios
+        .get(APP_URL + `/admin/category/${id}/sub-catogory`)
+        .then(function(response) {
+            console.log(response);
+            let tableRef = document.getElementById('subcategory_table');
+            var options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+            tableRef.innerHTML = "";
+            var header = tableRef.createTHead();
+            var row = header.insertRow(0);
+            // Insert a cell in the row at index 0
+            let header1 = row.insertCell(0);
+            let header2 = row.insertCell(1);
+            let header3 = row.insertCell(2);
+            header1.innerHTML = '<b>Name</b>';
+            header2.innerHTML = '<b>Addded On</b>';
+            header3.innerHTML = '<b>Actions</b>';
+            response.data.forEach(function(element, index) {
+
+                // Insert a row at the end of the table
+                let newRow = tableRef.insertRow(-1);
+
+                // Insert a cell in the row at index 0
+                let newCell1 = newRow.insertCell(0);
+                let newCell2 = newRow.insertCell(1);
+                let newCell3 = newRow.insertCell(2);
+
+                newCell1.innerHTML = element.name;
+                var date = new Date(element.created_at);
+                //console.log(date);
+                newCell2.innerHTML = date.toLocaleDateString("en-US", options);
+                newCell3.innerHTML = `
+
+                <button data-dismiss="modal" data-toggle="modal"
+                    data-target=".bs-example-modal-lg"
+                    class="btn btn-info btn-xs" id="closemodal"
+                    onclick="loadsinglecategory(${element.id})"><i
+                        class="fa fa-pencil"></i> Edit
+                </button>
+                <button id="delete_button" class="btn btn-danger btn-xs"
+                    onclick="categorydelete(${element.id})">
+                    <i class="fa fa-trash-o"></i>
+                    Delete
+                </button>`;
+            });
+            // document.getElementById('name').value = response.data.name;
+            // document.getElementById('category_id').value = response.data.id;
+
+        })
+        .catch(function(error) {
+
+        });
 }
