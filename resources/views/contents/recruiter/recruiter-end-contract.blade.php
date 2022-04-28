@@ -5,6 +5,7 @@
 @section('content')
 <div class="container">
     <h2>End contract with "{{ $contract->freelancer->name }}"</h2>
+    <p id="error" class="d-none text-danger">Please fill all inputs!</p>
     <form action="#" id="recruiter_end_contract_form">
         <input type="hidden" name="contract" id="contract" value="{{ $id }}">
         <div class="card">

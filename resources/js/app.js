@@ -1026,7 +1026,6 @@ let endContract = document.getElementById('recruiter_end_contract_form');
 if(endContract){
     endContract.addEventListener('submit', (e) => {
         e.preventDefault();
-        let contract = document.getElementById('contract');
         let formData = new FormData(endContract);
         axios
         .post(APP_URL + `/r/end-contract`, formData)
@@ -1035,15 +1034,7 @@ if(endContract){
 
         })
         .catch(function(error) {
-            if (typeof error.response !== "undefined") {
-                //  This is for error from laravel
-                console.log(error.response.data);
-                showValidation(error.response.data);
-            } else {
-                // Other JS related error
-                console.log(error);
-            }
+            document.getElementById('error').classList.remove('d-none');
         });
-        console.log('done');
     });
 }

@@ -40,6 +40,11 @@ class RecruiterEndContractController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'private_rating' => 'required',
+            'public_feedback' => 'required',
+            'experience' => 'required',
+        ]);
         $contract = Contract::find(decrypt($request->contract));
         $contract->client_private_feedback_rating = $request->private_rating;
         $contract->client_public_feedback_rating = $request->public_feedback;
