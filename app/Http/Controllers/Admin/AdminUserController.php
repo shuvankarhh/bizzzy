@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AdminUserController extends Controller
 {
@@ -59,11 +60,12 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $id)
     {
-        $data = User::find($id);
+        return $id->toJson();
+        // $data = User::find($id);
 
-        return view('admin.user.edit-user', ['user' => $data]);
+        // return view('admin.user.edit-user', ['user' => $data]);
     }
 
     /**
@@ -75,12 +77,22 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($request->id);
+        // return response()->json($request->all());
+        $user = User::find($id);
         $user->name = $request->name;
         $user->user_name = $request->user_name;
         $user->acting_status  = $request->acting_status;
+
+        if (!empty($request->file('photo'))) {
+            $path = $request->file('photo')->store('freelancer/profile_photo', ['disk' => 'public']);
+            $user->photo = $path;
+        }
+
         $user->save();
-        return redirect()->route('user.index');
+        Session::flash('message', 'User successfully updated!');
+
+
+        // return redirect()->route('user.index');
     }
 
     /**
@@ -91,6 +103,7 @@ class AdminUserController extends Controller
      */
     public function destroy($id)
     {
+        // return $id;
         User::where('id', $id)->delete();
         return redirect()->route('user.index');
     }

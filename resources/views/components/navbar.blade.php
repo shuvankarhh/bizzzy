@@ -229,10 +229,10 @@
                                 id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown"
                                 aria-expanded="false">
                                 <img src="
-                                                          @if (!empty(auth()->user()->photo) and file_exists(public_path('storage/' . auth()->user()->photo))) {{ asset('storage/' . auth()->user()->photo) }}
+                                                                              @if (!empty(auth()->user()->photo) and file_exists(public_path('storage/' . auth()->user()->photo))) {{ asset('storage/' . auth()->user()->photo) }}
                           @else
                             {{ asset('images\general\avatar.png') }} @endif
-                                                          " class="rounded-circle" height="25"
+                                                                              " class="rounded-circle" height="25"
                                     alt="Black and White Portrait of a Man" loading="lazy" />
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
@@ -287,10 +287,10 @@
                                         onclick="location.href='{{ $recruiter ? '#' : route('freelancer.profile.index') }}'"
                                         style="cursor: pointer">
                                         <img src="
-                                                          @if (!empty(auth()->user()->photo) and file_exists(public_path('storage/' . auth()->user()->photo))) {{ asset('storage/' . auth()->user()->photo) }}
+                                                                              @if (!empty(auth()->user()->photo) and file_exists(public_path('storage/' . auth()->user()->photo))) {{ asset('storage/' . auth()->user()->photo) }}
                           @else
                             {{ asset('images\general\avatar.png') }} @endif
-                                                          " class="rounded-circle" height="45"
+                                                                              " class="rounded-circle" height="45"
                                             alt="Black and White Portrait of a Man" loading="lazy" />
                                         <div class="nav-text">
                                             <strong>{{ auth()->user()->name }}</strong>
