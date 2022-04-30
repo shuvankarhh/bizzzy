@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
-class CategoryController extends Controller
+class AdminCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -45,6 +45,8 @@ class CategoryController extends Controller
             'name' => $request->category,
             'parent_category_id' => (is_null($request->parent)) ? 0 : $request->parent,
         ]);
+
+        Session::flash('message', 'Category successfully Added!');
         return back();
     }
 
@@ -65,9 +67,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $id)
     {
-        //
+        return $id->toJson();
     }
 
     /**
@@ -77,12 +79,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        $category->name = $request->updated_name;
+        $category = Category::find($request->id);
+        $category->name = $request->name;
         $category->save();
-
-        return back();
+        Session::flash('message', 'Category successfully updated!');
     }
 
     /**
@@ -93,13 +95,14 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::where('id', $id)->delete();
+        return redirect()->route('admin.category.index');
     }
 
     public function get_sub_category($id)
     {
-        return view('templates.subcategory')->with([
-            'categories' => Category::where('parent_category_id', $id)->get()
-        ])->render();
+        $subcategory = Category::where('parent_category_id', $id)->get();
+
+        return $subcategory;
     }
 }

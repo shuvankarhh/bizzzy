@@ -68,16 +68,17 @@ add_work_experience = () => {
     axios
         .post(APP_URL + "/user/create/add-work-experience", formData)
         .then(function(response) {
-            modal_form_close("work_experience_form", "work_modal");
-            let company =
-                response.data.company === null ? "" : response.data.company;
-            let html = `<div class="col-md-6 mb-2">
-                    <div class="added-exp">
-                        <p class="m-0 font-weight-bold">${response.data.title}</p>
-                        <p class="m-0">${company}</p>
-                    </div>
-                </div>`;
-            document.getElementById("added_exp").innerHTML += html;
+            location.href = "";
+            // modal_form_close("work_experience_form", "work_modal");
+            // let company =
+            //     response.data.company === null ? "" : response.data.company;
+            // let html = `<div class="col-md-6 mb-2">
+            //         <div class="added-exp">
+            //             <p class="m-0 font-weight-bold">${response.data.title}</p>
+            //             <p class="m-0">${company}</p>
+            //         </div>
+            //     </div>`;
+            // document.getElementById("added_exp").innerHTML += html;
         })
         .catch(function(error) {
             if (typeof error.response !== "undefined") {
@@ -1037,6 +1038,7 @@ if(endContract){
             document.getElementById('error').classList.remove('d-none');
         });
     });
+}
 // load category
 loadsinglecategory = (id) => {
     closemodal();

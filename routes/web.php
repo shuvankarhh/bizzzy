@@ -7,11 +7,14 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\JobApplyController;
+use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\UserSkillController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\StaffController;
@@ -20,33 +23,31 @@ use App\Http\Controllers\ResendEmailController;
 use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\RecruiterJobController;
 use App\Http\Controllers\UserLanguageController;
+use App\Http\Controllers\ClientAccountController;
 use App\Http\Controllers\UserPortfolioController;
+use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Staff\StaffAuthController;
 use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\PermissionRoleController;
 use App\Http\Controllers\ChangeAccountTypeController;
-use App\Http\Controllers\ClientAccountController;
 use App\Http\Controllers\ContractMilestoneController;
+use App\Http\Controllers\FreelancerProfileController;
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\PermissionRoleController;
+use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\Freelancer\ExperienceController;
 use App\Http\Controllers\Freelancer\PreferenceController;
 use App\Http\Controllers\Freelancer\VisibilityController;
-use App\Http\Controllers\FreelancerController;
-use App\Http\Controllers\FreelancerProfileController;
-use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\GetStarted\GetStartedController;
 use App\Http\Controllers\FreelancerProfileCategoryController;
 use App\Http\Controllers\GetStarted\WorkExperienceController;
+use App\Http\Controllers\Jobs\Freelancer\FreelancerJobController;
+use App\Http\Controllers\Recruiter\RecruiterEndContractController;
+use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
-use App\Http\Controllers\Jobs\Freelancer\FreelancerJobController;
-use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\Staff\StaffAuthController;
-use App\Http\Controllers\UserRoleController;
-use App\Http\Controllers\Admin\AdminUserController;
-use App\Http\Controllers\Admin\AdminJobController;
-use App\Http\Controllers\Recruiter\RecruiterEndContractController;
 
 /*
 |--------------------------------------------------------------------------
@@ -302,8 +303,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('user.index');
         Route::get('/{id}/edit', [AdminUserController::class, 'edit'])->name('user.edit');
         Route::post('/{id}', [AdminUserController::class, 'update'])->name('user.update');
-        Route::get('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
-        Route::DELETE('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
+        Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
     });
     Route::prefix('job')->group(function () {
         Route::get('/', [AdminJobController::class, 'index'])->name('job.index');
@@ -325,12 +325,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     });
 
     Route::prefix('category')->group(function () {
-        Route::get('', [CategoryController::class, 'index'])->name('admin.category.index');
-        Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');
-        Route::post('/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
-        Route::post('/', [CategoryController::class, 'store'])->name('admin.category.store');
-        Route::DELETE('/{id}', [CategoryController::class, 'destroy'])->name('admin.category.delete');
-        Route::get('/{id}/sub-catogory', [CategoryController::class, 'get_sub_category'])->name('admin.subcategory');
+        Route::get('', [AdminCategoryController::class, 'index'])->name('admin.category.index');
+        Route::get('/{id}/edit', [AdminCategoryController::class, 'edit'])->name('admin.category.edit');
+        Route::post('/{id}', [AdminCategoryController::class, 'update'])->name('admin.category.update');
+        Route::post('/', [AdminCategoryController::class, 'store'])->name('admin.category.store');
+        Route::DELETE('/{id}', [AdminCategoryController::class, 'destroy'])->name('admin.category.delete');
+        Route::get('/{id}/sub-catogory', [AdminCategoryController::class, 'get_sub_category'])->name('admin.subcategory');
     });
 
     Route::prefix('permission')->group(function () {
