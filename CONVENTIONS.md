@@ -3,10 +3,15 @@
 We are trying to maintain RESTful conventions as much as possible. Every actions are broken down to the 6 REST verbs. Those are:
 
 > GET
+
 > POST
+
 > PUT
+
 > PATCH
+
 > DELETE
+
 > OPTIONS
 
 Create controller for an actions and perform any of these 6 actions.
