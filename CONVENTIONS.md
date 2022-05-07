@@ -18,13 +18,13 @@ Create controller for an actions and perform any of these 6 actions.
 
 ## Folder Structure
 
-We will try to follow folder structure for **_Controller_** with this broad three categories.
+#### We will try to follow folder structure for **_Controller_** with this broad three categories.
 
 > Freelancer
 > Recruiter
 > Admin
 
-This is the folder structure for **_views_**
+#### This is the folder structure for **_views_**
 
 > *admin*
 > - This folder holds all admin related views.
