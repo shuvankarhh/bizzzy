@@ -2698,6 +2698,7 @@ if (staff_add_form) {
     var formData = new FormData(staff_add_form);
     axios.post(APP_URL + '/admin/staff/store', formData).then(function (response) {
       //console.log(response);
+      staff_add_form.reset();
       location.reload();
     })["catch"](function (error) {
       if (typeof error.response !== "undefined") {
@@ -2717,8 +2718,12 @@ loadroles = function loadroles() {
   axios.get(APP_URL + '/admin/staff/role').then(function (response) {
     //console.log(response.data);
     var c = document.getElementById('role');
+    c.innerHTML = '';
+    var option = document.createElement("option");
+    option.text = 'Select Role';
+    c.appendChild(option);
     response.data.forEach(function (element) {
-      var option = document.createElement("option");
+      option = document.createElement("option");
       option.text = element['name'];
       option.value = element['id'];
       c.appendChild(option);
@@ -2835,16 +2840,11 @@ if (skill_update_form) {
 
 
 loadsinglecategory = function loadsinglecategory(id) {
-  closemodal();
   axios.get(APP_URL + "/admin/category/".concat(id, "/edit")).then(function (response) {
     //console.log(response);
     document.getElementById('name').value = response.data.name;
     document.getElementById('category_id').value = response.data.id;
   })["catch"](function (error) {});
-};
-
-closemodal = function closemodal() {
-  $('#sub_category').modal('hide');
 }; //update main Category
 
 
@@ -2905,6 +2905,15 @@ loadsubcategory = function loadsubcategory(id) {
       newCell3.innerHTML = "\n\n                <button data-dismiss=\"modal\" data-toggle=\"modal\"\n                    data-target=\".bs-example-modal-lg\"\n                    class=\"btn btn-info btn-xs\" id=\"closemodal\"\n                    onclick=\"loadsinglecategory(".concat(element.id, ")\"><i\n                        class=\"fa fa-pencil\"></i> Edit\n                </button>\n                <button id=\"delete_button\" class=\"btn btn-danger btn-xs\"\n                    onclick=\"categorydelete(").concat(element.id, ")\">\n                    <i class=\"fa fa-trash-o\"></i>\n                    Delete\n                </button>");
     }); // document.getElementById('name').value = response.data.name;
     // document.getElementById('category_id').value = response.data.id;
+  })["catch"](function (error) {});
+}; // load job contract
+
+
+loadjobcontract = function loadjobcontract(id) {
+  axios.get(APP_URL + "/admin/job/".concat(id, "/contract")).then(function (response) {
+    //console.log(response);
+    document.getElementById('name').value = response.data.name;
+    document.getElementById('category_id').value = response.data.id;
   })["catch"](function (error) {});
 };
 

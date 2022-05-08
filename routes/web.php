@@ -272,6 +272,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/{id}/edit', [AdminJobController::class, 'edit'])->name('job.edit');
         Route::post('/{id}', [AdminJobController::class, 'update'])->name('job.update');
         Route::DELETE('/{id}', [AdminJobController::class, 'destroy'])->name('job.delete');
+        Route::get('/{id}/contract', [AdminJobController::class, 'showcontract'])->name('job.showcontract');
+        Route::get('/data', [AdminJobController::class, 'getData'])->name('job.get.data');
     });
 
     Route::prefix('tag')->group(function () {

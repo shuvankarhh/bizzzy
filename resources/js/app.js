@@ -771,6 +771,7 @@ if (staff_add_form) {
             .post(APP_URL + '/admin/staff/store', formData)
             .then(function(response) {
                 //console.log(response);
+                staff_add_form.reset();
                 location.reload();
 
             })
@@ -794,8 +795,12 @@ loadroles = () => {
         .then(function(response) {
             //console.log(response.data);
             let c = document.getElementById('role');
+            c.innerHTML = '';
+            var option = document.createElement("option");
+            option.text = 'Select Role';
+            c.appendChild(option);
             response.data.forEach(element => {
-                var option = document.createElement("option");
+                option = document.createElement("option");
                 option.text = element['name'];
                 option.value = element['id'];
                 c.appendChild(option);
@@ -936,7 +941,6 @@ if (skill_update_form) {
 
 // load category
 loadsinglecategory = (id) => {
-    closemodal();
     axios
         .get(APP_URL + `/admin/category/${id}/edit`)
         .then(function(response) {
@@ -949,10 +953,6 @@ loadsinglecategory = (id) => {
         .catch(function(error) {
 
         });
-}
-
-closemodal = () => {
-    $('#sub_category').modal('hide');
 }
 
 //update main Category
@@ -1031,6 +1031,22 @@ loadsubcategory = (id) => {
             });
             // document.getElementById('name').value = response.data.name;
             // document.getElementById('category_id').value = response.data.id;
+
+        })
+        .catch(function(error) {
+
+        });
+}
+
+// load job contract
+loadjobcontract = (id) => {
+    axios
+        .get(APP_URL + `/admin/job/${id}/contract`)
+        .then(function(response) {
+            //console.log(response);
+            document.getElementById('name').value = response.data.name;
+            document.getElementById('category_id').value = response.data.id;
+
 
         })
         .catch(function(error) {
