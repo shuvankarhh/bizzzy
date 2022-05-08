@@ -41,22 +41,30 @@
                         <p>Netherlands</p>
                     </div>
                     <div class="col-auto">
-                        @if ($contract->contract_status == '7')
-                            <div class="row">
-                                <div class="col-auto">
-                                    <span>
+                        @if ($contract->contract_status == 'Ended')
+                            <div class="flex-center">
+                                <div class="outer-star" >
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                    <i class="fas fa-star" aria-hidden="true"></i>
+                                    <span class="inner-star" style="width: {{ $contract->client_public_feedback_rating * 20 }}%">
+                                        {{-- <img src="{{ asset('images/general/full-star.svg') }}" alt="">
                                         <img src="{{ asset('images/general/full-star.svg') }}" alt="">
                                         <img src="{{ asset('images/general/full-star.svg') }}" alt="">
                                         <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                        <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                        <img src="{{ asset('images/general/full-star.svg') }}" alt="">
+                                        <img src="{{ asset('images/general/full-star.svg') }}" alt=""> --}}
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
                                     </span>
                                 </div>
-                                <div class="col-auto">
-                                    <p>5.00</p>
-                                </div>
-                                <div class="col-auto">
-                                    <p>Jan 25, 2022 - Feb 1, 2022</p>
+                                <div class="flex-center">
+                                    <p class="m-0 p-0 font-weight-bold">{{ number_format($contract->client_public_feedback_rating,2) }}</p>
+                                    {{-- <p class="m-0 p-0">Jan 25, 2022 - Feb 1, 2022</p> --}}
                                 </div>
                             </div>
                         @endif                        

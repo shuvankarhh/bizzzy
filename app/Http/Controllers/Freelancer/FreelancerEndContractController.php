@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Jobs\Recruiter;
+namespace App\Http\Controllers\Freelancer;
 
 use App\Models\Contract;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class RecruiterActiveJobController extends Controller
+class FreelancerEndContractController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,29 +15,7 @@ class RecruiterActiveJobController extends Controller
      */
     public function index()
     {
-        $counts_db = Contract::select(DB::raw("count(*) as contract_count, payment_type"))->where('contract_status', 2)->where('created_by_user', auth()->id())->groupBy('payment_type')->get();
-        $counts = array(
-            'fixed' => 0,
-            'hourly' => 0,
-        );
-        foreach ($counts_db as $item) {
-            if ($item->payment_type === 1) {
-                $counts['fixed'] = $item->contract_count;
-            } else {
-                $counts['hourly'] = $item->contract_count;
-            }
-        }
-        return view('contents.jobs.recruiter-active-contracts')->with([
-            'offers' => Contract::with('job', 'milestones')
-            ->where('created_by_user', auth()->id())
-            ->where('contract_status', '2')
-            ->get(),
-            'in_review' => Contract::with('job')->whereNull('client_private_feedback_rating')
-            ->where('contract_status', '5')
-            ->where('created_by_user', auth()->id())
-            ->get(),
-            'counts' => $counts
-        ]);
+        //
     }
 
     /**
@@ -46,9 +23,13 @@ class RecruiterActiveJobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $contract = Contract::with('recruiter')->find(decrypt($id));
+        return view('contents.freelancer.freelancer-end-contract')->with([
+            'contract' => $contract,
+            'id' => $id
+        ]);
     }
 
     /**
@@ -59,7 +40,32 @@ class RecruiterActiveJobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'private_rating' => 'required',
+            'public_feedback' => 'required',
+            'experience' => 'required',
+        ]);
+
+        $contract = Contract::find(decrypt($request->contract));
+        $contract->freelancer_private_feedback_rating = $request->private_rating;
+        $contract->freelancer_public_feedback_rating = $request->public_feedback;
+        $contract->freelancer_public_feedback_comment = $request->experience;
+        /**
+         * Contract status:
+         *  2 = active
+         *  3 = ended
+         *  5 = in review
+         */
+        if($contract->contract_status == "Active"){
+            $contract->contract_status = 5;            
+        }else if($contract->contract_status == "In Review"){
+            $contract->contract_status = 3;
+        }else{
+            abort(403);
+        }
+        $contract->save();
+
+        return route('freelancer.contract.index');
     }
 
     /**
@@ -70,9 +76,7 @@ class RecruiterActiveJobController extends Controller
      */
     public function show($id)
     {
-        return view('contents.jobs.recruiter-active-contract')->with([
-            'contract' => Contract::with('freelancer', 'job', 'milestones')->find(decrypt($id))
-        ]);
+        //
     }
 
     /**
@@ -95,7 +99,7 @@ class RecruiterActiveJobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        //
     }
 
     /**

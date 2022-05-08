@@ -44,12 +44,25 @@ class RecruiterEndContractController extends Controller
             'private_rating' => 'required',
             'public_feedback' => 'required',
             'experience' => 'required',
+            'end_reason' => 'required'
         ]);
         $contract = Contract::find(decrypt($request->contract));
         $contract->client_private_feedback_rating = $request->private_rating;
         $contract->client_public_feedback_rating = $request->public_feedback;
         $contract->client_public_feedback_comment = $request->experience;
-        $contract->contract_status = 3;
+        /**
+         * Contract status:
+         *  2 = active
+         *  3 = ended
+         *  5 = in review
+         */
+        if($contract->contract_status == "Active"){
+            $contract->contract_status = 5;            
+        }else if($contract->contract_status == "In Review"){
+            $contract->contract_status = 3;
+        }else{
+            abort(403);
+        }
         $contract->save();
         return route('recruiter.contract.index');
     }

@@ -1,13 +1,20 @@
 <div class="job-card mb-4">
     <section class="upper-content @if ($applied) applied-div @endif pe-0">
-        <div class="row pe-0 ">
-            @if ($applied) 
-                {{--  This section is for mobile view. Will be hidden in large screens.  --}}
+        <div class="row pe-0" style="position: relative">
+            {{--  This section is for mobile view. Will be hidden in large screens.  --}}
+            @if ($applied)
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-8 col-8 p-0 d-md-none d-lg-none d-xl-none d-xxl-none"></div>
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-4 col-4 p-0 d-md-none d-lg-none d-xl-none d-xxl-none">
                     <div class="applied text-center">
                         <img src="{{ asset('images\icons\job\applied.svg') }}" alt="">
                         Applied
+                    </div>                            
+                </div>
+            @else
+                <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-8 col-8 p-0 d-md-none d-lg-none d-xl-none d-xxl-none"></div>
+                <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-4 col-4 p-0 d-md-none d-lg-none d-xl-none d-xxl-none">
+                    <div class="applied text-center">
+                        Save
                     </div>                            
                 </div>
             @endif
@@ -36,14 +43,20 @@
                 <p class="m-0">{{ $job->recruiter->name }}</p>
             </div>
 
+            {{--  This block is for larger screens. Will be hidden for small display.  --}}
             @if ($applied)
-                {{--  This section is for larger screens. Will be hidden for small display.  --}}
                 <div class="ms-lg-auto ms-xl-auto ms-xxl-auto ms-md-none col-md-1 col-lg-auto col-xl-1 col-xxl-1 col-sm-4 col-xs-4 p-0 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
                     <div class="applied text-center">
                         <img src="{{ asset('images\icons\job\applied.svg') }}" alt="">
                         Applied
                     </div>                            
-                </div>                
+                </div>
+            @else
+                <div class="text-end col-md-1 col-lg-auto col-xl-1 col-xxl-1 col-sm-4 col-xs-4 p-0 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                    <div class="applied text-center {{ $remove ? 'remove' : '' }} save {{ ($job->saved_job_count > 0) ? 'saved' : ''}}" data-job="{{ ($job->saved_job_count > 0) ? ($remove ? encrypt($job->id) : "") : encrypt($job->id) }}">
+                        {{ ($job->saved_job_count > 0) ? 'Saved' : 'Save'}}
+                    </div>
+                </div>
             @endif
         </div>
         <div class="row">

@@ -119,7 +119,7 @@
                                   <a class="dropdown-item" href="{{ route('user.job.index') }}">Find Work</a>
                                 </li>
                                 <li>
-                                  <a class="dropdown-item" href="#">Saved jobs</a>
+                                  <a class="dropdown-item" href="{{ route('freelancer.save.job.index') }}">Saved jobs</a>
                                 </li>
                                 <li>
                                   <a class="dropdown-item" href="{{ route('job.offer.index') }}">Proposals</a>

@@ -10,6 +10,7 @@ class JobComponent extends Component
     public $connect;
     public $job;
     public $idx;
+    public $remove;
 
 
     /**
@@ -18,12 +19,13 @@ class JobComponent extends Component
      * @param applied $applied Boolean
      * @return void
      */
-    public function __construct($applied, $job, $idx, $connect = 0)
+    public function __construct($applied, $job, $idx, $connect = 0, $remove = false)
     {
         $this->applied = $applied;
         $this->connect = $connect;
         $this->job = $job;
         $this->idx = $idx; 
+        $this->remove = $remove;
     }
 
     /**

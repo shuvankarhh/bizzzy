@@ -56,9 +56,14 @@ class JobProposalController extends Controller
         }
 
         $transaction = DB::transaction(function () use ($request, $freelancer_id, $job_id, $freelancer_gave_job_proposal, $job_belongs_to_user) {
+            if ($request->payment_type == 'hourly') {
+                $price = $request->hourly_rate;
+            } else {
+                $price = $request->price;
+            }
             $contract = Contract::create([
                 'payment_type' => $request->payment_type,
-                'price' => $request->price,
+                'price' => $price,
                 'service_charge_type' => 1,
                 'service_charge' => 20,
                 'paid_amount' => 0,

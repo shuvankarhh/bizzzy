@@ -131,6 +131,13 @@ font-weight: 900;
     display: flex;
 }
 
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
 .relative {
     position: relative;
 }
@@ -1106,6 +1113,26 @@ body {
     background-color: white;
 }
 
+.job-card .save {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    width: fit-content;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+
+.job-card .save.saved {
+    cursor: context-menu;
+    border: 2px solid #F2F2F2;
+}
+.job-card .save.remove {
+    cursor: pointer;
+}
+
+.job-card .save.remove:hover {
+    content: 'remove';
+}
 .job-card .more-text {
     text-decoration: none;
     color: black;
@@ -1766,6 +1793,20 @@ body {
     line-height: 1;
 }
 
+/* ============ New Star Rating w Percentage ========= */
+
+.outer-star{
+    position: relative;
+    display: flex;
+}
+
+.inner-star{
+    display: flex;
+    color: #FFBC0B;
+    overflow: hidden;
+    position: absolute;
+    top: 0; 
+}
 
 /* =================== Star rating =================== */
 .star-rating-display {

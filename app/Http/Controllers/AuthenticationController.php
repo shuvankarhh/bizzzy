@@ -118,7 +118,6 @@ class AuthenticationController extends Controller
                     'profile_completion_percentage' => 0,
                     'total_jobs' => 0,
                     'total_hours' => 0,
-                    'job_success_percentage' => 0,
                     'average_rating' => 0,
                     'is_top_rated' => 0,
                 ]);

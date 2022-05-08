@@ -93,3 +93,12 @@
 </section>
 
 @endsection
+
+@push('script')
+    <script>
+        let saves = document.querySelectorAll(".save");
+        saves.forEach(element => {
+            element.addEventListener("click", saveJob);
+        });
+    </script>
+@endpush

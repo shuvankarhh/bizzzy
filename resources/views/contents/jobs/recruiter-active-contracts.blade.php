@@ -124,6 +124,29 @@
         <div class="tab-pane fade show" id="payment_request_tab" role="tabpanel" aria-labelledby="payment_request_tab">
         </div>
     </div>
-    {{-- <header><h2>Offers ({{ $offers->count() }})</h2></header> --}}
+    @if (!$in_review->isEmpty())
+        <div class="mt-5">
+            <h2>Ended contract feedback</h2>
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-group list-group-light">
+                        @foreach ($in_review as $item)
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <p style="font-size: 1.225rem">{{ $item->job->name }}</p>
+                                        <p>{{ 'test' }}</p>
+                                    </div>
+                                    <div class="col-3 align-self-center text-center">
+                                        <a role="button" href="{{ route('recruiter.end.contract.create', encrypt($item->id)) }}" class="btn btn-primary" style="border-radius: 0">Give Feedback</a>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>                      
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 @endsection

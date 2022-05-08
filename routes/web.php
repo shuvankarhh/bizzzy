@@ -38,6 +38,8 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\PermissionRoleController;
 use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\Freelancer\ExperienceController;
+use App\Http\Controllers\Freelancer\FreelancerEndContractController;
+use App\Http\Controllers\Freelancer\FreelancerSaveJobController;
 use App\Http\Controllers\Freelancer\PreferenceController;
 use App\Http\Controllers\Freelancer\VisibilityController;
 use App\Http\Controllers\GetStarted\GetStartedController;
@@ -232,6 +234,16 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::prefix('f/contracts')->group(function () {
         Route::get('/', [FreelancerActiveJobController::class, 'index'])->name('freelancer.contract.index');
     });
+
+    
+    Route::prefix('f/end-contract')->group(function () {
+        Route::get('/create/{id}', [FreelancerEndContractController::class, 'create'])->name('freelancer.end.contract.create');
+        Route::post('/', [FreelancerEndContractController::class, 'store'])->name('freelancer.end.contract.store');
+    });
+
+    Route::post('f/save-job/store', [FreelancerSaveJobController::class, 'store'])->name('freelancer.save.job.store');
+    Route::DELETE('f/save-job/{savedJob}', [FreelancerSaveJobController::class, 'destroy'])->name('freelancer.save.job.destroy');
+    Route::get('f/save-job/', [FreelancerSaveJobController::class, 'index'])->name('freelancer.save.job.index');
 
     /**
      * r indicates recruiter

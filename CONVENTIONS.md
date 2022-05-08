@@ -21,7 +21,9 @@ Create controller for an actions and perform any of these 6 actions.
 #### We will try to follow folder structure for **_Controller_** with this broad three categories.
 
 > Freelancer
+
 > Recruiter
+
 > Admin
 
 #### This is the folder structure for **_views_**
@@ -52,3 +54,9 @@ Create controller for an actions and perform any of these 6 actions.
 
 > *templates*
 > - This folder contains different templates that are used like: email template.
+
+## Permission
+
+We have user Spatie **[Laravel Permission](https://spatie.be/docs/laravel-permission/v5/introduction)** package for role and permission.
+
+As role based permission system have <a href="https://owasp.org/www-project-proactive-controls/v3/en/c7-enforce-access-controls">**limitations**</a> we will strictly be using direct permission for all user.

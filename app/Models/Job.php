@@ -136,6 +136,11 @@ class Job extends Model
         return $this->hasMany(Contract::class);
     }
 
+    public function savedJob()
+    {
+        return $this->hasOne(SavedJob::class);
+    }
+
     /**
      * Will attempt later!
      */

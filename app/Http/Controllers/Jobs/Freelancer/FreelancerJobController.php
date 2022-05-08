@@ -50,7 +50,7 @@ class FreelancerJobController extends Controller
         $contract_id = decrypt($contract_id);
         $contract = Contract::with('freelancer')->find($contract_id);
 
-        Gate::forUser($contract->freelancer)->authorize('freelancerUpdate', $contract);
+        // Gate::forUser($contract->freelancer)->authorize('freelancerUpdate', $contract);
 
         if ($request->type == 'decline') {
             $contract->is_confirmed_by_freelancer = 0;

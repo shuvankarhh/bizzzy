@@ -79,44 +79,46 @@
                     Profile
                 </div>
                 <div class="tab-pane fade show active" id="profile-setting" role="tabpanel" aria-labelledby="profile-setting-tab">                    
-                    <div class="card">
-                        <div class="card-header">My Profile</div>
-                        <div class="card-body">
-                            <label class="form-label" for="visibility">Visibility</label>
-                            <select name="visibility" id="visibility" class="form-control w-50" data-selected="{{ $freelancer->profile_visibility }}">
-                                @if (is_null($freelancer->profile_visibility)) <option value="">Visibility</option> @endif
-                                <option value="2">Public</option>
-                                <option value="1">Private</option>
-                                <option value="3">This app user only</option>
-                            </select>
-                            <label class="form-label mt-3" for="preference">Profile preference <i class="fa-solid fa-circle-question" data-mdb-toggle="tooltip" title="This will not affect the jobs we show to client!"></i></label>
-                            <select name="preference" id="preference" class="form-control w-50" data-selected="{{ $freelancer->project_time_preference }}">
-                                @if (is_null($freelancer->project_time_preference)) <option value="">Project Preference</option> @endif
-                                <option value="2"> Both short-term and long-term projects </option>
-                                <option value="1"> Long-term projects (3+ months) </option>
-                                <option value="3"> Short-term projects (less than 3 months) </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="card mt-5">
-                        <div class="card-header"><span class="experience_text"> Experience level <span class="icons"><i id="loader" class="fa-solid fa-circle-notch fa-spin loader loader-hidden"></i><i id="success" class="fa-solid fa-circle-check loader-hidden loader" style="--fa-animation-iteration-count: 1"></i> </span></span></div>
-                        <div class="card-body experience" style="">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="experience_level" id="entry" value="1" />
-                                <label class="form-check-label" for="entry">Entry Level</label>
-                            </div>
-                              
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="experience_level" id="intermediate" value="2" />
-                                <label class="form-check-label" for="intermediate">Intermediate</label>
-                            </div>
-                              
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="experience_level" id="expert" value="3" />
-                                <label class="form-check-label" for="expert">Expert</label>
+                    @if (!is_null($freelancer))
+                        <div class="card">
+                            <div class="card-header">My Profile</div>
+                            <div class="card-body">
+                                <label class="form-label" for="visibility">Visibility</label>
+                                <select name="visibility" id="visibility" class="form-control w-50" data-selected="{{ is_null($freelancer->profile_visibility) ? '' : $freelancer->profile_visibility }}">
+                                    @if (is_null($freelancer->profile_visibility)) <option value="">Visibility</option> @endif
+                                    <option value="2">Public</option>
+                                    <option value="1">Private</option>
+                                    <option value="3">This app user only</option>
+                                </select>
+                                <label class="form-label mt-3" for="preference">Profile preference <i class="fa-solid fa-circle-question" data-mdb-toggle="tooltip" title="This will not affect the jobs we show to client!"></i></label>
+                                <select name="preference" id="preference" class="form-control w-50" data-selected="{{ $freelancer->project_time_preference }}">
+                                    @if (is_null($freelancer->project_time_preference)) <option value="">Project Preference</option> @endif
+                                    <option value="2"> Both short-term and long-term projects </option>
+                                    <option value="1"> Long-term projects (3+ months) </option>
+                                    <option value="3"> Short-term projects (less than 3 months) </option>
+                                </select>
                             </div>
                         </div>
-                    </div>
+                        <div class="card mt-5">
+                            <div class="card-header"><span class="experience_text"> Experience level <span class="icons"><i id="loader" class="fa-solid fa-circle-notch fa-spin loader loader-hidden"></i><i id="success" class="fa-solid fa-circle-check loader-hidden loader" style="--fa-animation-iteration-count: 1"></i> </span></span></div>
+                            <div class="card-body experience" style="">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="experience_level" id="entry" value="1" />
+                                    <label class="form-check-label" for="entry">Entry Level</label>
+                                </div>
+                                
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="experience_level" id="intermediate" value="2" />
+                                    <label class="form-check-label" for="intermediate">Intermediate</label>
+                                </div>
+                                
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="experience_level" id="expert" value="3" />
+                                    <label class="form-check-label" for="expert">Expert</label>
+                                </div>
+                            </div>
+                        </div>                        
+                    @endif
                 </div>
                 <div class="tab-pane fade" id="get-paid" role="tabpanel" aria-labelledby="get-paid-tab">
                     Get Paid
@@ -145,10 +147,12 @@
 
 @push('script')
     <script>
-        (function() {
-            document.getElementById('visibility').value = document.getElementById('visibility').dataset.selected;
-            document.getElementById('preference').value = document.getElementById('preference').dataset.selected;
-            document.getElementById('{{ strtolower($freelancer->experience_level) }}').checked = true;
-        })();
+        @if (!is_null($freelancer))
+            (function() {
+                document.getElementById('visibility').value = document.getElementById('visibility').dataset.selected;
+                document.getElementById('preference').value = document.getElementById('preference').dataset.selected;
+                document.getElementById('{{ strtolower($freelancer->experience_level) }}').checked = true;
+            })();
+        @endif
     </script>
 @endpush

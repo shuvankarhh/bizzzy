@@ -412,6 +412,38 @@ add_job = (e) => {
 
 // --------------
 
+// Save Job
+
+saveJob = (e) => {
+    axios
+    .post(APP_URL + "/f/save-job/store", {
+        job: e.target.dataset.job
+    })
+    .then(function(response) {
+        console.log(response.data);
+        location.reload();
+    })
+    .catch(function(error) {
+        
+    });
+}
+
+// Remove saved jobs
+
+removeSavedJobs = (e) => {
+    axios
+    .post(APP_URL + `/f/save-job/${e.target.dataset.job}`, {
+        _method: 'DELETE'
+    })
+    .then(function(response) {
+        console.log(response.data);
+        location.reload();
+    })
+    .catch(function(error) {
+        
+    });
+}
+
 // Add Direct Job
 
 add_direct_job = (e) => {
@@ -1022,7 +1054,7 @@ document.querySelectorAll("input[name='experience_level']").forEach((input) => {
     input.addEventListener('change', change_level);
 });
 
-// End Contract
+// Recruiter End Contract
 let endContract = document.getElementById('recruiter_end_contract_form');
 if(endContract){
     endContract.addEventListener('submit', (e) => {
@@ -1039,6 +1071,25 @@ if(endContract){
         });
     });
 }
+
+// Freelancer End Contract
+let freelancerEndContract = document.getElementById('freelancer_end_contract_form');
+if(freelancerEndContract){
+    freelancerEndContract.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(freelancerEndContract);
+        axios
+        .post(APP_URL + `/f/end-contract`, formData)
+        .then(function(response) {
+            location.href = response.data;
+        })
+        .catch(function(error) {
+            document.getElementById('error').classList.remove('d-none');
+        });
+    });
+}
+
+
 // load category
 loadsinglecategory = (id) => {
     closemodal();
@@ -1142,3 +1193,4 @@ loadsubcategory = (id) => {
 
         });
 }
+
