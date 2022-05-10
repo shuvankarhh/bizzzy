@@ -47,4 +47,9 @@ class Staff extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function email()
+    {
+        return $this->belongsTo(Email::class, 'account_email_id');
+    }
 }

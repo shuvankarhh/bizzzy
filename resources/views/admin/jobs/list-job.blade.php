@@ -31,7 +31,7 @@
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
 
-                            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                            <table id="datatable-buttons" class="table table-striped datatable-buttons" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -68,6 +68,11 @@
                                             <td>{{ $item->total_proposals }} </td>
 
                                             <td>
+                                                <button
+                                                    onclick="location.href='{{ route('job.showcontract', [$item->id]) }}'"
+                                                    class="btn btn-primary btn-xs"><i class="fa fa-folder"></i>
+                                                    Contracts
+                                                </button>
 
                                                 <button data-toggle="modal" data-target=".bs-example-modal-lg"
                                                     class="btn btn-info btn-xs"
@@ -163,7 +168,8 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Project Type</label>
+                                        <label for="middle-name"
+                                            class="col-form-label col-md-3 col-sm-3 label-align">Project Type</label>
                                         <div class="col-md-6 col-sm-6 ">
                                             <select name="project_type" id="project_type" class="form-control">
                                                 <option value="1">One-time project</option>
@@ -173,7 +179,8 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Experience Level</label>
+                                        <label for="middle-name"
+                                            class="col-form-label col-md-3 col-sm-3 label-align">Experience Level</label>
                                         <div class="col-md-6 col-sm-6 ">
                                             <select name="experience_level" id="experience_level" class="form-control">
                                                 <option value="1">Entry</option>
@@ -183,11 +190,12 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
-                                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Project Type</label>
+                                        <label for="middle-name"
+                                            class="col-form-label col-md-3 col-sm-3 label-align">Project Type</label>
                                         <div class="col-md-6 col-sm-6 ">
                                             <select name="price_type" id="price_type" class="form-control">
-                                                <option >Fixed</option>
-                                                <option >Hourly</option>
+                                                <option>Fixed</option>
+                                                <option>Hourly</option>
 
                                             </select>
                                         </div>
@@ -228,8 +236,6 @@
 
         </div>
     </div>
-
-
 @endsection
 
 
@@ -238,9 +244,9 @@
     <script>
         @if (Session::has('message'))
             new PNotify({
-            text: "{{ Session::get('message') }}",
-            type: 'success',
-            styling: 'bootstrap3'
+                text: "{{ Session::get('message') }}",
+                type: 'success',
+                styling: 'bootstrap3'
             });
         @endif
 

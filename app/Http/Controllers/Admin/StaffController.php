@@ -18,7 +18,7 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $list = Staff::with('roles')->get();
+        $list = Staff::with('roles', 'email')->get();
 
         return view('admin.staff.list-staff', ['lists' => $list]);
     }

@@ -56,7 +56,22 @@
                                             </td>
 
                                             <td>
-
+                                                @php
+                                                    if (!$item->userAccount->isEmpty() && $item->userAccount[0]->client_or_freelancer == 1) {
+                                                        echo "<button data-toggle='modal' data-target='.bs-example-modal-lg-profile' class='btn btn-primary btn-xs'
+                                                                                                                                                                                                                                                                                        onclick='loadprofile($item->id)'><i
+                                                                                                                                                                                                                                                                                        class='fa fa-folder'></i> Recruiter </button>";
+                                                    } elseif (!$item->userAccount->isEmpty() && $item->userAccount[0]->client_or_freelancer == 2) {
+                                                        echo "<button data-toggle='modal' data-target='.bs-example-modal-lg-profile'class='btn btn-primary btn-xs' onclick='loadprofile( $item->id )'><i class='fa fa-folder'></i> Freelancer </button>";
+                                                    } elseif (!$item->userAccount->isEmpty() && $item->userAccount[1]->client_or_freelancer == 1) {
+                                                        echo "<button data-toggle='modal' data-target='.bs-example-modal-lg-profile' class='btn btn-primary btn-xs'
+                                                                                                                                                                                                                                                                                        onclick='loadprofile($item->id)'><i
+                                                                                                                                                                                                                                                                                        class='fa fa-folder'></i> Recruiter </button>";
+                                                    } elseif (!$item->userAccount->isEmpty() && $item->userAccount[1]->client_or_freelancer == 2) {
+                                                        echo "<button data-toggle='modal' data-target='.bs-example-modal-lg-profile'class='btn btn-primary btn-xs' onclick='loadprofile($item->id)'><i class='fa fa-folder'></i> Freelancer </button>";
+                                                    }
+                                                    
+                                                @endphp
                                                 <button data-toggle="modal" data-target=".bs-example-modal-lg"
                                                     class="btn btn-info btn-xs"
                                                     onclick="loadsingleuser({{ $item->id }})"><i
@@ -167,6 +182,179 @@
                     </div>
                 </div>
             </div>
+            <!-- profile modal -->
+            <div class="modal fade bs-example-modal-lg-profile" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Profile</h4>
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="x_content">
+
+                                <form id="" data-parsley-validate class="form-horizontal form-label-left">
+                                    <input type="hidden" name="user_id" id="user_id">
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                            for="last-name">Professional Title
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="professional_title" name="professional_title" readonly
+                                                required="required" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="description">
+                                            Description <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <textarea type="text" name="description" id="description" required="required" readonly
+                                                class="form-control "></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                            for="last-name">Availability Badge
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="availability_badge" name="availability_badge" readonly
+                                                required="required" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Average
+                                            Rating
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="average_rating" name="average_rating" required="required"
+                                                readonly class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                            for="last-name">Experience Level
+
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="experience_level" name="experience_level" readonly
+                                                required="required" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Hours
+                                            Per Week
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="hours_per_week" name="hours_per_week" required="required"
+                                                readonly class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Price
+                                            Per Hour
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="price_per_hour" name="price_per_hour" required="required"
+                                                readonly class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Profile
+                                            Completion Percentage
+
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="profile_completion_percentage"
+                                                name="profile_completion_percentage" required="required" readonly
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                            for="profile_visibility">Profile Visibility
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="profile_visibility" name="profile_visibility" readonly
+                                                required="required" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                            for="project_time_preference">Project Time Preference
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="project_time_preference" name="project_time_preference"
+                                                readonly required="required" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="total_hours">Total
+                                            Hours
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="total_hours" name="total_hours" required="required"
+                                                readonly class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="total_jobs">Total
+                                            Jobs
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="total_jobs" name="total_jobs" required="required"
+                                                readonly class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align"
+                                            for="total_earnings">Total Earnings
+                                            <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="text" id="total_earnings" name="total_earnings" required="required"
+                                                readonly class="form-control">
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="ln_solid"></div>
+                                    {{-- <div class="item form-group">
+                                        <div class="col-md-6 col-sm-6 offset-md-3">
+                                            <button type="submit" class="btn btn-success">Update</button>
+                                            <button class="btn btn-primary" type="reset">Reset</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div> --}}
+
+                                </form>
+                            </div>
+                        </div>
+                        {{-- <div class="modal-footer">
+
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div> --}}
+
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -178,9 +366,9 @@
     <script>
         @if (Session::has('message'))
             new PNotify({
-            text: "{{ Session::get('message') }}",
-            type: 'success',
-            styling: 'bootstrap3'
+                text: "{{ Session::get('message') }}",
+                type: 'success',
+                styling: 'bootstrap3'
             });
         @endif
         let userdelete = (id) => {

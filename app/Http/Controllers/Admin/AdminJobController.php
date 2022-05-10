@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contract;
 use App\Models\Job;
+use App\Models\ContractMilestone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Yajra\DataTables\Facades\DataTables;
 
 class AdminJobController extends Controller
 {
@@ -76,7 +79,7 @@ class AdminJobController extends Controller
     public function update(Request $request, $id)
     {
         $job = Job::find($id);
-    
+
         $job->name = $request->name;
         $job->description = $request->description;
         $job->job_visibility = $request->get('job_visibility');
@@ -87,7 +90,7 @@ class AdminJobController extends Controller
         $job->price = $request->price;
         $job->save();
         Session::flash('message', 'job successfully updated!');
-       // return redirect()->route('job.index');
+        // return redirect()->route('job.index');
     }
 
     /**
@@ -100,5 +103,36 @@ class AdminJobController extends Controller
     {
         Job::where('id', $id)->delete();
         return redirect()->route('job.index');
+    }
+
+    public function showcontract($id)
+    {
+        return view('admin.jobs.list-jobcontract')->with('id', $id);
+    }
+
+    public function getData(Request $request)
+    {
+        $contracts = Contract::with('freelancer')->select(['contracts.*'])->where('job_id', $request->id);
+
+        return DataTables::of($contracts)
+            ->editColumn('freelancer.name', function ($t) {
+                return $t->freelancer->name;
+            })
+            ->editColumn('freelancer.user_name', function ($t) {
+                return $t->freelancer->user_name;
+            })
+            ->addColumn('action', function ($t) {
+                return "<button data-toggle='modal' id='milestone' onclick='loadmilestone($t->id)' data-target='.bs-example-modal-lg-milestone' class='btn btn-primary btn-xs'><i class='fa fa-folder'></i> Milestone </button>";
+            })
+            ->toJson();
+    }
+
+    public function getMilestone(Request $request)
+    {
+        $milestones = ContractMilestone::select(['contract_milestones.*'])->where('contract_id', $request->id);
+
+        return DataTables::of($milestones)
+
+            ->toJson();
     }
 }

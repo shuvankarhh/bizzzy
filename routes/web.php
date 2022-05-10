@@ -325,13 +325,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('user.index');
         Route::get('/{id}/edit', [AdminUserController::class, 'edit'])->name('user.edit');
         Route::post('/{id}', [AdminUserController::class, 'update'])->name('user.update');
-        Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
+        Route::get('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
+        Route::DELETE('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
+        Route::get('/{id}/profile', [AdminUserController::class, 'profile'])->name('user.profile');
     });
     Route::prefix('job')->group(function () {
         Route::get('/', [AdminJobController::class, 'index'])->name('job.index');
         Route::get('/{id}/edit', [AdminJobController::class, 'edit'])->name('job.edit');
         Route::post('/{id}', [AdminJobController::class, 'update'])->name('job.update');
         Route::DELETE('/{id}', [AdminJobController::class, 'destroy'])->name('job.delete');
+        Route::get('/{id}/contract', [AdminJobController::class, 'showcontract'])->name('job.showcontract');
+        Route::get('/data', [AdminJobController::class, 'getData'])->name('job.get.data');
+        Route::get('/milestone', [AdminJobController::class, 'getMilestone'])->name('job.get.milestone');
     });
 
     Route::prefix('tag')->group(function () {

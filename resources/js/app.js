@@ -853,6 +853,7 @@ if (staff_add_form) {
             .post(APP_URL + '/admin/staff/store', formData)
             .then(function(response) {
                 //console.log(response);
+                staff_add_form.reset();
                 location.reload();
 
             })
@@ -876,8 +877,12 @@ loadroles = () => {
         .then(function(response) {
             //console.log(response.data);
             let c = document.getElementById('role');
+            c.innerHTML = '';
+            var option = document.createElement("option");
+            option.text = 'Select Role';
+            c.appendChild(option);
             response.data.forEach(element => {
-                var option = document.createElement("option");
+                option = document.createElement("option");
                 option.text = element['name'];
                 option.value = element['id'];
                 c.appendChild(option);
@@ -1140,7 +1145,6 @@ if(freelancerEndContract){
 
 // load category
 loadsinglecategory = (id) => {
-    closemodal();
     axios
         .get(APP_URL + `/admin/category/${id}/edit`)
         .then(function(response) {
@@ -1153,10 +1157,6 @@ loadsinglecategory = (id) => {
         .catch(function(error) {
 
         });
-}
-
-closemodal = () => {
-    $('#sub_category').modal('hide');
 }
 
 //update main Category
@@ -1260,3 +1260,28 @@ if(profile_verification){
     });
 }
 
+// load job contract
+loadprofile = (id) => {
+    axios
+        .get(APP_URL + `/admin/user/${id}/profile`)
+        .then(function(response) {
+            console.log(response);
+            document.getElementById('professional_title').value = response.data.professional_title;
+            document.getElementById('description').value = response.data.description;
+            document.getElementById('availability_badge').value = response.data.availability_badge;
+            document.getElementById('average_rating').value = response.data.average_rating;
+            document.getElementById('experience_level').value = response.data.experience_level;
+            document.getElementById('hours_per_week').value = response.data.hours_per_week;
+            document.getElementById('price_per_hour').value = response.data.price_per_hour;
+            document.getElementById('profile_completion_percentage').value = response.data.profile_completion_percentage;
+            document.getElementById('profile_visibility').value = response.data.profile_visibility;
+            document.getElementById('project_time_preference').value = response.data.project_time_preference;
+            document.getElementById('total_hours').value = response.data.total_hours;
+            document.getElementById('total_jobs').value = response.data.total_jobs;
+            document.getElementById('total_earnings').value = response.data.total_earnings;
+
+        })
+        .catch(function(error) {
+
+        });
+}
