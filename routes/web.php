@@ -266,6 +266,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::post('/{id}', [AdminUserController::class, 'update'])->name('user.update');
         Route::get('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
         Route::DELETE('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
+        Route::get('/{id}/profile', [AdminUserController::class, 'profile'])->name('user.profile');
     });
     Route::prefix('job')->group(function () {
         Route::get('/', [AdminJobController::class, 'index'])->name('job.index');
@@ -274,6 +275,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::DELETE('/{id}', [AdminJobController::class, 'destroy'])->name('job.delete');
         Route::get('/{id}/contract', [AdminJobController::class, 'showcontract'])->name('job.showcontract');
         Route::get('/data', [AdminJobController::class, 'getData'])->name('job.get.data');
+        Route::get('/milestone', [AdminJobController::class, 'getMilestone'])->name('job.get.milestone');
     });
 
     Route::prefix('tag')->group(function () {

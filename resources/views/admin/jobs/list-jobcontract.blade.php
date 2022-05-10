@@ -42,7 +42,7 @@
                                     <th>Service Charge</th>
                                     <th>Paid Amount</th>
                                     <th>Contract Status</th>
-
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,6 +53,56 @@
                 </div>
             </div>
 
+            <!-- Edit modal -->
+            <div class="modal fade bs-example-modal-lg-milestone" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Milestones</h4>
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="x_content">
+
+                                <table id="milestone_datatable" class="table table-striped table-bordered"
+                                    style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Milestone</th>
+                                            <th>Deposite Amount</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+
+
+                                {{-- <div class="ln_solid"></div>
+                                <div class="item form-group">
+                                    <div class="col-md-6 col-sm-6 offset-md-3">
+                                        <button type="submit" class="btn btn-success">Update</button>
+                                        <button class="btn btn-primary" type="reset">Reset</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div> --}}
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            {{-- Edit modal end --}}
+
         </div>
     </div>
 @endsection
@@ -62,6 +112,7 @@
 @push('js')
     <script>
         $(function() {
+            refreshTable();
             $('#contract_datatable').DataTable({
                 processing: true,
                 serverSide: true,
@@ -102,6 +153,10 @@
                         data: 'contract_status',
                         name: 'contract_status'
                     },
+                    {
+                        data: 'action',
+                        name: 'action'
+                    },
 
                 ],
                 rowCallback: function(row, data, index) {
@@ -122,6 +177,58 @@
             });
         });
 
+        loadmilestone = (id) => {
+            refreshTable();
+            $('#milestone_datatable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: `{{ route('job.get.milestone') }}?id=${id}`,
+                columns: [{
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'deposit_amount',
+                        name: 'deposit_amount'
+                    },
+                    {
+                        data: 'start_date',
+                        name: 'start_date'
+                    },
+                    {
+                        data: 'end_date',
+                        name: 'end_date'
+                    },
+                    {
+                        data: 'is_complete',
+                        name: 'is_complete'
+                    },
+
+
+                ],
+                rowCallback: function(row, data, index) {
+                    //console.log(data.is_complete);
+                    if (data.is_complete == 0) {
+                        $("td:eq(4)", row).html("Pending");
+                    } else if (data.is_complete == 1) {
+                        $("td:eq(4)", row).html("Complete");
+                    }
+
+
+                }
+
+
+            });
+
+            //$('#milestone_datatable').DataTable().ajax.reload();
+        };
+
+        function refreshTable() {
+            //$('#milestone_datatable').DataTable().clear();
+            $('#milestone_datatable').DataTable().destroy();
+            // $('#milestone_datatable').DataTable().ajax.reload();
+        }
+
 
 
 
@@ -130,9 +237,9 @@
 
         @if (Session::has('message'))
             new PNotify({
-            text: "{{ Session::get('message') }}",
-            type: 'success',
-            styling: 'bootstrap3'
+                text: "{{ Session::get('message') }}",
+                type: 'success',
+                styling: 'bootstrap3'
             });
         @endif
 

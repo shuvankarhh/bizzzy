@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\FreelancerProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -18,7 +19,7 @@ class AdminUserController extends Controller
     {
         // dd(User::with('freelance_profile')->get());
         return view('admin.user.list-user')->with([
-            'users' => User::with('email')->get()
+            'users' => User::with('email', 'userAccount')->get()
         ]);
     }
 
@@ -106,5 +107,11 @@ class AdminUserController extends Controller
         // return $id;
         User::where('id', $id)->delete();
         return redirect()->route('user.index');
+    }
+
+    public function profile($id)
+    {
+        $profile = FreelancerProfile::where('user_id', $id)->first();
+        return $profile;
     }
 }

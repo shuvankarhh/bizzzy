@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
 use App\Models\Job;
+use App\Models\ContractMilestone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
@@ -120,6 +121,18 @@ class AdminJobController extends Controller
             ->editColumn('freelancer.user_name', function ($t) {
                 return $t->freelancer->user_name;
             })
+            ->addColumn('action', function ($t) {
+                return "<button data-toggle='modal' id='milestone' onclick='loadmilestone($t->id)' data-target='.bs-example-modal-lg-milestone' class='btn btn-primary btn-xs'><i class='fa fa-folder'></i> Milestone </button>";
+            })
+            ->toJson();
+    }
+
+    public function getMilestone(Request $request)
+    {
+        $milestones = ContractMilestone::select(['contract_milestones.*'])->where('contract_id', $request->id);
+
+        return DataTables::of($milestones)
+
             ->toJson();
     }
 }

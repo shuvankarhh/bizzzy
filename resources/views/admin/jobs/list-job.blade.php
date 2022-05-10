@@ -71,7 +71,7 @@
                                                 <button
                                                     onclick="location.href='{{ route('job.showcontract', [$item->id]) }}'"
                                                     class="btn btn-primary btn-xs"><i class="fa fa-folder"></i>
-                                                    View
+                                                    Contracts
                                                 </button>
 
                                                 <button data-toggle="modal" data-target=".bs-example-modal-lg"
@@ -244,9 +244,9 @@
     <script>
         @if (Session::has('message'))
             new PNotify({
-            text: "{{ Session::get('message') }}",
-            type: 'success',
-            styling: 'bootstrap3'
+                text: "{{ Session::get('message') }}",
+                type: 'success',
+                styling: 'bootstrap3'
             });
         @endif
 
