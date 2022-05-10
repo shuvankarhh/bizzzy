@@ -13,8 +13,10 @@ class SettingController extends Controller
      */
     public function index()
     {
+        // dd(auth()->user()->verification_request);
         return view('contents.settings.freelancer-settings')->with([
-            'freelancer' => auth()->user()->freelance_profile
+            'freelancer' => auth()->user()->freelance_profile,
+            'verification' => auth()->user()->verification_request
         ]);
     }
 }

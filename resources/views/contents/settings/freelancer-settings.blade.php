@@ -27,12 +27,12 @@
                 <a class="nav-link" id="contact-tab" data-mdb-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact Info</a>
                 <a class="nav-link" id="tax-tab" data-mdb-toggle="tab" href="#tax" role="tab" aria-controls="tax" aria-selected="false">Tax Information</a>
                 <a class="nav-link" id="profile-tab" data-mdb-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">My Profile</a>
-                <a class="nav-link active" id="profile-setting-tab" data-mdb-toggle="tab" href="#profile-setting" role="tab" aria-controls="profile-setting" aria-selected="false">Profile Setting</a>
+                <a class="nav-link" id="profile-setting-tab" data-mdb-toggle="tab" href="#profile-setting" role="tab" aria-controls="profile-setting" aria-selected="false">Profile Setting</a>
                 <a class="nav-link" id="get-paid-tab" data-mdb-toggle="tab" href="#get-paid" role="tab" aria-controls="get-paid" aria-selected="false">Get Paid</a>
                 <a class="nav-link" id="my-team-tab" data-mdb-toggle="tab" href="#my-team" role="tab" aria-controls="my-team" aria-selected="false">My Teams</a>
                 <a class="nav-link" id="connected-service-tab" data-mdb-toggle="tab" href="#connected-service" role="tab" aria-controls="connected-service" aria-selected="false">Connected Services</a>
                 <a class="nav-link" id="security-tab" data-mdb-toggle="tab" href="#security" role="tab" aria-controls="security" aria-selected="false">Password & Security</a>
-                <a class="nav-link" id="indentity-tab" data-mdb-toggle="tab" href="#indentity" role="tab" aria-controls="indentity" aria-selected="false">Indentity Verification</a>
+                <a class="nav-link active" id="indentity-tab" data-mdb-toggle="tab" href="#indentity" role="tab" aria-controls="indentity" aria-selected="false">Indentity Verification</a>
                 <a class="nav-link" id="notification-tab" data-mdb-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="false">Notification Setting</a>
             </div>
         <!-- Tab navs -->
@@ -78,7 +78,7 @@
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     Profile
                 </div>
-                <div class="tab-pane fade show active" id="profile-setting" role="tabpanel" aria-labelledby="profile-setting-tab">                    
+                <div class="tab-pane fade" id="profile-setting" role="tabpanel" aria-labelledby="profile-setting-tab">                    
                     @if (!is_null($freelancer))
                         <div class="card">
                             <div class="card-header">My Profile</div>
@@ -132,8 +132,29 @@
                 <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
                     Security
                 </div>
-                <div class="tab-pane fade" id="indentity" role="tabpanel" aria-labelledby="indentity-tab">
-                    Indentity
+                <div class="tab-pane fade show active" id="indentity" role="tabpanel" aria-labelledby="indentity-tab">
+                    <form action="#" id="verification_form">
+                        <div class="card">
+                            @if (auth()->user()->account_verified)
+                                <div class="card-body">
+                                    <p class="text-success font-weight-bold"><i class="fa-solid fa-circle-check"></i> Profile Verified</p>
+                                </div>
+                            @elseif (is_null($verification))
+                                <div class="card-body">
+                                    <h5>Give your ID</h5>
+                                    <p><i class="fa-solid fa-circle-exclamation"></i> Provide an official government id to verify your account.</p>
+                                    <input type="file" name="verification_id" id="verification_id" class="form-control">
+                                </div>
+                                <div class="card-footer text-end">
+                                    <button class="btn btn-info">Submit</button>
+                                </div>
+                            @elseif ($verification->status == '0')
+                                <div class="card-body">
+                                    <p class="text-warning font-weight-bold"><i class="fa-solid fa-circle-notch fa-spin"></i> Pending Requset</p>
+                                </div>
+                            @endif   
+                        </div>
+                    </form>                 
                 </div>
                 <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
                     Notification

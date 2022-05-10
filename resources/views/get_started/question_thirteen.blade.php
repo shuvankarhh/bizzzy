@@ -160,6 +160,7 @@
                 if (URL) {
                     done(URL.createObjectURL(file));
                 } else if (FileReader) {
+                    console.log('FileReader');
                     reader = new FileReader();
                     reader.onload = function(e) {
                         done(reader.result);

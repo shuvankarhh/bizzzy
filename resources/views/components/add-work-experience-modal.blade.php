@@ -59,7 +59,7 @@
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <select name="year_start" id="year_start" aria-label="Default select example">
+                                    <select name="year_start" id="year_start_exp" aria-label="Default select example">
                                         <option value="" selected>Year</option>
                                         @for ($i = date('Y'); $i > (date('Y') - 80); $i--)
                                             <option>{{ $i }}</option>
@@ -89,7 +89,7 @@
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <select name="year_end" id="year_end" aria-label="Default select example">
+                                    <select name="year_end" id="year_end_exp" aria-label="Default select example">
                                         <option value="" selected>Year</option>
                                         @for ($i = date('Y'); $i > (date('Y') - 80); $i--)
                                             <option>{{ $i }}</option>
@@ -121,10 +121,10 @@
     </div>
 </div>
 @push('script')
-    <script>        
-        new TomSelect("#month_start", { create: false }); 
-        new TomSelect("#year_start", { create: false }); 
-        new TomSelect("#month_end", { create: false }); 
-        new TomSelect("#year_end", { create: false }); 
+    <script>
+        new TomSelect("#month_start", { create: false });
+        new TomSelect("#year_start_exp", { create: false });
+        new TomSelect("#month_end", { create: false });
+        new TomSelect("#year_end_exp", { create: false });
     </script>
 @endpush

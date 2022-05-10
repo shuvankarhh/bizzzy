@@ -109,6 +109,11 @@ class User extends Authenticatable
         return $this->hasOne(CompanyProfile::class);
     }
 
+    public function verification_request()
+    {
+        return $this->hasOne(VerificationRequest::class);
+    }
+
     public function isRecruiter()
     {
         $userAccount = $this->userAccount()->where('client_or_freelancer', 1)->first();

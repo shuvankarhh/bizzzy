@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Contract;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use App\Models\FreelancerProfile;
@@ -11,11 +12,11 @@ class FreelancerProfileController extends Controller
 {
     public function index()
     {
-        // dd(auth()->user()->freelance_profile);
+        // dd(Contract::with('job', 'feedback.user')->find(1));
         return view('profile.freelancer_profile')->with([
             'profile_photo' => auth()->user()->photo,
             'address' => auth()->user()->address,
-            'education' => auth()->user()->educations()->orderBy('start_date', 'desc')->first(),
+            'educations' => auth()->user()->educations()->orderBy('start_date', 'desc')->limit(3)->get(),
             'profile' => auth()->user()->freelance_profile,
             'languages' => auth()->user()->languages,
             'current' => auth()->user()->work_experiences()->where('currently_working', 1)->get(),
@@ -70,7 +71,7 @@ class FreelancerProfileController extends Controller
 
         auth()->user()->freelance_profile()->update(['price_per_hour' => $request->hourly_rate]);
 
-        return route('question.thirteen');
+        return (isset($request->from_profile)) ? route('freelancer.profile.index') : route('question.thirteen');
     }
 
     public function image_store(Request $request)

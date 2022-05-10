@@ -140,6 +140,16 @@ font-weight: 900;
     gap: 1rem;
 }
 
+.grid-center{
+    display: grid;
+    grid-template-columns: 0.3fr 0fr 0.1fr;
+}
+@media (min-width:0px) and (max-width:990px) {
+    .grid-center{
+        grid-template-columns: 0.8fr 0fr 0.2fr;
+    }
+}
+
 .relative {
     position: relative;
 }
@@ -1337,6 +1347,13 @@ body {
     position: relative;
     height: 130px;
 }
+.freelancer-profile .profile-image-edit{
+    position: absolute;
+    top: -2.6rem;
+    left: 1.5rem;
+    z-index: 1;
+    border-radius: 100%;
+}
 .freelancer-profile .profile-image{
     border: 2px solid white;
     width: 150px;
@@ -1396,20 +1413,32 @@ body {
     border-radius: 0px;
 }
 
-.freelancer-profile .hourly-rate{
-    background: #E6F2ED;
-    border-radius: 36px;
-    max-width: 80px;
-    padding: 5px;
+.freelancer-profile .hourly-rate-div i{
+    cursor: pointer;
+}
+.freelancer-profile .hourly-rate-div{
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
+}
+.freelancer-profile .hourly-rate{
+    background: #E6F2ED;
+    border-radius: 36px;
+    max-width: -webkit-fit-content;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+    padding: 0.3rem 0.6rem 0.3rem 0.6rem;
 }
 
 .freelancer-profile .hourly-rate p{
     font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
+}
+
+.job_feedback_body > *:not(hr){
+    padding: 1rem 1rem 0 1rem;
 }
 
 .show-all{
@@ -1436,6 +1465,13 @@ body {
     background-color: white;
 }
 
+
+
+.button-no-style{
+    border: unset;
+    background-color: white;
+}
+
 .freelancer-profile .card-header-button i{
     border: 1px solid #626468;
     border-radius: 50%;
@@ -1443,6 +1479,17 @@ body {
 
 .freelancer-profile .card-header-button .first{
     padding: 8px;
+    font-size: 0.8rem;
+}
+
+.freelancer-profile .card-header-button .education{
+    padding: 5px;
+}
+
+.inline{
+    border: 1px solid #626468;
+    border-radius: 50%;
+    padding: 5px;
     font-size: 0.8rem;
 }
 

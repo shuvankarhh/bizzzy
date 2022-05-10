@@ -19,6 +19,9 @@
             <div class="col-md-2 col-lg-2 col-xl-2 col-xxl-2 col-sm-12 col-xs-12">
                 <div class="row justify-content-between">
                     <div class="profile-image-div col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-sm-6 col-6">
+                        @if ($self)
+                            <button class="button-no-style profile-image-edit"><i class=" fas fa-pen"></i></button>
+                        @endif
                         <img class="profile-image" src="{{ asset('storage/' . $profile_photo) }}" alt="None">
                     </div>
                     <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-sm-5 col-5 mt-sm-2 mt-2 mb-md-2">
@@ -42,7 +45,16 @@
                         </p>
                     </div>
                     <div class="col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-sm-12 col-xs-12">
-                        <p class="m-0 mb-sm-2 mb-2 text-black">{{ (is_null($education)) ? '' : $education->institute_name }}</p>
+                        @if ($self)
+                        <div class="card-header-button me-2" style="justify-content: end;">
+                            <button data-mdb-toggle="modal" data-mdb-target="#education_modal"><i class="fas fa-plus education"></i></button>
+                        </div>
+                        @endif
+                        @if (!$educations->isEmpty())
+                            @foreach ($educations as $item)                                
+                                <p class="m-0 mb-sm-2 mb-2 text-black">{{ $item->institute_name }}</p>
+                            @endforeach
+                        @endif
                         <p class="m-0  mb-sm-2 mb-2 profile-social-icon">
                             <i class="fab fa-dribbble"></i>
                             <i class="fab fa-google"></i>
@@ -53,7 +65,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-7 col-lg-7 col-xl-7 col-xxl-7 col-sm-12 col-xs-12">
-                        Designed over 1000+ websites || I help startups businesses in User Experience || Web Design Expert || Front-end Developer & UI Design Expert || Redesign Expert || Freelancer
+                        {{-- Designed over 1000+ websites || I help startups businesses in User Experience || Web Design Expert || Front-end Developer & UI Design Expert || Redesign Expert || Freelancer --}}
                     </div>
                 </div>
                 <div class="row d-sm-none d-none d-md-flex d-lg-flex d-xl-flex d-xxl-flex justify-content-end pb-2">
@@ -134,10 +146,19 @@
     <section class="bio card-border card-padding mt-4">
         <div class="row justify-content-between">
             <div class="col-md-8 col-lg-8 col-xl-8 col-xxl-8 col-sm-12 col-xs-12">
-                <h2>{{ $profile->professional_title }}</h2>
+                <h2>{{ $profile->professional_title }} <span>                    
+                    @if ($self)
+                        <button class="button-no-style" data-mdb-toggle="modal" data-mdb-target="#edit_title"><i class="fas fa-pen inline"></i></button>
+                    @endif
+                </span></h2>
             </div>
-            <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-12 col-xs-12 align-self-end hourly-rate ms-sm-4 ms-4 me-3 mt-lg-2 mt-xl-2 mt-xxl-2">
-               <p class="m-0">${{ (int)$profile->price_per_hour }}/hr</p>
+            <div class="col-md-auto col-lg-auto col-xl-auto col-xxl-auto col-sm-12 col-xs-12 align-self-center hourly-rate-div">                
+                <div class="hourly-rate">
+                    <p class="m-0">${{ (int)$profile->price_per_hour }}/hr</p>
+                </div>
+                @if ($self)
+                    <i data-mdb-target="#edit_hourly_rate" data-mdb-toggle="modal" class="fas fa-pen inline "></i>
+                @endif
             </div>
             <div class="col-10">
                 <p id="show_text">{{ \Illuminate\Support\Str::limit($profile->description, 350, $end='....') }}</p>
@@ -219,7 +240,7 @@
                     <div class="card-header-button">
                         <i role="button" class="fas fa-pen first"></i>
                         <a style="color: unset" role="button" href="{{ route('portfolio.create') }}"><i class="fas fa-plus second"></i></a>
-                    </div>                    
+                    </div>
                 @endif
             </div>
             @forelse ($portfolios as $idx=>$item)
@@ -266,8 +287,8 @@
                 <h2 class="content-title">Skills</h2>
                 @if ($self)
                     <div class="card-header-button">
-                        <i role="button" class="fas fa-pen first"></i>
-                        <button id="profile_skill_modal" data-mdb-toggle="modal" data-mdb-target="#skill_modal"><i class="fas fa-plus second"></i></button>
+                        {{-- <i role="button" class="fas fa-pen first"></i> --}}
+                        <button id="profile_skill_modal" data-mdb-toggle="modal" data-mdb-target="#skill_modal"><i class="fas fa-pen first"></i></button>
                     </div>
                 @endif
             </div>
@@ -293,10 +314,10 @@
                         @endforeach
                     </div>
                 </div> --}}
-                <hr>
+                {{-- <hr>
                 <div class="text-center">
                     <a class="show-all" href="#">Show all Skills <i class="fas fa-chevron-down"></i></a>
-                </div>
+                </div> --}}
             </div>
         </div>
         {{-- <div class="profile">
@@ -376,6 +397,18 @@
     </section>
 </section>
 
+<div class="modal fade" id="job_details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body p-0 job_feedback_body" id="job_feedback_body">
+            </div>
+            <div class="modal-footer">
+                <butto type="button" class="btn btn-link custom-close" data-mdb-dismiss="modal" style="">Close</butto>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="skill_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -396,6 +429,108 @@
     </div>
 </div>
 
+<div class="modal fade" id="edit_hourly_rate" tabindex="-1" aria-labelledby="edit_title_label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form action="#" id="hourly_rate_form">
+            <input type="hidden" name="from_profile" value="1">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit_title_label">Edit Hourly Rate</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4"> 
+                    <p class="main-question-desc" >Clients will see this rate on your profile and in search results once you publish your profile. You can adjust your rate every time you submit a proposal.</p>
+                                            
+                    <div class="row">
+                        <div class="col-7">
+                            <p class="rate-text mb-0">Hourly Rate</p>
+                            <p class="rate-desc">Total amount the client will see</p>
+                        </div>
+                        <div class="col-5 align-self-center">
+                            <form action="#" id="hourly_rate_form">
+                                <div class="input-group form-outline">
+                                    <span class="input-group-text rate-input-group" id="inputGroupPrepend"> <span class="font-weight-bold">$</span>/hr</span>
+                                    <input value="{{ ($profile->price_per_hour) ? $profile->price_per_hour : '' }}" id="hourly_rate" name="hourly_rate" type="number" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required />
+                                    <div id="hourly_rate_invalid" class="invalid-feedback"></div>
+                                </div>
+                            </form>
+                        </div>                    
+                        <div class="col-12">
+                            <hr class="mt-0">
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-7">
+                            <p class="rate-text mb-0">Bizzzy Service Fee <span role="button"><i class="ms-1 fas fa-question-circle bizzzy-color"></i></span></p>
+                            <p class="rate-desc">The Bizzzy Service Fee is 20% </p>
+                        </div>
+                        <div class="col-5 align-self-center">
+                            <div class="input-group form-outline">
+                                <span class="input-group-text rate-input-group" id="inputGroupPrepend"> <span class="font-weight-bold">$</span>/hr</span>
+                                <input  value="-20" type="text" class="form-control" aria-describedby="inputGroupPrepend"/>
+                            </div>
+                        </div>                    
+                        <div class="col-12">
+                            <hr class="mt-0">
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-7">
+                            <p class="rate-text mb-0">You'll receive</p>
+                            <p class="rate-desc">The estimated amount you'll receive after service fees</p>
+                        </div>
+                        <div class="col-5 align-self-center">
+                            <div class="input-group form-outline">
+                                <span class="input-group-text rate-input-group" id="inputGroupPrepend"> <span class="font-weight-bold">$</span>/hr</span>
+                                <input id="will_get" type="text" class="form-control" aria-describedby="inputGroupPrepend"/>
+                            </div>
+                        </div>                    
+                        <div class="col-12">
+                            <hr class="mt-0">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-mdb-dismiss="modal">Close</button>
+                    <button type="button" onclick="add_hourly_rate()" class="btn btn-info">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="edit_title" tabindex="-1" aria-labelledby="edit_title_label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form action="#" id="edit_title_form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit_title_label">Edit Title & Education</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p> <i class="fa-solid fa-circle-exclamation"></i> Title is the very first thing clients see, so make it count. Stand out by describing your expertise in your own words.</p>
+                    <div class="form-outline mt-4">
+                        <input type="text" id="title" name="title" class="form-control" value="{{$profile->professional_title}}"/>
+                        <label class="form-label" for="title">Title</label>
+                        <div id="title_invalid" class="invalid-feedback js"></div>
+                    </div>
+                    <div class="form-outline mt-5">
+                        <textarea class="form-control" id="description" name="description" rows="4">{{$profile->description}}</textarea>
+                        <label class="form-label" for="description">Description</label>
+                        <div id="description_invalid" class="invalid-feedback js"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link" data-mdb-dismiss="modal">Close</button>
+                    <button class="btn btn-info">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<x-add-education-modal />
 <x-add-work-experience-modal />
 @endsection
 
@@ -410,6 +545,77 @@
 
 @push('script')
     <script>
+        // {{--  Cropper  --}}
+        // const modal_element = document.getElementById('imagecrop_modal');
+        // var modal_toggle = new bootstrap.Modal(modal_element);
+        // var image = document.getElementById('image');
+        // var cropper;
+        // let imageUpload = document.getElementById('imageUpload');
+        // imageUpload.addEventListener("change", function(e) {
+        //     var files = e.target.files;
+        //     var done = function(url) {
+        //         image.src = url;
+        //         modal_toggle.toggle();
+        //     };
+        //     var reader;
+        //     var file;
+        //     var url;
+        //     if (files && files.length > 0) {
+        //         file = files[0];
+        //         if (URL) {
+        //             done(URL.createObjectURL(file));
+        //         } else if (FileReader) {
+        //             reader = new FileReader();
+        //             reader.onload = function(e) {
+        //                 done(reader.result);
+        //             };
+        //             reader.readAsDataURL(file);
+        //         }
+        //     }
+        // });
+        // modal_element.addEventListener('shown.bs.modal', function() {
+        //     cropper = new Cropper(image, {
+        //         aspectRatio: 1,
+        //         viewMode: 1,
+        //         cropBoxResizable: false,
+        //         toggleDragModeOnDblclick: false,
+        //         dragMode: 'move',
+        //     });
+        // });
+        // modal_element.addEventListener('hidden.bs.modal', function() {
+        //     cropper.destroy();
+        //     cropper = null;
+        //     document.getElementById('imageUpload').value = '';
+        // });
+        // let crop_element = document.getElementById('crop');
+        // crop_element.addEventListener("click", function() {
+        //     canvas = cropper.getCroppedCanvas();
+        //     canvas.toBlob(function(blob) {
+        //         url = URL.createObjectURL(blob);
+        //         var reader = new FileReader();
+        //         reader.readAsDataURL(blob);
+        //         reader.onloadend = function() {
+        //             var base64data = reader.result;
+        //             let input = document.getElementById("base64image");
+        //             input.value = base64data;
+        //             upload_profile_image(base64data);
+        //             document.getElementById('imagePreview').style.backgroundImage = `url(${base64data})`;
+        //             modal_toggle.toggle();
+        //         }
+        //     });
+        // })
+
+        const hourly_rate_input = document.getElementById('hourly_rate');
+
+        hourly_rate_input.addEventListener('keyup', () => {
+            const will_get = document.getElementById('will_get');
+            will_get.value = hourly_rate_input.value - 20;
+        });
+
+        window.onload = function() {
+            const will_get = document.getElementById('will_get');
+            will_get.value = hourly_rate_input.value - 20;
+        };
         let progress = document.querySelector(".progress");
         progress.style.width = '90%';
     </script>

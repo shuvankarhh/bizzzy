@@ -7,10 +7,11 @@ use App\Models\User;
 use App\Models\Contract;
 use App\Models\JobProposal;
 use Illuminate\Http\Request;
+use App\Models\ContractMilestone;
+use App\Models\FreelancerProfile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\JobProposalRequest;
-use App\Models\ContractMilestone;
 
 class JobProposalController extends Controller
 {
@@ -78,6 +79,10 @@ class JobProposalController extends Controller
                 'freelancer_id' => $freelancer_id,
                 'additional_message' => $request->additional_message,
                 'hours_per_week' => $request->hour_per_week
+            ]);
+
+            FreelancerProfile::where('user_id', $freelancer_id)->update([
+                'total_jobs' => DB::raw('total_jobs + 1')
             ]);
 
             if ($request->payment_type == 'fixed') {

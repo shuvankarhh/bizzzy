@@ -17,7 +17,9 @@
             <div class="col-12">
                 <div class="row">
                     <div class="col-auto">
-                        <h3>{{$contract->job->name}}</h3>
+                        <button data-contract="{{ encrypt($contract->id) }}" onclick="get_feedback(this)" data-mdb-target="#job_details" data-mdb-toggle="modal" class="button-no-style" style="color: #0086FF">
+                            <h3>{{$contract->job->name}}</h3>
+                        </button>
                     </div>
                     <div class="col align-self-center d-sm-none d-none d-md-inline">
                         @if ($contract->payment_type === 1)                            

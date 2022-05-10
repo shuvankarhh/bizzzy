@@ -242,6 +242,27 @@ add_hourly_rate = () => {
 
 // ----------
 
+// =========== Job Feedback details ==========
+get_feedback = (e) => {
+    axios
+    .get(APP_URL + `/f/job-feedback/${e.dataset.contract}`)
+    .then(function(response) {
+        document.getElementById('job_feedback_body').innerHTML = response.data;
+        console.log(response);
+        // location.href = response.data;
+    })
+    .catch(function(error) {
+        if (typeof error.response !== "undefined") {
+            // This is for error from laravel
+            showValidation(error.response.data);
+        } else {
+            // Other JS related error
+            console.log(error);
+        }
+    });
+}
+// ===========================================
+
 // Upload Image
 
 upload_profile_image = (image) => {
@@ -339,6 +360,34 @@ add_title = () => {
 };
 
 // --------------
+
+// ====== Edit Freelancer title & description =====
+
+let edit_title = document.querySelector('#edit_title_form');
+if(edit_title){
+    edit_title.addEventListener('submit', (e) => {
+        e.preventDefault();        
+        
+        let formData = new FormData(edit_title);
+        formData.append('_method', 'PATCH');
+        axios
+        .post(APP_URL + "/f/edit-title", formData)
+        .then(function(response) {
+            location.reload();
+        })
+        .catch(function(error) {
+            if (typeof error.response !== "undefined") {
+                // This is for error from laravel
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
+    });
+}
+
+// ================================================
 
 // Show Full Text
 
@@ -1064,7 +1113,6 @@ if(endContract){
         .post(APP_URL + `/r/end-contract`, formData)
         .then(function(response) {
             location.href = response.data;
-
         })
         .catch(function(error) {
             document.getElementById('error').classList.remove('d-none');
@@ -1192,5 +1240,23 @@ loadsubcategory = (id) => {
         .catch(function(error) {
 
         });
+}
+
+// ===== Verification form ======
+let profile_verification = document.getElementById('verification_form');
+if(profile_verification){
+    profile_verification.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('test');
+        let formData = new FormData(profile_verification);
+        axios
+        .post(APP_URL + `/f/profile-verification`, formData)
+        .then(function(response) {
+            location.reload();
+        })
+        .catch(function(error) {
+            document.getElementById('error').classList.remove('d-none');
+        });
+    });
 }
 

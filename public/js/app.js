@@ -2261,6 +2261,23 @@ add_hourly_rate = function add_hourly_rate() {
     }
   });
 }; // ----------
+// =========== Job Feedback details ==========
+
+
+get_feedback = function get_feedback(e) {
+  axios.get(APP_URL + "/f/job-feedback/".concat(e.dataset.contract)).then(function (response) {
+    document.getElementById('job_feedback_body').innerHTML = response.data;
+    console.log(response); // location.href = response.data;
+  })["catch"](function (error) {
+    if (typeof error.response !== "undefined") {
+      // This is for error from laravel
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
+  });
+}; // ===========================================
 // Upload Image
 
 
@@ -2335,6 +2352,29 @@ add_title = function add_title() {
     }
   });
 }; // --------------
+// ====== Edit Freelancer title & description =====
+
+
+var edit_title = document.querySelector('#edit_title_form');
+
+if (edit_title) {
+  edit_title.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(edit_title);
+    formData.append('_method', 'PATCH');
+    axios.post(APP_URL + "/f/edit-title", formData).then(function (response) {
+      location.reload();
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        // This is for error from laravel
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
+    });
+  });
+} // ================================================
 // Show Full Text
 
 
@@ -3033,7 +3073,23 @@ loadsubcategory = function loadsubcategory(id) {
     }); // document.getElementById('name').value = response.data.name;
     // document.getElementById('category_id').value = response.data.id;
   })["catch"](function (error) {});
-};
+}; // ===== Verification form ======
+
+
+var profile_verification = document.getElementById('verification_form');
+
+if (profile_verification) {
+  profile_verification.addEventListener('submit', function (e) {
+    e.preventDefault();
+    alert('test');
+    var formData = new FormData(profile_verification);
+    axios.post(APP_URL + "/f/profile-verification", formData).then(function (response) {
+      location.reload();
+    })["catch"](function (error) {
+      document.getElementById('error').classList.remove('d-none');
+    });
+  });
+}
 
 /***/ }),
 

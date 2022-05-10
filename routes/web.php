@@ -38,8 +38,11 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\PermissionRoleController;
 use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\Freelancer\ExperienceController;
+use App\Http\Controllers\Freelancer\FreelancerAccountVerificationController;
 use App\Http\Controllers\Freelancer\FreelancerEndContractController;
+use App\Http\Controllers\Freelancer\FreelancerJobFeedbackController;
 use App\Http\Controllers\Freelancer\FreelancerSaveJobController;
+use App\Http\Controllers\Freelancer\FreelancerTitleController;
 use App\Http\Controllers\Freelancer\PreferenceController;
 use App\Http\Controllers\Freelancer\VisibilityController;
 use App\Http\Controllers\GetStarted\GetStartedController;
@@ -203,6 +206,8 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         // Route::get('/create/{id}', [JobController::class, 'create'])->name('job.create');
     });
 
+    Route::get('f/job-feedback/{id}', [FreelancerJobFeedbackController::class, 'show'])->name('freelancer.job.feedback.show');
+
     Route::prefix('recruiter-job')->group(function () {
         Route::get('/', [RecruiterJobController::class, 'index'])->name('recruiter.job.index');
     });
@@ -234,12 +239,13 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::prefix('f/contracts')->group(function () {
         Route::get('/', [FreelancerActiveJobController::class, 'index'])->name('freelancer.contract.index');
     });
-
     
     Route::prefix('f/end-contract')->group(function () {
         Route::get('/create/{id}', [FreelancerEndContractController::class, 'create'])->name('freelancer.end.contract.create');
         Route::post('/', [FreelancerEndContractController::class, 'store'])->name('freelancer.end.contract.store');
     });
+
+    Route::PATCH('f/edit-title', [FreelancerTitleController::class, 'update'])->name('freelancer.title.update');
 
     Route::post('f/save-job/store', [FreelancerSaveJobController::class, 'store'])->name('freelancer.save.job.store');
     Route::DELETE('f/save-job/{savedJob}', [FreelancerSaveJobController::class, 'destroy'])->name('freelancer.save.job.destroy');
@@ -277,6 +283,10 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::prefix('setting')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('setting.index');
     });
+
+    Route::get('f/profile-verification', [FreelancerAccountVerificationController::class, 'index'])->name('freelancer.profile.verification.get');
+    Route::post('f/profile-verification', [FreelancerAccountVerificationController::class, 'store'])->name('freelancer.profile.verification.store');
+
     Route::prefix('create-client-account')->group(function () {
         Route::get('/create', [ClientAccountController::class, 'create'])->name('client.account.create');
         Route::post('/', [ClientAccountController::class, 'store'])->name('client.account.store');

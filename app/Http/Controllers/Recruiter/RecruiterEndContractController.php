@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Recruiter;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
+use App\Models\ContractFeedback;
 use Illuminate\Http\Request;
 
 class RecruiterEndContractController extends Controller
@@ -46,7 +47,15 @@ class RecruiterEndContractController extends Controller
             'experience' => 'required',
             'end_reason' => 'required'
         ]);
-        $contract = Contract::find(decrypt($request->contract));
+
+        $contract_id = decrypt($request->contract);
+
+        $contract = Contract::find($contract_id);
+
+        if($contract->created_by_user != auth()->id()){
+            abort(403);
+        }
+
         $contract->client_private_feedback_rating = $request->private_rating;
         $contract->client_public_feedback_rating = $request->public_feedback;
         $contract->client_public_feedback_comment = $request->experience;
@@ -64,6 +73,18 @@ class RecruiterEndContractController extends Controller
             abort(403);
         }
         $contract->save();
+
+        ContractFeedback::create([
+            'user_id' => auth()->id(),
+            'contract_id' => $contract_id,
+            'feedback_one' => $request->skill,
+            'feedback_two' => $request->quality_of_work,
+            'feedback_three' => $request->availability,
+            'feedback_four' => $request->adherence_to_schedule,
+            'feedback_five' => $request->communication,
+            'feedback_six' => $request->cooperation,
+        ]);
+
         return route('recruiter.contract.index');
     }
 

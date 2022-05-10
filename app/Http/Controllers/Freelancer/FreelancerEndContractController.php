@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Freelancer;
 
 use App\Models\Contract;
 use Illuminate\Http\Request;
+use App\Models\ContractFeedback;
 use App\Http\Controllers\Controller;
 
 class FreelancerEndContractController extends Controller
@@ -46,7 +47,14 @@ class FreelancerEndContractController extends Controller
             'experience' => 'required',
         ]);
 
-        $contract = Contract::find(decrypt($request->contract));
+        $contract_id = decrypt($request->contract);
+
+        $contract = Contract::find($contract_id);
+
+        if($contract->freelancer_id != auth()->id()){
+            abort(403);
+        }
+
         $contract->freelancer_private_feedback_rating = $request->private_rating;
         $contract->freelancer_public_feedback_rating = $request->public_feedback;
         $contract->freelancer_public_feedback_comment = $request->experience;
@@ -64,6 +72,17 @@ class FreelancerEndContractController extends Controller
             abort(403);
         }
         $contract->save();
+
+        ContractFeedback::create([
+            'user_id' => auth()->id(),
+            'contract_id' => $contract_id,
+            'feedback_one' => $request->skill,
+            'feedback_two' => $request->quality_of_requirment,
+            'feedback_three' => $request->availability,
+            'feedback_four' => $request->deadline_set,
+            'feedback_five' => $request->communication,
+            'feedback_six' => $request->cooperation,
+        ]);
 
         return route('freelancer.contract.index');
     }

@@ -1,3 +1,8 @@
+## 0.038.0 (2022-05-10 16:20)
+| Type | Description         |
+| ---- | ------------------- |
+| add  | Rating and Freelancer Account verification |
+
 ## 0.037.0 (2022-05-08 16:20)
 | Type | Description         |
 | ---- | ------------------- |
