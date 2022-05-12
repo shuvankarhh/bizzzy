@@ -119,6 +119,57 @@ add_education = () => {
 };
 // -----------------
 
+let education_edit = document.querySelectorAll('.education-edit');
+
+let get_education = (e) => {
+    axios
+    .get(APP_URL + `/education/${e.currentTarget.dataset.education}/edit`)
+    .then(function(response) {
+        document.getElementById('edit_education_body').innerHTML = response.data;
+        new TomSelect("#edit_year_start", { create: false }); 
+        new TomSelect("#edit_year_end", { create: false });
+    })
+    .catch(function(error) {
+        if (typeof error.response !== "undefined") {
+            // This is for error from laravel
+            showValidation(error.response.data);
+        } else {
+            // Other JS related error
+            console.log(error);
+        }
+    });
+}
+
+let edit_education_form = document.getElementById('edit_education_form');
+if(edit_education_form){
+    edit_education_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        let edit_education = document.getElementById('edit_education').value;
+        let formData = new FormData(edit_education_form);
+        formData.append('_method', 'patch');
+    
+        axios
+        .post(APP_URL + `/education/${edit_education}`, formData)
+        .then(function(response) {
+            location.reload();
+        })
+        .catch(function(error) {
+            if (typeof error.response !== "undefined") {
+                // This is for error from laravel
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
+    });
+}
+
+education_edit.forEach((element, idx) =>{
+    element.addEventListener('click', get_education);
+});
+
 // Inserting Language
 
 add_language = () => {
@@ -134,8 +185,7 @@ add_language = () => {
         .catch(function(error) {
             if (typeof error.response !== "undefined") {
                 // This is for error from laravel
-                document.getElementById("error").innerHTML =
-                    "Please fill all inputs!";
+                document.getElementById("error").innerHTML = "Please fill all inputs!";
             } else {
                 // Other JS related error
                 console.log(error);
@@ -1247,7 +1297,6 @@ let profile_verification = document.getElementById('verification_form');
 if(profile_verification){
     profile_verification.addEventListener('submit', (e) => {
         e.preventDefault();
-        alert('test');
         let formData = new FormData(profile_verification);
         axios
         .post(APP_URL + `/f/profile-verification`, formData)
@@ -1285,3 +1334,185 @@ loadprofile = (id) => {
 
         });
 }
+
+let password = document.querySelector('#new_password');
+if(password){
+    password.addEventListener('keyup', (e) => {
+        let number_check = document.getElementById('number_check');
+        let special_check = document.getElementById('special_check');
+        if(/\d/.test(e.target.value)){
+            number_check.classList.remove('not-met');
+            number_check.classList.add('met');
+        }else{
+            number_check.classList.add('not-met');
+            number_check.classList.remove('met');                
+        }
+        if(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(e.target.value)){
+            special_check.classList.remove('not-met');
+            special_check.classList.add('met');
+        }else{
+            special_check.classList.add('not-met');
+            special_check.classList.remove('met'); 
+        }
+    });
+}
+
+let new_password_confirmation = document.getElementById('new_password_confirmation');
+if(new_password_confirmation){
+    new_password_confirmation.addEventListener('keyup', (e) => {
+        let confirm_message = document.getElementById('confirm_message');
+        if(password.value === new_password_confirmation.value){
+            confirm_message.classList.remove('not-met');
+            confirm_message.classList.add('met');
+        }else{
+            confirm_message.classList.add('not-met');
+            confirm_message.classList.remove('met');                
+        }
+    });
+}
+
+let change_password_form = document.getElementById('change_password_form');
+if(change_password_form){
+    change_password_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(change_password_form);
+        formData.append('_method', 'patch');
+        axios
+        .post(APP_URL + `/change-password`, formData)
+        .then(function(response) {
+            // console.log(response);
+            location.reload();
+        })
+        .catch(function(error) {
+            if (typeof error.response !== "undefined") {
+                //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
+    });
+}
+
+let edit_contact = document.getElementById('edit_contact');
+if(edit_contact){
+    edit_contact.addEventListener('click', () => {
+        let show_div = document.getElementById('show_div');
+        let edit_div = document.getElementById('edit_div');
+        show_div.classList.toggle('d-none');
+        edit_div.classList.toggle('d-none');
+        console.log('click');
+    });
+}
+
+let update_contact_info = document.getElementById('update_contact_info');
+if(update_contact_info){
+    update_contact_info.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(update_contact_info);
+        axios
+        .post(APP_URL + `/user/edit`, formData)
+        .then(function(response) {
+            // console.log(response);
+            location.reload();
+        })
+        .catch(function(error) {
+            if (typeof error.response !== "undefined") {
+                //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
+    });
+}
+
+let getExperienceEdit = (e) => {
+    axios
+    .get(APP_URL + `/experience/${e.currentTarget.dataset.experience}/edit`)
+    .then(function(response) {
+        document.getElementById('edit_work_body').innerHTML = response.data;
+        new TomSelect("#edit_experience_month_start", { create: false });
+        new TomSelect("#edit_experience_year_start_exp", { create: false });
+        new TomSelect("#edit_experience_month_end", { create: false });
+        new TomSelect("#edit_experience_year_end_exp", { create: false });
+    })
+}
+
+edit_work_experience = (e, id) => {
+    event.preventDefault();
+    let formData = new FormData(e);
+    formData.append('_method', 'patch');
+    axios
+    .post(APP_URL + `/experience/${id}`, formData)
+    .then(function(response) {
+        console.log(response);
+        location.reload();
+    })
+    .catch(function(error) {
+        if (typeof error.response !== "undefined") {
+            //  This is for error from laravel
+            console.log(error.response.data);
+            showValidation(error.response.data);
+        } else {
+            // Other JS related error
+            console.log(error);
+        }
+    });
+}
+
+let experience_edit = document.querySelectorAll('.experience_edit');
+if(experience_edit.length > 0){
+    experience_edit.forEach((element) => {
+        element.addEventListener('click', getExperienceEdit);
+    });
+}
+
+let getPortfolioEdit = (e) => {
+    axios
+    .get(APP_URL + `/user_portfolio/${e.currentTarget.dataset.portfolio}/edit`)
+    .then(function(response) {
+        document.getElementById('portfolio_title').value = response.data.title;
+        document.getElementById('portfolio_description').value = response.data.description;
+        let creation_date = new Date(response.data.created_at);
+        document.getElementById('completion_date').value = creation_date.toISOString().substring(0,10);;
+        document.getElementById('project_url').value = response.data.project_url;
+        document.getElementById('edit_portfolio').value = response.data.id;        
+    })
+}
+
+let edit_portfolio_form = document.getElementById('edit_portfolio_form');
+if(edit_portfolio_form){
+    edit_portfolio_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(edit_portfolio_form);
+        formData.append('_method', 'patch');
+        axios
+        .post(APP_URL + `/user_portfolio/${document.getElementById('edit_portfolio').value}`, formData)
+        .then(function(response) {
+            location.reload();
+        })
+        .catch(function(error) {
+            if (typeof error.response !== "undefined") {
+                //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
+    });
+}
+
+let portfolio_edit = document.querySelectorAll('.portfolio_edit');
+if(portfolio_edit.length > 0){
+    portfolio_edit.forEach((element) => {
+        element.addEventListener('click', getPortfolioEdit);
+    });
+}
+

@@ -51,7 +51,7 @@
                         Applied
                     </div>                            
                 </div>
-            @else
+            @elseif ($job->user_id != auth()->id())
                 <div class="text-end col-md-1 col-lg-auto col-xl-1 col-xxl-1 col-sm-4 col-xs-4 p-0 d-none d-sm-none d-md-block d-lg-block d-xl-block d-xxl-block">
                     <div class="applied text-center {{ $remove ? 'remove' : '' }} save {{ ($job->saved_job_count > 0) ? 'saved' : ''}}" data-job="{{ ($job->saved_job_count > 0) ? ($remove ? encrypt($job->id) : "") : encrypt($job->id) }}">
                         {{ ($job->saved_job_count > 0) ? 'Saved' : 'Save'}}

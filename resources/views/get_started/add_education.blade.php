@@ -54,9 +54,3 @@
 
 <x-add-education-modal />
 @endsection
-@push('script')
-    <script>        
-        new TomSelect("#year_start", { create: false }); 
-        new TomSelect("#year_end", { create: false }); 
-    </script>
-@endpush

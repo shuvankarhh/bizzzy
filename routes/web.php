@@ -36,6 +36,7 @@ use App\Http\Controllers\ContractMilestoneController;
 use App\Http\Controllers\FreelancerProfileController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\PermissionRoleController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\Freelancer\ExperienceController;
 use App\Http\Controllers\Freelancer\FreelancerAccountVerificationController;
@@ -53,6 +54,7 @@ use App\Http\Controllers\Recruiter\RecruiterEndContractController;
 use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
+use App\Http\Controllers\PasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -175,8 +177,13 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::get('submit-profile', [ProfileController::class, 'submitProfile'])->name('profile');
         Route::get('blog', [BlogController::class, 'blog'])->name('blog');
 
-        Route::get('/', [UserController::class, 'index']);
+        // Route::get('/', [UserController::class, 'index']);
     });
+
+    Route::post('user/edit', [UserController::class, 'update'])->name('user.edit');
+
+    Route::get('/education/{education}/edit', [EducationController::class, 'edit'])->name('education.edit');
+    Route::patch('/education/{education}', [EducationController::class, 'update'])->name('education.update');
 
     Route::prefix('job')->group(function () {
         Route::get('/', [JobController::class, 'index'])->name('user.job.index');
@@ -194,6 +201,8 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
 
     Route::prefix('experience')->group(function () {
         Route::post('/', [ExperienceController::class, 'store'])->name('experience.store');
+        Route::get('/{experience}/edit', [ExperienceController::class, 'edit'])->name('experience.edit');
+        Route::patch('/{experience}', [ExperienceController::class, 'update'])->name('experience.update');
     });
 
     Route::prefix('job-apply')->group(function () {
@@ -226,6 +235,8 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::prefix('user_portfolio')->group(function () {
         Route::get('/create', [UserPortfolioController::class, 'create'])->name('portfolio.create');
         Route::post('/', [UserPortfolioController::class, 'store'])->name('portfolio.store');
+        Route::get('/{portfolio}/edit', [UserPortfolioController::class, 'edit'])->name('portfolio.edit');
+        Route::patch('/{userPortfolio}', [UserPortfolioController::class, 'update'])->name('portfolio.update');
     });
 
     Route::prefix('skill')->group(function () {
@@ -293,6 +304,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     });
 
     Route::post('change-account/{type}', [ChangeAccountTypeController::class, 'update'])->name('change.account');
+    Route::patch('change-password', [PasswordController::class, 'update'])->name('change.password.store');
 });
 Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dash');
 Route::group(['middleware' => ['guest', 'guest:admin']], function () {

@@ -140,6 +140,16 @@ font-weight: 900;
     gap: 1rem;
 }
 
+.not-met{
+    color: #DE350B;
+    transition: 300ms;
+}
+
+.met{
+    color: #00875A;
+    transition: 300ms;
+}
+
 .grid-center{
     display: grid;
     grid-template-columns: 0.3fr 0fr 0.1fr;
@@ -1347,13 +1357,31 @@ body {
     position: relative;
     height: 130px;
 }
-.freelancer-profile .profile-image-edit{
+
+.custom-file-input{
+    opacity: 0;
     position: absolute;
-    top: -2.6rem;
-    left: 1.5rem;
-    z-index: 1;
-    border-radius: 100%;
+    top: -9999px;
+    left: -9999px;
 }
+
+.custom-file-label{
+    border: 2px solid #0086FF;
+    background-color: #A5ADBA;
+    border-radius: 50%;
+    position: absolute;
+    top: -35px;
+    z-index: 1;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    left: 22px;
+    cursor: pointer;
+}
+
 .freelancer-profile .profile-image{
     border: 2px solid white;
     width: 150px;
@@ -1484,6 +1512,19 @@ body {
 
 .freelancer-profile .card-header-button .education{
     padding: 5px;
+}
+
+.freelancer-profile .education-edit{
+    font-size: 0.8rem;
+}
+
+.circular-button{
+    border: 1px outset  gray;
+    background-color: white;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    aspect-ratio: 1;
 }
 
 .inline{

@@ -26,8 +26,6 @@
                 <a class="nav-link" id="membership-tab" data-mdb-toggle="tab" href="#v-tabs-home" role="tab" aria-controls="membership" aria-selected="true">Membership & Connects</a>
                 <a class="nav-link active" id="contact-tab" data-mdb-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact Info</a>
                 <a class="nav-link" id="tax-tab" data-mdb-toggle="tab" href="#tax" role="tab" aria-controls="tax" aria-selected="false">Tax Information</a>
-                <a class="nav-link" id="profile-tab" href="{{ route('freelancer.profile.index') }}"  aria-controls="profile" aria-selected="false">My Profile</a>
-                <a class="nav-link" id="profile-setting-tab" data-mdb-toggle="tab" href="#profile-setting" role="tab" aria-controls="profile-setting" aria-selected="false">Profile Setting</a>
                 <a class="nav-link" id="get-paid-tab" data-mdb-toggle="tab" href="#get-paid" role="tab" aria-controls="get-paid" aria-selected="false">Get Paid</a>
                 <a class="nav-link" id="my-team-tab" data-mdb-toggle="tab" href="#my-team" role="tab" aria-controls="my-team" aria-selected="false">My Teams</a>
                 <a class="nav-link" id="connected-service-tab" data-mdb-toggle="tab" href="#connected-service" role="tab" aria-controls="connected-service" aria-selected="false">Connected Services</a>
@@ -84,51 +82,6 @@
                 </div>
                 <div class="tab-pane fade" id="tax" role="tabpanel" aria-labelledby="tax-tab">
                     Tax
-                </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    Profile
-                </div>
-                <div class="tab-pane fade" id="profile-setting" role="tabpanel" aria-labelledby="profile-setting-tab">                    
-                    @if (!is_null($freelancer))
-                        <div class="card">
-                            <div class="card-header">My Profile</div>
-                            <div class="card-body">
-                                <label class="form-label" for="visibility">Visibility</label>
-                                <select name="visibility" id="visibility" class="form-control w-50" data-selected="{{ is_null($freelancer->profile_visibility) ? '' : $freelancer->profile_visibility }}">
-                                    @if (is_null($freelancer->profile_visibility)) <option value="">Visibility</option> @endif
-                                    <option value="2">Public</option>
-                                    <option value="1">Private</option>
-                                    <option value="3">This app user only</option>
-                                </select>
-                                <label class="form-label mt-3" for="preference">Profile preference <i class="fa-solid fa-circle-question" data-mdb-toggle="tooltip" title="This will not affect the jobs we show to client!"></i></label>
-                                <select name="preference" id="preference" class="form-control w-50" data-selected="{{ $freelancer->project_time_preference }}">
-                                    @if (is_null($freelancer->project_time_preference)) <option value="">Project Preference</option> @endif
-                                    <option value="2"> Both short-term and long-term projects </option>
-                                    <option value="1"> Long-term projects (3+ months) </option>
-                                    <option value="3"> Short-term projects (less than 3 months) </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="card mt-5">
-                            <div class="card-header"><span class="experience_text"> Experience level <span class="icons"><i id="loader" class="fa-solid fa-circle-notch fa-spin loader loader-hidden"></i><i id="success" class="fa-solid fa-circle-check loader-hidden loader" style="--fa-animation-iteration-count: 1"></i> </span></span></div>
-                            <div class="card-body experience" style="">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="experience_level" id="entry" value="1" />
-                                    <label class="form-check-label" for="entry">Entry Level</label>
-                                </div>
-                                
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="experience_level" id="intermediate" value="2" />
-                                    <label class="form-check-label" for="intermediate">Intermediate</label>
-                                </div>
-                                
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="experience_level" id="expert" value="3" />
-                                    <label class="form-check-label" for="expert">Expert</label>
-                                </div>
-                            </div>
-                        </div>                        
-                    @endif
                 </div>
                 <div class="tab-pane fade" id="get-paid" role="tabpanel" aria-labelledby="get-paid-tab">
                     Get Paid

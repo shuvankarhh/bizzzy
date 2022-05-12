@@ -70,9 +70,13 @@ class UserPortfolioController extends Controller
      * @param  \App\Models\UserPortfolio  $userPortfolio
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserPortfolio $userPortfolio)
+    public function edit($portfolio)
     {
-        //
+        $portfolio = UserPortfolio::find(decrypt($portfolio));
+        if($portfolio->user_id != auth()->id()){
+            abort(403);
+        }
+        return response()->json($portfolio);
     }
 
     /**
@@ -84,7 +88,27 @@ class UserPortfolioController extends Controller
      */
     public function update(Request $request, UserPortfolio $userPortfolio)
     {
-        //
+        $request->validate([
+            'portfolio_title' => 'required',
+            'portfolio_description' => 'required',
+            'completion_date' => 'required',
+            'project_url' => 'required',
+        ]);
+
+        if($userPortfolio->user_id != auth()->id()){
+            abort(403);
+        }
+
+        $userPortfolio->title = $request->portfolio_title;
+        $userPortfolio->description = $request->portfolio_description;
+        $userPortfolio->completion_date = $request->completion_date;
+        $userPortfolio->project_url = $request->project_url;
+
+        if($request->hasFile('project_thumbnail')){
+            $path = $request->file('project_thumbnail')->store('freelancer/portfolio', ['disk' => 'public']);
+            $userPortfolio->thumbnail = $path;
+        }
+        $userPortfolio->save();
     }
 
     /**

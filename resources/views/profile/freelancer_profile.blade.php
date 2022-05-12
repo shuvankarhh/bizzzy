@@ -20,7 +20,10 @@
                 <div class="row justify-content-between">
                     <div class="profile-image-div col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-sm-6 col-6">
                         @if ($self)
-                            <button class="button-no-style profile-image-edit"><i class=" fas fa-pen"></i></button>
+                            <label class="custom-file-label" for="edit_profile_photo"><i class="fas fa-pen"></i></label>
+                            <input name="edit_profile_photo" id="edit_profile_photo" type="file" class="custom-file-input">
+                            <input type="hidden" name="base64image" id="base64image">
+                            {{-- <button class="button-no-style profile-image-edit"><i class=" fas fa-pen"></i></button> --}}
                         @endif
                         <img class="profile-image" src="{{ asset('storage/' . $profile_photo) }}" alt="None">
                     </div>
@@ -52,7 +55,7 @@
                         @endif
                         @if (!$educations->isEmpty())
                             @foreach ($educations as $item)                                
-                                <p class="m-0 mb-sm-2 mb-2 text-black">{{ $item->institute_name }}</p>
+                                <p class="m-0 mb-sm-2 mb-2 text-black">{{ $item->institute_name }} @if ($self) <button data-mdb-toggle="modal" data-mdb-target="#edit_education_modal" data-education="{{encrypt($item->id)}}" class="button-no-style education-edit"><i class="fas fa-pen education"></i></button> @endif</p>
                             @endforeach
                         @endif
                         <p class="m-0  mb-sm-2 mb-2 profile-social-icon">
@@ -238,7 +241,6 @@
                 <h2>Portfolio</h2>
                 @if ($self)
                     <div class="card-header-button">
-                        <i role="button" class="fas fa-pen first"></i>
                         <a style="color: unset" role="button" href="{{ route('portfolio.create') }}"><i class="fas fa-plus second"></i></a>
                     </div>
                 @endif
@@ -259,9 +261,11 @@
                         @endif
                         <div class="col-12 portfolio-text">
                             @if (empty($item->project_url))
-                                <p class="m-0 mt-1 portfolio-title">{{ $item->title }}</p>
+                                <div style="display: flex;gap: 1rem;align-items: center;margin-top: 1rem"> <p class="m-0 portfolio-title">{{ $item->title }}</p> @if ($self) <button data-mdb-target="#edit_portfolio_modal" data-mdb-toggle="modal" data-portfolio="{{ encrypt($item->id) }}" style="display:flex;justify-content:center;align-items:center;font-size: 0.6rem;height: 1.3rem; width: 1.3rem;" type="button" class="circular-button portfolio_edit"><i class="fas fa-pen"></i></button> @endif</div>
+                                {{-- <p class="m-0 mt-1 portfolio-title">{{ $item->title }}</p> --}}
                             @else
-                                <a href="{{ $item->project_url }}" target="_blank"><p class="m-0 mt-1 portfolio-title">{{ $item->title }}</p></a>
+                                <div style="display: flex;gap: 1rem;align-items: center;margin-top: 1rem"> <a href="{{ $item->project_url }}" target="_blank"><p class="m-0 portfolio-title">{{ $item->title }}</p></a> @if ($self) <button data-mdb-target="#edit_portfolio_modal" data-mdb-toggle="modal" data-portfolio="{{ encrypt($item->id) }}" style="display:flex;justify-content:center;align-items:center;font-size: 0.6rem;height: 1.3rem; width: 1.3rem;" type="button" class="circular-button portfolio_edit"><i class="fas fa-pen"></i></button> @endif</div>
+                                
                             @endif
                             <p id="show_text{{ $idx }}" class="m-0 d-none d-sm-none d-md-block">{!! \Illuminate\Support\Str::limit($item->description, 100, $end='....<u onclick="show_full_text(this, '.$idx.')" role="button" class="m-0 job-more-button">more</u>') !!}</p>
                             <span class="d-none" id="full_text{{ $idx }}">{{ $item->description }}</span>
@@ -335,7 +339,6 @@
                 <h2 class="">Experience</h2>
                 @if ($self)
                     <div class="card-header-button">
-                        <i role="button" class="fas fa-pen first"></i>
                         <i role="button" data-mdb-target="#work_modal" data-mdb-toggle="modal" class="fas fa-plus second"></i>
                     </div>
                 @endif
@@ -366,7 +369,7 @@
                             @if ($idx != 0)
                                 <hr>
                             @endif
-                            <h4 class="m-0 text-black">{{ $item->title }}</h4>
+                            <div style="display: flex;gap: 1rem"> <h4 class="m-0 text-black">{{ $item->title }}</h4> @if ($self) <button data-mdb-target="#edit_work_modal" data-mdb-toggle="modal" data-experience="{{ encrypt($item->id) }}" style="font-size: 0.8rem;height: 1.8rem; width: 1.8rem;" type="button" class="circular-button experience_edit"><i class="fas fa-pen"></i></button> @endif</div>
                             <p class="mt-2 mb-2">{{ $item->description }}</p>
                             <p class="m-0"><b class="text-black">From:</b> {{ (is_null($item->start_date)) ? '-' : $item->start_date->format('M d, Y') }}</p>
                             <p class="m-0"><b class="text-black">To:</b> {{ (is_null($item->end_date)) ? '-' : $item->end_date->format('M d, Y') }}</p>
@@ -383,7 +386,7 @@
                             @if ($idx != 0)
                                 <hr>
                             @endif
-                            <h4 class="m-0 text-black">{{ $item->title }}</h4>
+                            <div style="display: flex;gap: 1rem"> <h4 class="m-0 text-black">{{ $item->title }}</h4> @if ($self) <button data-mdb-target="#edit_work_modal" data-mdb-toggle="modal" data-experience="{{ encrypt($item->id) }}" style="font-size: 0.8rem;height: 1.8rem; width: 1.8rem;" type="button" class="circular-button experience_edit"><i class="fas fa-pen"></i></button> @endif</div>
                             <p class="mt-2 mb-2">{{ $item->description }}</p>
                             <p class="m-0"><b class="text-black">From:</b> {{ (is_null($item->start_date)) ? '-' : $item->start_date->format('M d, Y') }}</p>
                             <p class="m-0"><b class="text-black">To:</b> {{ (is_null($item->end_date)) ? '-' : $item->end_date->format('M d, Y') }}</p>
@@ -397,13 +400,70 @@
     </section>
 </section>
 
+<div class="modal fade" id="edit_portfolio_modal" tabindex="-1" aria-labelledby="portfolio_modal_label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form id="edit_portfolio_form">
+            <input type="hidden" name="edit_portfolio" id="edit_portfolio">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="portfolio_modal_label">Edit Portfolio</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="portfolio_title">Title</label>
+                        <input class="form-control" type="text" name="portfolio_title" id="portfolio_title" placeholder="Title">
+                        <div class="invalid-reposne" id="portfolio_title_invalid"></div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="portfolio_description">Description</label>
+                        <textarea class="form-control" name="portfolio_description" id="portfolio_description" cols="30" rows="5" placeholder="Description"></textarea>
+                        <div class="invalid-reposne" id="portfolio_description_invalid"></div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="completion_date">Completed At</label>
+                        <input type="date" name="completion_date" id="completion_date" class="form-control">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="project_url">Project URL</label>
+                        <input class="form-control" type="text" name="project_url" id="project_url" placeholder="Project URl">
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="project_thumbnail" class="form-label">Project Thumbnail</label>
+                        <input class="form-control" type="file" name="project_thumbnail" id="project_thumbnail">
+                        <div class="invalid-reposne" id="project_thumbnail_invalid"></div>
+                    </div>
+                </div>                
+                <div class="modal-footer">
+                    <button class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-link custom-close" data-mdb-dismiss="modal" style="">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="edit_education_modal" tabindex="-1" aria-labelledby="education_modal_label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form id="edit_education_form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="education_modal_label">Edit Education</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="edit_education_body"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="modal fade" id="job_details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-body p-0 job_feedback_body" id="job_feedback_body">
             </div>
             <div class="modal-footer">
-                <butto type="button" class="btn btn-link custom-close" data-mdb-dismiss="modal" style="">Close</butto>
+                <button type="button" class="btn btn-link custom-close" data-mdb-dismiss="modal" style="">Close</button>
             </div>
         </div>
     </div>
@@ -529,12 +589,67 @@
         </form>
     </div>
 </div>
+<div class="modal fade" id="edit_work_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Work Experience</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-mdb-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body p-4" id="edit_work_body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade imagecrop" id="imagecrop_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Profile Image</h5>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div>
+                        <img width="400px" height="400px" id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                    </div>
+                    {{-- <div class="photo-upload">
+                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" name="imageUpload"
+                            class=" imageUpload">
+                        <label for="file" class="btn upload-button change-image">Change photo</label>
+                    
+                    </div> --}}
+
+                </div>
+                <div>
+                    <p class="details-title">Your photo should:</p>
+                    <ul class="photo-details">
+                        <li>Be a close-up of your face</li>
+                        <li> Show your face clearly - no sunglasses!</li>
+                        <li> Be clear and crisp</li>
+                        <li> Have a neutral background</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="background: #FFFFFF; border-radius: 3px; color: #42526E;" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn crop" id="crop" style="background: #14A800; border-radius: 3px; color:#FFFFFF">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <x-add-education-modal />
 <x-add-work-experience-modal />
 @endsection
 
 @push('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
 <style>
     body{
         background: #f9fafc;
@@ -543,67 +658,72 @@
     
 @endpush
 
+@push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+@endpush
+
 @push('script')
     <script>
-        // {{--  Cropper  --}}
-        // const modal_element = document.getElementById('imagecrop_modal');
-        // var modal_toggle = new bootstrap.Modal(modal_element);
-        // var image = document.getElementById('image');
-        // var cropper;
-        // let imageUpload = document.getElementById('imageUpload');
-        // imageUpload.addEventListener("change", function(e) {
-        //     var files = e.target.files;
-        //     var done = function(url) {
-        //         image.src = url;
-        //         modal_toggle.toggle();
-        //     };
-        //     var reader;
-        //     var file;
-        //     var url;
-        //     if (files && files.length > 0) {
-        //         file = files[0];
-        //         if (URL) {
-        //             done(URL.createObjectURL(file));
-        //         } else if (FileReader) {
-        //             reader = new FileReader();
-        //             reader.onload = function(e) {
-        //                 done(reader.result);
-        //             };
-        //             reader.readAsDataURL(file);
-        //         }
-        //     }
-        // });
-        // modal_element.addEventListener('shown.bs.modal', function() {
-        //     cropper = new Cropper(image, {
-        //         aspectRatio: 1,
-        //         viewMode: 1,
-        //         cropBoxResizable: false,
-        //         toggleDragModeOnDblclick: false,
-        //         dragMode: 'move',
-        //     });
-        // });
-        // modal_element.addEventListener('hidden.bs.modal', function() {
-        //     cropper.destroy();
-        //     cropper = null;
-        //     document.getElementById('imageUpload').value = '';
-        // });
-        // let crop_element = document.getElementById('crop');
-        // crop_element.addEventListener("click", function() {
-        //     canvas = cropper.getCroppedCanvas();
-        //     canvas.toBlob(function(blob) {
-        //         url = URL.createObjectURL(blob);
-        //         var reader = new FileReader();
-        //         reader.readAsDataURL(blob);
-        //         reader.onloadend = function() {
-        //             var base64data = reader.result;
-        //             let input = document.getElementById("base64image");
-        //             input.value = base64data;
-        //             upload_profile_image(base64data);
-        //             document.getElementById('imagePreview').style.backgroundImage = `url(${base64data})`;
-        //             modal_toggle.toggle();
-        //         }
-        //     });
-        // })
+        {{--  Cropper  --}}
+        const modal_element = document.getElementById('imagecrop_modal');
+        var modal_toggle = new bootstrap.Modal(modal_element);
+        var image = document.getElementById('image');
+        var cropper;
+        let imageUpload = document.getElementById('edit_profile_photo');
+        imageUpload.addEventListener("change", function(e) {
+            var files = e.target.files;
+            var done = function(url) {
+                image.src = url;
+                modal_toggle.toggle();
+            };
+            var reader;
+            var file;
+            var url;
+            if (files && files.length > 0) {
+                file = files[0];
+                if (URL) {
+                    done(URL.createObjectURL(file));
+                } else if (FileReader) {
+                    reader = new FileReader();
+                    reader.onload = function(e) {
+                        done(reader.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+        modal_element.addEventListener('shown.bs.modal', function() {
+            cropper = new Cropper(image, {
+                aspectRatio: 1,
+                viewMode: 1,
+                cropBoxResizable: false,
+                toggleDragModeOnDblclick: false,
+                dragMode: 'move',
+            });
+        });
+        modal_element.addEventListener('hidden.bs.modal', function() {
+            cropper.destroy();
+            cropper = null;
+            document.getElementById('edit_profile_photo').value = '';
+        });
+        let crop_element = document.getElementById('crop');
+        crop_element.addEventListener("click", function() {
+            canvas = cropper.getCroppedCanvas();
+            canvas.toBlob(function(blob) {
+                url = URL.createObjectURL(blob);
+                var reader = new FileReader();
+                reader.readAsDataURL(blob);
+                reader.onloadend = function() {
+                    var base64data = reader.result;
+                    let input = document.getElementById("base64image");
+                    input.value = base64data;
+                    upload_profile_image(base64data);
+                    location.reload();
+                    // document.getElementById('imagePreview').style.backgroundImage = `url(${base64data})`;
+                    modal_toggle.toggle();
+                }
+            });
+        })
 
         const hourly_rate_input = document.getElementById('hourly_rate');
 

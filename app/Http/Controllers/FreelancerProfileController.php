@@ -31,7 +31,9 @@ class FreelancerProfileController extends Controller
                     $query->select('id', 'name', 'photo');
                 }])
                 ->where('contract_status', 2)
-                ->limit(3)->get(),
+                ->limit(3)
+                ->latest()
+                ->get(),
             'completed_contracts' => auth()->user()->freelancerContracts()
                 ->with(['job' => function ($query) {
                     $query->select('id', 'name', 'description');

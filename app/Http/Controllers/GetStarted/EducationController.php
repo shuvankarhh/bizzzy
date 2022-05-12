@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\GetStarted;
 
+use Illuminate\Http\Request;
+use App\Models\UserEducation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EducationRequest;
-use Illuminate\Http\Request;
 
 class EducationController extends Controller
 {
@@ -69,9 +70,13 @@ class EducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($education)
     {
-        //
+        $education = UserEducation::find(decrypt($education));
+        if($education->user_id != auth()->id()){
+            abort(403);
+        }
+        return view('components.edit-education')->with(['education' => $education])->render();
     }
 
     /**
@@ -83,7 +88,26 @@ class EducationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'edited_institute_name' => 'required',
+            'edited_degree' => 'required',
+            'edited_area_of_study' => 'required',
+            'edit_year_start' => 'required',
+            'edit_year_end' => 'required',
+        ]);
+
+        $education = UserEducation::find(decrypt($id));
+        if($education->user_id != auth()->id()){
+            abort(403);
+        }
+
+        $education->institute_name = $request->edited_institute_name;
+        $education->degree = $request->edited_degree;
+        $education->area_of_study = $request->edited_area_of_study;
+        $education->start_date = "$request->edit_year_start-01-01";
+        $education->end_date = "$request->edit_year_end-01-01";
+        $education->description = $request->edited_description;
+        $education->save();
     }
 
     /**

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
-class UserController extends Controller
+class PasswordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('authenticated', [
-            'name' => Auth::user()->user_name
-        ]);
+        //
     }
 
     /**
@@ -72,10 +71,17 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed'
         ]);
 
-        auth()->user()->update(['name' => $request->name]);
+        // return response()->json(auth()->user()->password);
+
+        if (!Hash::check($request->old_password, auth()->user()->password)) {
+            throw ValidationException::withMessages(['old_password' => 'Old Password Did not match!']);
+        }
+
+        auth()->user()->update(['password' => bcrypt($request->new_password)]);
     }
 
     /**
