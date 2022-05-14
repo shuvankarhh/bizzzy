@@ -244,24 +244,24 @@ add_hourly_rate = () => {
 
 // =========== Job Feedback details ==========
 get_feedback = (e) => {
-    axios
-    .get(APP_URL + `/f/job-feedback/${e.dataset.contract}`)
-    .then(function(response) {
-        document.getElementById('job_feedback_body').innerHTML = response.data;
-        console.log(response);
-        // location.href = response.data;
-    })
-    .catch(function(error) {
-        if (typeof error.response !== "undefined") {
-            // This is for error from laravel
-            showValidation(error.response.data);
-        } else {
-            // Other JS related error
-            console.log(error);
-        }
-    });
-}
-// ===========================================
+        axios
+            .get(APP_URL + `/f/job-feedback/${e.dataset.contract}`)
+            .then(function(response) {
+                document.getElementById('job_feedback_body').innerHTML = response.data;
+                console.log(response);
+                // location.href = response.data;
+            })
+            .catch(function(error) {
+                if (typeof error.response !== "undefined") {
+                    // This is for error from laravel
+                    showValidation(error.response.data);
+                } else {
+                    // Other JS related error
+                    console.log(error);
+                }
+            });
+    }
+    // ===========================================
 
 // Upload Image
 
@@ -364,26 +364,26 @@ add_title = () => {
 // ====== Edit Freelancer title & description =====
 
 let edit_title = document.querySelector('#edit_title_form');
-if(edit_title){
+if (edit_title) {
     edit_title.addEventListener('submit', (e) => {
-        e.preventDefault();        
-        
+        e.preventDefault();
+
         let formData = new FormData(edit_title);
         formData.append('_method', 'PATCH');
         axios
-        .post(APP_URL + "/f/edit-title", formData)
-        .then(function(response) {
-            location.reload();
-        })
-        .catch(function(error) {
-            if (typeof error.response !== "undefined") {
-                // This is for error from laravel
-                showValidation(error.response.data);
-            } else {
-                // Other JS related error
-                console.log(error);
-            }
-        });
+            .post(APP_URL + "/f/edit-title", formData)
+            .then(function(response) {
+                location.reload();
+            })
+            .catch(function(error) {
+                if (typeof error.response !== "undefined") {
+                    // This is for error from laravel
+                    showValidation(error.response.data);
+                } else {
+                    // Other JS related error
+                    console.log(error);
+                }
+            });
     });
 }
 
@@ -465,32 +465,32 @@ add_job = (e) => {
 
 saveJob = (e) => {
     axios
-    .post(APP_URL + "/f/save-job/store", {
-        job: e.target.dataset.job
-    })
-    .then(function(response) {
-        console.log(response.data);
-        location.reload();
-    })
-    .catch(function(error) {
-        
-    });
+        .post(APP_URL + "/f/save-job/store", {
+            job: e.target.dataset.job
+        })
+        .then(function(response) {
+            console.log(response.data);
+            location.reload();
+        })
+        .catch(function(error) {
+
+        });
 }
 
 // Remove saved jobs
 
 removeSavedJobs = (e) => {
     axios
-    .post(APP_URL + `/f/save-job/${e.target.dataset.job}`, {
-        _method: 'DELETE'
-    })
-    .then(function(response) {
-        console.log(response.data);
-        location.reload();
-    })
-    .catch(function(error) {
-        
-    });
+        .post(APP_URL + `/f/save-job/${e.target.dataset.job}`, {
+            _method: 'DELETE'
+        })
+        .then(function(response) {
+            console.log(response.data);
+            location.reload();
+        })
+        .catch(function(error) {
+
+        });
 }
 
 // Add Direct Job
@@ -1025,61 +1025,61 @@ if (skill_update_form) {
 
 change_type = (type) => {
     axios
-    .post(APP_URL + `/change-account/${type}`)
-    .then(function (response) {
-        console.log(response);
-        // location.reload();
-        // e.reset();
-        // tags_select.clear();
-        // categories_select.clear();
-        // languages_select.clear();
-        location.href = response.data;
-    })
-    .catch(function (error) {
-        if (typeof error.response !== "undefined") {
-            //  This is for error from laravel
-            console.log(error.response.data);
-            showValidation(error.response.data);
-        } else {
-            // Other JS related error
-            console.log(error);
-        }
-    });
+        .post(APP_URL + `/change-account/${type}`)
+        .then(function(response) {
+            console.log(response);
+            // location.reload();
+            // e.reset();
+            // tags_select.clear();
+            // categories_select.clear();
+            // languages_select.clear();
+            location.href = response.data;
+        })
+        .catch(function(error) {
+            if (typeof error.response !== "undefined") {
+                //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
 }
 
 //Freelancer toggle visibility!
 let visibility = document.getElementById('visibility');
-if(visibility){
+if (visibility) {
     visibility.addEventListener('change', () => {
 
         axios
-        .post(APP_URL + '/visibility',{
-            'visibility': document.getElementById('visibility').value
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            //
-        });
+            .post(APP_URL + '/visibility', {
+                'visibility': document.getElementById('visibility').value
+            })
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(error) {
+                //
+            });
     })
 }
 
 //Freelancer toggle preferance!
 let preference = document.getElementById('preference');
-if(preference){
+if (preference) {
     preference.addEventListener('change', () => {
 
         axios
-        .post(APP_URL + '/preference',{
-            'preference': document.getElementById('preference').value
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            //
-        });
+            .post(APP_URL + '/preference', {
+                'preference': document.getElementById('preference').value
+            })
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(error) {
+                //
+            });
     })
 }
 
@@ -1089,20 +1089,20 @@ function change_level(event) {
     let successList = document.getElementById('success').classList;
     loaderList.remove('loader-hidden');
     axios
-    .post(APP_URL + '/experience',{
-        'experience': event.target.value
-    })
-    .then(function (response) {
-        loaderList.add('loader-hidden');
-        successList.remove('loader-hidden');
-        setTimeout(()=>{
-            successList.add('loader-hidden');
-        }, 200);
-        console.log('ended');
-    })
-    .catch(function (error) {
-        //
-    });
+        .post(APP_URL + '/experience', {
+            'experience': event.target.value
+        })
+        .then(function(response) {
+            loaderList.add('loader-hidden');
+            successList.remove('loader-hidden');
+            setTimeout(() => {
+                successList.add('loader-hidden');
+            }, 200);
+            console.log('ended');
+        })
+        .catch(function(error) {
+            //
+        });
 }
 document.querySelectorAll("input[name='experience_level']").forEach((input) => {
     input.addEventListener('change', change_level);
@@ -1110,35 +1110,35 @@ document.querySelectorAll("input[name='experience_level']").forEach((input) => {
 
 // Recruiter End Contract
 let endContract = document.getElementById('recruiter_end_contract_form');
-if(endContract){
+if (endContract) {
     endContract.addEventListener('submit', (e) => {
         e.preventDefault();
         let formData = new FormData(endContract);
         axios
-        .post(APP_URL + `/r/end-contract`, formData)
-        .then(function(response) {
-            location.href = response.data;
-        })
-        .catch(function(error) {
-            document.getElementById('error').classList.remove('d-none');
-        });
+            .post(APP_URL + `/r/end-contract`, formData)
+            .then(function(response) {
+                location.href = response.data;
+            })
+            .catch(function(error) {
+                document.getElementById('error').classList.remove('d-none');
+            });
     });
 }
 
 // Freelancer End Contract
 let freelancerEndContract = document.getElementById('freelancer_end_contract_form');
-if(freelancerEndContract){
+if (freelancerEndContract) {
     freelancerEndContract.addEventListener('submit', (e) => {
         e.preventDefault();
         let formData = new FormData(freelancerEndContract);
         axios
-        .post(APP_URL + `/f/end-contract`, formData)
-        .then(function(response) {
-            location.href = response.data;
-        })
-        .catch(function(error) {
-            document.getElementById('error').classList.remove('d-none');
-        });
+            .post(APP_URL + `/f/end-contract`, formData)
+            .then(function(response) {
+                location.href = response.data;
+            })
+            .catch(function(error) {
+                document.getElementById('error').classList.remove('d-none');
+            });
     });
 }
 
@@ -1244,19 +1244,19 @@ loadsubcategory = (id) => {
 
 // ===== Verification form ======
 let profile_verification = document.getElementById('verification_form');
-if(profile_verification){
+if (profile_verification) {
     profile_verification.addEventListener('submit', (e) => {
         e.preventDefault();
         alert('test');
         let formData = new FormData(profile_verification);
         axios
-        .post(APP_URL + `/f/profile-verification`, formData)
-        .then(function(response) {
-            location.reload();
-        })
-        .catch(function(error) {
-            document.getElementById('error').classList.remove('d-none');
-        });
+            .post(APP_URL + `/f/profile-verification`, formData)
+            .then(function(response) {
+                location.reload();
+            })
+            .catch(function(error) {
+                document.getElementById('error').classList.remove('d-none');
+            });
     });
 }
 
@@ -1283,5 +1283,25 @@ loadprofile = (id) => {
         })
         .catch(function(error) {
 
+        });
+}
+
+// =========== Job admin Feedback details ==========
+get_admin_feedback = (e) => {
+    axios
+        .get(APP_URL + `/admin/job/job-feedback/${e}`)
+        .then(function(response) {
+            document.getElementById('feedback_body').innerHTML = response.data;
+            console.log(response);
+            // location.href = response.data;
+        })
+        .catch(function(error) {
+            if (typeof error.response !== "undefined") {
+                // This is for error from laravel
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
         });
 }

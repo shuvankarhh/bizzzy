@@ -53,7 +53,9 @@ class AdminJobController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.jobs.job-feedback')->with([
+            'contract' => Contract::with('job', 'feedback')->find($id)
+        ]);
     }
 
     /**
@@ -122,7 +124,8 @@ class AdminJobController extends Controller
                 return $t->freelancer->user_name;
             })
             ->addColumn('action', function ($t) {
-                return "<button data-toggle='modal' id='milestone' onclick='loadmilestone($t->id)' data-target='.bs-example-modal-lg-milestone' class='btn btn-primary btn-xs'><i class='fa fa-folder'></i> Milestone </button>";
+                return "<button data-toggle='modal' id='milestone' onclick='loadmilestone($t->id)' data-target='.bs-example-modal-lg-milestone' class='btn btn-primary btn-xs'><i class='fa fa-folder'></i> Milestone </button>
+                <button data-toggle='modal' id='feedback' onclick='get_admin_feedback($t->id)' data-target='.bs-example-modal-lg-feedback' class='btn btn-primary btn-xs'><i class='fa fa-folder'></i> Feedback </button>";
             })
             ->toJson();
     }
