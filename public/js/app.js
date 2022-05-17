@@ -3094,7 +3094,7 @@ if (profile_verification) {
 
 loadprofile = function loadprofile(id) {
   axios.get(APP_URL + "/admin/user/".concat(id, "/profile")).then(function (response) {
-    console.log(response);
+    //console.log(response);
     document.getElementById('professional_title').value = response.data.professional_title;
     document.getElementById('description').value = response.data.description;
     document.getElementById('availability_badge').value = response.data.availability_badge;
