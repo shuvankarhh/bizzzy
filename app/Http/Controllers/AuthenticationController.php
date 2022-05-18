@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerification;
 use App\Models\FreelancerProfile;
+use App\Models\RecruiterProfile;
 use App\Models\UserAccount;
 use App\Models\UserOnlinePresence;
 use Illuminate\Support\Facades\DB;
@@ -118,7 +119,6 @@ class AuthenticationController extends Controller
                     'profile_completion_percentage' => 0,
                     'total_jobs' => 0,
                     'total_hours' => 0,
-                    'average_rating' => 0,
                     'is_top_rated' => 0,
                 ]);
                 UserAccount::create([
@@ -127,6 +127,9 @@ class AuthenticationController extends Controller
                     'company_or_individual' => 2,
                 ]);
             } else {
+                RecruiterProfile::create([
+                    'user_id' => $user->id
+                ]);
                 UserAccount::create([
                     'user_id' => $user->id,
                     'client_or_freelancer' => 1,

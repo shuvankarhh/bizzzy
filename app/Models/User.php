@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\UserAccount;
 use App\Models\UserEducation;
-use App\Models\CompanyProfile;
+use App\Models\RecruiterProfile;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserWorkExperience;
 use Spatie\Permission\Traits\HasRoles;
@@ -104,9 +104,9 @@ class User extends Authenticatable
         return $this->belongsTo(Email::class, 'account_email_id');
     }
 
-    public function company_profile()
+    public function recruiter_profile()
     {
-        return $this->hasOne(CompanyProfile::class);
+        return $this->hasOne(RecruiterProfile::class);
     }
 
     public function verification_request()

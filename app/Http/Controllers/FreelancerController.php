@@ -80,6 +80,7 @@ class FreelancerController extends Controller
     public function show(User $freelancer)
     {
         return view('profile.freelancer_profile')->with([
+            'freelancer' => $freelancer,
             'profile_photo' => $freelancer->photo,
             'address' => $freelancer->address,
             'educations' => $freelancer->educations()->orderBy('start_date', 'desc')->limit(3)->get(),

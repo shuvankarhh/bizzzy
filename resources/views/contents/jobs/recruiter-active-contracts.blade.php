@@ -45,7 +45,7 @@
     <!-- Tabs content -->
     <div class="tab-content" id="ex1-content">
         <div class="tab-pane fade show active" id="all_tab" role="tabpanel" aria-labelledby="all_job">
-            @foreach ($offers as $item)
+            @forelse ($offers as $item)
                 <div class="card m-3">
                     <div class="card-body">
                         <div class="row">
@@ -59,11 +59,16 @@
                             </div>
                         </div>
                     </div>
-                </div>        
-            @endforeach
+                </div>
+            @empty
+                <div style="display: flex;align-items: center; flex-direction: column">
+                    <img width="350px" src="{{ asset('images/icons/empty.svg') }}" alt="">
+                    <p>No Active Contract!</p>
+                </div>    
+            @endforelse
         </div>
         <div class="tab-pane fade show" id="hourly_tab" role="tabpanel" aria-labelledby="hourly_tab">
-            @foreach ($offers as $item)
+            @forelse ($offers as $item)
                 @if ($item->payment_type == '1')
                     @continue
                 @endif
@@ -88,11 +93,16 @@
                             </ul>
                         </div>
                     </div>
-                </div>        
-            @endforeach
+                </div>
+            @empty
+                <div style="display: flex;align-items: center; flex-direction: column">
+                    <img width="350px" src="{{ asset('images/icons/empty.svg') }}" alt="">
+                    <p>No Active Contract!</p>
+                </div>
+            @endforelse
         </div>
         <div class="tab-pane fade show" id="active_milestone_tab" role="tabpanel" aria-labelledby="active_milestone_tab">
-            @foreach ($offers as $item)
+            @forelse ($offers as $item)
                 @if ($item->payment_type == '2')
                     @continue
                 @endif
@@ -117,7 +127,12 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div style="display: flex;align-items: center; flex-direction: column">
+                    <img width="350px" src="{{ asset('images/icons/empty.svg') }}" alt="">
+                    <p>No Active Contract!</p>
+                </div>
+            @endforelse
         </div>
         <div class="tab-pane fade show" id="awaiting_milestone_tab" role="tabpanel" aria-labelledby="awaiting_milestone_tab">
         </div>

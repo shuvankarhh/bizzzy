@@ -13,10 +13,10 @@ class SettingController extends Controller
      */
     public function index()
     {
-        // dd(auth()->user()->verification_request);
+        // dd(auth()->user()->id);
         if(auth()->user()->isRecruiter()){
             return view('contents.settings.recruiter-setting')->with([
-                'freelancer' => auth()->user()->freelance_profile,
+                'recruiter' => auth()->user()->recruiter_profile,
                 'verification' => auth()->user()->verification_request
             ]);
         }else{

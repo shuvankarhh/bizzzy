@@ -24,7 +24,9 @@ class FreelancerJobController extends Controller
                 ->whereHas('proposals', function ($q) {
                     $q->where('user_id', auth()->id());
                 })
-                ->doesntHave('contracts')
+                ->whereDoesntHave('contracts', function ($q){
+                    $q->where('freelancer_id', auth()->id());
+                })
                 ->paginate(5)
         ]);
     }

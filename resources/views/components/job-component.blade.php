@@ -1,4 +1,12 @@
 <div class="job-card mb-4">
+    @if ($recruiter AND $proposals == 0)
+        <div class="recruiter-remove-job">
+            <form action="#" id="remove_job_form" data-job="{{ encrypt($job->id) }}">
+                {{-- <input type="hidden" name="job" value="{{ encrypt($job->id) }}"> --}}
+                <button class="btn btn-warning">Remove job</button>
+            </form>
+        </div>
+    @endif
     <section class="upper-content @if ($applied) applied-div @endif pe-0">
         <div class="row pe-0" style="position: relative">
             {{--  This section is for mobile view. Will be hidden in large screens.  --}}
@@ -10,7 +18,7 @@
                         Applied
                     </div>                            
                 </div>
-            @else
+            @elseif ($job->user_id != auth()->id())
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-8 col-8 p-0 d-md-none d-lg-none d-xl-none d-xxl-none"></div>
                 <div class="col-md-1 col-lg-1 col-xl-1 col-xxl-1 col-sm-4 col-4 p-0 d-md-none d-lg-none d-xl-none d-xxl-none">
                     <div class="applied text-center">
@@ -28,7 +36,7 @@
 
             <div class="col-auto pb-3 pt-3 fit-content">
                 <span class="job-avater-span">
-                    <img class="job-avater" src="{{ asset('storage/freelancer/profile_photo/1647342535.png') }}" alt="">
+                    <img class="job-avater" src="{{ asset('storage/' . $job->recruiter->photo   ) }}" alt="">
                     <img class="job-avater-icon" src="{{ asset('images\icons\job\plus.svg') }}" alt="">
                 </span>
             </div>
@@ -80,11 +88,24 @@
                         <p class="ms-2 m-0 bizzzy-color">Payment verified</p>
                     </div>
                     <div>
-                        <img src="{{ asset('images\icons\job\full-star.svg') }}" alt="">
-                        <img src="{{ asset('images\icons\job\full-star.svg') }}" alt="">
-                        <img src="{{ asset('images\icons\job\full-star.svg') }}" alt="">
-                        <img src="{{ asset('images\icons\job\full-star.svg') }}" alt="">
-                        <img src="{{ asset('images\icons\job\full-star.svg') }}" alt="">
+                        @if (!is_null($job->recruiter->recruiter_profile->rating))
+                        <div class="flex-center">
+                                    <div class="outer-star" >
+                                        <i class="fas fa-star" aria-hidden="true"></i>
+                                        <i class="fas fa-star" aria-hidden="true"></i>
+                                        <i class="fas fa-star" aria-hidden="true"></i>
+                                        <i class="fas fa-star" aria-hidden="true"></i>
+                                        <i class="fas fa-star" aria-hidden="true"></i>
+                                        <span class="inner-star" style="width: {{ $job->recruiter->recruiter_profile->rating * 20 }}%">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                        @endif                    
                         <p class="ms-2 m-0 money">$100k+ spent </p>
                     </div>
                     <div>
@@ -103,18 +124,35 @@
         <div class="row justify-content-between">
             <div class="col-md-3 col-lg-3 col-xl-3 col-xxl-3 col-sm-6 col-6 align-self-center">
                 @if (!$connect)
-                    <div class="flex-text ms-3">
-                        <div class="relative">
-                            <span class="stack-image">
-                                <img class="image-1" src="{{ asset('images\icons\job\temp\one.png') }}" alt="">
-                                <img class="image-2" src="{{ asset('images\icons\job\temp\two.png') }}" alt="">
-                                <img class="image-3" src="{{ asset('images\icons\job\temp\two.png') }}" alt="">
-                            </span>
-                        </div>
-                        <div>
-                            <p class="m-0 bottom-text bizzzy-color">Applied</p>
-                        </div>
-                    </div>    
+                    @if ($totalApplied > 0)                        
+                        <div class="flex-text ms-3">
+                            <div class="relative">
+                                {{-- <span class="stack-image">
+                                    <img class="image-1" src="{{ asset('images\icons\job\temp\one.png') }}" alt="">
+                                    <img class="image-2" src="{{ asset('images\icons\job\temp\two.png') }}" alt="">
+                                    <img class="image-3" src="{{ asset('images\icons\job\temp\two.png') }}" alt="">
+                                </span> --}}
+                                <span class="number-of-applied">
+                                    @if ($totalApplied < 5)
+                                        {{ $totalApplied }}
+                                    @elseif ($totalApplied < 10)
+                                        5+
+                                    @elseif ($totalApplied < 15)
+                                        10+
+                                    @elseif ($totalApplied < 50)
+                                        20+
+                                    @elseif ($totalApplied < 100)
+                                        50+
+                                    @else
+                                        100+
+                                    @endif
+                                </span>
+                            </div>
+                            <div>
+                                <p class="m-0 bottom-text bizzzy-color">   Applied</p>
+                            </div>
+                        </div>    
+                    @endif
                 @else
                     <div class="connect-required text-nowrap ">
                         2 connects required

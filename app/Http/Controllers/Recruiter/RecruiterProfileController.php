@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Recruiter;
 
-use App\Models\RecruiterProfile;
-use App\Models\UserAccount;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ClientAccountController extends Controller
+class RecruiterProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +24,7 @@ class ClientAccountController extends Controller
      */
     public function create()
     {
-        return view('contents.settings.new-client-account');
+        //
     }
 
     /**
@@ -36,20 +35,7 @@ class ClientAccountController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'company_name' => 'required'
-        ]);
-
-        RecruiterProfile::create([
-            'user_id' => auth()->id(),
-            'name' => $request->company_name
-        ]);
-
-        UserAccount::create([
-            'user_id' => auth()->id(),
-            'client_or_freelancer' => 1,
-            'company_or_individual' => 1
-        ]);
+        //
     }
 
     /**
@@ -81,9 +67,17 @@ class ClientAccountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'company_name' => 'required'
+        ]);
+        auth()->user()->recruiter_profile()->update([
+            'name' => $request->company_name,
+            'website' => $request->website,
+            'tagline' => $request->tagline,
+            'description' => $request->description,
+        ]);
     }
 
     /**

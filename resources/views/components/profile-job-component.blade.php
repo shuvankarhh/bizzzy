@@ -52,11 +52,6 @@
                                     <i class="fas fa-star" aria-hidden="true"></i>
                                     <i class="fas fa-star" aria-hidden="true"></i>
                                     <span class="inner-star" style="width: {{ $contract->client_public_feedback_rating * 20 }}%">
-                                        {{-- <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                        <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                        <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                        <img src="{{ asset('images/general/full-star.svg') }}" alt="">
-                                        <img src="{{ asset('images/general/full-star.svg') }}" alt=""> --}}
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
@@ -66,7 +61,6 @@
                                 </div>
                                 <div class="flex-center">
                                     <p class="m-0 p-0 font-weight-bold">{{ number_format($contract->client_public_feedback_rating,2) }}</p>
-                                    {{-- <p class="m-0 p-0">Jan 25, 2022 - Feb 1, 2022</p> --}}
                                 </div>
                             </div>
                         @endif                        

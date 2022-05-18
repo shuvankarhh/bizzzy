@@ -125,22 +125,9 @@ class JobProposalController extends Controller
      */
     public function show($freelancer, $job_id)
     {
-        // $job_proposal = auth()->user()->with(['jobs' => function ($query) use ($freelancer, $job_id) {
-        //     return $query->with(['proposals' => function ($query) use ($freelancer) {
-        //         $query->where('user_id', decrypt($freelancer));
-        //     }])->with('tags.tag', 'categories.category')->where('id', decrypt($job_id));
-        // }])->get();
-        $job_proposal = Job::with(['proposals' => function ($query) use ($freelancer) {
-            $query->where('user_id', decrypt($freelancer));
-        }])->with('tags.tag', 'categories.category')->where('id', decrypt($job_id))->first();
-
-        // Job::where('user_id', auth()->id())->with(['proposals' => function ($query) use ($freelancer) {
-        //     $query->where('user_id', $freelancer);
-        // }])->with('tags.tag', 'categories.category')->where('id', decrypt($job_id))->first();
-
-        // $this->authorize('view', $job_proposal);
-
-        // dd($job_proposal);
+        $job_proposal = JobProposal::with(['job' => function ($query) {
+            $query->with('tags.tag', 'categories.category', 'proposal_files');
+        }])->with('proposal_files', 'user')->where('user_id', decrypt($freelancer))->where('job_id', decrypt($job_id))->first();
 
         return view('contents.jobs.job-proposal')->with([
             'job_proposal' => $job_proposal

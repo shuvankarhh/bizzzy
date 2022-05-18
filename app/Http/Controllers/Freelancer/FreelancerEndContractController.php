@@ -6,6 +6,7 @@ use App\Models\Contract;
 use Illuminate\Http\Request;
 use App\Models\ContractFeedback;
 use App\Http\Controllers\Controller;
+use App\Models\RecruiterProfile;
 
 class FreelancerEndContractController extends Controller
 {
@@ -72,6 +73,10 @@ class FreelancerEndContractController extends Controller
             abort(403);
         }
         $contract->save();
+
+        $avarage = Contract::where('created_by_user', $contract->created_by_user)->whereNotNull('freelancer_public_feedback_rating')->avg('freelancer_public_feedback_rating');
+
+        RecruiterProfile::where('user_id', $contract->created_by_user)->update(['rating' => $avarage]);
 
         ContractFeedback::create([
             'user_id' => auth()->id(),

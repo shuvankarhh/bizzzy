@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\Job;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSavedJobsTable extends Migration
+class AddDeletedAtToJobs extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +13,8 @@ class CreateSavedJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('saved_jobs', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreignIdFor(Job::class)->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('jobs', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateSavedJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('saved_jobs');
+        Schema::table('jobs', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 }

@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompanyProfilesTable extends Migration
+class CreateRecruiterProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,14 @@ class CreateCompanyProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('company_profiles', function (Blueprint $table) {
+        Schema::create('recruiter_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->unique('user_id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('website', 512)->nullable();
             $table->string('tagline')->nullable();
             $table->string('description', 5000)->nullable();
+            $table->double('rating', 3,2)->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ class CreateCompanyProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company_profiles');
+        Schema::dropIfExists('recruiter_profiles');
     }
 }

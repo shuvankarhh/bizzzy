@@ -63,22 +63,45 @@
                             </div>
                         </form>
                     </div>
-                    @if (session('user_type') == '2')
-                        <div class="card">                            
-                            <div class="card-header"><h4 class="card-title">Additional Account</h4></div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p><strong>Client Account</strong></p>
-                                        <p>Hire, manage and pay as a different company. Each client company has its own freelancers, payment methods and reports.</p>
+                    <div class="card">
+                        <div class="card-header c-flex f-justify-between"><h4 class="card-title">Company Details</h4><button type="button" id="edit_company_button" class="circular-button"><i class="fas fa-pen"></i></button></div>
+                        <div class="card-body">
+                            <div id="show_company" class="c-flex f-gap-5">
+                                @if (!is_null($recruiter->name))
+                                    <div style="max-width: 33%">
+                                        <p class="m-0 p-0 font-weight-bold">Company Name </p>
+                                        <p>{{ $recruiter->name }}</p>
+                                        <p class="m-0 p-0 font-weight-bold">Website </p>
+                                        <p><a target="_blank" href='{{ empty($recruiter->website) ? 'Not Set' : $recruiter->website }}'>Link</a></p>
                                     </div>
-                                    <div class="col-6 align-self-center text-center">
-                                        <a href="{{ route('client.account.create') }}" role="button" class="btn">New Client Account</a>
+                                    <div style="max-width: 33%">
+                                        <p class="m-0 p-0 font-weight-bold">Tagline </p>
+                                        <p>{{ empty($recruiter->tagline) ? 'Not Set' : $recruiter->tagline }}</p>
                                     </div>
-                                </div>
+                                    <div style="max-width: 33%">
+                                        <p class="m-0 p-0 font-weight-bold">Description </p>
+                                        <p>{{ empty($recruiter->description) ? 'Not Set' : $recruiter->description }}</p>
+                                    </div>
+                                @else
+                                    <p>Company Details Not Set</p>
+                                @endif
                             </div>
-                        </div>                        
-                    @endif
+                            <div id="edit_company" class="d-none">
+                                <form action="#" id="edit_company_form">
+                                    <label for="company_name">Company Name</label>
+                                    <input type="text" name="company_name" id="company_name" class="form-control w-50" value="{{ $recruiter->name }}">
+                                    <div id="company_name_invalid" class="invalid-response"></div>
+                                    <label class="mt-2" for="website">Website</label>
+                                    <input type="text" name="website" id="website" class="form-control" value="{{ $recruiter->website }}">
+                                    <label class="mt-2" for="tagline">Tagline</label>
+                                    <input type="text" name="tagline" id="tagline" class="form-control" value="{{ $recruiter->tagline }}">
+                                    <label class="mt-2" for="description">Description</label>
+                                    <textarea class="form-control" name="description" id="description" cols="30" rows="5">{{ $recruiter->description }}</textarea>
+                                    <button class="btn btn-primary mt-3" style="border-radius: 0">Save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="tax" role="tabpanel" aria-labelledby="tax-tab">
                     Tax
@@ -187,16 +210,6 @@
 
 @push('script')
     <script>
-        // function containsNumber(str) {
-        //     return /\d/.test(str);
-        // }
-
-        @if (!is_null($freelancer))
-            (function() {
-                document.getElementById('visibility').value = document.getElementById('visibility').dataset.selected;
-                document.getElementById('preference').value = document.getElementById('preference').dataset.selected;
-                document.getElementById('{{ strtolower($freelancer->experience_level) }}').checked = true;
-            })();
-        @endif
+        
     </script>
 @endpush

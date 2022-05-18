@@ -32,7 +32,7 @@
                     </thead>
                     <tbody>
                         @php
-                            $relase_fund = false;
+                            $relase_fund_button = false;
                         @endphp
                         @foreach ($contract->milestones as $item)
                             <tr>
@@ -40,13 +40,13 @@
                                 <td>{{ $item->deposit_amount }}</td>
                                 <td>{{ $item->end_date }}</td>
                                 <td>
-                                    @if ($item->is_complete == 0 AND !$relase_fund)
+                                    @if ($item->is_complete == 0 AND !$relase_fund_button)
                                         <form action="{{ route('contract.milestone.update', encrypt($item->id)) }}" method="post">
                                             @csrf
                                             <button class="btn btn-success">Release Fund</button>
                                         </form>
                                         @php
-                                            $relase_fund = true;
+                                            $relase_fund_button = true;
                                         @endphp
                                     @elseif ($item->is_complete == 1)
                                         <p>Review Approval</p>
@@ -57,7 +57,10 @@
                             </tr>                            
                         @endforeach
                     </tbody>
-                </table>
+                </table>                
+                @if (!$relase_fund_button)
+                    <a href="{{ route('recruiter.end.contract.create', encrypt($contract->id)) }}" class="btn btn-primary">End Contract</a> 
+                @endif
             </div>
         </div>
     </div>

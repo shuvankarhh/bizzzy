@@ -55,6 +55,8 @@ use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\Recruiter\RecruiterProfileController;
+use App\Models\RecruiterProfile;
 
 /*
 |--------------------------------------------------------------------------
@@ -219,6 +221,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
 
     Route::prefix('recruiter-job')->group(function () {
         Route::get('/', [RecruiterJobController::class, 'index'])->name('recruiter.job.index');
+        Route::delete('/{job}', [RecruiterJobController::class, 'destroy'])->name('recruiter.job.delete');
     });
 
     Route::prefix('recruiter-job-proposal')->group(function () {
@@ -276,6 +279,8 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::prefix('r/contract-milestone')->group(function () {
         Route::post('/{id}', [ContractMilestoneController::class, 'update'])->name('contract.milestone.update');
     });
+
+    Route::patch('r/profile/edit', [RecruiterProfileController::class, 'update'])->name('recruiter.profile.update');
 
     /**
      * fs indicated Freelancers

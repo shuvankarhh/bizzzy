@@ -243,7 +243,7 @@
                               {{ asset('images\general\avatar.png') }}
                             @endif" class="rounded-circle" height="45" alt="Black and White Portrait of a Man" loading="lazy" />
                             <div class="nav-text">
-                              <strong>{{ ($item->client_or_freelancer == '1' AND !is_null(auth()->user()->company_profile)) ? auth()->user()->company_profile->name : auth()->user()->name }}</strong>
+                              <strong>{{ ($item->client_or_freelancer == '1' AND !is_null(auth()->user()->recruiter_profile)) ? auth()->user()->recruiter_profile->name : auth()->user()->name }}</strong>
                               @if ($item->client_or_freelancer == '1')
                               <p class="m-0 p-0">Recruiter</p>
                               @else

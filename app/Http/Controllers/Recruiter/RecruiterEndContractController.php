@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Recruiter;
 use App\Http\Controllers\Controller;
 use App\Models\Contract;
 use App\Models\ContractFeedback;
+use App\Models\FreelancerProfile;
 use Illuminate\Http\Request;
 
 class RecruiterEndContractController extends Controller
@@ -84,6 +85,10 @@ class RecruiterEndContractController extends Controller
             'feedback_five' => $request->communication,
             'feedback_six' => $request->cooperation,
         ]);
+
+        $avarage = Contract::where('freelancer_id', $contract->freelancer_id)->whereNotNull('client_public_feedback_rating')->avg('client_public_feedback_rating');
+        
+        FreelancerProfile::where('user_id', $contract->freelancer_id)->update(['average_rating' => $avarage]);
 
         return route('recruiter.contract.index');
     }

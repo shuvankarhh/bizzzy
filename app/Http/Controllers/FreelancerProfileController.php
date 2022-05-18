@@ -12,7 +12,7 @@ class FreelancerProfileController extends Controller
 {
     public function index()
     {
-        // dd(Contract::with('job', 'feedback.user')->find(1));
+        // dd();
         return view('profile.freelancer_profile')->with([
             'profile_photo' => auth()->user()->photo,
             'address' => auth()->user()->address,
@@ -41,6 +41,7 @@ class FreelancerProfileController extends Controller
                     $query->select('id', 'name', 'photo');
                 }])
                 ->where('contract_status', 3)
+                ->withCount('job')
                 ->limit(3)->get(),
             'canceled_contracts' => auth()->user()->freelancerContracts()
                 ->with(['job' => function ($query) {

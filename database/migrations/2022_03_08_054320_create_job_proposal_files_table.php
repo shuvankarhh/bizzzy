@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJobProposalsFilesTable extends Migration
+class CreateJobProposalFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateJobProposalsFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_proposals_files', function (Blueprint $table) {
+        Schema::create('job_proposal_files', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('job_proposal_id');
             $table->string('file_name', 300);
@@ -29,6 +29,6 @@ class CreateJobProposalsFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_proposals_files');
+        Schema::dropIfExists('job_proposal_files');
     }
 }

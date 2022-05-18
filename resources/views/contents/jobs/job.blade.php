@@ -17,7 +17,7 @@
         </div>
     </div>
     <section class="job-body">
-        <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+        <ul class="nav flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row flex-xxl-row text-center text-xs-center text-md-start nav-tabs mb-3" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="all_job" data-mdb-toggle="tab" href="#all_job_tab" role="tab" aria-controls="all_job" aria-selected="true">
                     <span class="icon">
@@ -50,14 +50,6 @@
                     </span>                    
                 </a>
             </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="saved_jobs" data-mdb-toggle="tab" href="#saved_jobs_tab" role="tab" aria-controls="saved_jobs" aria-selected="false">
-                    <span class="icon">
-                        <img src="{{ asset('images\icons\job\saved.svg') }}" alt="Briefcase">
-                        <span class="text"> Saved Jobs </span>
-                    </span>                    
-                </a>
-            </li>
         </ul>
         <!-- Tabs navs -->
 
@@ -65,7 +57,7 @@
         <div class="tab-content" id="ex1-content">
             <div class="tab-pane fade show active" id="all_job_tab" role="tabpanel" aria-labelledby="all_job">
                 @foreach ($jobs as $idx=>$item)
-                    <x-job-component :applied="$item->proposals_count" :job="$item" :idx="$idx" />
+                    <x-job-component :total_applied="$item->total_proposals" :applied="$item->proposals_count" :job="$item" :idx="$idx" />
                 @endforeach
                 {{ $jobs->links() }}
             </div>
@@ -83,9 +75,6 @@
                     <x-job-component :applied="$item->proposals_count" :job="$item" :idx="$idx" />
                 @endforeach
                 {{ $fixed_jobs->links() }}
-            </div>
-            <div class="tab-pane fade" id="saved_jobs_tab" role="tabpanel" aria-labelledby="saved_jobs">
-                Tab Saved content
             </div>
         </div>
         <!-- Tabs content -->

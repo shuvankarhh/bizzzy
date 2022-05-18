@@ -581,33 +581,26 @@ let job_proposal = document.getElementById("job_proposal_form");
 if (job_proposal) {
     job_proposal.addEventListener("submit", (e) => {
         e.preventDefault();
-        console.log(e.target);
-        // return;
 
         removeValidation();
 
         let formData = new FormData(e.target);
 
         axios
-            .post(APP_URL + "/job-apply", formData)
-            .then(function(response) {
-                console.log(response);
-                // e.reset();
-                // tags_select.clear();
-                // categories_select.clear();
-                // languages_select.clear();
-                location.href = response.data;
-            })
-            .catch(function(error) {
-                if (typeof error.response !== "undefined") {
-                    //  This is for error from laravel
-                    console.log(error.response.data);
-                    showValidation(error.response.data);
-                } else {
-                    // Other JS related error
-                    console.log(error);
-                }
-            });
+        .post(APP_URL + "/job-apply", formData)
+        .then(function(response) {
+            location.href = response.data;
+        })
+        .catch(function(error) {
+            if (typeof error.response !== "undefined") {
+                //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
     });
 }
 
@@ -1175,6 +1168,28 @@ if(endContract){
     });
 }
 
+// Recruiter remove contract
+
+let remove_job_form = document.getElementById('remove_job_form');
+if(remove_job_form){
+    remove_job_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let job = remove_job_form.dataset.job;
+        axios
+        .post(APP_URL + `/recruiter-job/${job}`, {
+            _method: 'delete'
+        })
+        .then(function(response) {
+            // location.href = response.data;
+            location.reload();
+            console.log(response)
+        })
+        .catch(function(error) {
+            document.getElementById('error').classList.remove('d-none');
+        });
+    });
+}
+
 // Freelancer End Contract
 let freelancerEndContract = document.getElementById('freelancer_end_contract_form');
 if(freelancerEndContract){
@@ -1305,6 +1320,42 @@ if(profile_verification){
         })
         .catch(function(error) {
             document.getElementById('error').classList.remove('d-none');
+        });
+    });
+}
+
+// Recruiter Company Edit
+let edit_company_button = document.getElementById('edit_company_button');
+if(edit_company_button){
+    edit_company_button.addEventListener('click', () => {
+        let show_company = document.getElementById('show_company');
+        let edit_company = document.getElementById('edit_company');
+        show_company.classList.toggle('d-none');
+        edit_company.classList.toggle('d-none');
+    });
+}
+
+let edit_company_form = document.getElementById('edit_company_form');
+if(edit_company_form){
+    edit_company_form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData(edit_company_form);
+        formData.append('_method', 'patch');
+        axios
+        .post(APP_URL + `/r/profile/edit`, formData)
+        .then(function(response) {
+            // console.log(response);
+            location.reload();
+        })
+        .catch(function(error) {
+            if (typeof error.response !== "undefined") {
+                //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
         });
     });
 }

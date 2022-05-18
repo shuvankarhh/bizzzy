@@ -83,8 +83,8 @@
                         <div id="description_invalid" class="invalid-feedback js"></div>
                     </div>
                     <div class="mt-4">
-                        <input type="file" class="form-control" id="customFile" />
-                        <label class="form-label" for="customFile">Max file size is 10MB</label>
+                        <input type="file" class="form-control" id="proposal_files" name="proposal_files[]" multiple/>
+                        <label class="form-label" for="proposal_files">Max file size is 10MB</label>
                     </div>
                     <button {{ ($applied) ? 'disabled' : ''}} class="btn submit-profile-btn mt-3">{{ ($applied) ? 'You Already Applied!' : 'Submit Proposal' }}</button>
                 </div>

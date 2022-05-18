@@ -39,7 +39,7 @@
             <div class="col-md-10 col-lg-10 col-xl-10 col-xxl-10 col-sm-12 col-xs-12 mt-md-2 mt-lg-2 mt-xl-2 mt-xxl-2">
                 <div class="row justify-content-between">
                     <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-sm-12 col-xs-12">
-                        <h4 class="text-black">{{ auth()->user()->name }}</h4>
+                        <h4 class="text-black">{{ (isset($freelancer)) ? $freelancer->name : auth()->user()->name }}</h4>
                         <p class="text-black">
                             @if (!is_null($address))
                                 <i class="fas fa-map-marker-alt"></i> {{ $address->city . ', ' . $address->country }} 
@@ -215,7 +215,15 @@
                             <x-profile-job-component :contract="$item"/>
                         @empty
                             <p class="text-center">No Jobs!</p>
-                        @endforelse                        
+                        @endforelse
+                        @if ($completed_contracts->count() > 3)               
+                            <div class="col-12">  
+                                <hr>
+                                <div class="text-center pb-3">
+                                    <a class="show-all" href="#">Show all Experiences <i class="fas fa-chevron-down"></i></a>
+                                </div>
+                            </div>   
+                        @endif
                     </div>
                     <div class="tab-pane fade" id="in_progress_jobs" role="tabpanel" aria-labelledby="current">
                         @forelse ($active_contracts as $item)
@@ -372,7 +380,7 @@
                             <div style="display: flex;gap: 1rem"> <h4 class="m-0 text-black">{{ $item->title }}</h4> @if ($self) <button data-mdb-target="#edit_work_modal" data-mdb-toggle="modal" data-experience="{{ encrypt($item->id) }}" style="font-size: 0.8rem;height: 1.8rem; width: 1.8rem;" type="button" class="circular-button experience_edit"><i class="fas fa-pen"></i></button> @endif</div>
                             <p class="mt-2 mb-2">{{ $item->description }}</p>
                             <p class="m-0"><b class="text-black">From:</b> {{ (is_null($item->start_date)) ? '-' : $item->start_date->format('M d, Y') }}</p>
-                            <p class="m-0"><b class="text-black">To:</b> {{ (is_null($item->end_date)) ? '-' : $item->end_date->format('M d, Y') }}</p>
+                            <p class="m-0"><b class="text-black">To:</b> {{ (is_null($item->end_date)) ? 'Present' : $item->end_date->format('M d, Y') }}</p>
                         @empty
                             <p>No Current jobs.</p>
                         @endforelse
