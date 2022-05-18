@@ -14,7 +14,7 @@
     <!-- Bootstrap -->
     <link href="{{ asset('/admin/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{ asset('/admin/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="{{ asset('/admin/vendors/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- iCheck -->
@@ -46,6 +46,7 @@
         rel="stylesheet">
     <link href="{{ asset('/admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
         rel="stylesheet">
+
 
     <style>
         .btn-group {

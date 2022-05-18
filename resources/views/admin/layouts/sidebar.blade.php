@@ -57,6 +57,8 @@
                 <li><a href="{{ route('job.index') }}"><i class="fa fa-briefcase"></i> Jobs </a></li>
                 <li><a href="{{ route('skill.index') }}"><i class="fa fa-desktop"></i> Skills </a></li>
                 <li><a href="{{ route('admin.category.index') }}"><i class="fa fa-list"></i>Job Category </a></li>
+                <li><a href="{{ route('user.verification.index') }}"><i class="fa fa-user"></i>Pending User </a>
+                </li>
                 {{-- <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="chartjs.html">Chart JS</a></li>

@@ -13,10 +13,10 @@
                      <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                          <a class="dropdown-item" href="javascript:;"> Profile</a>
                          <a class="dropdown-item" href="javascript:;">
-                             <span class="badge bg-red pull-right">50%</span>
+                             {{-- <span class="badge bg-red pull-right">50%</span> --}}
                              <span>Settings</span>
                          </a>
-                         <a class="dropdown-item" href="javascript:;">Help</a>
+                         {{-- <a class="dropdown-item" href="javascript:;">Help</a> --}}
                          <form action="{{ route('user.logout') }}" method="post">
                              @csrf
                              <button class="dropdown-item" type="submit"><i class="fa fa-sign-out pull-right"></i> Log
@@ -25,7 +25,7 @@
                      </div>
                  </li>
 
-                 <li role="presentation" class="nav-item dropdown open">
+                 {{-- <li role="presentation" class="nav-item dropdown open">
                      <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
                          data-toggle="dropdown" aria-expanded="false">
                          <i class="fa fa-envelope-o"></i>
@@ -93,7 +93,7 @@
                              </div>
                          </li>
                      </ul>
-                 </li>
+                 </li> --}}
              </ul>
          </nav>
      </div>

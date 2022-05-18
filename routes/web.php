@@ -18,6 +18,7 @@ use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\VerificationRequestController;
 use App\Http\Controllers\JobProposalController;
 use App\Http\Controllers\ResendEmailController;
 use App\Http\Controllers\VerifyEmailController;
@@ -253,7 +254,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::prefix('f/contracts')->group(function () {
         Route::get('/', [FreelancerActiveJobController::class, 'index'])->name('freelancer.contract.index');
     });
-    
+
     Route::prefix('f/end-contract')->group(function () {
         Route::get('/create/{id}', [FreelancerEndContractController::class, 'create'])->name('freelancer.end.contract.create');
         Route::post('/', [FreelancerEndContractController::class, 'store'])->name('freelancer.end.contract.store');
@@ -354,6 +355,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/{id}/contract', [AdminJobController::class, 'showcontract'])->name('job.showcontract');
         Route::get('/data', [AdminJobController::class, 'getData'])->name('job.get.data');
         Route::get('/milestone', [AdminJobController::class, 'getMilestone'])->name('job.get.milestone');
+        Route::get('/job-feedback/{id}', [AdminJobController::class, 'show'])->name('freelancer.job.feedback.show');
+    });
+
+    // admin verification user
+    Route::prefix('verification')->group(function () {
+        Route::get('/', [VerificationRequestController::class, 'index'])->name('user.verification.index');
+        Route::get('/data', [VerificationRequestController::class, 'getData'])->name('user.get.data');
+        Route::get('/{id}/photo', [VerificationRequestController::class, 'downloadPhoto'])->name('user.get.photo');
+        Route::get('/{id}', [VerificationRequestController::class, 'update'])->name('user.verified');
+        Route::get('/{id}/reject', [VerificationRequestController::class, 'reject'])->name('user.reject');
     });
 
     Route::prefix('tag')->group(function () {

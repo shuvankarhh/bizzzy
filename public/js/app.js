@@ -3187,7 +3187,7 @@ if (edit_company_form) {
 
 loadprofile = function loadprofile(id) {
   axios.get(APP_URL + "/admin/user/".concat(id, "/profile")).then(function (response) {
-    console.log(response);
+    //console.log(response);
     document.getElementById('professional_title').value = response.data.professional_title;
     document.getElementById('description').value = response.data.description;
     document.getElementById('availability_badge').value = response.data.availability_badge;
@@ -3202,6 +3202,22 @@ loadprofile = function loadprofile(id) {
     document.getElementById('total_jobs').value = response.data.total_jobs;
     document.getElementById('total_earnings').value = response.data.total_earnings;
   })["catch"](function (error) {});
+}; // =========== Job admin Feedback details ==========
+
+
+get_admin_feedback = function get_admin_feedback(e) {
+  axios.get(APP_URL + "/admin/job/job-feedback/".concat(e)).then(function (response) {
+    document.getElementById('feedback_body').innerHTML = response.data;
+    console.log(response); // location.href = response.data;
+  })["catch"](function (error) {
+    if (typeof error.response !== "undefined") {
+      // This is for error from laravel
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
+  });
 };
 
 var password = document.querySelector('#new_password');
