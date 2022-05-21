@@ -5,11 +5,14 @@
 .inner-content {
     background-color: rgb(229, 229, 229, 0.2);
 }
+
 .invalid-response {
     color: #f93154;
 }
 
+
 /* -- Register radion input-- */
+
 
 /* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
 
@@ -17,28 +20,28 @@
     display: none;
 }
 
+
 /* The label is what's left to style. 
 As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
 
-.register-radio + label {
+.register-radio+label {
     padding: 0.15em 0.4em 0.15em 0.4em;
     display: inline-block;
     cursor: pointer;
     min-width: 120px;
-    box-shadow: 0px 3px 5px rgba(9, 30, 66, 0.2),
-        0px 0px 1px rgba(9, 30, 66, 0.31);
+    box-shadow: 0px 3px 5px rgba(9, 30, 66, 0.2), 0px 0px 1px rgba(9, 30, 66, 0.31);
     margin-right: -2px;
     margin-left: -2px;
 }
 
-.register-radio.left + label {
+.register-radio.left+label {
     border-radius: 3px 0px 0px 3px;
     border-left: 1px solid #0086ff;
     border-top: 1px solid #0086ff;
     border-bottom: 1px solid #0086ff;
 }
 
-.register-radio.right + label {
+.register-radio.right+label {
     border-radius: 0px 3px 3px 0px;
     border-right: 1px solid #0086ff;
     border-top: 1px solid #0086ff;
@@ -49,15 +52,17 @@ As long as its 'for' attribute matches the input's 'id', it will maintain the fu
     display: none;
 }
 
+
 /* The '+' is the adjacent sibling selector.
 It selects what ever element comes right after it,
 as long as it is a sibling. */
 
-.register-radio:checked + label {
+.register-radio:checked+label {
     background: #0086ff;
     color: #ffffff;
     transition: 150ms ease-in-out;
 }
+
 
 /* -------- Selelct Option -----------------------------------------------------------------------*/
 
@@ -77,9 +82,12 @@ as long as it is a sibling. */
     font-size: 11px;
 }
 
+
 /* ----------------------------------------------------------------------------------------------- */
 
+
 /* -------- Questions ----------------------------------------------------------------------- */
+
 
 /* .ts-wrapper.plugin-remove_button .item .remove{
 color: red;
@@ -110,7 +118,7 @@ font-weight: 900;
     cursor: default;
 }
 
-.added-skill > p {
+.added-skill>p {
     margin: 6px;
 }
 
@@ -148,6 +156,7 @@ font-weight: 900;
     display: grid;
     grid-template-columns: 0.3fr 0fr 0.1fr;
 }
+
 @media (min-width: 0px) and (max-width: 990px) {
     .grid-center {
         grid-template-columns: 0.8fr 0fr 0.2fr;
@@ -172,7 +181,7 @@ font-weight: 900;
     color: #0086ff;
 }
 
-.add-language + .desc {
+.add-language+.desc {
     font-family: "Nunito Sans";
     font-style: normal;
     font-weight: 400;
@@ -215,15 +224,17 @@ font-weight: 900;
     padding-bottom: 120px;
 }
 
+
 /* Choose all input elements that have the attribute: type="radio" and make them disappear.*/
 
 .question-radio {
     display: none;
 }
 
+
 /* The label is what's left to style. As long as its 'for' attribute matches the input's 'id', it will maintain the function of a radio button. */
 
-.question-radio + label {
+.question-radio+label {
     padding: 1em;
     display: inline-block;
     cursor: pointer;
@@ -239,11 +250,12 @@ font-weight: 900;
     display: none;
 }
 
+
 /* The '+' is the adjacent sibling selector.
 It selects what ever element comes right after it,
 as long as it is a sibling. */
 
-.question-radio:checked + label {
+.question-radio:checked+label {
     background: #b5fbd6;
     border: 1px solid #0086ff;
     transition: 150ms ease-in-out;
@@ -297,6 +309,7 @@ as long as it is a sibling. */
     top: 11%;
 }
 
+
 /* .battery-question .card-body {
     margin-top: 50px;
 } */
@@ -319,6 +332,7 @@ as long as it is a sibling. */
     color: #1c1c1c;
 }
 
+
 /* checkbox position */
 
 .battery-question .checkbox {
@@ -329,6 +343,7 @@ as long as it is a sibling. */
     height: 24px;
 }
 
+
 /* hide default input */
 
 .battery-question .checkbox input {
@@ -338,6 +353,7 @@ as long as it is a sibling. */
     height: 0;
     width: 0;
 }
+
 
 /* create custom input */
 
@@ -351,18 +367,21 @@ as long as it is a sibling. */
     border-radius: 50%;
 }
 
+
 /* input hover */
 
-.battery-question .checkbox:hover input ~ .checkmark {
+.battery-question .checkbox:hover input~.checkmark {
     background-color: rgb(255, 250, 250);
     cursor: pointer;
 }
 
+
 /* check-background */
 
-.battery-question .checkbox input:checked ~ .checkmark {
+.battery-question .checkbox input:checked~.checkmark {
     background-color: #0086ff;
 }
+
 
 /* Create the indicator (hidden when not checked) */
 
@@ -372,12 +391,14 @@ as long as it is a sibling. */
     display: none;
 }
 
+
 /* Show the indicator (dot/circle) when checked */
 
-.battery-question .checkbox input:checked ~ .checkmark:after {
+.battery-question .checkbox input:checked~.checkmark:after {
     display: flex;
     width: 100%;
 }
+
 
 /* Style the indicator (dot/circle) */
 
@@ -485,7 +506,7 @@ as long as it is a sibling. */
     color: #0086ff;
 }
 
-.rate-input-group + input {
+.rate-input-group+input {
     border-top: 1px solid #bdbdbd;
     border-bottom: 1px solid #bdbdbd;
     border-left: 0;
@@ -493,7 +514,9 @@ as long as it is a sibling. */
     text-align: right;
 }
 
+
 /* ---------------------------------------------------------------- */
+
 
 /* --- Override defaults --- */
 
@@ -592,6 +615,7 @@ body {
     background-repeat: no-repeat; */
 }
 
+
 /* Search ICON */
 
 .search_input_group .form-control {
@@ -626,8 +650,10 @@ body {
     cursor: pointer;
 }
 
+
 /* .form-control-feedback:hover{
 } */
+
 
 /* ----- Footer ----- */
 
@@ -635,14 +661,17 @@ body {
     background-color: hsl(0, 0%, 95%);
     color: hsl(0, 0%, 50%) !important;
 }
+
 .btn-gray:hover {
     color: #000000 !important;
     background-color: #f2f2f2;
 }
+
 .footer {
     font-family: Nunito Sans;
     font-style: normal;
 }
+
 .footer a {
     color: #444444;
 }
@@ -653,6 +682,7 @@ body {
     font-weight: 600;
     color: #1c1c1c;
 }
+
 .footer-note {
     font-weight: normal;
     font-size: 12px;
@@ -679,7 +709,7 @@ body {
     text-decoration: none;
 }
 
-.footer-button > i {
+.footer-button>i {
     float: right;
     transition: 200ms ease-in-out;
 }
@@ -692,7 +722,7 @@ body {
     text-align: left !important;
 }
 
-.footer-button > i.active {
+.footer-button>i.active {
     transform: rotate(180deg);
 }
 
@@ -713,9 +743,11 @@ body {
 p {
     color: #656565;
 }
+
 .footer-sm-content hr {
     margin: 0.5rem 0;
 }
+
 
 /* Getting started carousel */
 
@@ -728,7 +760,7 @@ p {
     /* display: none; */
 }
 
-.carousel-inner-box + .card {
+.carousel-inner-box+.card {
     background-color: #ffffff;
     border-radius: 3px;
 }
@@ -758,13 +790,13 @@ p {
     color: #006644;
 }
 
-.carousel-inner-box .top-rated > p {
+.carousel-inner-box .top-rated>p {
     float: right;
     font-size: 14px;
     margin-right: 10px;
 }
 
-.carousel-inner-box .top-rated > img {
+.carousel-inner-box .top-rated>img {
     height: 20px;
     width: 20px;
     float: right;
@@ -882,10 +914,11 @@ p {
     .container {
         max-width: 90vw;
     }
-    .question-radio + label {
+    .question-radio+label {
         width: 90%;
     }
 }
+
 
 /* ==========================================Profile page========================================== */
 
@@ -944,6 +977,7 @@ p {
     position: relative;
 }
 
+
 /* .profile-image {
     position: absolute;
     top: 20px;
@@ -991,6 +1025,7 @@ p {
     outline: inherit !important;
 }
 
+
 /* Jobs Body ------------------------------------ */
 
 .job-description {
@@ -1002,19 +1037,23 @@ p {
     display: flex;
     align-items: center;
 }
+
 .search-input input {
     padding: 0.5rem 0.5rem 0.5rem 2.5rem;
     border-radius: 0;
     background-color: rgb(237, 237, 237, 0.5);
     border: 0;
 }
+
 .search-input input:focus {
     border-radius: 0;
 }
+
 .search-input label {
     position: absolute;
     left: 0.5rem;
 }
+
 .job-more-button {
     display: block;
     font-weight: bold;
@@ -1028,18 +1067,21 @@ p {
     height: 100%;
     font-weight: 500;
 }
-.job-body .active > .icon > img {
-    filter: invert(80%) sepia(33%) saturate(7479%) hue-rotate(214deg)
-        brightness(100%) contrast(89%);
+
+.job-body .active>.icon>img {
+    filter: invert(80%) sepia(33%) saturate(7479%) hue-rotate(214deg) brightness(100%) contrast(89%);
 }
+
 .job-body .icon {
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
-.job-body .icon > img {
+
+.job-body .icon>img {
     width: 1.2rem;
 }
+
 .job-body .text {
     margin-left: 5px;
     margin-top: 1px;
@@ -1165,6 +1207,7 @@ p {
     cursor: context-menu;
     border: 2px solid #f2f2f2;
 }
+
 .job-card .save.remove {
     cursor: pointer;
 }
@@ -1172,6 +1215,7 @@ p {
 .job-card .save.remove:hover {
     content: "remove";
 }
+
 .job-card .more-text {
     text-decoration: none;
     color: black;
@@ -1187,7 +1231,7 @@ p {
     color: #1a3f61;
 }
 
-.job-tag > div {
+.job-tag>div {
     font-family: "Inter";
     font-style: normal;
     font-weight: 500;
@@ -1208,7 +1252,7 @@ p {
     align-items: center;
 }
 
-.flex-text > div {
+.flex-text>div {
     display: inline-flex;
     margin: 5px;
 }
@@ -1250,7 +1294,7 @@ p {
     position: absolute;
 }
 
-.lower-text .stack-image > img {
+.lower-text .stack-image>img {
     position: absolute;
     width: 23px;
     aspect-ratio: 1;
@@ -1297,6 +1341,7 @@ p {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
+
 .connect-available:hover {
     cursor: context-menu;
 }
@@ -1308,6 +1353,8 @@ p {
         margin-bottom: 1rem;
     }
 }
+
+
 /* ---------------------------------------------- */
 
 .freelancer-profile .job-thumbnail {
@@ -1328,12 +1375,12 @@ p {
     padding-bottom: 1rem;
 }
 
-.freelancer-profile .lower-text > div {
+.freelancer-profile .lower-text>div {
     position: relative;
     height: 100%;
 }
 
-.freelancer-profile .lower-text > div:not(:last-child):before {
+.freelancer-profile .lower-text>div:not(:last-child):before {
     content: "";
     height: 2rem;
     width: 1px;
@@ -1419,24 +1466,17 @@ b {
 .freelancer-profile .available-badge {
     margin-right: 20px;
     color: #0086ff;
-
     border: 2px solid #0086ff;
     box-shadow: inset -5px -5px 250px rgba(255, 255, 255, 0.02);
-
     -webkit-backdrop-filter: blur(42px);
-
             backdrop-filter: blur(42px);
     /* Note: backdrop-filter has minimal browser support */
-
     border-radius: 50px;
-
     /* padding: 5px; */
     /* margin: 10px; */
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     max-width: 150px;
 }
 
@@ -1448,6 +1488,7 @@ b {
 .freelancer-profile .card-padding {
     padding: 0.7rem 1.3rem 0.7rem 1.3rem;
 }
+
 .freelancer-profile .card-border {
     /* border: 1px solid #AFAFAF; */
     border-radius: 5px;
@@ -1464,12 +1505,14 @@ b {
 .freelancer-profile .hourly-rate-div i {
     cursor: pointer;
 }
+
 .freelancer-profile .hourly-rate-div {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
 }
+
 .freelancer-profile .hourly-rate {
     background: #e6f2ed;
     border-radius: 36px;
@@ -1485,7 +1528,7 @@ b {
     font-weight: 600;
 }
 
-.job_feedback_body > *:not(hr) {
+.job_feedback_body>*:not(hr) {
     padding: 1rem 1rem 0 1rem;
 }
 
@@ -1563,6 +1606,7 @@ b {
 .portfolio-title {
     color: #0086ff;
 }
+
 .portfolio-text {
     font-family: "Uber Move Text";
     font-style: normal;
@@ -1592,7 +1636,6 @@ b {
     .freelancer-profile .lower-text {
         grid-template-columns: repeat(3, 1fr);
     }
-
     .freelancer-profile .lower-text-line-break-div:before {
         width: 0px !important;
     }
@@ -1603,7 +1646,10 @@ b {
         width: 30px;
     }
 }
+
+
 /* ---------------------------------------------- */
+
 
 /* ========================================= Submit Profile ================================== */
 
@@ -1612,13 +1658,15 @@ b {
     padding: 0.3rem;
 }
 
-.submit-top-header > div {
+.submit-top-header>div {
     display: flex;
     align-items: center;
 }
+
 .submit-top-header .first {
     justify-content: end;
 }
+
 .submit-top-header .second {
     justify-content: start;
 }
@@ -1660,7 +1708,7 @@ b {
     color: #1c1c1c;
 }
 
-.submit-profile > div:not(:first-child) {
+.submit-profile>div:not(:first-child) {
     background-color: #ffffff;
     margin-bottom: 1rem;
 }
@@ -1683,6 +1731,7 @@ b {
 .submit-profile .submit-profile-language {
     display: flex;
 }
+
 
 /* .photo-sm.col-sm-12 {
     background: #006644;
@@ -1796,7 +1845,9 @@ b {
     border: 1px solid #dfe1e6;
 }
 
+
 /* ========================================= Submit Profile End ================================== */
+
 
 /* ========================================= blog ================================== */
 
@@ -1848,52 +1899,66 @@ b {
     color: #afafaf;
 }
 
+
 /* ========================================= blog End ================================== */
+
 
 /* ================= Bootstrap Responsive Width ========================================= */
 
+
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-}
+
+@media (min-width: 576px) {}
+
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-}
+
+@media (min-width: 768px) {}
+
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-}
+
+@media (min-width: 992px) {}
+
 
 /* X-Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-}
+
+@media (min-width: 1200px) {}
+
 
 /* XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) {
-}
+
+@media (min-width: 1400px) {}
+
+
 /* ================= Bootstrap Responsive Width End ========================================= */
 
 .dropdown-menu li {
     position: relative;
 }
+
 .dropdown-menu .dropdown-submenu {
     display: none;
     position: absolute;
     left: 100%;
     top: 0px;
 }
+
 .dropdown-menu .dropdown-submenu-left {
     right: 100%;
     left: auto;
 }
-.dropdown-menu > li:hover > .dropdown-submenu {
+
+.dropdown-menu>li:hover>.dropdown-submenu {
     display: block;
 }
+
 .btn-xs {
     padding: 0.35rem 0.7rem 0.35rem;
     font-size: 0.7rem;
     line-height: 1;
 }
+
 
 /* ============ New Star Rating w Percentage ========= */
 
@@ -1910,7 +1975,9 @@ b {
     top: 0;
 }
 
+
 /* =================== Star rating =================== */
+
 .star-rating-display {
     font-size: 2em;
     unicode-bidi: bidi-override;
@@ -1918,12 +1985,14 @@ b {
     display: inline-block;
     position: relative;
 }
+
 .star-rating-display:before,
 .star-rating-display:after {
     content: "★★★★★";
     display: inline-block;
     white-space: nowrap;
 }
+
 .star-rating-display:before {
     color: #ffd200;
     position: absolute;
@@ -1931,51 +2000,65 @@ b {
     left: 0px;
     overflow: hidden;
 }
+
 .star-rating-display:after {
     z-index: 0;
 }
+
 .star-rating-display[data-average-score="0"]:before {
     width: 0%;
 }
+
 .star-rating-display[data-average-score="0.5"]:before {
     width: 10%;
 }
+
 .star-rating-display[data-average-score="1"]:before {
     width: 20%;
 }
+
 .star-rating-display[data-average-score="1.5"]:before {
     width: 30%;
 }
+
 .star-rating-display[data-average-score="2"]:before {
     width: 40%;
 }
+
 .star-rating-display[data-average-score="2.5"]:before {
     width: 50%;
 }
+
 .star-rating-display[data-average-score="3"]:before {
     width: 60%;
 }
+
 .star-rating-display[data-average-score="3.5"]:before {
     width: 70%;
 }
+
 .star-rating-display[data-average-score="4"]:before {
     width: 80%;
 }
+
 .star-rating-display[data-average-score="4.5"]:before {
     width: 90%;
 }
+
 .star-rating-display[data-average-score="5"]:before {
     width: 100%;
 }
 
+
 /* ===================== Star rating input ==================== */
+
 .rating-wrapper {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.rating-wrapper > label {
+.rating-wrapper>label {
     font-size: 1.2rem;
 }
 
@@ -2035,20 +2118,23 @@ b {
     color: #000;
 }
 
-.rating:not(:hover) label input:checked ~ .icon,
-.rating:hover label:hover input ~ .icon {
+.rating:not(:hover) label input:checked~.icon,
+.rating:hover label:hover input~.icon {
     color: #09f;
 }
 
-.rating label input:focus:not(:checked) ~ .icon:last-child {
+.rating label input:focus:not(:checked)~.icon:last-child {
     color: #000;
     text-shadow: 0 0 5px #09f;
 }
 
+
 /* ===================== Contract ============================= */
+
 .job-dropdown-parent {
     position: relative;
 }
+
 .job-dropdown {
     position: absolute;
     top: 0;
@@ -2060,9 +2146,9 @@ b {
 }
 
 .dropdown-menu {
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-        rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
+
 
 /* ===================== Settings ============================= */
 
@@ -2079,50 +2165,66 @@ b {
     position: absolute;
     top: 1px;
 }
+
 .loader-hidden {
     opacity: 0;
 }
 
+
 /* Utility class */
+
 .c-flex {
     display: flex;
 }
+
 .f-justify-center {
     justify-content: center;
 }
+
 .f-justify-end {
     justify-content: end;
 }
+
 .f-justify-between {
     justify-content: space-between;
 }
+
 .f-justify-start {
     justify-content: start;
 }
+
 .f-align-center {
     align-items: center;
 }
+
 .f-align-end {
     align-items: end;
 }
+
 .f-align-start {
     align-items: start;
 }
+
 .f-direction-column {
     flex-direction: column;
 }
+
 .f-gap-1 {
     gap: 1rem;
 }
+
 .f-gap-2 {
     gap: 1.5rem;
 }
+
 .f-gap-3 {
     gap: 2rem;
 }
+
 .f-gap-4 {
     gap: 3rem;
 }
+
 .f-gap-5 {
     gap: 4rem;
 }
@@ -2140,3 +2242,20 @@ b {
     }
 }
 
+.membership {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 30px !important;
+}
+
+.plan-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.plan-subtitle {
+    text-align: center;
+    margin-bottom: 30px !important;
+}
