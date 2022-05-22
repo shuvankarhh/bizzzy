@@ -114,6 +114,16 @@ class User extends Authenticatable
         return $this->hasOne(VerificationRequest::class);
     }
 
+    public function stripe_detail()
+    {
+        return $this->hasOne(StripeDetail::class);
+    }
+
+    public function cards()
+    {
+        return $this->hasMany(PaymentCard::class);
+    }
+
     public function isRecruiter()
     {
         $userAccount = $this->userAccount()->where('client_or_freelancer', 1)->first();

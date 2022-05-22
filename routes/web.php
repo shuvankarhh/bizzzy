@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\RecruiterProfile;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Artisan;
@@ -9,6 +10,7 @@ use App\Http\Controllers\SocialController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\JobApplyController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\UserSkillController;
@@ -18,7 +20,6 @@ use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\StaffController;
-use App\Http\Controllers\Admin\VerificationRequestController;
 use App\Http\Controllers\JobProposalController;
 use App\Http\Controllers\Admin\AdminContractController;
 use App\Http\Controllers\ResendEmailController;
@@ -26,10 +27,12 @@ use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\RecruiterJobController;
 use App\Http\Controllers\UserLanguageController;
 use App\Http\Controllers\ClientAccountController;
+use App\Http\Controllers\Stripe\StripeController;
 use App\Http\Controllers\UserPortfolioController;
 use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Staff\StaffAuthController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -38,27 +41,27 @@ use App\Http\Controllers\ContractMilestoneController;
 use App\Http\Controllers\FreelancerProfileController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\PermissionRoleController;
-use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\GetStarted\EducationController;
 use App\Http\Controllers\Freelancer\ExperienceController;
-use App\Http\Controllers\Freelancer\FreelancerAccountVerificationController;
-use App\Http\Controllers\Freelancer\FreelancerEndContractController;
-use App\Http\Controllers\Freelancer\FreelancerJobFeedbackController;
-use App\Http\Controllers\Freelancer\FreelancerSaveJobController;
-use App\Http\Controllers\Freelancer\FreelancerTitleController;
 use App\Http\Controllers\Freelancer\PreferenceController;
 use App\Http\Controllers\Freelancer\VisibilityController;
 use App\Http\Controllers\GetStarted\GetStartedController;
+use App\Http\Controllers\Admin\VerificationRequestController;
 use App\Http\Controllers\FreelancerProfileCategoryController;
 use App\Http\Controllers\GetStarted\WorkExperienceController;
+use App\Http\Controllers\Freelancer\FreelancerTitleController;
+use App\Http\Controllers\Recruiter\RecruiterProfileController;
+use App\Http\Controllers\Freelancer\FreelancerSaveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerJobController;
 use App\Http\Controllers\Recruiter\RecruiterEndContractController;
+use App\Http\Controllers\Freelancer\FreelancerEndContractController;
+use App\Http\Controllers\Freelancer\FreelancerJobFeedbackController;
 use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
-use App\Http\Controllers\PasswordController;
-use App\Http\Controllers\Recruiter\RecruiterProfileController;
-use App\Models\RecruiterProfile;
+use App\Http\Controllers\Freelancer\FreelancerAccountVerificationController;
+use App\Http\Controllers\Stripe\StripeCardController;
+use App\Http\Controllers\Stripe\StripeCustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -314,6 +317,13 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
 
     Route::post('change-account/{type}', [ChangeAccountTypeController::class, 'update'])->name('change.account');
     Route::patch('change-password', [PasswordController::class, 'update'])->name('change.password.store');
+
+    Route::get('stripe', [StripeController::class, 'create'])->name('stripe.create');
+    Route::post('stripe', [StripeController::class, 'store'])->name('stripe.store');
+
+    Route::get('stripe/customer/create', [StripeCustomerController::class, 'store'])->name('stripe.customer.create');
+    Route::post('stripe/card/create', [StripeCardController::class, 'create'])->name('stripe.card.create');
+    Route::post('stripe/card/update', [StripeCardController::class, 'update'])->name('stripe.card.update');
 });
 Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dash');
 Route::group(['middleware' => ['guest', 'guest:admin']], function () {
