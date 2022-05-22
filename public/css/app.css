@@ -2242,6 +2242,22 @@ b {
     }
 }
 
+
+/* Stripe CSS */
+
+.error {
+    z-index: 0;
+    height: 55px;
+    transition: 300ms;
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    z-index: -1;
+}
+
 .membership {
     text-align: center;
     font-size: 1.75rem;
@@ -2258,20 +2274,4 @@ b {
 .plan-subtitle {
     text-align: center;
     margin-bottom: 30px !important;
-}
-
-
-/* Stripe CSS */
-
-.error {
-    z-index: 0;
-    height: 55px;
-    transition: 300ms;
-    opacity: 1;
-}
-
-.hidden {
-    opacity: 0;
-    height: 0;
-    z-index: -1;
 }
