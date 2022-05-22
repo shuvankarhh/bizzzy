@@ -35,7 +35,7 @@
                     <div class="col-12 mt-3">
                         <hr>
                         <h3>Given Offer</h3>
-                        <div id="hourly" class="{{ ($job_proposal->price_type == 'Hourly') ? '' : 'd-none' }}">
+                        <div id="hourly" class="{{ ($job_proposal->job->price_type == 'Hourly') ? '' : 'd-none' }}">
                             <div class="hourly row">
                                 <b>Hourly</b>
                                 <div class="col-auto">

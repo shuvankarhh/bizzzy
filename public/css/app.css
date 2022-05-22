@@ -2140,3 +2140,16 @@ b {
     }
 }
 
+
+/* Stripe CSS */
+.error{
+    z-index: 0;
+    height: 55px;
+    transition: 300ms;
+    opacity: 1;
+}
+.hidden{
+    opacity: 0;
+    height: 0;
+    z-index: -1;
+}

@@ -3202,22 +3202,6 @@ loadprofile = function loadprofile(id) {
     document.getElementById('total_jobs').value = response.data.total_jobs;
     document.getElementById('total_earnings').value = response.data.total_earnings;
   })["catch"](function (error) {});
-}; // =========== Job admin Feedback details ==========
-
-
-get_admin_feedback = function get_admin_feedback(e) {
-  axios.get(APP_URL + "/admin/job/job-feedback/".concat(e)).then(function (response) {
-    document.getElementById('feedback_body').innerHTML = response.data;
-    console.log(response); // location.href = response.data;
-  })["catch"](function (error) {
-    if (typeof error.response !== "undefined") {
-      // This is for error from laravel
-      showValidation(error.response.data);
-    } else {
-      // Other JS related error
-      console.log(error);
-    }
-  });
 };
 
 var password = document.querySelector('#new_password');
@@ -3273,8 +3257,7 @@ if (change_password_form) {
       location.reload();
     })["catch"](function (error) {
       if (typeof error.response !== "undefined") {
-        //  This is for error from laravel
-        console.log(error.response.data);
+        // This is for error from laravel
         showValidation(error.response.data);
       } else {
         // Other JS related error
@@ -3282,7 +3265,23 @@ if (change_password_form) {
       }
     });
   });
-}
+} // =========== Job admin Feedback details ==========
+
+
+get_admin_feedback = function get_admin_feedback(e) {
+  axios.get(APP_URL + "/admin/job/job-feedback/".concat(e)).then(function (response) {
+    document.getElementById('feedback_body').innerHTML = response.data;
+    console.log(response); // location.href = response.data;
+  })["catch"](function (error) {
+    if (typeof error.response !== "undefined") {
+      // This is for error from laravel
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
+  });
+};
 
 var edit_contact = document.getElementById('edit_contact');
 
