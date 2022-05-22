@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\JobProposalController;
+use App\Http\Controllers\Admin\AdminContractController;
 use App\Http\Controllers\ResendEmailController;
 use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\RecruiterJobController;
@@ -302,6 +303,8 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
 
     Route::prefix('setting')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('setting.index');
+        Route::get('/membership', [SettingController::class, 'membership'])->name('setting.membership');
+        Route::post('/membership/change', [SettingController::class, 'planUpdate'])->name('setting.planUpdate');
     });
 
     Route::get('f/profile-verification', [FreelancerAccountVerificationController::class, 'index'])->name('freelancer.profile.verification.get');
@@ -375,6 +378,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/{id}/photo', [VerificationRequestController::class, 'downloadPhoto'])->name('user.get.photo');
         Route::get('/{id}', [VerificationRequestController::class, 'update'])->name('user.verified');
         Route::get('/{id}/reject', [VerificationRequestController::class, 'reject'])->name('user.reject');
+    });
+
+    Route::prefix('contract')->group(function () {
+        Route::get('/', [AdminContractController::class, 'index'])->name('contract.index');
+        Route::get('/data', [AdminContractController::class, 'getData'])->name('contract.get.data');
+        Route::get('/{id}', [AdminContractController::class, 'update'])->name('contract.approve');
+        Route::get('/{id}/resolve', [AdminContractController::class, 'resolve'])->name('contract.resolve');
     });
 
     Route::prefix('tag')->group(function () {

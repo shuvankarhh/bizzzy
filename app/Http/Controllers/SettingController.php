@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Stripe\StripeClient;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class SettingController extends Controller
 {
@@ -31,7 +32,7 @@ class SettingController extends Controller
                 'recruiter' => auth()->user()->recruiter_profile,
                 'verification' => auth()->user()->verification_request
             ]);
-        }else{
+        } else {
             return view('contents.settings.freelancer-settings')->with([
                 'stripe_detail' => $stripe_details,
                 'cards' => auth()->user()->cards,
@@ -39,5 +40,17 @@ class SettingController extends Controller
                 'verification' => auth()->user()->verification_request
             ]);
         }
+    }
+    public function membership()
+    {
+        return view('contents.settings.plus-plan');
+    }
+
+    public function planUpdate()
+    {
+        $user = User::find(auth()->id());
+        $user->membership = 1;
+        $user->save();
+        return back();
     }
 }
