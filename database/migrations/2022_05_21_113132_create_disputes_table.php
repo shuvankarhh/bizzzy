@@ -15,9 +15,9 @@ class CreateDisputesTable extends Migration
     {
         Schema::create('disputes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('contract_id')->unsigned();
-            $table->bigInteger('dispute_created_by')->unsigned();
-            $table->bigInteger('processed_by')->unsigned()->nullable();
+            $table->bigInteger('contract_id');
+            $table->bigInteger('dispute_created_by');
+            $table->bigInteger('processed_by')->nullable();
             $table->string('description',5000);
             $table->tinyInteger('status')->unsigned();
             $table->timestamps();

@@ -1,3 +1,7 @@
+.border-zero{
+    border-radius: 0;
+}
+
 .card {
     border-radius: 0;
 }
@@ -2249,6 +2253,9 @@ b {
     height: 55px;
     transition: 300ms;
     opacity: 1;
+}
+.credit-card-logo{
+    width: 3.5em;
 }
 .hidden{
     opacity: 0;

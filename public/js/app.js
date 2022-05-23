@@ -3402,6 +3402,85 @@ if (portfolio_edit.length > 0) {
   portfolio_edit.forEach(function (element) {
     element.addEventListener('click', getPortfolioEdit);
   });
+} // Stripe payment
+
+
+var stripe = Stripe(STRIPE_KEY);
+var elements;
+var alert_div = document.getElementById('alert_div');
+
+var initialize = function initialize() {
+  axios.post(APP_URL + "/stripe/card/create").then(function (response) {
+    var clientSecret = response.data.clientSecret;
+    elements = stripe.elements({
+      clientSecret: clientSecret
+    }); // Create and mount the Payment Element
+
+    var paymentElement = elements.create('payment');
+    paymentElement.mount('#payment-element');
+  })["catch"](function (error) {});
+};
+
+var confirmCardHandler = function confirmCardHandler(e) {
+  e.preventDefault();
+  var credited_amount = document.getElementById('credited_amount').value;
+  axios.post(APP_URL + "/stripe/card/update", {
+    'credited_amount': credited_amount
+  }).then(function (response) {
+    location.reload();
+  })["catch"](function (error) {});
+};
+
+var addPaymentToggle = function addPaymentToggle(e) {
+  var not_added_text = document.getElementById('not_added_text');
+
+  if (typeof elements === 'undefined') {
+    initialize();
+  }
+
+  var card_add = document.getElementById('card_add');
+  not_added_text.classList.toggle('d-none');
+  card_add.classList.toggle('d-none');
+  console.log(not_added_text);
+};
+
+var add_payment_btn = document.getElementById("add_payment_method_btn");
+
+if (add_payment_btn) {
+  add_payment_btn.addEventListener("click", addPaymentToggle);
+}
+
+var payment_form = document.getElementById("payment-form");
+
+if (payment_form) {
+  payment_form.addEventListener("submit", handleSubmit);
+}
+
+var confirm_credit_card = document.getElementById("confirm_credit_card");
+
+if (confirm_credit_card) {
+  confirm_credit_card.addEventListener("submit", confirmCardHandler);
+}
+
+function showMessage(messageText) {
+  alert_div.classList.remove('hidden');
+  document.getElementById('alert').innerHTML = messageText;
+}
+
+var fixed_price = document.getElementById('price');
+var first_deposit = document.getElementById('deposit_amount.0');
+
+var contractEstimateCalculator = function contractEstimateCalculator(e) {
+  if (first_deposit.value == '') {
+    document.getElementById('estimate_amount').innerHTML = fixed_price.value;
+  } else {
+    document.getElementById('estimate_amount').innerHTML = first_deposit.value;
+  }
+};
+
+if (fixed_price) {
+  fixed_price.addEventListener('keyup', contractEstimateCalculator);
+  first_deposit.addEventListener('keyup', contractEstimateCalculator);
 }
 
 /***/ }),

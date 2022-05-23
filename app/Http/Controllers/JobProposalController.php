@@ -130,7 +130,8 @@ class JobProposalController extends Controller
         }])->with('proposal_files', 'user')->where('user_id', decrypt($freelancer))->where('job_id', decrypt($job_id))->first();
 
         return view('contents.jobs.job-proposal')->with([
-            'job_proposal' => $job_proposal
+            'job_proposal' => $job_proposal,
+            'stripe_details' => auth()->user()->stripe_details,
         ]);
     }
 

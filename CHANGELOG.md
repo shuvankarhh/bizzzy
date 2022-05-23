@@ -1,9 +1,14 @@
-## 0.041.0 (2022-05-12 17:00)
+## 0.042.0 (2022-05-23 17:00)
+| Type | Description         |
+| ---- | ------------------- |
+| add  | Payment methods overhaul |
+
+## 0.041.0 (2022-05-22 17:00)
 | Type | Description         |
 | ---- | ------------------- |
 | add  | Stripe intigration |
 
-## 0.040.0 (2022-05-12 17:00)
+## 0.040.0 (2022-05-18 17:00)
 | Type | Description         |
 | ---- | ------------------- |
 | add  | Various small features |

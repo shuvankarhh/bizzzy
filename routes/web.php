@@ -47,6 +47,8 @@ use App\Http\Controllers\Freelancer\PreferenceController;
 use App\Http\Controllers\Freelancer\VisibilityController;
 use App\Http\Controllers\GetStarted\GetStartedController;
 use App\Http\Controllers\Admin\VerificationRequestController;
+use App\Http\Controllers\BillingController;
+use App\Http\Controllers\ContractBillingController;
 use App\Http\Controllers\FreelancerProfileCategoryController;
 use App\Http\Controllers\GetStarted\WorkExperienceController;
 use App\Http\Controllers\Freelancer\FreelancerTitleController;
@@ -322,8 +324,13 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::post('stripe', [StripeController::class, 'store'])->name('stripe.store');
 
     Route::get('stripe/customer/create', [StripeCustomerController::class, 'store'])->name('stripe.customer.create');
+
     Route::post('stripe/card/create', [StripeCardController::class, 'create'])->name('stripe.card.create');
     Route::post('stripe/card/update', [StripeCardController::class, 'update'])->name('stripe.card.update');
+
+    Route::get('billing/create', [BillingController::class, 'create'])->name('billing.create');
+    Route::get('contract-billing/create', [ContractBillingController::class, 'create'])->name('contract.billing.create');
+    Route::get('contract-billing/store', [ContractBillingController::class, 'store'])->name('contract.billing.store');
 });
 Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dash');
 Route::group(['middleware' => ['guest', 'guest:admin']], function () {

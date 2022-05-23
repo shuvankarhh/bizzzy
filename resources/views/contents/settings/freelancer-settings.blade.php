@@ -27,7 +27,7 @@
         <!-- Tab navs -->
             <div class="nav flex-column nav-tabs text-center" id="v-tabs-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="billing-tab" data-mdb-toggle="tab" href="#billing" role="tab" aria-controls="billing" aria-selected="true">Billing Methods</a>
-                <a class="nav-link active" id="membership-tab" data-mdb-toggle="tab" href="#membership" role="tab" aria-controls="membership" aria-selected="true">Membership & Connects</a>
+                <a class="nav-link" id="membership-tab" data-mdb-toggle="tab" href="#membership" role="tab" aria-controls="membership" aria-selected="true">Membership & Connects</a>
                 <a class="nav-link" id="contact-tab" data-mdb-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact Info</a>
                 <a class="nav-link" id="tax-tab" data-mdb-toggle="tab" href="#tax" role="tab" aria-controls="tax" aria-selected="false">Tax Information</a>
                 <a class="nav-link" id="profile-tab" href="{{ route('freelancer.profile.index') }}"  aria-controls="profile" aria-selected="false">My Profile</a>
@@ -53,7 +53,7 @@
                                 @if ($stripe_detail->status == '3')                                    
                                     <div>
                                         <p><i class="fa-solid fa-circle-exclamation"></i> A small amount of money has been credited from your account. Please provide the exact amount to activate your card.</p>
-                                        <p>You have added card ending with "<strong>....{{$stripe_detail->last4}}</st>" </p>
+                                        <p>You have added card ending with "<strong>....{{$stripe_detail->last4}}</strong>" </p>
                                         <form action="#" id="confirm_credit_card">
                                             <input type="text" name="credited_amount" id="credited_amount" class="form-control" placeholder="Credited Amount">
                                             <button class="btn btn-success mt-3">Confirm</button>
@@ -186,10 +186,6 @@
                     <div class="card mb-3">                            
                         <form action="#" id="update_contact_info">
                             <div class="card-header" style="display: flex; justify-content: space-between"><h4 class="card-title">Account</h4><button type="button" id="edit_contact" class="circular-button"><i class="fas fa-pen"></i></button></div>
-    
-                                    <h4 class="card-title">Account</h4><button type="button" id="edit_contact"
-                                        class="circular-button"><i class="fas fa-pen"></i></button>
-                                </div>
                                 <div class="card-body">
                                     <div id="show_div">
                                         <p class="m-0 p-0"><strong>Name</strong></p>
@@ -410,104 +406,103 @@
 @endsection
 
 @push('script')
-    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 
     <script>
         // function containsNumber(str) {
         //     return /\d/.test(str);
         // }
 
-        const stripe = Stripe("{{ env('STRIPE_KEY') }}");
+        // const stripe = Stripe("{{ env('STRIPE_KEY') }}");
 
-        let elements;
-        let alert_div = document.getElementById('alert_div');
+        // let elements;
+        // let alert_div = document.getElementById('alert_div');
 
-        let initialize = () => {
-            axios
-            .post(APP_URL + `/stripe/card/create`)
-            .then(function(response) {
-                const clientSecret = response.data.clientSecret;
-                elements = stripe.elements({clientSecret});
-                // Create and mount the Payment Element
-                const paymentElement = elements.create('payment');
-                paymentElement.mount('#payment-element');
-            })
-            .catch(function(error) {
+        // let initialize = () => {
+        //     axios
+        //     .post(APP_URL + `/stripe/card/create`)
+        //     .then(function(response) {
+        //         const clientSecret = response.data.clientSecret;
+        //         elements = stripe.elements({clientSecret});
+        //         // Create and mount the Payment Element
+        //         const paymentElement = elements.create('payment');
+        //         paymentElement.mount('#payment-element');
+        //     })
+        //     .catch(function(error) {
                 
-            });
-        }
+        //     });
+        // }
 
-        let confirmCardHandler = (e) => {
-            e.preventDefault();
-            let credited_amount = document.getElementById('credited_amount').value;
-            axios
-            .post(APP_URL + `/stripe/card/update`, {
-                'credited_amount': credited_amount
-            })
-            .then(function(response) {
-                location.reload();
-            })
-            .catch(function(error) {
+        // let confirmCardHandler = (e) => {
+        //     e.preventDefault();
+        //     let credited_amount = document.getElementById('credited_amount').value;
+        //     axios
+        //     .post(APP_URL + `/stripe/card/update`, {
+        //         'credited_amount': credited_amount
+        //     })
+        //     .then(function(response) {
+        //         location.reload();
+        //     })
+        //     .catch(function(error) {
                 
-            });
-        }
+        //     });
+        // }
 
-        let addPaymentToggle = (e) => {
-            const not_added_text = document.getElementById('not_added_text');
-            if(typeof elements === 'undefined'){
-                initialize();
-            }
-            const card_add = document.getElementById('card_add');
-            not_added_text.classList.toggle('d-none');
-            card_add.classList.toggle('d-none');
-        }
+        // let addPaymentToggle = (e) => {
+        //     const not_added_text = document.getElementById('not_added_text');
+        //     if(typeof elements === 'undefined'){
+        //         initialize();
+        //     }
+        //     const card_add = document.getElementById('card_add');
+        //     not_added_text.classList.toggle('d-none');
+        //     card_add.classList.toggle('d-none');
+        // }
 
-        let add_payment_btn = document.getElementById("add_payment_method_btn")
-        if(add_payment_btn){
-            add_payment_btn.addEventListener("click", addPaymentToggle);
-        }
+        // let add_payment_btn = document.getElementById("add_payment_method_btn")
+        // if(add_payment_btn){
+        //     add_payment_btn.addEventListener("click", addPaymentToggle);
+        // }
         
 
-        let payment_form = document.getElementById("payment-form")
-        if(payment_form){
-            payment_form.addEventListener("submit", handleSubmit);
-        }
+        // let payment_form = document.getElementById("payment-form")
+        // if(payment_form){
+        //     payment_form.addEventListener("submit", handleSubmit);
+        // }
 
-        let confirm_credit_card = document.getElementById("confirm_credit_card")
-        if(confirm_credit_card){
-            confirm_credit_card.addEventListener("submit", confirmCardHandler);
-        }
+        // let confirm_credit_card = document.getElementById("confirm_credit_card")
+        // if(confirm_credit_card){
+        //     confirm_credit_card.addEventListener("submit", confirmCardHandler);
+        // }
 
-        async function handleSubmit(e) {
-            e.preventDefault();
-            alert_div.classList.add('hidden');
-            const { error } = await stripe.confirmPayment({
-                elements,
-                confirmParams: {
-                    // Make sure to change this to your payment completion page
-                    return_url: '{{ route('setting.index') }}',
-                },
-            });
+        // async function handleSubmit(e) {
+        //     e.preventDefault();
+        //     alert_div.classList.add('hidden');
+        //     const { error } = await stripe.confirmPayment({
+        //         elements,
+        //         confirmParams: {
+        //             // Make sure to change this to your payment completion page
+        //             return_url: '{{ route('setting.index') }}',
+        //         },
+        //     });
 
-            // This point will only be reached if there is an immediate error when
-            // confirming the payment. Otherwise, your customer will be redirected to
-            // your `return_url`. For some payment methods like iDEAL, your customer will
-            // be redirected to an intermediate site first to authorize the payment, then
-            // redirected to the `return_url`.
-            if (error.type === "card_error" || error.type === "validation_error") {
-                showMessage(error.message);
-            } else {
-                showMessage("An unexpected error occured.");
-            }
+        //     // This point will only be reached if there is an immediate error when
+        //     // confirming the payment. Otherwise, your customer will be redirected to
+        //     // your `return_url`. For some payment methods like iDEAL, your customer will
+        //     // be redirected to an intermediate site first to authorize the payment, then
+        //     // redirected to the `return_url`.
+        //     if (error.type === "card_error" || error.type === "validation_error") {
+        //         showMessage(error.message);
+        //     } else {
+        //         showMessage("An unexpected error occured.");
+        //     }
 
-        }
+        // }
 
-        function showMessage(messageText) {
+        // function showMessage(messageText) {
 
-            alert_div.classList.remove('hidden');
-            document.getElementById('alert').innerHTML = messageText;
+        //     alert_div.classList.remove('hidden');
+        //     document.getElementById('alert').innerHTML = messageText;
 
-        }
+        // }
 
         @if (!is_null($freelancer))
             (function() {

@@ -24,6 +24,8 @@
 
     <script>
         const APP_URL = '{{ url('/') }}'
+        const STRIPE_KEY = "{{ env('STRIPE_KEY') }}"
+
     </script>
 
     @stack('css')
@@ -39,6 +41,34 @@
     </div>
     @include('layouts.footer')
 
+    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+
+    <script>
+        async function handleSubmit(e) {
+            e.preventDefault();
+            console.log('test');
+            alert_div.classList.add('hidden');
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    // Make sure to change this to your payment completion page
+                    return_url: `${APP_URL}/setting`,
+                },
+            });
+
+            // This point will only be reached if there is an immediate error when
+            // confirming the payment. Otherwise, your customer will be redirected to
+            // your `return_url`. For some payment methods like iDEAL, your customer will
+            // be redirected to an intermediate site first to authorize the payment, then
+            // redirected to the `return_url`.
+            if (error.type === "card_error" || error.type === "validation_error") {
+                showMessage(error.message);
+            } else {
+                showMessage("An unexpected error occured.");
+            }
+
+        }
+    </script>
     <!-- Bizzzy -->
     <script src="{{ asset('/js/app.js') }}"></script>
     <!-- MDB -->
