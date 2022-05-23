@@ -2232,7 +2232,8 @@ b {
 
 
 /* Stripe CSS */
-.error{
+
+.error {
     z-index: 0;
     height: 55px;
     transition: 300ms;
@@ -2241,11 +2242,13 @@ b {
 .credit-card-logo{
     width: 3.5em;
 }
-.hidden{
+
+.hidden {
     opacity: 0;
     height: 0;
     z-index: -1;
 }
+
 .membership {
     text-align: center;
     font-size: 1.75rem;
@@ -2262,4 +2265,13 @@ b {
 .plan-subtitle {
     text-align: center;
     margin-bottom: 30px !important;
+}
+
+.proposal-img {
+    border: 1px outset gray;
+    background-color: white;
+    border-radius: 50%;
+    width: 8rem;
+    height: 8rem;
+    margin-left: 30px;
 }
