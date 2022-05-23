@@ -7,6 +7,7 @@ use App\Models\Staff;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class StaffController extends Controller
 {
@@ -17,10 +18,18 @@ class StaffController extends Controller
      */
     public function index()
     {
-        $list = Staff::with('roles')->get();
+        $list = Staff::with('roles', 'email')->get();
 
         return view('admin.staff.list-staff', ['lists' => $list]);
     }
+
+    public function loadroles()
+    {
+        $list = Role::get();
+
+        return $list->toJson();
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -82,7 +91,8 @@ class StaffController extends Controller
             ]);
             $staff->assignRole($request->role);
         };
-        return redirect()->route('staff.index');
+
+        Session::flash('message', 'New Staff successfully Added!');
     }
 
     /**
@@ -102,11 +112,11 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Staff $id)
     {
-        $data = Staff::find($id);
-
-        return view('admin.staff.edit-staff', ['staff' => $data]);
+        return $id->toJson();
+        // $data = Staff::find($id);
+        // return view('admin.staff.edit-staff', ['staff' => $data]);
     }
 
     /**
@@ -122,8 +132,13 @@ class StaffController extends Controller
         $staff->name = $request->name;
         $staff->user_name = $request->user_name;
         $staff->staff_role_id = $request->staff_role_id;
+        if (!empty($request->file('photo'))) {
+            $path = $request->file('photo')->store('freelancer/profile_photo', ['disk' => 'public']);
+            $staff->photo = $path;
+        }
+
         $staff->save();
-        return redirect()->route('staff.index');
+        Session::flash('message', 'Staff successfully updated!');
     }
 
     /**
@@ -134,6 +149,7 @@ class StaffController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Staff::where('id', $id)->delete();
+        return redirect()->route('staff.index');
     }
 }

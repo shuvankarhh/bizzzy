@@ -70,4 +70,9 @@ class Contract extends Model
     {
         return $this->belongsTo(User::class, 'freelancer_id');
     }
+
+    public function feedback()
+    {
+        return $this->hasMany(ContractFeedback::class);
+    }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\JobApplyRequest;
 use App\Models\JobProposal;
+use App\Models\JobProposalFile;
 use Illuminate\Validation\ValidationException;
 
 class JobApplyController extends Controller
@@ -47,7 +48,7 @@ class JobApplyController extends Controller
 
         if(is_null($check_already_applied)){
             DB::transaction(function () use ($request){
-                JobProposal::create([
+                $job_proposal = JobProposal ::create([
                     'job_id' => $request->job_id,
                     'price_type' => 1,
                     'user_id' => auth()->id(),
@@ -56,6 +57,17 @@ class JobApplyController extends Controller
                     'project_time' => $request->project_time,
                 ]);
                 Job::find($request->job_id)->increment('total_proposals');
+                if($request->hasFile('proposal_files')){
+                    $filesArr = array();
+                    foreach($request->proposal_files as $item){
+                        $filesArr[] = [
+                            'file_name' => $item->store('freelancer/proposal_files', ['disk' => 'public']),
+                            'job_proposal_id' => $job_proposal->id,
+                            'file_location_type' => 1,
+                        ];
+                    }
+                    JobProposalFile::insert($filesArr);
+                }
             });
             return route('job.index');
         }

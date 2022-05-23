@@ -54,6 +54,7 @@
         </div>
     </form>
     @foreach ($freelancers as $item)
+    {{-- @dd($freelancers[1]) --}}
     <div class="card m-3 w-75" >
         <div class="card-body">
             <div style="display: flex; gap: 1rem">
@@ -65,11 +66,12 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; align-items: end;">
                         <div>
                             <p onclick="location.href='{{ route('freelancer.show', $item->user->id) }}'" style="cursor: pointer; width: max-content;" class="m-0">{{ $item->user->name }} ({{ $item->service_categories[0]->name }})</p>
-                            <p class="m-0" style="font-size: 1.23rem;">{{ $item->professional_title }} <span style="font-size: 1rem">({{ $item->experience_level }})</span> </p>
+                            <p class="m-0" style="font-size: 1.23rem;">{{ $item->professional_title }} <span style="font-size: 1rem">{{ (empty($item->experience_level)) ? '' : "({$item->experience_level})" }}</span> </p>
                             @if (is_null($item->average_rating))
-                                <p>No Rating!</p>
+                                {{-- <p>No Rating!</p> --}}
                             @else
-                                <div style="display: flex; align-items: center; gap: 0.5rem">
+                                <x-star-component :rating="$item->average_rating" justify_style="justify-content: start" />
+                                {{-- <div style="display: flex; align-items: center; gap: 0.5rem">
                                     <div id="one" class="star-rating-display" data-average-score="@php
                                         if($item->average_rating > 4.5){
                                             echo '5';
@@ -93,7 +95,7 @@
                                     @endphp">
                                     </div>
                                     <p class="m-0 p-0">({{ $item->average_rating }})</p>
-                                </div>
+                                </div> --}}
                             @endif
                             
                             <p><strong style="font-size: 1rem">{{ is_null($item->user->address) ? '' : $item->user->address->country }}</strong></p>

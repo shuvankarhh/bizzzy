@@ -24,4 +24,19 @@ class JobProposal extends Model
                 return 'More than 6 months';
         }
     }
+
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function proposal_files()
+    {
+        return $this->hasMany(JobProposalFile::class);
+    }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Category;
 use Carbon\Carbon;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Job extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = ['user_id', 'job_visibility', 'name', 'description', 'project_time', 'project_type', 'experience_level', 'price_type', 'price', 'hours_per_week', 'total_proposals', 'total_invitation_sent', 'average_rating', 'money_spent'];
 
@@ -73,6 +74,27 @@ class Job extends Model
                 return 'Expert';
         }
     }
+    public function getJobVisibilityAttribute($value)
+    {
+        switch ($value) {
+            case 1:
+                return 'Private';
+            case 2:
+                return 'Public';
+            case 3:
+                return 'This App Users Only';
+        }
+    }
+
+    public function getProjectTypeAttribute($value)
+    {
+        switch ($value) {
+            case 1:
+                return 'One-time project';
+            case 2:
+                return 'Ongoing project';
+        }
+    }
 
     public function getPriceTypeAttribute($value)
     {
@@ -110,17 +132,33 @@ class Job extends Model
         return $this->belongsToMany(User::class, 'job_proposals', 'job_id', 'user_id')->withPivot('price_type', 'price', 'description', 'project_time', 'id', 'contract_id');
     }
 
+    public function proposal_files()
+    {
+        return $this->hasManyThrough(
+            JobProposalFile::class,
+            JobProposal::class,
+            'job_id',
+            'job_proposal_id'
+        );
+    }
+
     public function contracts()
     {
         return $this->hasMany(Contract::class);
     }
+
+    public function savedJob()
+    {
+        return $this->hasOne(SavedJob::class);
+    }
+    
 
     /**
      * Will attempt later!
      */
     // public function applied()
     // {
-    //     dd($this->attributes);
-    //     return JobProposal::where('job_id', $this->attributes['id'])->where('user_id', auth()->id())->count();
+    //     // dd($this->attributes['user_id']);
+    //     return JobProposal::where('job_id', 1)->where('user_id', auth()->id())->count();
     // }
 }

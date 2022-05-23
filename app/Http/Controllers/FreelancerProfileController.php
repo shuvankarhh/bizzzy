@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Contract;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use App\Models\FreelancerProfile;
@@ -11,11 +12,12 @@ class FreelancerProfileController extends Controller
 {
     public function index()
     {
+        // dd();
         return view('profile.freelancer_profile')->with([
             'profile_photo' => auth()->user()->photo,
             'address' => auth()->user()->address,
-            'education' => auth()->user()->educations()->orderBy('start_date', 'desc')->first(),
-            'profile' => auth()->user()->freelance_profile::with('service_categories.parent')->first(),
+            'educations' => auth()->user()->educations()->orderBy('start_date', 'desc')->limit(3)->get(),
+            'profile' => auth()->user()->freelance_profile,
             'languages' => auth()->user()->languages,
             'current' => auth()->user()->work_experiences()->where('currently_working', 1)->get(),
             'past' => auth()->user()->work_experiences()->whereNull('currently_working')->get(),
@@ -23,29 +25,32 @@ class FreelancerProfileController extends Controller
             'portfolios_total' => auth()->user()->portfolios()->count('*'),
             'skills' => auth()->user()->skills,
             'active_contracts' => auth()->user()->freelancerContracts()
-            ->with(['job' => function ($query) {
-                $query->select('id', 'name', 'description');
-            }])->with( ['recruiter' => function ($query){
-                $query->select('id', 'name', 'photo');
-            }])
-            ->where('contract_status', 2)
-            ->limit(3)->get(),
+                ->with(['job' => function ($query) {
+                    $query->select('id', 'name', 'description');
+                }])->with(['recruiter' => function ($query) {
+                    $query->select('id', 'name', 'photo');
+                }])
+                ->where('contract_status', 2)
+                ->limit(3)
+                ->latest()
+                ->get(),
             'completed_contracts' => auth()->user()->freelancerContracts()
-            ->with(['job' => function ($query) {
-                $query->select('id', 'name', 'description');
-            }])->with( ['recruiter' => function ($query){
-                $query->select('id', 'name', 'photo');
-            }])
-            ->where('contract_status', 3)
-            ->limit(3)->get(),
+                ->with(['job' => function ($query) {
+                    $query->select('id', 'name', 'description');
+                }])->with(['recruiter' => function ($query) {
+                    $query->select('id', 'name', 'photo');
+                }])
+                ->where('contract_status', 3)
+                ->withCount('job')
+                ->limit(3)->get(),
             'canceled_contracts' => auth()->user()->freelancerContracts()
-            ->with(['job' => function ($query) {
-                $query->select('id', 'name', 'description');
-            }])->with( ['recruiter' => function ($query){
-                $query->select('id', 'name', 'photo');
-            }])
-            ->where('contract_status', 7)
-            ->limit(3)->get(),
+                ->with(['job' => function ($query) {
+                    $query->select('id', 'name', 'description');
+                }])->with(['recruiter' => function ($query) {
+                    $query->select('id', 'name', 'photo');
+                }])
+                ->where('contract_status', 7)
+                ->limit(3)->get(),
             'self' => true
         ]);
     }
@@ -69,7 +74,7 @@ class FreelancerProfileController extends Controller
 
         auth()->user()->freelance_profile()->update(['price_per_hour' => $request->hourly_rate]);
 
-        return route('question.thirteen');
+        return (isset($request->from_profile)) ? route('freelancer.profile.index') : route('question.thirteen');
     }
 
     public function image_store(Request $request)

@@ -7,10 +7,11 @@ use App\Models\User;
 use App\Models\Contract;
 use App\Models\JobProposal;
 use Illuminate\Http\Request;
+use App\Models\ContractMilestone;
+use App\Models\FreelancerProfile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\JobProposalRequest;
-use App\Models\ContractMilestone;
 
 class JobProposalController extends Controller
 {
@@ -56,9 +57,14 @@ class JobProposalController extends Controller
         }
 
         $transaction = DB::transaction(function () use ($request, $freelancer_id, $job_id, $freelancer_gave_job_proposal, $job_belongs_to_user) {
+            if ($request->payment_type == 'hourly') {
+                $price = $request->hourly_rate;
+            } else {
+                $price = $request->price;
+            }
             $contract = Contract::create([
                 'payment_type' => $request->payment_type,
-                'price' => $request->price,
+                'price' => $price,
                 'service_charge_type' => 1,
                 'service_charge' => 20,
                 'paid_amount' => 0,
@@ -72,10 +78,15 @@ class JobProposalController extends Controller
                 'job_id' => $job_id,
                 'freelancer_id' => $freelancer_id,
                 'additional_message' => $request->additional_message,
+                'hours_per_week' => $request->hour_per_week
+            ]);
+
+            FreelancerProfile::where('user_id', $freelancer_id)->update([
+                'total_jobs' => DB::raw('total_jobs + 1')
             ]);
 
             if ($request->payment_type == 'fixed') {
-                if(!empty($request->milestone_name[0])){
+                if (!empty($request->milestone_name[0])) {
                     foreach ($request->milestone_name as $idx => $item) {
                         $mile_stones[] = [
                             'contract_id' => $contract->id,
@@ -88,7 +99,7 @@ class JobProposalController extends Controller
                         ];
                     }
                     ContractMilestone::insert($mile_stones);
-                }else{
+                } else {
                     ContractMilestone::create([
                         'contract_id' => $contract->id,
                         'name' => $job_belongs_to_user->name,
@@ -114,22 +125,9 @@ class JobProposalController extends Controller
      */
     public function show($freelancer, $job_id)
     {
-        // $job_proposal = auth()->user()->with(['jobs' => function ($query) use ($freelancer, $job_id) {
-        //     return $query->with(['proposals' => function ($query) use ($freelancer) {
-        //         $query->where('user_id', decrypt($freelancer));
-        //     }])->with('tags.tag', 'categories.category')->where('id', decrypt($job_id));
-        // }])->get();
-        $job_proposal = Job::with(['proposals' => function ($query) use ($freelancer) {
-            $query->where('user_id', decrypt($freelancer));
-        }])->with('tags.tag', 'categories.category')->where('id', decrypt($job_id))->first();
-
-        // Job::where('user_id', auth()->id())->with(['proposals' => function ($query) use ($freelancer) {
-        //     $query->where('user_id', $freelancer);
-        // }])->with('tags.tag', 'categories.category')->where('id', decrypt($job_id))->first();
-
-        $this->authorize('view', $job_proposal);
-
-        // dd($job_proposal);
+        $job_proposal = JobProposal::with(['job' => function ($query) {
+            $query->with('tags.tag', 'categories.category', 'proposal_files');
+        }])->with('proposal_files', 'user')->where('user_id', decrypt($freelancer))->where('job_id', decrypt($job_id))->first();
 
         return view('contents.jobs.job-proposal')->with([
             'job_proposal' => $job_proposal

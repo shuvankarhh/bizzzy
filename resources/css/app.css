@@ -1,6 +1,15 @@
-.card{
+.card {
     border-radius: 0;
 }
+
+.inner-content {
+    background-color: rgb(229, 229, 229, 0.2);
+}
+
+.invalid-response {
+    color: #f93154;
+}
+
 
 /* -- Register radion input-- */
 
@@ -27,16 +36,16 @@ As long as its 'for' attribute matches the input's 'id', it will maintain the fu
 
 .register-radio.left+label {
     border-radius: 3px 0px 0px 3px;
-    border-left: 1px solid #0086FF;
-    border-top: 1px solid #0086FF;
-    border-bottom: 1px solid #0086FF;
+    border-left: 1px solid #0086ff;
+    border-top: 1px solid #0086ff;
+    border-bottom: 1px solid #0086ff;
 }
 
 .register-radio.right+label {
     border-radius: 0px 3px 3px 0px;
-    border-right: 1px solid #0086FF;
-    border-top: 1px solid #0086FF;
-    border-bottom: 1px solid #0086FF;
+    border-right: 1px solid #0086ff;
+    border-top: 1px solid #0086ff;
+    border-bottom: 1px solid #0086ff;
 }
 
 .blank-label {
@@ -49,8 +58,8 @@ It selects what ever element comes right after it,
 as long as it is a sibling. */
 
 .register-radio:checked+label {
-    background: #0086FF;
-    color: #FFFFFF;
+    background: #0086ff;
+    color: #ffffff;
     transition: 150ms ease-in-out;
 }
 
@@ -59,7 +68,7 @@ as long as it is a sibling. */
 
 .ts-wrapper .option .title {
     display: block;
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
@@ -67,7 +76,7 @@ as long as it is a sibling. */
 
 .ts-wrapper .option .desc {
     font-size: 12px;
-    font-family: 'Nunito Sans';
+    font-family: "Nunito Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 11px;
@@ -114,7 +123,7 @@ font-weight: 900;
 }
 
 .added-skill .text {
-    border: 2px solid #0086FF;
+    border: 2px solid #0086ff;
     border-radius: 50px;
     padding: 8px 17px;
     width: fit-content;
@@ -122,6 +131,34 @@ font-weight: 900;
 
 .flex {
     display: flex;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.not-met {
+    color: #de350b;
+    transition: 300ms;
+}
+
+.met {
+    color: #00875a;
+    transition: 300ms;
+}
+
+.grid-center {
+    display: grid;
+    grid-template-columns: 0.3fr 0fr 0.1fr;
+}
+
+@media (min-width: 0px) and (max-width: 990px) {
+    .grid-center {
+        grid-template-columns: 0.8fr 0fr 0.2fr;
+    }
 }
 
 .relative {
@@ -132,28 +169,28 @@ font-weight: 900;
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: #DFE1E6;
+    background: #dfe1e6;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .add-language i {
-    color: #0086FF;
+    color: #0086ff;
 }
 
 .add-language+.desc {
-    font-family: 'Nunito Sans';
+    font-family: "Nunito Sans";
     font-style: normal;
     font-weight: 400;
-    color: #0086FF;
+    color: #0086ff;
 }
 
 .remove-language {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: #E11900;
+    background: #e11900;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -202,7 +239,7 @@ font-weight: 900;
     width: 70%;
     margin-right: -2px;
     margin-left: -2px;
-    background: #E3FCEF;
+    background: #e3fcef;
     border-radius: 3px;
     color: #006644;
 }
@@ -217,8 +254,8 @@ It selects what ever element comes right after it,
 as long as it is a sibling. */
 
 .question-radio:checked+label {
-    background: #B5FBD6;
-    border: 1px solid #0086FF;
+    background: #b5fbd6;
+    border: 1px solid #0086ff;
     transition: 150ms ease-in-out;
 }
 
@@ -227,7 +264,7 @@ as long as it is a sibling. */
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
-    color: #0086FF;
+    color: #0086ff;
     margin-top: 30px;
     font-family: Nunito Sans;
 }
@@ -237,7 +274,7 @@ as long as it is a sibling. */
     font-weight: bold;
     font-size: 28px;
     line-height: 28px;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .main-question-desc {
@@ -249,10 +286,10 @@ as long as it is a sibling. */
     color: #006644;
 }
 
-.battery-question.grid{
+.battery-question.grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
-    gap: 30px; 
+    gap: 30px;
 }
 
 .battery-question .card {
@@ -260,7 +297,7 @@ as long as it is a sibling. */
     position: relative;
 }
 
-.battery-question .card-body{
+.battery-question .card-body {
     padding: 0.5rem;
 }
 
@@ -269,6 +306,7 @@ as long as it is a sibling. */
     left: 32%;
     top: 11%;
 }
+
 
 /* .battery-question .card-body {
     margin-top: 50px;
@@ -289,7 +327,7 @@ as long as it is a sibling. */
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 
@@ -339,7 +377,7 @@ as long as it is a sibling. */
 /* check-background */
 
 .battery-question .checkbox input:checked~.checkmark {
-    background-color: #0086FF;
+    background-color: #0086ff;
 }
 
 
@@ -359,6 +397,7 @@ as long as it is a sibling. */
     width: 100%;
 }
 
+
 /* Style the indicator (dot/circle) */
 
 .battery-question .checkbox .checkmark:after {
@@ -366,7 +405,7 @@ as long as it is a sibling. */
     justify-content: center;
     align-items: center;
     color: #fff;
-    content: '\f00c';
+    content: "\f00c";
     font-family: "Font Awesome 5 Free";
     font-style: normal;
     font-weight: 900;
@@ -381,8 +420,8 @@ as long as it is a sibling. */
     align-items: center;
     width: 275px;
     height: 132px;
-    background: #FFFFFF;
-    border: 1px dashed #DFE1E6;
+    background: #ffffff;
+    border: 1px dashed #dfe1e6;
     box-sizing: border-box;
 }
 
@@ -392,27 +431,27 @@ as long as it is a sibling. */
     align-items: center;
     width: 26px;
     height: 26px;
-    background: #DFE1E6;
+    background: #dfe1e6;
     border-radius: 50%;
     margin-top: 10px;
 }
 
 .add-exp-button i {
-    color: #0086FF;
+    color: #0086ff;
 }
 
 .add-exp:hover {
-    box-shadow: 0px 5px 10px 1px #EBECF0;
+    box-shadow: 0px 5px 10px 1px #ebecf0;
     cursor: pointer;
 }
 
 .add-exp p {
-    font-family: 'Nunito Sans';
+    font-family: "Nunito Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-    color: #0086FF;
+    color: #0086ff;
 }
 
 .added-exp {
@@ -422,21 +461,21 @@ as long as it is a sibling. */
     align-items: left;
     width: 275px;
     height: 75px;
-    background: #FFFFFF;
-    border: 1px solid #DFE1E6;
+    background: #ffffff;
+    border: 1px solid #dfe1e6;
     box-sizing: border-box;
     padding-left: 10px;
 }
 
 .custom-label {
-    font-family: 'Nunito Sans';
+    font-family: "Nunito Sans";
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
 }
 
 .custom-close {
-    color: #42526E;
+    color: #42526e;
 }
 
 .custom-close:hover {
@@ -445,12 +484,12 @@ as long as it is a sibling. */
 }
 
 .rate-text {
-    font-family: 'Inter-Bold';
+    font-family: "Inter-Bold";
     font-style: normal;
 }
 
 .rate-desc {
-    font-family: 'Nunito Sans';
+    font-family: "Nunito Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 11px;
@@ -462,7 +501,7 @@ as long as it is a sibling. */
     border-bottom: 1px solid #bdbdbd;
     border-left: 1px solid #bdbdbd;
     border-right: 0;
-    color: #0086FF;
+    color: #0086ff;
 }
 
 .rate-input-group+input {
@@ -479,37 +518,37 @@ as long as it is a sibling. */
 
 /* --- Override defaults --- */
 
-.dp-image{
+.dp-image {
     width: 80px;
     border-radius: 50%;
 }
 
-.prev-button{
+.prev-button {
     padding: 0.3rem 0.6rem 0.3rem 0.6rem;
     box-shadow: unset;
-    background: #EEEEEE;
+    background: #eeeeee;
     border-radius: 0;
     text-transform: unset;
-    color: #0086FF;
+    color: #0086ff;
     max-width: 3rem;
 }
 
-.prev-button:hover{
-    color: #0086FF;
+.prev-button:hover {
+    color: #0086ff;
     box-shadow: unset;
 }
 
-.prev-button:focus{
+.prev-button:focus {
     box-shadow: unset;
 }
 
-.space-between{
+.space-between {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.text-gray{
+.text-gray {
     color: #6c757d !important;
 }
 
@@ -527,8 +566,8 @@ as long as it is a sibling. */
 }
 
 .btn-bizzzy-success {
-    background-color: #0086FF;
-    border-color: #0086FF;
+    background-color: #0086ff;
+    border-color: #0086ff;
     color: white;
 }
 
@@ -537,7 +576,7 @@ as long as it is a sibling. */
 }
 
 .progress-bar {
-    background-color: #42526E;
+    background-color: #42526e;
     border-radius: 15px;
 }
 
@@ -549,17 +588,23 @@ as long as it is a sibling. */
     box-shadow: none;
 }
 
-.nav-bar-freelancer{
+.navbar-freelancer {
     padding: 0.8rem 1rem 0.8rem 1rem;
     display: flex;
     gap: 1rem;
 }
 
-.nav-bar-freelancer .nav-text strong{
-    white-space: nowrap
+.navbar-freelancer .nav-text strong {
+    white-space: nowrap;
 }
 
-.dropdown-menu{
+.navbar-freelancer.active {
+    background: #b0b6ff;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+}
+
+.dropdown-menu {
     /* background-color: #F3F7FE; */
 }
 
@@ -610,28 +655,32 @@ body {
 
 /* ----- Footer ----- */
 
-.btn-gray{
+.btn-gray {
     background-color: hsl(0, 0%, 95%);
     color: hsl(0, 0%, 50%) !important;
 }
-.btn-gray:hover{
+
+.btn-gray:hover {
     color: #000000 !important;
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
 }
+
 .footer {
     font-family: Nunito Sans;
     font-style: normal;
 }
-.footer a{
+
+.footer a {
     color: #444444;
 }
 
-.footer .header-text{
-    font-family: 'Jost';
+.footer .header-text {
+    font-family: "Jost";
     font-style: normal;
     font-weight: 600;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
+
 .footer-note {
     font-weight: normal;
     font-size: 12px;
@@ -683,17 +732,20 @@ body {
     text-align: left;
 }
 
-.footer-sm-content{
+.footer-sm-content {
     display: grid;
     gap: 20px;
 }
 
-.footer-sm-content a,p{
+.footer-sm-content a,
+p {
     color: #656565;
 }
-.footer-sm-content hr{
+
+.footer-sm-content hr {
     margin: 0.5rem 0;
 }
+
 
 /* Getting started carousel */
 
@@ -707,7 +759,7 @@ body {
 }
 
 .carousel-inner-box+.card {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 3px;
 }
 
@@ -759,7 +811,7 @@ body {
     color: #006644;
 }
 
-.carousel-div{
+.carousel-div {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -800,7 +852,7 @@ body {
     font-size: 28px;
     line-height: 38px;
     text-align: center;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .getting-started-card h2 {
@@ -810,7 +862,7 @@ body {
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .vh-100 {
@@ -832,31 +884,31 @@ body {
     /* padding-top: 2rem; */
 }
 
-@media (min-width: 768px) and (max-width:880px) {
+@media (min-width: 768px) and (max-width: 880px) {
     .added-exp {
         width: 150px;
     }
 }
 
-@media (min-width: 880px) and (max-width:990px) {
+@media (min-width: 880px) and (max-width: 990px) {
     .added-exp {
         width: 170px;
     }
 }
 
-@media (min-width: 990px) and (max-width:1140px) {
+@media (min-width: 990px) and (max-width: 1140px) {
     .added-exp {
         width: 200px;
     }
 }
 
-@media (min-width: 1140px) and (max-width:1360px) {
+@media (min-width: 1140px) and (max-width: 1360px) {
     .added-exp {
         width: 230px;
     }
 }
 
-@media (min-width:0px) and (max-width:690px) {
+@media (min-width: 0px) and (max-width: 690px) {
     .container {
         max-width: 90vw;
     }
@@ -871,8 +923,8 @@ body {
 .upload-button {
     background-color: white;
     margin-top: 20px;
-    color: #0086FF;
-    border: 1px solid #0086FF;
+    color: #0086ff;
+    border: 1px solid #0086ff;
 }
 
 .change-image {
@@ -884,23 +936,23 @@ body {
 .details-title {
     margin-top: 50px;
     margin-bottom: 0px;
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 24px;
-    color: #172B4D;
+    color: #172b4d;
 }
 
 .photo-details {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
     line-height: 20px;
     align-items: center;
     letter-spacing: -0.084px;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .photo-priview {
@@ -919,9 +971,10 @@ body {
 .profile-modal {
     height: 200px;
     width: 100%;
-    background-color: #CCCCCC;
+    background-color: #cccccc;
     position: relative;
 }
+
 
 /* .profile-image {
     position: absolute;
@@ -973,29 +1026,33 @@ body {
 
 /* Jobs Body ------------------------------------ */
 
-.job-description{
+.job-description {
     /* max-width: 100ch; */
 }
 
-.search-input{
+.search-input {
     position: relative;
     display: flex;
     align-items: center;
 }
-.search-input input{
+
+.search-input input {
     padding: 0.5rem 0.5rem 0.5rem 2.5rem;
     border-radius: 0;
     background-color: rgb(237, 237, 237, 0.5);
     border: 0;
 }
-.search-input input:focus{
+
+.search-input input:focus {
     border-radius: 0;
 }
-.search-input label{
+
+.search-input label {
     position: absolute;
     left: 0.5rem;
 }
-.job-more-button{
+
+.job-more-button {
     display: block;
     font-weight: bold;
     font: 1.2rem;
@@ -1003,10 +1060,14 @@ body {
 
 .job-body .nav-link {
     font-family: Mulish;
-    border-bottom: solid #E2E2E2;
-    border-color: #E2E2E2;
+    border-bottom: solid #e2e2e2;
+    border-color: #e2e2e2;
     height: 100%;
     font-weight: 500;
+}
+
+.job-body .active>.icon>img {
+    filter: invert(80%) sepia(33%) saturate(7479%) hue-rotate(214deg) brightness(100%) contrast(89%);
 }
 
 .job-body .icon {
@@ -1014,9 +1075,11 @@ body {
     justify-content: center;
     align-items: center;
 }
-.job-body .icon > img {
+
+.job-body .icon>img {
     width: 1.2rem;
 }
+
 .job-body .text {
     margin-left: 5px;
     margin-top: 1px;
@@ -1033,13 +1096,43 @@ body {
 }
 
 .job-card {
-    border: 1px solid #AFAFAF;
+    border: 1px solid #afafaf;
     border-radius: 5px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
+    position: relative;
+}
+
+.recruiter-remove-job {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 50;
+}
+
+.recruiter-remove-job button {
+    border-radius: 0;
 }
 
 .job-card .upper-content {
     padding: 5px;
+}
+
+.number-of-applied {
+    /* border: 1px solid black; */
+    background-color: #0086ff;
+    font-weight: 500;
+    color: white;
+    font-size: 0.9rem;
+    min-width: 24px;
+    min-height: 24px;
+    width: fit-content;
+    height: fit-content;
+    aspect-ratio: 1;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
 .job-card .upper-content.applied-div {
@@ -1074,60 +1167,84 @@ body {
 }
 
 .job-card .badge-dark {
-    background-color: #1B364A;
+    background-color: #1b364a;
 }
 
 .job-card .badge-danger {
-    background: #FF6937;
+    background: #ff6937;
 }
 
 .job-card .badge-success {
-    background: #05944F;
+    background: #05944f;
 }
 
 .job-card .applied {
-    border: 2px solid #0086FF;
+    border: 2px solid #0086ff;
     width: 100%;
     border-radius: 24px 0px 0px 24px;
-    color: #0086FF;
+    color: #0086ff;
     background-color: white;
+}
+
+.job-card .save {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    width: fit-content;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+
+.job-card .save.saved {
+    cursor: context-menu;
+    border: 2px solid #f2f2f2;
+}
+
+.job-card .save.remove {
+    cursor: pointer;
+}
+
+.job-card .save.remove:hover {
+    content: "remove";
 }
 
 .job-card .more-text {
     text-decoration: none;
     color: black;
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 600;
     border-bottom: 1px solid black;
 }
 
- .job-tag {
+.job-tag {
     display: flex;
     flex-wrap: wrap;
-    color: #1A3F61;
+    color: #1a3f61;
 }
 
- .job-tag > div {
-    font-family: 'Inter';
+.job-tag>div {
+    font-family: "Inter";
     font-style: normal;
     font-weight: 500;
     padding: 4px 8px;
     margin: 5px;
     width: fit-content;
-    background: #FFFFFF;
-    border: 2px solid #AFAFAF;
+    background: #ffffff;
+    border: 2px solid #afafaf;
     border-radius: 24px;
 }
 
 .job-card .flex-text {
     display: flex;
     flex-wrap: wrap;
+    /* justify-content: center; */
+    align-items: center;
 }
 
 .flex-text>div {
     display: inline-flex;
-    margin: 15px;
+    margin: 5px;
 }
 
 .flex-text img {
@@ -1136,30 +1253,29 @@ body {
 }
 
 .flex-text .money {
-    font-family: 'Inter-Bold';
+    font-family: "Inter-Bold";
     font-style: normal;
     font-weight: 500;
 }
-
 
 .lower-text .apply-button {
     border-radius: 0px;
 }
 
 .lower-text .divider {
-    border-right: 1px solid #1B364A;
+    border-right: 1px solid #1b364a;
     height: 30px;
 }
 
 .lower-text .top-text {
-    font-family: 'Inter-Bold';
+    font-family: "Inter-Bold";
     font-style: normal;
     font-weight: 500;
-    color: #AFAFAF;
+    color: #afafaf;
 }
 
 .lower-text .bottom-text {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 600;
 }
@@ -1183,9 +1299,9 @@ body {
     z-index: -1;
 }
 
-.connect-required{
+.connect-required {
     /* primary-blue-dark */
-    background: #1B364A;
+    background: #1b364a;
     box-shadow: inset 0px 0px 100px rgba(0, 0, 0, 0.08);
     border-radius: 24px;
     color: white;
@@ -1200,11 +1316,11 @@ body {
     cursor: context-menu;
 }
 
-.connect-available{
-    border: 2px solid #0086FF;
+.connect-available {
+    border: 2px solid #0086ff;
     width: 100%;
     border-radius: 40px;
-    color: #0086FF;
+    color: #0086ff;
     background-color: white;
     display: inline-block;
     width: fit-content;
@@ -1213,24 +1329,27 @@ body {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
+
 .connect-available:hover {
     cursor: context-menu;
 }
 
-@media (min-width:0px) and (max-width:690px) {
-    .job-body .space-between{
+@media (min-width: 0px) and (max-width: 690px) {
+    .job-body .space-between {
         flex-direction: column;
         align-items: flex-start;
         margin-bottom: 1rem;
     }
 }
+
+
 /* ---------------------------------------------- */
 
-.freelancer-profile .job-thumbnail{
+.freelancer-profile .job-thumbnail {
     width: 160px;
 }
 
-.freelancer-profile .job-poster{
+.freelancer-profile .job-poster {
     width: 50px;
     border-radius: 50%;
 }
@@ -1244,13 +1363,13 @@ body {
     padding-bottom: 1rem;
 }
 
-.freelancer-profile .lower-text > div{
+.freelancer-profile .lower-text>div {
     position: relative;
     height: 100%;
 }
 
-.freelancer-profile .lower-text > div:not(:last-child):before{
-    content: '';
+.freelancer-profile .lower-text>div:not(:last-child):before {
+    content: "";
     height: 2rem;
     width: 1px;
     background-color: rgb(27, 54, 74, 0.4);
@@ -1262,34 +1381,63 @@ body {
     align-items: center;
 }
 
-.freelancer-profile{
-    font-family: 'Uber Move Text';
+.freelancer-profile {
+    font-family: "Uber Move Text";
     font-style: normal;
 }
 
-.freelancer-profile h1,h2,h3,h4,b{
-    font-family: 'Inter-Bold';
+.freelancer-profile h1,
+h2,
+h3,
+h4,
+b {
+    font-family: "Inter-Bold";
     font-weight: 700, Bold;
 }
 
-.freelancer-profile .progress-bar{
+.freelancer-profile .progress-bar {
     width: 80%;
-    background-color: #EBECF0;
+    background-color: #ebecf0;
     height: 10px;
     border-radius: 6px;
 }
 
-.freelancer-profile .progress{
-    background-color: #14A800;
+.freelancer-profile .progress {
+    background-color: #14a800;
     height: 100%;
     border-radius: 6px;
 }
 
-.freelancer-profile .profile-image-div{
+.freelancer-profile .profile-image-div {
     position: relative;
     height: 130px;
 }
-.freelancer-profile .profile-image{
+
+.custom-file-input {
+    opacity: 0;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+.custom-file-label {
+    border: 2px solid #0086ff;
+    background-color: #a5adba;
+    border-radius: 50%;
+    position: absolute;
+    top: -35px;
+    z-index: 1;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    left: 22px;
+    cursor: pointer;
+}
+
+.freelancer-profile .profile-image {
     border: 2px solid white;
     width: 150px;
     border-radius: 50%;
@@ -1297,237 +1445,275 @@ body {
     top: -3rem;
 }
 
-.freelancer-profile .profile-social-icon .fab{
-    border: 3px solid #EBECF0;
+.freelancer-profile .profile-social-icon .fab {
+    border: 3px solid #ebecf0;
     border-radius: 50%;
-    padding: 4  px;
+    padding: 4 px;
 }
 
-.freelancer-profile .available-badge{
+.freelancer-profile .available-badge {
     margin-right: 20px;
-    color: #0086FF;
-
-    border: 2px solid #0086FF;
+    color: #0086ff;
+    border: 2px solid #0086ff;
     box-shadow: inset -5px -5px 250px rgba(255, 255, 255, 0.02);
-
     backdrop-filter: blur(42px);
     /* Note: backdrop-filter has minimal browser support */
-
     border-radius: 50px;
-
     /* padding: 5px; */
     /* margin: 10px; */
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     max-width: 150px;
 }
 
-.freelancer-profile .available-badge img{
+.freelancer-profile .available-badge img {
     width: 15px;
     aspect-ratio: 1;
 }
 
-.freelancer-profile .card-padding{
+.freelancer-profile .card-padding {
     padding: 0.7rem 1.3rem 0.7rem 1.3rem;
 }
-.freelancer-profile .card-border{
+
+.freelancer-profile .card-border {
     /* border: 1px solid #AFAFAF; */
     border-radius: 5px;
     /* box-shadow: 0px 0px 3px #afafaf; */
-    background: #FFFFFF;
+    background: #ffffff;
 }
 
-.freelance-profile-cover-image{
+.freelance-profile-cover-image {
     width: 100%;
     height: 145px;
     border-radius: 0px;
 }
 
-.freelancer-profile .hourly-rate{
-    background: #E6F2ED;
-    border-radius: 36px;
-    max-width: 80px;
-    padding: 5px;
+.freelancer-profile .hourly-rate-div i {
+    cursor: pointer;
+}
+
+.freelancer-profile .hourly-rate-div {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 5px;
 }
 
-.freelancer-profile .hourly-rate p{
-    font-family: 'Inter';
+.freelancer-profile .hourly-rate {
+    background: #e6f2ed;
+    border-radius: 36px;
+    max-width: fit-content;
+    padding: 0.3rem 0.6rem 0.3rem 0.6rem;
+}
+
+.freelancer-profile .hourly-rate p {
+    font-family: "Inter";
     font-style: normal;
     font-weight: 600;
 }
 
-.show-all{
-    text-decoration: none;
-    color: #1B364A;
+.job_feedback_body>*:not(hr) {
+    padding: 1rem 1rem 0 1rem;
 }
 
-.freelancer-profile .card-header-profile{
+.show-all {
+    text-decoration: none;
+    color: #1b364a;
+}
+
+.freelancer-profile .card-header-profile {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.freelancer-profile .card-header-button{
+.freelancer-profile .card-header-button {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
 }
 
-
-.freelancer-profile .card-header-button button{
+.freelancer-profile .card-header-button button {
     border: unset;
     background-color: white;
 }
 
-.freelancer-profile .card-header-button i{
+.button-no-style {
+    border: unset;
+    background-color: white;
+}
+
+.freelancer-profile .card-header-button i {
     border: 1px solid #626468;
     border-radius: 50%;
 }
 
-.freelancer-profile .card-header-button .first{
+.freelancer-profile .card-header-button .first {
     padding: 8px;
     font-size: 0.8rem;
 }
 
-.freelancer-profile .card-header-button .second{
+.freelancer-profile .card-header-button .education {
+    padding: 5px;
+}
+
+.freelancer-profile .education-edit {
+    font-size: 0.8rem;
+}
+
+.circular-button {
+    border: 1px outset gray;
+    background-color: white;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    aspect-ratio: 1;
+}
+
+.inline {
+    border: 1px solid #626468;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 0.8rem;
+}
+
+.freelancer-profile .card-header-button .second {
     padding: 10px;
 }
 
-.freelancer-profile .portfolio-image{
+.freelancer-profile .portfolio-image {
     width: 100%;
     height: 100%;
 }
 
-.portfolio-title{
-    color: #0086FF;
+.portfolio-title {
+    color: #0086ff;
 }
-.portfolio-text{
-    font-family: 'Uber Move Text';
+
+.portfolio-text {
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 400;
 }
 
-
-@media (min-width:0px) and (max-width:690px) {
-    .freelancer-profile{
+@media (min-width: 0px) and (max-width: 690px) {
+    .freelancer-profile {
         max-width: 100vw;
     }
-    .freelancer-profile .personal-information{
+    .freelancer-profile .personal-information {
         border: 0px;
         padding-right: 0rem;
     }
-    .freelancer-profile .profile-image{
+    .freelancer-profile .profile-image {
         top: -5rem;
     }
-    .freelancer-profile .profile-image-div{
+    .freelancer-profile .profile-image-div {
         height: 100px;
     }
-    .freelancer-profile .hourly-rate{
+    .freelancer-profile .hourly-rate {
         border-radius: 0;
     }
-    .freelancer-profile .card-border{
+    .freelancer-profile .card-border {
         border-radius: 0;
     }
     .freelancer-profile .lower-text {
         grid-template-columns: repeat(3, 1fr);
     }
-
-    .freelancer-profile .lower-text-line-break-div:before{
+    .freelancer-profile .lower-text-line-break-div:before {
         width: 0px !important;
     }
-    .freelancer-profile .job-thumbnail{
+    .freelancer-profile .job-thumbnail {
         width: 130px;
     }
-    .freelancer-profile .job-poster{
+    .freelancer-profile .job-poster {
         width: 30px;
     }
 }
+
+
 /* ---------------------------------------------- */
 
 
 /* ========================================= Submit Profile ================================== */
 
-.submit-top-header{
-    background: #EFF3FE;
+.submit-top-header {
+    background: #eff3fe;
     padding: 0.3rem;
 }
 
-.submit-top-header > div{
+.submit-top-header>div {
     display: flex;
     align-items: center;
 }
-.submit-top-header .first{
+
+.submit-top-header .first {
     justify-content: end;
 }
-.submit-top-header .second{
+
+.submit-top-header .second {
     justify-content: start;
 }
 
 .submit-profile-btn {
-    background-color: #0086FF;
-    color: #FFFFFF;
+    background-color: #0086ff;
+    color: #ffffff;
     border-radius: 0px;
 }
 
 .submit-profile-btn:hover {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 @media (min-width: 0px) and (max-width: 786px) {
     .submit-profile-btn {
         text-align: center;
     }
-    .submit-top-header .second{
+    .submit-top-header .second {
         justify-content: center;
     }
 }
 
 .edit-profile-btn {
-    color: #0086FF;
+    color: #0086ff;
     float: right;
-    border: 1px solid #0086FF;
+    border: 1px solid #0086ff;
     border-radius: 0px;
 }
 
 .profile-name {
     top: 35px;
     left: 60px;
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 24px;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
-.submit-profile > div:not(:first-child){
-    background-color: #FFFFFF;
+.submit-profile>div:not(:first-child) {
+    background-color: #ffffff;
     margin-bottom: 1rem;
 }
 
 .submit-profile .profile-photo {
     height: 150px;
     width: 150px;
-    border: 2px solid #FFFFFF;
+    border: 2px solid #ffffff;
     border-radius: 150px;
     margin-top: 1rem;
     margin-left: 1.5rem;
 }
 
-.submit-profile .submit-profile-title{    
+.submit-profile .submit-profile-title {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.submit-profile .submit-profile-language{
+.submit-profile .submit-profile-language {
     display: flex;
 }
 
@@ -1541,15 +1727,15 @@ body {
         margin: 15px;
         width: 100%;
     }
-    .submit-profile .profile-photo {        
+    .submit-profile .profile-photo {
         margin-top: 0rem;
         margin-left: 0rem;
     }
-    .submit-profile .submit-profile-title{ 
+    .submit-profile .submit-profile-title {
         align-items: flex-start;
         flex-direction: column;
-    }   
-    .submit-profile .submit-profile-language{
+    }
+    .submit-profile .submit-profile-language {
         flex-direction: column;
     }
 }
@@ -1558,18 +1744,18 @@ body {
     top: 70px;
     left: 60px;
     display: flex;
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 14px;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .profile-details {
     top: 90px;
     left: 60px;
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -1582,65 +1768,65 @@ body {
 }
 
 .content-title {
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 24px;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .submit-profile .rate {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
     line-height: 14px;
-    color: #1B364A;
-    padding: .8rem;
-    background: #E6F2ED;
+    color: #1b364a;
+    padding: 0.8rem;
+    background: #e6f2ed;
     border-radius: 36px;
 }
 
 .more {
-    font-family: 'Inter';
+    font-family: "Inter";
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
     line-height: 12px;
     text-decoration-line: underline;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .content-subtitle {
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 22px;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .show-all {
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
-    color: #1B364A;
+    color: #1b364a;
 }
 
 .tab-title {
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
     line-height: 24px;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .tab-border {
-    border: 1px solid #DFE1E6;
+    border: 1px solid #dfe1e6;
 }
 
 
@@ -1650,17 +1836,17 @@ body {
 /* ========================================= blog ================================== */
 
 .blog-title {
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
     line-height: 56px;
-    color: #1C1C1C;
+    color: #1c1c1c;
     width: 30%;
 }
 
 .massage {
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -1670,16 +1856,16 @@ body {
 }
 
 .letter {
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
     line-height: 14px;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .letter-desc {
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -1689,125 +1875,384 @@ body {
 }
 
 .duration {
-    font-family: 'Uber Move Text';
+    font-family: "Uber Move Text";
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
-    color: #AFAFAF;
+    color: #afafaf;
 }
 
 
 /* ========================================= blog End ================================== */
 
 
-
 /* ================= Bootstrap Responsive Width ========================================= */
 
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
 
-}
+@media (min-width: 576px) {}
+
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {    
-    
-}
+
+@media (min-width: 768px) {}
+
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-      
-}
+
+@media (min-width: 992px) {}
+
 
 /* X-Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-      
-}
+
+@media (min-width: 1200px) {}
+
 
 /* XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) {
-      
-}
+
+@media (min-width: 1400px) {}
+
+
 /* ================= Bootstrap Responsive Width End ========================================= */
 
 .dropdown-menu li {
     position: relative;
 }
+
 .dropdown-menu .dropdown-submenu {
     display: none;
     position: absolute;
     left: 100%;
     top: 0px;
 }
+
 .dropdown-menu .dropdown-submenu-left {
     right: 100%;
     left: auto;
 }
-.dropdown-menu > li:hover > .dropdown-submenu {
+
+.dropdown-menu>li:hover>.dropdown-submenu {
     display: block;
 }
-.btn-xs{
-    padding: .35rem 0.7rem .35rem;
-    font-size: .7rem;
+
+.btn-xs {
+    padding: 0.35rem 0.7rem 0.35rem;
+    font-size: 0.7rem;
     line-height: 1;
 }
 
 
-/* Star rating */
+/* ============ New Star Rating w Percentage ========= */
+
+.outer-star {
+    position: relative;
+    display: flex;
+}
+
+.inner-star {
+    display: flex;
+    color: #ffbc0b;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+}
+
+
+/* =================== Star rating =================== */
+
 .star-rating-display {
     font-size: 2em;
     unicode-bidi: bidi-override;
     color: #eee;
     display: inline-block;
     position: relative;
-  }
-  .star-rating-display:before, .star-rating-display:after {
+}
+
+.star-rating-display:before,
+.star-rating-display:after {
     content: "★★★★★";
     display: inline-block;
     white-space: nowrap;
-  }
-  .star-rating-display:before {
+}
+
+.star-rating-display:before {
     color: #ffd200;
     position: absolute;
     z-index: 1;
     left: 0px;
     overflow: hidden;
-  }
-  .star-rating-display:after {
+}
+
+.star-rating-display:after {
     z-index: 0;
-  }
-  .star-rating-display[data-average-score="0"]:before {
+}
+
+.star-rating-display[data-average-score="0"]:before {
     width: 0%;
-  }
-  .star-rating-display[data-average-score="0.5"]:before {
+}
+
+.star-rating-display[data-average-score="0.5"]:before {
     width: 10%;
-  }
-  .star-rating-display[data-average-score="1"]:before {
+}
+
+.star-rating-display[data-average-score="1"]:before {
     width: 20%;
-  }
-  .star-rating-display[data-average-score="1.5"]:before {
+}
+
+.star-rating-display[data-average-score="1.5"]:before {
     width: 30%;
-  }
-  .star-rating-display[data-average-score="2"]:before {
+}
+
+.star-rating-display[data-average-score="2"]:before {
     width: 40%;
-  }
-  .star-rating-display[data-average-score="2.5"]:before {
+}
+
+.star-rating-display[data-average-score="2.5"]:before {
     width: 50%;
-  }
-  .star-rating-display[data-average-score="3"]:before {
+}
+
+.star-rating-display[data-average-score="3"]:before {
     width: 60%;
-  }
-  .star-rating-display[data-average-score="3.5"]:before {
+}
+
+.star-rating-display[data-average-score="3.5"]:before {
     width: 70%;
-  }
-  .star-rating-display[data-average-score="4"]:before {
+}
+
+.star-rating-display[data-average-score="4"]:before {
     width: 80%;
-  }
-  .star-rating-display[data-average-score="4.5"]:before {
+}
+
+.star-rating-display[data-average-score="4.5"]:before {
     width: 90%;
-  }
-  .star-rating-display[data-average-score="5"]:before {
+}
+
+.star-rating-display[data-average-score="5"]:before {
     width: 100%;
-  }
-  
+}
+
+
+/* ===================== Star rating input ==================== */
+
+.rating-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rating-wrapper>label {
+    font-size: 1.2rem;
+}
+
+.rating {
+    display: inline-block;
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+    font-size: 2rem;
+}
+
+.rating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+}
+
+.rating label:last-child {
+    position: static;
+}
+
+.rating label:nth-child(1) {
+    z-index: 5;
+}
+
+.rating label:nth-child(2) {
+    z-index: 4;
+}
+
+.rating label:nth-child(3) {
+    z-index: 3;
+}
+
+.rating label:nth-child(4) {
+    z-index: 2;
+}
+
+.rating label:nth-child(5) {
+    z-index: 1;
+}
+
+.rating label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.rating label .icon {
+    float: left;
+    color: transparent;
+}
+
+.rating label:last-child .icon {
+    color: #000;
+}
+
+.rating:not(:hover) label input:checked~.icon,
+.rating:hover label:hover input~.icon {
+    color: #09f;
+}
+
+.rating label input:focus:not(:checked)~.icon:last-child {
+    color: #000;
+    text-shadow: 0 0 5px #09f;
+}
+
+
+/* ===================== Contract ============================= */
+
+.job-dropdown-parent {
+    position: relative;
+}
+
+.job-dropdown {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.job-dropdown .dropdown-menu {
+    min-width: 14rem;
+}
+
+.dropdown-menu {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+
+/* ===================== Settings ============================= */
+
+.setting-links a {
+    text-align: start;
+}
+
+.experience_text {
+    position: relative;
+}
+
+.loader {
+    transition: 200ms;
+    position: absolute;
+    top: 1px;
+}
+
+.loader-hidden {
+    opacity: 0;
+}
+
+
+/* Utility class */
+
+.c-flex {
+    display: flex;
+}
+
+.f-justify-center {
+    justify-content: center;
+}
+
+.f-justify-end {
+    justify-content: end;
+}
+
+.f-justify-between {
+    justify-content: space-between;
+}
+
+.f-justify-start {
+    justify-content: start;
+}
+
+.f-align-center {
+    align-items: center;
+}
+
+.f-align-end {
+    align-items: end;
+}
+
+.f-align-start {
+    align-items: start;
+}
+
+.f-direction-column {
+    flex-direction: column;
+}
+
+.f-gap-1 {
+    gap: 1rem;
+}
+
+.f-gap-2 {
+    gap: 1.5rem;
+}
+
+.f-gap-3 {
+    gap: 2rem;
+}
+
+.f-gap-4 {
+    gap: 3rem;
+}
+
+.f-gap-5 {
+    gap: 4rem;
+}
+
+.attachment-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    grid-auto-columns: minmax(200px, auto);
+}
+
+@media (min-width: 0px) and (max-width: 990px) {
+    .attachment-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* Stripe CSS */
+.error{
+    z-index: 0;
+    height: 55px;
+    transition: 300ms;
+    opacity: 1;
+}
+.hidden{
+    opacity: 0;
+    height: 0;
+    z-index: -1;
+}
+.membership {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 30px !important;
+}
+
+.plan-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.plan-subtitle {
+    text-align: center;
+    margin-bottom: 30px !important;
+}

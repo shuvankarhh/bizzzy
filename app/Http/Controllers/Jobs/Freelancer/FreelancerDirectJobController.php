@@ -109,7 +109,7 @@ class FreelancerDirectJobController extends Controller
                     ]);
                 }
             }
-
+            $freelancer = decrypt($request->freelancer);
             $contract = Contract::create([
                 'payment_type' => $request->price_type,
                 'price' => $request->price,
@@ -124,9 +124,13 @@ class FreelancerDirectJobController extends Controller
                 'is_confirmed_by_client' => 1,
                 'is_confirmed_by_freelancer' => 0,
                 'job_id' => $job->id,
-                'freelancer_id' => decrypt($request->freelancer),
+                'freelancer_id' => $freelancer,
                 'additional_message' => $request->additional_message,
                 'hours_per_week' => $request->hours_per_week,
+            ]);
+
+            FreelancerProfile::where('user_id', $freelancer)->update([
+                'total_jobs' => DB::raw('total_jobs + 1')
             ]);
 
             if (strtolower($request->price_type) == 'fixed') {

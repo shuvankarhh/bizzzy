@@ -45,7 +45,7 @@
     <!-- Tabs content -->
     <div class="tab-content" id="ex1-content">
         <div class="tab-pane fade show active" id="all_tab" role="tabpanel" aria-labelledby="all_job">
-            @foreach ($offers as $item)
+            @forelse ($offers as $item)
                 <div class="card m-3" >
                     <div class="card-body">
                         <div class="row">
@@ -59,11 +59,16 @@
                             </div>
                         </div>
                     </div>
-                </div>        
-            @endforeach
+                </div>
+            @empty
+                <div style="display: flex;align-items: center; flex-direction: column">
+                    <img width="350px" src="{{ asset('images/icons/empty.svg') }}" alt="">
+                    <p>No Jobs</p>
+                </div>
+            @endforelse
         </div>
         <div class="tab-pane fade show" id="hourly_tab" role="tabpanel" aria-labelledby="hourly_tab">
-            @foreach ($offers as $item)
+            @forelse ($offers as $item)
                 @if ($item->payment_type == '1')
                     @continue
                 @endif
@@ -79,12 +84,25 @@
                                 <p class="">{{ $item->job->description }}</p>
                             </div>
                         </div>
+                        <div class="dropdown job-dropdown">
+                            <a class="nav-link text-reset me-2 dropdown-toggle hidden-arrow" href="#" id="findWorkDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false" > <i class="fa-solid fa-ellipsis"></i> </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <li><button class="dropdown-item btn-link" href="#"><i class="fa-solid fa-money-bill-transfer me-2"></i>Refund Contract</button></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{{ route('freelancer.end.contract.create', encrypt($item->id)) }}"> <i class="fa-solid fa-check me-2"></i> End Contract</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>        
-            @endforeach
+                </div>
+            @empty
+                <div style="display: flex;align-items: center; flex-direction: column">
+                    <img width="350px" src="{{ asset('images/icons/empty.svg') }}" alt="">
+                    <p>No Jobs</p>
+                </div>
+            @endforelse
         </div>
         <div class="tab-pane fade show" id="active_milestone_tab" role="tabpanel" aria-labelledby="active_milestone_tab">
-            @foreach ($offers as $item)
+            @forelse ($offers as $item)
                 @if ($item->payment_type == '2')
                     @continue
                 @endif
@@ -104,18 +122,50 @@
                             </div>
                             <div class="col">
                                 Milestone:
-                                <p>{{ $item->milestones[0]->name }}</p>
+                                @if ($item->milestones->isEmpty())
+                                    <p>All milestone completed</p>
+                                @else
+                                    <p>{{ $item->milestones[0]->name }}</p>
+                                @endif
                             </div>
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div style="display: flex;align-items: center; flex-direction: column">
+                    <img width="350px" src="{{ asset('images/icons/empty.svg') }}" alt="">
+                    <p>No Jobs</p>
+                </div>
+            @endforelse
         </div>
         <div class="tab-pane fade show" id="awaiting_milestone_tab" role="tabpanel" aria-labelledby="awaiting_milestone_tab">
         </div>
         <div class="tab-pane fade show" id="payment_request_tab" role="tabpanel" aria-labelledby="payment_request_tab">
         </div>
     </div>
-    {{-- <header><h2>Offers ({{ $offers->count() }})</h2></header> --}}
+    @if (!$in_review->isEmpty())
+        <div class="mt-5">
+            <h2>Ended contract feedback</h2>
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-group list-group-light">
+                        @foreach ($in_review as $item)
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <p style="font-size: 1.225rem">{{ $item->job->name }}</p>
+                                        <p>{{ 'test' }}</p>
+                                    </div>
+                                    <div class="col-3 align-self-center text-center">
+                                        <a role="button" href="{{ route('freelancer.end.contract.create', encrypt($item->id)) }}" class="btn btn-primary" style="border-radius: 0">Give Feedback</a>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>                      
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 @endsection

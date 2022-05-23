@@ -27,8 +27,8 @@ class CreateFreelancerProfilesTable extends Migration
             $table->decimal('total_earnings', 13, 3)->nullable();
             $table->unsignedSmallInteger('total_jobs');
             $table->unsignedInteger('total_hours');
-            $table->unsignedTinyInteger('job_success_percentage');
-            $table->unsignedTinyInteger('average_rating');
+            $table->unsignedTinyInteger('job_success_percentage')->nullable();
+            $table->unsignedTinyInteger('average_rating')->nullable();
             $table->unsignedTinyInteger('is_top_rated');
             $table->unsignedTinyInteger('profile_completion_percentage');
             $table->timestamps();

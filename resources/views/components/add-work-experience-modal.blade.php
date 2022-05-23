@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Work Experience</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ (isset($experience)) ? 'Edit Work Experience' : 'Add Work Experience' }}</h5>
                 <button
                     type="button"
                     class="btn-close"
@@ -42,7 +42,7 @@
                             <label class="custom-label" for="start_date_div">Start Date</label>
                             <div class="row" id="start_date_div">                                
                                 <div class="col-6">
-                                    <select name="month_start" id="month_start" class="form-select" aria-label="Default select example">
+                                    <select name="month_start" id="month_start" aria-label="Default select example">
                                         <option value="" selected>Month</option>
                                         <option value="1">01</option>
                                         <option value="2">02</option>
@@ -59,11 +59,11 @@
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <select name="year_start" id="year_start" class="form-select" aria-label="Default select example">
+                                    <select name="year_start" id="year_start_exp" aria-label="Default select example">
                                         <option value="" selected>Year</option>
-                                        <option>2020</option>
-                                        <option>2021</option>
-                                        <option>2022</option>
+                                        @for ($i = date('Y'); $i > (date('Y') - 80); $i--)
+                                            <option>{{ $i }}</option>
+                                        @endfor
                                     </select>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                             <label class="custom-label" for="end_date_div">End Date</label>
                             <div class="row" id="end_date_div">                                
                                 <div class="col-6">
-                                    <select name="month_end" id="month_end" class="form-select" aria-label="Default select example">
+                                    <select name="month_end" id="month_end" aria-label="Default select example">
                                         <option value="" selected>Month</option>
                                         <option value="1">01</option>
                                         <option value="2">02</option>
@@ -89,11 +89,11 @@
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <select name="year_end" id="year_end" class="form-select" aria-label="Default select example">
+                                    <select name="year_end" id="year_end_exp" aria-label="Default select example">
                                         <option value="" selected>Year</option>
-                                        <option >2020</option>
-                                        <option >2021</option>
-                                        <option >2022</option>
+                                        @for ($i = date('Y'); $i > (date('Y') - 80); $i--)
+                                            <option>{{ $i }}</option>
+                                        @endfor
                                     </select>
                                 </div>
                             </div>
@@ -120,3 +120,11 @@
         </div>
     </div>
 </div>
+@push('script')
+    <script>
+        new TomSelect("#month_start", { create: false });
+        new TomSelect("#year_start_exp", { create: false });
+        new TomSelect("#month_end", { create: false });
+        new TomSelect("#year_end_exp", { create: false });
+    </script>
+@endpush

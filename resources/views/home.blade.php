@@ -5,7 +5,18 @@
 @endsection
 <link href="{{ asset('/css/homepage.css') }}" rel="stylesheet">
 @push('css')
-    
+<style>
+    .inner-content{
+        background-color: unset;
+    }
+    body{
+        background-image: url("{{ asset('images/extra_fillers/hero-green-background.svg') }}");
+        background-repeat: no-repeat;
+    }
+    .nav-wrapper{
+        border-bottom: 0;
+    }
+</style>
 @endpush
 
 @section('content')

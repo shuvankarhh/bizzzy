@@ -40,7 +40,7 @@ class AuthController extends Controller
     public function showLoginFrom()
     {
         if (Auth::guard('admin')->id()) {
-        // if (Auth::guard('admin')->id()) {
+            // if (Auth::guard('admin')->id()) {
             return redirect('admin/home');
         }
 
@@ -65,7 +65,7 @@ class AuthController extends Controller
         if (Auth::guard('admin')->attempt(['account_email_id' => $email->id, 'password' => $request->password])) {
             $request->session()->regenerate();
 
-            return redirect()->intended('admin/home');
+            return redirect()->intended('admin/dashboard');
         }
 
         return back()->withErrors([

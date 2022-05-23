@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 class RecruiterJobController extends Controller
@@ -79,8 +80,18 @@ class RecruiterJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($job)
     {
-        //
+        $job = Job::withCount('contracts')->find(decrypt($job));
+
+        if($job->user_id != auth()->id()){
+            abort(403);
+        }
+
+        if($job->total_proposals > 0){
+            abort(403);
+        }
+
+        $job->delete();
     }
 }

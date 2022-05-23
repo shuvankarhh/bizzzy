@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerification;
 use App\Models\FreelancerProfile;
+use App\Models\RecruiterProfile;
 use App\Models\UserAccount;
 use App\Models\UserOnlinePresence;
 use Illuminate\Support\Facades\DB;
@@ -118,8 +119,6 @@ class AuthenticationController extends Controller
                     'profile_completion_percentage' => 0,
                     'total_jobs' => 0,
                     'total_hours' => 0,
-                    'job_success_percentage' => 0,
-                    'average_rating' => 0,
                     'is_top_rated' => 0,
                 ]);
                 UserAccount::create([
@@ -127,7 +126,10 @@ class AuthenticationController extends Controller
                     'client_or_freelancer' => 2,
                     'company_or_individual' => 2,
                 ]);
-            }else{
+            } else {
+                RecruiterProfile::create([
+                    'user_id' => $user->id
+                ]);
                 UserAccount::create([
                     'user_id' => $user->id,
                     'client_or_freelancer' => 1,
@@ -152,7 +154,7 @@ class AuthenticationController extends Controller
             return array('user' => $user, 'token' => $token);
         });
 
-        Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
+        // Mail::to($request->email)->send(new EmailVerification($data['user'], $data['token'], $request->email));
 
         return redirect()->route('user.verification-need.email', ['email' => $request->email]);
     }
@@ -160,6 +162,8 @@ class AuthenticationController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+
+        $request->session()->flush();
 
         $request->session()->invalidate();
 

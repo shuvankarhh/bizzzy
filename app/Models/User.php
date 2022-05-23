@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\UserAccount;
 use App\Models\UserEducation;
+use App\Models\RecruiterProfile;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserWorkExperience;
 use Spatie\Permission\Traits\HasRoles;
@@ -97,6 +98,30 @@ class User extends Authenticatable
     public function userAccount()
     {
         return $this->hasMany(UserAccount::class);
+    }
+    public function email()
+    {
+        return $this->belongsTo(Email::class, 'account_email_id');
+    }
+
+    public function recruiter_profile()
+    {
+        return $this->hasOne(RecruiterProfile::class);
+    }
+
+    public function verification_request()
+    {
+        return $this->hasOne(VerificationRequest::class);
+    }
+
+    public function stripe_detail()
+    {
+        return $this->hasOne(StripeDetail::class);
+    }
+
+    public function cards()
+    {
+        return $this->hasMany(PaymentCard::class);
     }
 
     public function isRecruiter()

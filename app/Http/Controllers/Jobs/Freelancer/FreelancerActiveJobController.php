@@ -16,7 +16,9 @@ class FreelancerActiveJobController extends Controller
      */
     public function index()
     {
-        // dd(Contract::groupBy('payment_type')->count());
+        /**
+         * contract_status 2 = active contract
+         */
         $counts_db = Contract::select(DB::raw("count(*) as contract_count, payment_type"))->where('contract_status', 2)->where('freelancer_id', auth()->id())->groupBy('payment_type')->get();
         $counts = array(
             'fixed' => 0,
@@ -40,11 +42,19 @@ class FreelancerActiveJobController extends Controller
         DB::reconnect();
 
         return view('contents.jobs.freelancer-active-contracts')->with([
-            'offers' => Contract::with('job')->with([
+            'offers' => Contract::with('job')
+            ->with([
                 'milestones' => function ($query) {
                     $query->where('is_complete', 0)->oldest()->groupBy('contract_id');
                 }
-            ])->where('freelancer_id', auth()->id())->where('contract_status', '2')->get(),
+            ])
+            ->where('freelancer_id', auth()->id())
+            ->where('contract_status', '2')
+            ->get(),
+            'in_review' => Contract::whereNull('freelancer_private_feedback_rating')
+            ->where('contract_status', '5')
+            ->where('freelancer_id', auth()->id())
+            ->get(),
             'counts' => $counts
         ]);
     }

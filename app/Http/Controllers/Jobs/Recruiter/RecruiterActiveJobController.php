@@ -28,9 +28,15 @@ class RecruiterActiveJobController extends Controller
                 $counts['hourly'] = $item->contract_count;
             }
         }
-
         return view('contents.jobs.recruiter-active-contracts')->with([
-            'offers' => Contract::with('job', 'milestones')->where('created_by_user', auth()->id())->where('contract_status', '2')->get(),
+            'offers' => Contract::with('job', 'milestones')
+            ->where('created_by_user', auth()->id())
+            ->where('contract_status', '2')
+            ->get(),
+            'in_review' => Contract::with('job')->whereNull('client_private_feedback_rating')
+            ->where('contract_status', '5')
+            ->where('created_by_user', auth()->id())
+            ->get(),
             'counts' => $counts
         ]);
     }
@@ -89,7 +95,7 @@ class RecruiterActiveJobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

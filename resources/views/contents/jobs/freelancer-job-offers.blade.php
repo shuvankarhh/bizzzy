@@ -6,7 +6,7 @@
 <div class="container" style="min-height: 75vh;font-family: 'Uber Move Text';font-style: normal;">
     <header><h3>Offers ({{ $offers->total() }})</h3></header>
     <ul class="list-group list-group-flush mb-2">
-    @foreach ($offers as $item)
+    @forelse ($offers as $item)
         <li class="list-group-item" style="background: #FFFFFF">
             <div class="row">
                 <div class="col-auto">
@@ -18,14 +18,19 @@
                     <p class=" {{ ($item->contract_status == 'Active') ? 'text-white' : '' }}">{{ $item->job->description }}</p>
                 </div>
             </div>
-        </li>      
-    @endforeach
+        </li>
+    @empty
+        <div style="display: flex;align-items: center; flex-direction: column">
+            <img width="350px" src="{{ asset('images/icons/empty.svg') }}" alt="">
+            <p>No Offers</p>
+        </div>
+    @endforelse
     </ul>
     {{ $offers->links() }}
     <hr class="mt-5 mb-5">
     <header><h3>Sent Proposals ({{ $proposals->total() }})</h3></header>
     <ul class="list-group list-group-flush mb-2">
-    @foreach ($proposals as $item)
+    @forelse ($proposals as $item)
         <li class="list-group-item" style="background: #FFFFFF">
             <div class="row">
                 <div class="col-2">
@@ -36,8 +41,13 @@
                     <p class="">{{ $item->description }}</p>
                 </div>
             </div>
-        </li>      
-    @endforeach
+        </li>
+    @empty
+        <div style="display: flex;align-items: center; flex-direction: column">
+            <img width="350px" src="{{ asset('images/icons/empty.svg') }}" alt="">
+            <p>No Proposal Sent!</p>
+        </div>
+    @endforelse
     </ul>
     {{ $proposals->links() }}
 </div>

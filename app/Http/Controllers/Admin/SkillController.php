@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class SkillController extends Controller
 {
@@ -16,7 +17,7 @@ class SkillController extends Controller
     public function index()
     {
         return view('admin.skills.skills')->with([
-            'skills' => Skill::latest()->paginate(10)
+            'skills' => Skill::get()
         ]);
     }
 
@@ -43,7 +44,8 @@ class SkillController extends Controller
         ]);
 
         Skill::create([
-            'name' => $request->skill
+            'name' => $request->skill,
+            'acting_status' => 1,
         ]);
 
         return back();
@@ -66,9 +68,9 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Skill $id)
     {
-        //
+        return $id->toJson();
     }
 
     /**
@@ -78,12 +80,13 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Skill $skill)
+    public function update(Request $request, $id)
     {
-        $skill->name = $request->updated_name;
+        $skill = Skill::find($request->id);
+        $skill->name = $request->name;
+        $skill->acting_status = $request->acting_status;
         $skill->save();
-
-        return back();
+        Session::flash('message', 'Skill successfully updated!');
     }
 
     /**
@@ -94,6 +97,7 @@ class SkillController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Skill::where('id', $id)->delete();
+        return redirect()->route('staff.index');
     }
 }
