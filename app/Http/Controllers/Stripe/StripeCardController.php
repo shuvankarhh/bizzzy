@@ -44,7 +44,8 @@ class StripeCardController extends Controller
         }else{
             $customer_id = $stripe_detail->customer_id;
         }
-        $random_amount = rand(300, 800);
+
+        $random_amount = rand(100, 400);
         $stripe_detail->amount_to_verify = $random_amount;
         $paymentIntent = $stripe->paymentIntents->create([
             'customer' => $customer_id,

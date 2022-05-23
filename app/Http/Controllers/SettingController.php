@@ -16,8 +16,7 @@ class SettingController extends Controller
     public function index(Request $request)
     {
         $stripe_details = auth()->user()->stripe_detail;
-        if(!is_null($stripe_details) AND $stripe_details->payment_intent == $request->payment_intent AND $stripe_details->status != '1' AND isset($request->redirect_status) AND $request->redirect_status == 'succeeded'){
-            
+        if(!is_null($stripe_details) AND $stripe_details->payment_intent == $request->payment_intent AND $stripe_details->status != '1' AND isset($request->redirect_status) AND $request->redirect_status == 'succeeded'){            
             $stripe = new StripeClient(env('STRIPE_SECRET'));
             $payment_methods = $stripe->paymentMethods->all(
                 ['customer' => $stripe_details->customer_id, 'type' => 'card']

@@ -119,6 +119,11 @@ class User extends Authenticatable
         return $this->hasOne(StripeDetail::class);
     }
 
+    public function stripe_details()
+    {
+        return $this->hasMany(StripeDetail::class);
+    }
+
     public function cards()
     {
         return $this->hasMany(PaymentCard::class);

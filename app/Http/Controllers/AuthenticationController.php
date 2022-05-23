@@ -12,6 +12,7 @@ use App\Mail\EmailVerification;
 use App\Models\FreelancerProfile;
 use App\Models\RecruiterProfile;
 use App\Models\UserAccount;
+use App\Models\UserBalance;
 use App\Models\UserOnlinePresence;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
@@ -136,6 +137,11 @@ class AuthenticationController extends Controller
                     'company_or_individual' => 2,
                 ]);
             }
+
+            UserBalance::create([
+                'user_id' => $user->id,
+                'balance' => 0
+            ]);
 
             $token = Str::random(10);
 
