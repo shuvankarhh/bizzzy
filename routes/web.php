@@ -189,7 +189,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         // Route::get('/', [UserController::class, 'index']);
     });
 
-    Route::post('user/edit', [UserController::class, 'update'])->name('user.edit');
+    Route::post('user/edit', [UserController::class, 'update'])->name('user.self.edit');
 
     Route::get('/education/{education}/edit', [EducationController::class, 'edit'])->name('education.edit');
     Route::patch('/education/{education}', [EducationController::class, 'update'])->name('education.update');
@@ -234,6 +234,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::prefix('recruiter-job-proposal')->group(function () {
         Route::post('/', [JobProposalController::class, 'store'])->name('job.proposal.store');
         Route::get('/{freelancer}/{job_id}', [JobProposalController::class, 'show'])->name('job.proposal.show');
+        Route::post('/validate', [JobProposalController::class, 'pre_validate'])->name('job.proposal.validate');
     });
 
     Route::prefix('job-offers')->group(function () {
@@ -363,7 +364,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('user.index');
         Route::get('/{id}/edit', [AdminUserController::class, 'edit'])->name('user.edit');
         Route::post('/{id}', [AdminUserController::class, 'update'])->name('user.update');
-        Route::get('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
         Route::DELETE('/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
         Route::get('/{id}/profile', [AdminUserController::class, 'profile'])->name('user.profile');
     });
@@ -375,7 +375,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('/{id}/contract', [AdminJobController::class, 'showcontract'])->name('job.showcontract');
         Route::get('/data', [AdminJobController::class, 'getData'])->name('job.get.data');
         Route::get('/milestone', [AdminJobController::class, 'getMilestone'])->name('job.get.milestone');
-        Route::get('/job-feedback/{id}', [AdminJobController::class, 'show'])->name('freelancer.job.feedback.show');
+        // Route::get('/job-feedback/{id}', [AdminJobController::class, 'show'])->name('freelancer.job.feedback.show');
     });
 
     // admin verification user

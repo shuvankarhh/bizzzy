@@ -1,4 +1,9 @@
-## 0.042.0 (2022-05-23 17:00)
+## 0.043.0 (2022-05-23 14:41)
+| Type | Description         |
+| ---- | ------------------- |
+| fix  | Create contract payment integrate stripe |
+
+## 0.042.0 (2022-05-23 10:00)
 | Type | Description         |
 | ---- | ------------------- |
 | add  | Payment methods overhaul |

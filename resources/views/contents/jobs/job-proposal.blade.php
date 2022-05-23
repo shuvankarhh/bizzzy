@@ -133,18 +133,21 @@
                     </div>
 
                     <div id="payment_div" class="d-none">
-                        <hr>
                         <div class="row justify-content-center m-0 p-0">
+                            <div class="col-12">
+                                <h3> Hire {{ $job_proposal->user->name }} </h3>
+                                <button id="back_to_offer_button" type="button" class="btn btn-link"><i class="fa-solid fa-arrow-left"></i> Back to Offer Details</button>
+                            </div>
                             <div class="col-xl-7 col-xxl-7 col-lg-7 col-md-10 col-sm-12 col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="panel-title display-td">Payment Methods</h3>
+                                        <h4 class="panel-title display-td">Payment Methods</h4>
                                     </div>
                                     <div class="card-body">
-                                        @forelse ($stripe_details as $item)
+                                        @forelse ($stripe_details as $idx=>$item)
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-                                                <label class="form-check-label" for="flexRadioDefault1"> <div class="c-flex f-align-center f-gap-1"><img class="credit-card-logo" src="{{ asset("images/billings/".strtolower($item->card_name).".png") }}" alt=""> <span>{{$item->card_name}} ending with {{ $item->last4 }}</span></div> </label>
+                                                <input class="form-check-input" type="radio" name="payment_method" id="payment_method.{{$idx}}"/>
+                                                <label class="form-check-label" for="payment_method.{{$idx}}"> <div class="c-flex f-align-center f-gap-1"><img class="credit-card-logo" src="{{ asset("images/billings/".strtolower($item->card_name).".png") }}" alt=""> <span>{{$item->card_name}} ending with {{ $item->last4 }}</span></div> </label>
                                             </div>
                                         @empty
                                             <p>No payment method added!</p>
@@ -162,6 +165,7 @@
                                 </div>
                             </div>
                         </div>
+                        <button class="btn btn-primary">Fund and Hire {{ $job_proposal->user->name }} </button>
                     </div>
                 </form>
                 <template id="additional_milestone_contente">
@@ -199,11 +203,6 @@
         axios
         .post('{{ route('job.proposal.store') }}', formData)
         .then(function (response) {
-            console.log(response);
-            // e.reset();
-            // tags_select.clear();
-            // categories_select.clear();
-            // languages_select.clear();
             location.href = response.data;
         })
         .catch(function (error) {
@@ -222,9 +221,42 @@
     const terms = document.getElementById('terms');
     const proceed_to_payment = document.getElementById('proceed_to_payment');
     const hire_button = document.getElementById('hire_button');    
+    const job_details_div = document.getElementById('job_details_div');    
+    const payment_div = document.getElementById('payment_div');
+    const back_to_offer_button = document.getElementById('back_to_offer_button');
+
+    let toggle_payment_div = () => {
+        let formData = new FormData(hire_form);
+        axios
+        .post("{{ route('job.proposal.validate') }}", formData)
+        .then(function (response) {            
+            let deposit_type = document.querySelector('input[name="deposit_type"]:checked').value;
+            if(deposit_type == 'full'){
+                document.getElementById('estimate_amount').innerHTML = document.getElementById('price').value;
+            }else{
+                document.getElementById('estimate_amount').innerHTML = document.getElementById('deposit_amount.0').value;
+            }
+            job_details_div.classList.toggle('d-none');
+            payment_div.classList.toggle('d-none');
+        })
+        .catch(function (error) {
+            if (typeof error.response !== "undefined") {
+                //  This is for error from laravel
+                console.log(error.response.data);
+                showValidation(error.response.data);
+            } else {
+                // Other JS related error
+                console.log(error);
+            }
+        });
+    }
+    
+    proceed_to_payment.addEventListener('click', toggle_payment_div);
+    back_to_offer_button.addEventListener('click', toggle_payment_div);
 
     terms.addEventListener('click', () => {
         proceed_to_payment.disabled = !terms.checked;
+        proceed_to_payment.classList.toggle('btn-primary', terms.checked);
         hire_button.disabled = !terms.checked;
         hire_button.classList.toggle('btn-primary', terms.checked);
     })
@@ -265,18 +297,17 @@
     let hourly_div = document.getElementById('hourly');
     let fixed_div = document.getElementById('fixed');
 
-    let payment_div = document.getElementById('payment_div');
-
-
     hourly.addEventListener('click', () => {
-        hire_button.style.display = 'block'
+        hire_button.classList.remove('d-none');
+        proceed_to_payment.classList.add('d-none');
         fixed_div.classList.toggle('d-none');
         hourly_div.classList.toggle('d-none');
         document.getElementById('payment_type').value = 'hourly';
     })
 
     fixed.addEventListener('click', () => {
-        hire_button.style.display = 'none'
+        hire_button.classList.add('d-none');
+        proceed_to_payment.classList.remove('d-none');
         fixed_div.classList.toggle('d-none');
         hourly_div.classList.toggle('d-none');
         document.getElementById('payment_type').value = 'fixed';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use App\Models\User;
 use App\Models\Contract;
+use Stripe\StripeClient;
 use App\Models\JobProposal;
 use Illuminate\Http\Request;
 use App\Models\ContractMilestone;
@@ -12,6 +13,7 @@ use App\Models\FreelancerProfile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\JobProposalRequest;
+use Illuminate\Validation\ValidationException;
 
 class JobProposalController extends Controller
 {
@@ -43,6 +45,10 @@ class JobProposalController extends Controller
      */
     public function store(JobProposalRequest $request)
     {
+        if($request->price < array_sum($request->deposit_amount)){
+            throw ValidationException::withMessages(['deposit_amount', 'Total does not match!']);
+        }
+
         $job_id = decrypt($request->job_id);
         $freelancer_id = decrypt($request->freelancer);
 
@@ -99,6 +105,7 @@ class JobProposalController extends Controller
                         ];
                     }
                     ContractMilestone::insert($mile_stones);
+                    $amount = $request->deposit_amount[0];
                 } else {
                     ContractMilestone::create([
                         'contract_id' => $contract->id,
@@ -107,6 +114,36 @@ class JobProposalController extends Controller
                         'end_date' => NULL,
                         'is_complete' => 0,
                     ]);
+                    $amount = $request->price;
+                }
+                $stripe = new StripeClient(env('STRIPE_SECRET'));
+                $stripe_detail = auth()->user()->stripe_detail;
+
+                if(is_null($stripe_detail)){
+                    throw ValidationException::withMessages(['message', 'Something wrong with your payment method!']);
+                }
+
+                if($stripe_detail->status != '1'){
+                    throw ValidationException::withMessages(['message', 'Your payment method is not verified!']);
+                }
+                
+                $payment_methods = $stripe->paymentMethods->all(
+                    ['customer' => $stripe_detail->customer_id, 'type' => 'card']
+                );
+                try {
+                    $stripe->paymentIntents->create([
+                        'amount' => $amount * 100,
+                        'currency' => 'usd',
+                        'customer' => $stripe_detail->customer_id,
+                        'payment_method' => $payment_methods->data[0]->id,
+                        'off_session' => true,
+                        'confirm' => true,
+                    ]);
+                } catch (\Stripe\Exception\CardException $e) {
+                    // Error code will be authentication_required if authentication is needed
+                    echo 'Error code is:' . $e->getError()->code;
+                    $payment_intent_id = $e->getError()->payment_intent->id;
+                    $payment_intent = \Stripe\PaymentIntent::retrieve($payment_intent_id);
                 }
             }
 
@@ -167,5 +204,13 @@ class JobProposalController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function pre_validate(JobProposalRequest $request)
+    {
+        if($request->price < array_sum($request->deposit_amount)){
+            throw ValidationException::withMessages(['deposit_amount', 'Total does not match!']);
+        }
+        return response('Successfully validated');
     }
 }
