@@ -2275,3 +2275,12 @@ b {
     text-align: center;
     margin-bottom: 30px !important;
 }
+
+.proposal-img {
+    border: 1px outset gray;
+    background-color: white;
+    border-radius: 50%;
+    width: 8rem;
+    height: 8rem;
+    margin-left: 30px;
+}

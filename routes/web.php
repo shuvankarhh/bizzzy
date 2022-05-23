@@ -226,6 +226,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
 
     Route::prefix('recruiter-job')->group(function () {
         Route::get('/', [RecruiterJobController::class, 'index'])->name('recruiter.job.index');
+        Route::get('/{id}', [RecruiterJobController::class, 'proposal'])->name('recruiter.job.proposal');
         Route::delete('/{job}', [RecruiterJobController::class, 'destroy'])->name('recruiter.job.delete');
     });
 
