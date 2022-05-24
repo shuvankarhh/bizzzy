@@ -1212,6 +1212,10 @@ p {
     content: "remove";
 }
 
+.text-black{
+    color: black;
+}
+
 .job-card .more-text {
     text-decoration: none;
     color: black;
@@ -2299,4 +2303,8 @@ b {
 @keyframes rotate {
     from { transform: rotate(0deg) translateX(5px) rotate(0deg); }
     to   { transform: rotate(360deg) translateX(5px) rotate(-360deg); }
+}
+
+.pointer{
+    cursor: pointer;
 }

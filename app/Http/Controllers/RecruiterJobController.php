@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\JobProposal;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
@@ -15,6 +16,7 @@ class RecruiterJobController extends Controller
      */
     public function index()
     {
+
         return view('contents.jobs.recruiter-jobs')->with([
             'jobs' => auth()->user()->jobs()->with('proposals', 'tags.tag', 'categories.category', 'contracts')->latest()->paginate(2)
         ]);
@@ -27,9 +29,13 @@ class RecruiterJobController extends Controller
      */
     public function proposal($id)
     {
-        //dd(Job::with('proposals.freelance_profile', 'proposals.address','proposals.skills')->find($id));
+        // dd(JobProposal::with(['user' => function($q){
+        //     $q->with('freelance_profile', 'address', 'skills');
+        // }])->with('job')->where('job_id', $id)->latest()->get());
         return view('contents.jobs.job-proposals')->with([
-            'job'=> Job::with('proposals.freelance_profile', 'proposals.address', 'proposals.skills')->find($id)
+            'job_proposals'=> JobProposal::with(['user' => function($q){
+                $q->with('freelance_profile', 'address', 'skills');
+            }])->with('job')->where('job_id', $id)->latest()->get()
         ]);
     }
 

@@ -9,9 +9,33 @@
                 <img class="dp-image" src="{{ asset('storage/' . $contract->freelancer->photo) }}" alt="">
             </div>
             <div class="col-10">
-                <p><span style="font-size: 2rem">{{ $contract->freelancer->name }}</span> <span class="ms-4">{{ $contract->job->name }}</span></p>
-                <strong class="m-0 p-0">Hired: {{ ($contract->pripayment_type == 1) ? 'fixed-price' : 'hourly' }}, ${{ $contract->price }}</strong>
+                <p class="mb-0 pb-0"><span style="font-size: 2rem">{{ $contract->freelancer->name }}</span></p>
+                <p>{{ $contract->job->name }}</p>
+                <strong class="m-0 p-0">Hired: {{ ($contract->payment_type == 1) ? 'Fixed Price' : 'Hourly' }}, ${{ $contract->price }}</strong>
             </div>
+        </div>
+        <hr>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr)">
+            <div>
+                <h5>Budget</h5>
+                <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{ $contract->price }}</p>
+            </div>
+            <div>
+                <h5>In Escrow</h5>
+                <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{ $contract->milestone_security_balance }}</p>
+            </div>
+            <div>
+                <h5>Milestone Paid</h5>
+                <p class="m-0 p-0" style="font-size: 1.234rem; color: black">$0.00</p>
+            </div>
+            <div>
+                <h5>Remaining</h5>
+                <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{ $contract->price }}</p>
+            </div>
+            {{-- <div>
+                <h5>Total Payments</h5>
+                <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{ $contract->price }}</p>
+            </div> --}}
         </div>
         <hr>
         <div class="row">
@@ -37,14 +61,14 @@
                         @foreach ($contract->milestones as $item)
                             <tr>
                                 <td scope="row">{{ $item->name }}</td>
-                                <td>{{ $item->deposit_amount }}</td>
+                                <td>${{ $item->deposit_amount }}</td>
                                 <td>{{ $item->end_date }}</td>
                                 <td>
                                     @if ($item->is_complete == 0 AND !$relase_fund_button)
-                                        <form action="{{ route('contract.milestone.update', encrypt($item->id)) }}" method="post">
+                                        <button data-mdb-target="#pay_milestone" data-mdb-toggle="modal" data-milestone="{{ encrypt($item->id) }}" id="release_fund" class="btn btn-success">Release Fund</button>
+                                        {{-- <form action="{{ route('contract.milestone.update', encrypt($item->id)) }}" method="post">
                                             @csrf
-                                            <button class="btn btn-success">Release Fund</button>
-                                        </form>
+                                        </form> --}}
                                         @php
                                             $relase_fund_button = true;
                                         @endphp
@@ -61,6 +85,25 @@
                 @if (!$relase_fund_button)
                     <a href="{{ route('recruiter.end.contract.create', encrypt($contract->id)) }}" class="btn btn-primary">End Contract</a> 
                 @endif
+                <button class="btn btn-success"><i class="fas fa-plus"></i> Add New Milestone</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="pay_milestone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Approve & Pay</h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-mdb-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body p-4" id="pay_milestone_body">
+                </div>
             </div>
         </div>
     </div>

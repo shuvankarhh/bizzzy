@@ -293,6 +293,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::post('/', [RecruiterEndContractController::class, 'store'])->name('recruiter.end.contract.store');
     });
     Route::prefix('r/contract-milestone')->group(function () {
+        Route::get('/create/{contract_milestone}', [ContractMilestoneController::class, 'create'])->name('contract.milestone.create');
         Route::post('/{id}', [ContractMilestoneController::class, 'update'])->name('contract.milestone.update');
     });
 

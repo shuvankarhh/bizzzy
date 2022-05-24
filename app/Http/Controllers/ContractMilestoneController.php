@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContractMilestone;
 use Illuminate\Http\Request;
+use App\Models\ContractMilestone;
+use Illuminate\Support\Facades\DB;
 
 class ContractMilestoneController extends Controller
 {
@@ -22,9 +23,14 @@ class ContractMilestoneController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($contract_milestone)
     {
-        //
+        $contract_milestone = ContractMilestone::with('contract')->find(decrypt($contract_milestone));
+        $max_id = ContractMilestone::select(DB::raw('MAX(id) as max_id'))->where('contract_id', $contract_milestone->contract->id)->first();
+        return view('components.milestone-details')->with([
+            'contract_milestone' => $contract_milestone,
+            'max_id' => $max_id->max_id
+        ]);
     }
 
     /**

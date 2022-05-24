@@ -3481,6 +3481,16 @@ if (fixed_price) {
   first_deposit.addEventListener('keyup', contractEstimateCalculator);
 }
 
+var release_fund = document.getElementById('release_fund');
+
+if (release_fund) {
+  release_fund.addEventListener('click', function (e) {
+    axios.get(APP_URL + "/r/contract-milestone/create/".concat(e.currentTarget.dataset.milestone)).then(function (response) {
+      document.getElementById('pay_milestone_body').innerHTML = response.data;
+    });
+  });
+}
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

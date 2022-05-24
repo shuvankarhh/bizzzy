@@ -34,12 +34,11 @@
                         <button type="button" id=""  class="circular-button"><i class="fa-solid fa-ellipsis" ></i></button>
                         
                     </div>
-                </div>
-                
+                </div>                
             </div>
-        @if (!$loop->last)
-        <hr>
-        @endif
+            @if (!$loop->last)
+            <hr>
+            @endif
         @endforeach
         <div class="c-flex f-justify-end mt-3">{{$jobs->links()}}</div>
     </div>
