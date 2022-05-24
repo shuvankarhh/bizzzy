@@ -49,7 +49,7 @@ class StripeCustomerController extends Controller
                 'automatic_payment_methods' => ['enabled' => true],
             ]
         );
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(config('stripe.stripe_key'));
         $customer = Customer::create([
             'email' => 'test@test.com',
             'name' => 'Jhon Doe'

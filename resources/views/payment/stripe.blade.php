@@ -7,7 +7,7 @@
     <h1>Stripe Payment Page</h1>
     <div class="row justify-content-center m-0 p-0">
         <div class="col-xl-7 col-xxl-5 col-lg-8 col-md-10 col-sm-12 col-12 m-0 p-0">
-            <form role="form" action="{{ route('stripe.store') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment_form">
+            <form role="form" action="{{ route('stripe.store') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ config('stripe.stripe_key') }}" id="payment_form">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="panel-title display-td" >Payment Details</h3>
@@ -110,7 +110,7 @@
 
         let formData = new FormData(payment_form);
 
-        Stripe.setPublishableKey("{{ env('STRIPE_KEY') }}");
+        Stripe.setPublishableKey("{{ config('stripe.stripe_key') }}");
         Stripe.createToken({
             number: formData.get('card_number'),
             cvc: formData.get('card_cvc'),

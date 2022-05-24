@@ -4,28 +4,16 @@
 @endsection
 @section('content')
 <section class="container body">
-    <!-- Tabs navs -->
-
-
-    <div class="row justify-content-between">
-
-        <div class="col-auto">
-            {{-- {{$job->name}}
-            {{$item->pivot->price}} --}}
-            <h4 class="card-title" style="color: green"><i class="fa-solid fa-gem"></i> {{ $job->name }}</h4>
-        </div>
-
-    </div>
-    <section class="job-body">
         <div class="card" style="width: 100%;">
+            <div class="card-header">
+                <h4 class="card-title" style="color: green"><i class="fa-solid fa-gem"></i> {{ $job->name }}</h4>
+            </div>
             <div class="card-body">
-                <ul class="nav flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row flex-xxl-row text-center text-xs-center text-md-start nav-tabs mb-3"
-                    id="ex1" role="tablist">
+                <ul class="nav flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row flex-xxl-row text-center text-xs-center text-md-start nav-tabs mb-3" id="ex1" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="all_proposal" data-mdb-toggle="tab" href="#all_proposal"
+                        <a class="nav-link active" id="all_proposal_tab" data-mdb-toggle="tab" href="#all_proposal"
                             role="tab" aria-controls="all_proposal" aria-selected="true">
                             <span class="icon">
-
                                 <span class="text">All Proposal ({{$job->proposals->count()}})</span>
                             </span>
                         </a>
@@ -61,50 +49,68 @@
 
                 <!-- Tabs content -->
                 <div class="tab-content" id="ex1-content">
-                    <div class="tab-pane fade show active" id="all_proposal" role="tabpanel"
-                        aria-labelledby="all_proposal">
+                    <div class="tab-pane fade show active" id="all_proposal" role="tabpanel" aria-labelledby="all_proposal">
                         <div class="row mt-4">
                             @foreach ($job->proposals as $item)
-                            <div class="col-2">
-                                <img class="proposal-img" src="{{ asset('storage/' . $item->photo   ) }}" alt="">
-                            </div>
-                            <div class="col-10">
-                                <div style="display: flex">
-                                    <div>
-                                        <p style="color: green;margin: 0px">{{$item->name}}</p>
-                                        <p style="margin: 0px">{{$item->freelance_profile->professional_title}}</p>
-                                        <p style="margin: 0px">{{$item->address->city}}</p>
-                                    </div>
-                                    <div style="margin-left:450px">
-                                       <button type="button" id=""  class="circular-button"><i class="fa-solid fa-thumbs-down"></i></button>
-                                       <button type="button" id=""  style="margin-left: 10px" class="circular-button"><i class="fa-solid fa-thumbs-up"></i></button>
-                                       <a type="submit" href="" class="btn " style="border-radius: 50px; width:120px; margin-left:30px;color: green;" type="submit">Message</a>
-                                        <a type="submit" href="" class="btn btn-success" style="border-radius: 50px;width:120px;margin-left:30px" type="submit">Hire</a>
-                                         
-                                    </div>
-                                   
+                                <div class="col-2">
+                                    <img class="proposal-img" src="{{ asset('storage/' . $item->photo   ) }}" alt="">
                                 </div>
+                                <div class="col-10">
+                                    <div style="display: flex">
+                                        <div>
+                                            <p style="color: green;margin: 0px">{{$item->name}}</p>
+                                            <p style="margin: 0px">{{$item->freelance_profile->professional_title}}</p>
+                                            <p style="margin: 0px">{{$item->address->city}}</p>
+                                        </div>
+                                        <div style="margin-left:450px">
+                                            <button type="button" id=""  class="circular-button"><i class="fa-solid fa-thumbs-down"></i></button>
+                                            <button type="button" id=""  style="margin-left: 10px" class="circular-button"><i class="fa-solid fa-thumbs-up"></i></button>
+                                            <a type="submit" href="" class="btn " style="border-radius: 50px; width:120px; margin-left:30px;color: green;" type="submit">Message</a>
+                                            @if (is_null($item->pivot->contract_id))
+                                                <a type="submit" href="{{ route('job.proposal.show', [encrypt($item->pivot->user_id), encrypt($item->pivot->job_id)]) }}" class="btn btn-success" style="border-radius: 50px;width:120px;margin-left:30px" type="submit">Hire</a>
+                                            @else
+                                                <span class="btn" style="border-radius: 50px;width:120px;margin-left:30px">Offer Sent</span>
+                                            @endif                                         
+                                        </div>
+                                    
+                                    </div>
 
-                                <div class="c-flex f-justify-between pe-4 " style="margin-top: 10px">
-                                    <p>{{$item->pivot->price}}</p>
-                                    <p>$100</p>
-                                    <p>99% success rate</p>
-                                    <p>Top Rated</p>
-                                </div>
-                                <p><i class="fa-solid fa-star"></i> Specializes in Back-End Development</p>
-                                <p><strong>Cover letter</strong>- Lorem Ipsum is simply dummy text of the printing and
-                                    typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                    since the 1500s, when an unknown printer took a galley of type and scrambled it to
-                                    make a type specimen book. </p>
-                                <p><strong>Matched because they worked on</strong> 7 jobs similar to this one.</p>
-                                <div class="job-tag">
-                                    @foreach ($item->skills as $skill)
-                                    <div>
-                                        {{ $skill->name }}
+                                    <div class="c-flex f-justify-between pe-4 w-75" style="margin-top: 10px">
+                                        <p>${{number_format($item->pivot->price, 2)}}</p>
+                                        <p>$100+ Earned</p>
+                                        <p>99% success rate</p>
+                                        <p>Top Rated</p>
                                     </div>
-                                    @endforeach
+                                    <div class="flex-center mt-0" style="justify-content: start">
+                                        <div class="outer-star">
+                                            <i class="fas fa-star" aria-hidden="true"></i>
+                                            <i class="fas fa-star" aria-hidden="true"></i>
+                                            <i class="fas fa-star" aria-hidden="true"></i>
+                                            <i class="fas fa-star" aria-hidden="true"></i>
+                                            <i class="fas fa-star" aria-hidden="true"></i>
+                                            <span class="inner-star" style="width: {{ $item->freelance_profile->average_rating * 20 }}%">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <p class="m-0 p-0">Specializes in Back-End Development</p>
+                                        </div>
+                                    </div> 
+                                    <p><strong>Cover letter</strong> {{ \Illuminate\Support\Str::limit($item->freelance_profile->description, 350, $end='....') }}</p>
+                                    <p><strong>Matched because they worked on</strong> 7 jobs similar to this one.</p>
+                                    <div class="job-tag">
+                                        @foreach ($item->skills as $skill)
+                                        <div>
+                                            {{ $skill->name }}
+                                        </div>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
+                                <hr class="mt-4 mb-4">
 
                             @endforeach
                         </div>
@@ -123,7 +129,6 @@
             </div>
         </div>
         <!-- Tabs content -->
-    </section>
 
 </section>
 

@@ -116,7 +116,7 @@ class JobProposalController extends Controller
                     ]);
                     $amount = $request->price;
                 }
-                $stripe = new StripeClient(env('STRIPE_SECRET'));
+                $stripe = new StripeClient(config('stripe.stripe_secret'));
                 $stripe_detail = auth()->user()->stripe_detail;
 
                 if(is_null($stripe_detail)){

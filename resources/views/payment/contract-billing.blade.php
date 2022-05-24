@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row justify-content-center m-0 p-0">
         <div class="col-xl-6 col-xxl-5 col-lg-6 col-md-10 col-sm-12 col-12">
-            {{-- <form role="form" action="{{ route('stripe.store') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment_form"> --}}
+            {{-- <form role="form" action="{{ route('stripe.store') }}" method="post" class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ config('stripe.stripe_key') }}" id="payment_form"> --}}
             <div class="card">
                 <div class="card-header">
                     <h3 class="panel-title display-td" >Payment Methods</h3>

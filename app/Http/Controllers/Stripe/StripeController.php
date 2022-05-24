@@ -38,7 +38,7 @@ class StripeController extends Controller
      */
     public function store(Request $request)
     {
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(config('stripe.stripe_key'));
         try {            
             $response = Charge::create ([
                 "amount" => 100 * 100,

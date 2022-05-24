@@ -23,8 +23,9 @@
         <div class="col-3 setting-links">
         <!-- Tab navs -->
             <div class="nav flex-column nav-tabs text-center" id="v-tabs-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link" id="membership-tab" data-mdb-toggle="tab" href="#v-tabs-home" role="tab" aria-controls="membership" aria-selected="true">Membership & Connects</a>
-                <a class="nav-link active" id="contact-tab" data-mdb-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact Info</a>
+                <a class="nav-link active" id="billing-tab" data-mdb-toggle="tab" href="#billing" role="tab" aria-controls="billing" aria-selected="true">Billing Methods</a>
+                <a class="nav-link" id="membership-tab" data-mdb-toggle="tab" href="#membership" role="tab" aria-controls="membership" aria-selected="true">Membership & Connects</a>
+                <a class="nav-link" id="contact-tab" data-mdb-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact Info</a>
                 <a class="nav-link" id="tax-tab" data-mdb-toggle="tab" href="#tax" role="tab" aria-controls="tax" aria-selected="false">Tax Information</a>
                 <a class="nav-link" id="get-paid-tab" data-mdb-toggle="tab" href="#get-paid" role="tab" aria-controls="get-paid" aria-selected="false">Get Paid</a>
                 <a class="nav-link" id="my-team-tab" data-mdb-toggle="tab" href="#my-team" role="tab" aria-controls="my-team" aria-selected="false">My Teams</a>
@@ -39,10 +40,57 @@
         <div class="col-9">
             <!-- Tab content -->
             <div class="tab-content" id="v-tabs-tabContent">
+                <div class="tab-pane fade show active" id="billing" role="tabpanel" aria-labelledby="billing-tab">
+                    <div class="card w-75">
+                        <div class="card-header c-flex f-justify-between"><h5>Saved Billing Methods</h5>@if (is_null($stripe_detail)) <button type="button" id="add_payment_method_btn" class="btn btn-success"> <i class="fas fa-plus"></i> Add Payment Method</button> @endif</div>
+                        <div class="card-body">
+                            @if (!is_null($stripe_detail))
+                                @if ($stripe_detail->status == '3')                                    
+                                    <div>
+                                        <p><i class="fa-solid fa-circle-exclamation"></i> A small amount of money has been credited from your account. Please provide the exact amount to activate your card.</p>
+                                        <p>You have added card ending with "<strong>....{{$stripe_detail->last4}}</strong>" </p>
+                                        <form action="#" id="confirm_credit_card">
+                                            <input type="text" name="credited_amount" id="credited_amount" class="form-control" placeholder="Credited Amount">
+                                            <button class="btn btn-success mt-3">Confirm</button>
+                                        </form>
+                                    </div>
+                                @elseif ($stripe_detail->status == '1')
+                                    <p class="text-success"><i class="fa-solid fa-circle-check"></i> Your card is verified.</p>
+                                    <p>You have added card ending with "<strong>....{{$stripe_detail->last4}}</strong>" </p>
+                                @endif
+                            @else
+                                <div id="not_added_text">
+                                    <p style="font-weight: 500">You have not set up any billing methods yet.</p>
+                                    <p>Your billing method will be charged only when your available balance from Upwork earnings is not sufficient to pay for your monthly membership and/or Connects.</p>
+                                </div>
+                                <div id="card_add" class="d-none">
+                                    <form action="#" id="payment-form">
+                                        <div id="payment-element">
+                                            <!-- Elements will create form elements here -->
+                                            <p class="text-center">
+                                                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                                Loading payment method
+                                            </p>
+                                        </div>
+                                        <div  class='form-row row mt-1 mb-2'>
+                                            <div id="alert_div" class='form-group error hidden mt-3'>
+                                                <div id="alert" class='alert-danger alert'>Please correct the errors and try again. </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn mt-2 text-center" id="submit">
+                                            <div class="spinner hidden" id="spinner"></div>
+                                            <span id="button-text">Submit</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="membership" role="tabpanel" aria-labelledby="membership-tab">
                     Membership
                 </div>
-                <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                     <h3>Contact Info</h3>
                     <div class="card mb-3">                            
                         <form action="#" id="update_contact_info">

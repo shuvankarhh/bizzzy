@@ -3405,8 +3405,6 @@ if (portfolio_edit.length > 0) {
 } // Stripe payment
 
 
-var stripe = Stripe(STRIPE_KEY);
-var elements;
 var alert_div = document.getElementById('alert_div');
 
 var initialize = function initialize() {

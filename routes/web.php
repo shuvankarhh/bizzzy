@@ -83,6 +83,13 @@ use App\Http\Controllers\Stripe\StripeCustomerController;
  * 
  * Currently without auth. Later will be under admin auth!
  */
+Route::get('production-hard-reset', function () {
+    Artisan::call('optimize:clear');
+    Artisan::call('route:cache');
+    Artisan::call('view:cache');
+    Artisan::call('config:cache');
+    Artisan::call('key:generate');
+});
 Route::get('production-cache', function () {
     Artisan::call('optimize:clear');
     Artisan::call('route:cache');

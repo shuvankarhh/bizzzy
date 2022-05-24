@@ -24,7 +24,7 @@
 
     <script>
         const APP_URL = '{{ url('/') }}'
-        const STRIPE_KEY = "{{ env('STRIPE_KEY') }}"
+        const STRIPE_KEY = "{{ config('stripe.stripe_key') }}"
 
     </script>
 
@@ -44,6 +44,8 @@
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
 
     <script>
+        const stripe = Stripe(STRIPE_KEY);
+        let elements;
         async function handleSubmit(e) {
             e.preventDefault();
             console.log('test');

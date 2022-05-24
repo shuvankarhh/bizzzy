@@ -1587,9 +1587,6 @@ if(portfolio_edit.length > 0){
 
 // Stripe payment
 
-const stripe = Stripe(STRIPE_KEY);
-
-let elements;
 let alert_div = document.getElementById('alert_div');
 
 let initialize = () => {

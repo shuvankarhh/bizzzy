@@ -27,7 +27,7 @@ class StripeCardController extends Controller
      */
     public function create()
     {
-        $stripe = new StripeClient(env('STRIPE_SECRET'));
+        $stripe = new StripeClient(config('stripe.stripe_secret'));
 
         $stripe_detail = auth()->user()->stripe_detail;
 
@@ -110,7 +110,7 @@ class StripeCardController extends Controller
     public function update(Request $request)
     {
         $stripe_detail = auth()->user()->stripe_detail;
-        $stripe = new StripeClient(env('STRIPE_SECRET'));
+        $stripe = new StripeClient(config('stripe.stripe_secret'));
         $stripe->refunds->create(['payment_intent' => $stripe_detail->payment_intent]);
         $credited = $request->credited_amount * 100;
         if($stripe_detail->amount_to_verify === (int)$credited){

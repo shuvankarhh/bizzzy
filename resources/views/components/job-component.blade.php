@@ -88,7 +88,7 @@
                         <p class="ms-2 m-0 bizzzy-color">Payment verified</p>
                     </div>
                     <div>
-                        @if (!is_null($job->recruiter->recruiter_profile->rating))
+                        @if (!is_null($job->recruiter->recruiter_profile) AND !is_null($job->recruiter->recruiter_profile->rating))
                         <div class="flex-center">
                                     <div class="outer-star" >
                                         <i class="fas fa-star" aria-hidden="true"></i>
