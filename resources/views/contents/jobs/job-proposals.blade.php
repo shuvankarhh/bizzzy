@@ -58,7 +58,7 @@
                                 <div class="col-10">
                                     <div style="display: flex">
                                         <div>
-                                            <p style="color: green;margin: 0px">{{$item->name}}</p>
+                                            <p style="color: green;margin: 0px">{{$item->user->name}}</p>
                                             <p style="margin: 0px">{{$item->user->freelance_profile->professional_title}}</p>
                                             <p style="margin: 0px">{{$item->user->address->city}}</p>
                                         </div>
