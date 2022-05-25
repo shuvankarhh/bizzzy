@@ -129,6 +129,16 @@ class User extends Authenticatable
         return $this->hasMany(PaymentCard::class);
     }
 
+    public function user_balance()
+    {
+        return $this->hasOne(UserAccount::class);
+    }
+    
+    public function user_pending_balance()
+    {
+        return $this->hasMany(UserPendingBalance::class);
+    }
+
     public function isRecruiter()
     {
         $userAccount = $this->userAccount()->where('client_or_freelancer', 1)->first();

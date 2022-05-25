@@ -3481,12 +3481,46 @@ if (fixed_price) {
   first_deposit.addEventListener('keyup', contractEstimateCalculator);
 }
 
+var edit_pay_amount = function edit_pay_amount() {
+  document.getElementById('pay_amount').classList.remove('d-none');
+  document.getElementById('pay_amount_first_show').classList.add('d-none');
+};
+
+var add_bonus = function add_bonus() {
+  document.getElementById('bonus_input').classList.toggle('d-none');
+};
+
 var release_fund = document.getElementById('release_fund');
 
 if (release_fund) {
   release_fund.addEventListener('click', function (e) {
     axios.get(APP_URL + "/r/contract-milestone/create/".concat(e.currentTarget.dataset.milestone)).then(function (response) {
       document.getElementById('pay_milestone_body').innerHTML = response.data;
+      document.getElementById('toggle_pay_amount').addEventListener('click', edit_pay_amount);
+      document.getElementById('bonus_pay').addEventListener('click', add_bonus);
+    });
+  });
+}
+
+var release_payment_form = document.getElementById('release_payment_form');
+
+if (release_payment_form) {
+  release_payment_form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    removeValidation();
+    var formData = new FormData(release_payment_form);
+    axios.post(APP_URL + "/r/contract-milestone/".concat(document.getElementById('edit_portfolio').value), formData).then(function (response) {
+      console.log(response);
+      location.href = response.data; // location.reload();
+    })["catch"](function (error) {
+      if (typeof error.response !== "undefined") {
+        //  This is for error from laravel
+        console.log(error.response.data);
+        showValidation(error.response.data);
+      } else {
+        // Other JS related error
+        console.log(error);
+      }
     });
   });
 }

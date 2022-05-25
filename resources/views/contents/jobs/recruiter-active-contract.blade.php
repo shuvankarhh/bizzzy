@@ -26,11 +26,11 @@
             </div>
             <div>
                 <h5>Milestone Paid</h5>
-                <p class="m-0 p-0" style="font-size: 1.234rem; color: black">$0.00</p>
+                <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{$contract->milestones->sum('paid_amount');}}</p>
             </div>
             <div>
                 <h5>Remaining</h5>
-                <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{ $contract->price }}</p>
+                <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{ $contract->price - ($contract->milestone_security_balance + $contract->milestones->sum('paid_amount')) }}</p>
             </div>
             {{-- <div>
                 <h5>Total Payments</h5>
@@ -85,26 +85,117 @@
                 @if (!$relase_fund_button)
                     <a href="{{ route('recruiter.end.contract.create', encrypt($contract->id)) }}" class="btn btn-primary">End Contract</a> 
                 @endif
-                <button class="btn btn-success"><i class="fas fa-plus"></i> Add New Milestone</button>
+                <button class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#add_new_milestone"><i class="fas fa-plus"></i> Add New Milestone</button>
             </div>
         </div>
     </div>
-    
+    <div class="modal fade" id="add_new_milestone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form action="#" id="add_new_milestone_form">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Milestone</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-mdb-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body p-4" id="add_new_milestone_body">
+                        <div class="c-flex f-gap-3">
+                            <div class="form-group">
+                                <label for="milestone_name" >Milestone Name</label>
+                                <input type="text" class="form-control" id="milestone_name" value="" required placeholder="Milestone Name"/>
+                                <div id="milestone_name_invalid" class="invalid-feedback js"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="deposit_amount" >Deposit Amount</label>
+                                <input type="text" class="form-control" id="deposit_amount" value="" required placeholder="Deposit Amount"/>
+                                <div id="deposit_amount_invalid" class="invalid-feedback js"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="due_date" >Due Date</label>
+                                <input type="date" class="form-control" id="due_date" value="" required/>
+                                <div id="due_date_invalid" class="invalid-feedback js"></div>
+                            </div>
+                        </div>
+                        <div id="add_more_milestones"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="remove_last"><i class="fas fa-minus"></i> Remove Last</button>
+                        <button type="button" class="btn btn-success" id="additional_milestone"><i class="fas fa-plus"></i> Add More Milestones</button>
+                        <button class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <template id="additional_milestone_contente">
+        <div class="c-flex f-gap-3 mt-3">
+            <div class="form-group">
+                <label for="milestone_name" >Milestone Name</label>
+                <input type="text" class="form-control" name="milestone_name[]" id="milestone_name.0" value="" required placeholder="Milestone Name"/>
+                <div id="milestone_name_invalid" class="invalid-feedback js"></div>
+            </div>
+            <div class="form-group">
+                <label for="deposit_amount" >Deposit Amount</label>
+                <input type="text" class="form-control" name="deposit_amount[]" id="deposit_amount.0" value="" required placeholder="Deposit Amount"/>
+                <div id="deposit_amount_invalid" class="invalid-feedback js"></div>
+            </div>
+            <div class="form-group">
+                <label for="due_date" >Due Date</label>
+                <input type="date" class="form-control" name="due_date[]" id="due_date.0" value="" required/>
+                <div id="due_date_invalid" class="invalid-feedback js"></div>
+            </div>
+        </div>
+    </template>
     <div class="modal fade" id="pay_milestone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Approve & Pay</h5>
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-mdb-dismiss="modal"
-                        aria-label="Close"
-                    ></button>
+            <form action="#" id="release_payment_form">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Approve & Pay</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-mdb-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body p-4" id="pay_milestone_body">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">Send Payment</button>
+                    </div>
                 </div>
-                <div class="modal-body p-4" id="pay_milestone_body">
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        
+        const remove_last = document.getElementById('remove_last');
+        remove_last.addEventListener('click', () => {
+            let add_more_milestones = document.getElementById('add_more_milestones');
+            add_more_milestones.lastElementChild.remove();
+        });
+        const additonal = document.getElementById('additional_milestone');
+        additonal.addEventListener('click', () => {
+            let add_more_milestones = document.getElementById('add_more_milestones');
+            
+            var template = document.querySelector('#additional_milestone_contente');
+            let length = add_more_milestones.childElementCount + 1;
+
+            var clone = template.content.cloneNode(true);
+            let inputs = clone.querySelectorAll('input');
+            inputs[0].setAttribute('id', `milestone_name.${length}`);
+            inputs[1].setAttribute('id', `deposit_amount.${length}`);
+            inputs[2].setAttribute('id', `due_date.${length}`);
+
+            add_more_milestones.appendChild(clone);
+        });
+    </script>
+@endpush

@@ -18,6 +18,7 @@
 @endpush
 @section('content')
 <div class="container">
+    <button onclick="toogle_tab()">test</button>
     <p style="font-size: 1.5rem; font-weight: 400">User Setting</p>
     <div class="row">
         <div class="col-3 setting-links">
@@ -232,7 +233,7 @@
                         <input type="password" id="new_password" name="new_password" class="form-control" />
                         <label class="form-label" for="new_password">New Password</label>
                         <div id="new_password_invalid" class="invalid-feedback js"></div>
-                    </div>
+                    </div>  
                     <div style="display: flex; gap: 20px;justify-content: end">
                         <div id="number_check" class="not-met" style="display: flex; align-items: center; gap: 5px"><i class="fa-solid fa-check"></i> number</div>
                         <div id="special_check" class="not-met" style="display: flex; align-items: center; gap: 5px"><i class="fa-solid fa-check"></i> special character</div>
@@ -258,6 +259,11 @@
 
 @push('script')
     <script>
-        
+        // console.log(bootstrap);
+        // let toogle_tab = () => {
+        //     var triggerEl = document.querySelector('#membership-tab')
+        //     let tab_instance = new bootstrap.Tab(triggerEl);
+        //     tab_instance.show();
+        // }
     </script>
 @endpush

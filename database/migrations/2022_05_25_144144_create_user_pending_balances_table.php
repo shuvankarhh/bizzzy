@@ -1,11 +1,13 @@
 <?php
 
+use App\Models\Contract;
+use App\Models\ContractMilestone;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransactionsTable extends Migration
+class CreateUserPendingBalancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +16,13 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('user_pending_balances', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Contract::class);
+            $table->foreignIdFor(ContractMilestone::class)->nullable();
             $table->foreignIdFor(User::class);
-            $table->bigInteger('credit_account');
-            $table->bigInteger('debit_account');
-            $table->double('amount', 13,3);
+            $table->tinyInteger('status')->unsigned();
+            $table->double('amount',13,3);
             $table->timestamps();
         });
     }
@@ -31,6 +34,6 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('user_pending_balances');
     }
 }

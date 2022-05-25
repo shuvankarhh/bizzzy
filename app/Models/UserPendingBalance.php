@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class UserPendingBalance extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['credit_account','debit_account','amount','user_id'];
+    protected $fillable = ['contract_id','contract_milestone_id','user_id','status','amount'];
 }
