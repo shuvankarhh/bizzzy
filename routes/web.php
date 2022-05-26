@@ -62,6 +62,7 @@ use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
 use App\Http\Controllers\Freelancer\FreelancerAccountVerificationController;
+use App\Http\Controllers\Recruiter\NewMilestonePayment;
 use App\Http\Controllers\Stripe\StripeCardController;
 use App\Http\Controllers\Stripe\StripeCustomerController;
 
@@ -294,9 +295,11 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     });
     Route::prefix('r/contract-milestone')->group(function () {
         Route::get('/create/{contract_milestone}', [ContractMilestoneController::class, 'create'])->name('contract.milestone.create');
-        Route::post('/{id}', [ContractMilestoneController::class, 'update'])->name('contract.milestone.update');
-        Route::post('/', [ContractMilestoneController::class, 'store'])->name('contract.milestone.store');
+        Route::patch('/{id}', [ContractMilestoneController::class, 'update'])->name('contract.milestone.update');
+        Route::post('/{id}', [ContractMilestoneController::class, 'store'])->name('contract.milestone.store');
     });
+
+    Route::post('/r/new-milestone/create/{contract}', [NewMilestonePayment::class, 'create'])->name('new.milestone.create');
 
     Route::patch('r/profile/edit', [RecruiterProfileController::class, 'update'])->name('recruiter.profile.update');
 

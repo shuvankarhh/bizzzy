@@ -3502,28 +3502,89 @@ if (release_fund) {
   });
 }
 
-var release_payment_form = document.getElementById('release_payment_form');
-
-if (release_payment_form) {
-  release_payment_form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    removeValidation();
-    var formData = new FormData(release_payment_form);
-    axios.post(APP_URL + "/r/contract-milestone/".concat(document.getElementById('edit_portfolio').value), formData).then(function (response) {
-      console.log(response);
-      location.href = response.data; // location.reload();
-    })["catch"](function (error) {
-      if (typeof error.response !== "undefined") {
-        //  This is for error from laravel
-        console.log(error.response.data);
-        showValidation(error.response.data);
-      } else {
-        // Other JS related error
-        console.log(error);
-      }
-    });
+release_payment_form_submit = function release_payment_form_submit(e) {
+  e.preventDefault();
+  removeValidation();
+  var formData = new FormData(release_payment_form);
+  formData.append('_method', 'patch');
+  axios.post(APP_URL + "/r/contract-milestone/".concat(document.getElementById('edit_portfolio').value), formData).then(function (response) {
+    location.href = response.data;
+  })["catch"](function (error) {
+    if (typeof error.response !== "undefined") {
+      //  This is for error from laravel
+      console.log(error.response.data);
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
   });
-}
+};
+
+add_milestone_form_submit = function add_milestone_form_submit(e) {
+  e.preventDefault();
+  var formData = new FormData(add_new_milestone_form);
+  var fund_submit = document.getElementById('fund_submit');
+  fund_submit.disabled = true;
+  fund_submit.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>';
+  axios.post(APP_URL + "/r/contract-milestone/".concat(document.getElementById('add_milestone_to').value), formData).then(function (response) {
+    location.reload();
+  })["catch"](function (error) {
+    fund_submit.disabled = false;
+    fund_submit.innerHTML = 'Fund And Submit';
+
+    if (typeof error.response.data.errors.message === "undefined") {
+      document.getElementById('payment_method.0').classList.add("is-invalid");
+      document.getElementById('payment_method_invalid').innerHTML = error.response.data.errors.payment_method[0];
+    } else {
+      document.getElementById('milestone_payment_error_text').classList.remove('d-none');
+      document.getElementById('milestone_payment_error_message').innerHTML = error.response.data.errors.message[0];
+    }
+
+    console.log(error.response.data.errors);
+  });
+};
+
+deposit_amount = document.getElementById('deposit_amount.0');
+
+calculate_deposit_amount = function calculate_deposit_amount(e) {
+  var in_escrow = Number(document.getElementById('in_escrow').value);
+
+  if (in_escrow < Number(deposit_amount.value)) {
+    document.getElementById('payment_info').classList.remove('d-none');
+    document.getElementById('payment_amount').innerHTML = e.target.value - in_escrow;
+    document.getElementById('add_button').classList.add('d-none');
+    document.getElementById('payment_button').classList.remove('d-none');
+  } else {
+    document.getElementById('add_button').classList.remove('d-none');
+    document.getElementById('payment_button').classList.add('d-none');
+    payment_info.classList.add('d-none');
+  }
+};
+
+add_milestone_payment = function add_milestone_payment() {
+  var form_data = new FormData(document.getElementById('add_new_milestone_form'));
+  axios.post(APP_URL + "/r/new-milestone/create/".concat(document.getElementById('add_milestone_to').value), form_data).then(function (response) {
+    document.getElementById('payment_div').innerHTML = response.data;
+    document.getElementById('payment_div').classList.remove('d-none');
+    document.getElementById('milestones').classList.add('d-none');
+    document.getElementById('additional_milestone_buttons').classList.add('d-none');
+    document.getElementById('additional_milestone_payment_buttons').classList.remove('d-none');
+  })["catch"](function (error) {
+    if (typeof error.response.data.errors.amount === 'undefined') {
+      document.getElementById('new_milestone_pre_payment_error').classList.remove('d-none');
+    } else {
+      document.getElementById('new_milestone_error_message').innerHTML = error.response.data.errors.amount[0];
+    }
+  });
+};
+
+milestoen_payment_reverse = function milestoen_payment_reverse() {
+  document.getElementById('payment_div').classList.add('d-none');
+  document.getElementById('milestones').classList.remove('d-none');
+  document.getElementById('additional_milestone_buttons').classList.remove('d-none');
+  document.getElementById('additional_milestone_payment_buttons').classList.add('d-none');
+};
 
 /***/ }),
 

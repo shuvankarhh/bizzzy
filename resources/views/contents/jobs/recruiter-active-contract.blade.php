@@ -19,18 +19,22 @@
             <div>
                 <h5>Budget</h5>
                 <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{ $contract->price }}</p>
+                <input type="hidden" name="budget" id="budget" value="{{ $contract->milestone_security_balance }}">
             </div>
             <div>
                 <h5>In Escrow</h5>
                 <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{ $contract->milestone_security_balance }}</p>
+                <input type="hidden" name="in_escrow" id="in_escrow" value="{{ $contract->milestone_security_balance }}">
             </div>
             <div>
                 <h5>Milestone Paid</h5>
                 <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{$contract->milestones->sum('paid_amount');}}</p>
+                <input type="hidden" name="paid" id="paid" value="{{ $contract->milestone_security_balance }}">
             </div>
             <div>
                 <h5>Remaining</h5>
                 <p class="m-0 p-0" style="font-size: 1.234rem; color: black">${{ $contract->price - ($contract->milestone_security_balance + $contract->milestones->sum('paid_amount')) }}</p>
+                <input type="hidden" name="remaining" id="remaining" value="{{ $contract->milestone_security_balance }}">
             </div>
             {{-- <div>
                 <h5>Total Payments</h5>
@@ -73,7 +77,7 @@
                                             $relase_fund_button = true;
                                         @endphp
                                     @elseif ($item->is_complete == 1)
-                                        <p>Review Approval</p>
+                                        <p>Completed!</p>
                                     @else
                                         <button class="btn btn-secondary">Edit</button>
                                     @endif
@@ -103,29 +107,44 @@
                         ></button>
                     </div>
                     <div class="modal-body p-4" id="add_new_milestone_body">
-                        <div class="c-flex f-gap-3">
-                            <div class="form-group">
-                                <label for="milestone_name" >Milestone Name</label>
-                                <input type="text" class="form-control" id="milestone_name" value="" required placeholder="Milestone Name"/>
-                                <div id="milestone_name_invalid" class="invalid-feedback js"></div>
+                        <input type="hidden" name="add_milestone_to" id="add_milestone_to" value="{{encrypt($contract->id)}}">
+                        <div id="milestones">
+                            <p id="new_milestone_pre_payment_error" class="text-danger d-none"><i class="fas fa-exclamation-circle"></i> Please fill all inputs!</p>
+                            <p id="payment_info" class="d-none"><i class="fas fa-exclamation-circle"></i> <span id="new_milestone_error_message">You will be charded approxiamtely $<span id="payment_amount"></span> to fund your milestone!</span></p>
+                            <div class="c-flex f-gap-3">
+                                <div class="form-group">
+                                    <label for="milestone_name" >Milestone Name</label>
+                                    <input type="text" class="form-control" name="milestone_name[]" id="milestone_name.0" value="" required placeholder="Milestone Name"/>
+                                    <div id="milestone_name_invalid" class="invalid-feedback js"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="deposit_amount" >Deposit Amount</label>
+                                    <input type="text" class="form-control" name="deposit_amount[]" id="deposit_amount.0" value="" required placeholder="Deposit Amount"/>
+                                    <div id="deposit_amount_invalid" class="invalid-feedback js"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="due_date" >Due Date</label>
+                                    <input type="date" class="form-control" name="due_date[]" id="due_date.0" value="" required/>
+                                    <div id="due_date_invalid" class="invalid-feedback js"></div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="deposit_amount" >Deposit Amount</label>
-                                <input type="text" class="form-control" id="deposit_amount" value="" required placeholder="Deposit Amount"/>
-                                <div id="deposit_amount_invalid" class="invalid-feedback js"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="due_date" >Due Date</label>
-                                <input type="date" class="form-control" id="due_date" value="" required/>
-                                <div id="due_date_invalid" class="invalid-feedback js"></div>
-                            </div>
+                            <div id="add_more_milestones"></div>
                         </div>
-                        <div id="add_more_milestones"></div>
+                        <div class="d-none" id="payment_div">
+
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="remove_last"><i class="fas fa-minus"></i> Remove Last</button>
-                        <button type="button" class="btn btn-success" id="additional_milestone"><i class="fas fa-plus"></i> Add More Milestones</button>
-                        <button class="btn btn-primary">Add</button>
+                        <span id="additional_milestone_buttons">
+                            <button type="button" class="btn btn-danger" id="remove_last"><i class="fas fa-minus"></i> Remove Last</button>
+                            <button type="button" class="btn btn-success" id="additional_milestone"><i class="fas fa-plus"></i> Add More Milestones</button>
+                            <button id="add_button" class="btn btn-primary">Add</button>
+                            <button id="payment_button" type="button" class="btn btn-primary d-none">Proceed to payment</button>
+                        </span>
+                        <span class="d-none" id="additional_milestone_payment_buttons">
+                            <button id="payment_reverse_button" type="button" class="btn btn-info"><i class="fas fa-arrow-left"></i> Go to previous step</button>
+                            <button id="fund_submit" class="btn btn-primary">Fund And Submit</button>
+                        </span>
                     </div>
                 </div>
             </form>
@@ -135,17 +154,17 @@
         <div class="c-flex f-gap-3 mt-3">
             <div class="form-group">
                 <label for="milestone_name" >Milestone Name</label>
-                <input type="text" class="form-control" name="milestone_name[]" id="milestone_name.0" value="" required placeholder="Milestone Name"/>
+                <input type="text" class="form-control" name="milestone_name[]" value="" required placeholder="Milestone Name"/>
                 <div id="milestone_name_invalid" class="invalid-feedback js"></div>
             </div>
             <div class="form-group">
                 <label for="deposit_amount" >Deposit Amount</label>
-                <input type="text" class="form-control" name="deposit_amount[]" id="deposit_amount.0" value="" required placeholder="Deposit Amount"/>
+                <input type="text" class="form-control" name="deposit_amount[]" value="" required placeholder="Deposit Amount"/>
                 <div id="deposit_amount_invalid" class="invalid-feedback js"></div>
             </div>
             <div class="form-group">
                 <label for="due_date" >Due Date</label>
-                <input type="date" class="form-control" name="due_date[]" id="due_date.0" value="" required/>
+                <input type="date" class="form-control" name="due_date[]" value="" required/>
                 <div id="due_date_invalid" class="invalid-feedback js"></div>
             </div>
         </div>
@@ -197,5 +216,14 @@
 
             add_more_milestones.appendChild(clone);
         });
+        @if (!$relase_fund_button)
+            deposit_amount.addEventListener('keyup', calculate_deposit_amount)
+        @endif
+
+        document.getElementById('add_new_milestone_form').addEventListener('submit', add_milestone_form_submit);
+        document.getElementById('payment_button').addEventListener('click', add_milestone_payment);
+        document.getElementById('payment_reverse_button').addEventListener('click', milestoen_payment_reverse);
+        document.getElementById('release_payment_form').addEventListener('submit', release_payment_form_submit);
+        
     </script>
 @endpush

@@ -1,5 +1,4 @@
 <div>
-    <input type="hidden" name="edit_portfolio" id="edit_portfolio" value="{{encrypt($contract_milestone->id)}}">
     <p class="text-black"><strong>Release from escrow</strong></p>
     <p id="pay_amount_first_show" style="font-weight: 500">${{number_format($contract_milestone->deposit_amount,2)}} <i id="toggle_pay_amount" class="ms-3 fas fa-pen pointer"></i></p>
     <input value="{{$contract_milestone->deposit_amount}}" name="pay_amount" id="pay_amount" class="form-control d-none w-50">
