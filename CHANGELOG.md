@@ -1,3 +1,13 @@
+## 0.048.0 (2022-05-26 17:08)
+| Type | Description         |
+| ---- | ------------------- |
+| add  | Add new milestone payments |
+
+## 0.047.0 (2022-05-26 17:08)
+| Type | Description         |
+| ---- | ------------------- |
+| add  | Add new milestone |
+
 ## 0.046.0 (2022-05-25 17:08)
 | Type | Description         |
 | ---- | ------------------- |
