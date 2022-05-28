@@ -2459,16 +2459,15 @@ if (form) {
 
 
 add_job = function add_job(e) {
-  event.preventDefault();
   removeValidation();
-  var formData = new FormData(e);
+  var formData = new FormData(document.getElementById('add_job_form'));
   axios.post(APP_URL + "/job", formData).then(function (response) {
-    console.log(response);
-    e.reset();
+    //console.log(response);
+    // e.reset();
     tags_select.clear();
     categories_select.clear();
     languages_select.clear();
-    location.href = response.data;
+    location.reload();
   })["catch"](function (error) {
     if (typeof error.response !== "undefined") {
       //  This is for error from laravel
@@ -3476,7 +3475,7 @@ var contractEstimateCalculator = function contractEstimateCalculator(e) {
   }
 };
 
-if (fixed_price) {
+if (fixed_price && first_deposit) {
   fixed_price.addEventListener('keyup', contractEstimateCalculator);
   first_deposit.addEventListener('keyup', contractEstimateCalculator);
 }

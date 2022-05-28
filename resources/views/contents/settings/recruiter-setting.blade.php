@@ -249,7 +249,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary">Change Password</button>
-                    <butto type="button" class="btn btn-link custom-close" data-mdb-dismiss="modal" style="">Close</butto>
+                    <button type="button" class="btn btn-link custom-close" data-mdb-dismiss="modal" style="">Close</button>
                 </div>
             </div>
         </form>

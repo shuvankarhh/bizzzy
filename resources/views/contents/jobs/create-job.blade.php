@@ -20,7 +20,7 @@
 @endpush
 @section('content')
 <div class="container">
-    <p style="font-size: 1.5rem; font-weight: 400">User Setting</p>
+    <p style="font-size: 1.5rem; font-weight: 400">Post a Job</p>
     <div class="row">
         <div class="col-3 setting-links">
             <!-- Tab navs -->
@@ -53,7 +53,10 @@
         </div>
 
         <div class="col-9">
+            <form action="#" id="add_job_form" >
+                @csrf
             <!-- Tab content -->
+
             <div class="tab-content" id="v-tabs-tabContent">
                 <div class="tab-pane fade show active" id="title" role="tabpanel" aria-labelledby="title-tab">
                     <div class="card w-75">
@@ -149,9 +152,9 @@
                             <div class="c-flex f-gap-3">
                                 <div class="form-check"
                                     style="border: 2px  solid #afafaf; border-radius: 4px; width:300px; position: relative;">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        style="position: absolute; right: 0px;top:5px;" id="flexRadioDefault1" />
-                                    <label class="form-check-label" for="flexRadioDefault1" style="text-align: center;
+                                    <input class="form-check-input" type="radio" name="project_type" value="1" id="project_type_1"
+                                        style="position: absolute; right: 0px;top:5px;" />
+                                    <label class="form-check-label" for="project_type_1" style="text-align: center;
                                             margin-top: 30px;"><i class="fa-solid fa-user-clock"
                                             style="text-align: center; margin-bottom:10px;"></i><br><strong>One-time
                                             Project</strong>
@@ -160,9 +163,9 @@
                                 </div>
                                 <div class="form-check"
                                     style="border: 2px  solid #afafaf; border-radius: 4px; width:300px; position: relative;">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        style="position: absolute; right: 5px; top:5px;" id="flexRadioDefault1" />
-                                    <label class="form-check-label" for="flexRadioDefault1" style="text-align: center;
+                                    <input class="form-check-input" type="radio" name="project_type"
+                                        style="position: absolute; right: 5px; top:5px;" id="project_type_2" value="2"/>
+                                    <label class="form-check-label" for="project_type_2" style="text-align: center;
                                             margin-top: 30px;"><i class="fa-solid fa-clipboard-list"
                                             style="text-align: center; margin-bottom:10px;"></i><br><strong>Ongoing
                                             Project</strong>
@@ -171,17 +174,44 @@
                                 </div>
                                 <div class="form-check"
                                     style="border: 2px  solid #afafaf; border-radius: 4px; width:300px; position: relative;">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        style="position: absolute; right: 0px; top:5px;" id="flexRadioDefault1" />
-                                    <label class="form-check-label" for="flexRadioDefault1" style="text-align: center;
+                                    <input class="form-check-input" type="radio" name="project_type"
+                                        style="position: absolute; right: 0px; top:5px;" id="project_type_3" value="3" />
+                                    <label class="form-check-label" for="project_type_3" style="text-align: center;
                                             margin-top: 30px;"><i class="fa-solid fa-arrow-up-right-dots"
                                             style="text-align: center; margin-bottom:10px;"></i><br><strong>Complex
                                             Project</strong>
                                         <p class="m-3">Find specialized experts and agencies for large projects.</p>
                                     </label>
                                 </div>
+                                
 
                             </div>
+                            <div class="mt-3">
+                                <h6 class="card-title text-start">Job Type & Duration </h6>
+                        <div class="form-group mt-2">
+                            <select class="form-control" name="project_time" id="project_time">
+                                <option value="">Select Project Time</option>
+                                <option value="1">Less than 1 month</option>
+                                <option value="2">1 to 3 months</option>
+                                <option value="3">3 to 6 months</option>
+                                <option value="4">More than 6 months</option>
+                            </select>
+                            <div class="invalid-reposne" id="project_time_invalid"></div>
+                        </div>
+                            </div>
+                            <div class="mt-3">
+                                 <h6 class="card-title text-start">Job Type & Duration </h6>
+                                 <div class="form-group mt-2">
+                            <select class="form-control" name="experience_level" id="experience_level">
+                                <option value="">Select Freelancer Experience Level</option>
+                                <option value="1">Entry</option>
+                                <option value="2">Intermediate</option>
+                                <option value="3">Expert</option>
+                            </select>
+                            <div class="invalid-reposne" id="experience_level_invalid"></div>
+                        </div>
+                            </div>
+                            
                             <hr>
                             <a type="submit" href="" class="btn "
                                 style="border-radius: 50px; width:120px; margin-left:30px;color: green;"
@@ -226,11 +256,8 @@
                                     <div class="col-12 c-flex f-gap-3">
                                         <div class="form-check"
                                             style="border: 2px  solid #afafaf; border-radius: 4px; width:300px; position: relative;">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                style="position: absolute; right: 0px;top:5px;"
-                                                id="flexRadioDefault1" />
-                                            <label class="form-check-label" for="flexRadioDefault1" style="text-align: center;
-                                            margin-top: 30px;"><i class="fa-solid fa-chalkboard-user"
+                                            <input class="form-check-input" type="radio" name="job_visibility" style="position: absolute; right: 0px;top:5px;" value="2" id="job_visibility_1" />
+                                            <label class="form-check-label" for="job_visibility_1" style="text-align: center; margin-top: 30px;"><i class="fa-solid fa-chalkboard-user"
                                                     style="text-align: center; margin-bottom:10px;"></i><br><strong>Anyone
                                                 </strong>
                                                 <p class="m-3">Freelancers and Agencies using bizzzy and public search
@@ -239,10 +266,10 @@
                                         </div>
                                         <div class="form-check"
                                             style="border: 2px  solid #afafaf; border-radius: 4px; width:300px; position: relative;">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            <input class="form-check-input" type="radio" name="job_visibility"
                                                 style="position: absolute; right: 5px; top:5px;"
-                                                id="flexRadioDefault1" />
-                                            <label class="form-check-label" for="flexRadioDefault1" style="text-align: center;
+                                                id="job_visibility_2"  value="3"/>
+                                            <label class="form-check-label" for="job_visibility_2" style="text-align: center;
                                             margin-top: 30px;"><i class="fa-solid fa-users-rectangle"
                                                     style="text-align: center; margin-bottom:10px;"></i><br><strong>Only
                                                     Bizzzy Talent
@@ -252,10 +279,10 @@
                                         </div>
                                         <div class="form-check"
                                             style="border: 2px  solid #afafaf; border-radius: 4px; width:300px; position: relative;">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            <input class="form-check-input" type="radio" name="job_visibility"
                                                 style="position: absolute; right: 0px; top:5px;"
-                                                id="flexRadioDefault1" />
-                                            <label class="form-check-label" for="flexRadioDefault1" style="text-align: center;
+                                                id="job_visibility_3"  value="1"/>
+                                            <label class="form-check-label" for="job_visibility_3" style="text-align: center;
                                             margin-top: 30px;"><i class="fa-solid fa-lock"
                                                     style="text-align: center; margin-bottom:10px;"></i><br><strong>Invite-Only
                                                 </strong>
@@ -324,9 +351,9 @@
                             <div class="c-flex f-gap-3 " name="price_type" id="price_type">
                                 <div class="form-check"
                                     style="border: 2px  solid #afafaf; border-radius: 4px; width:300px; position: relative;">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" value="hourly"
-                                        style="position: absolute; right: 0px;top:5px;" id="flexRadioDefault1" />
-                                    <label class="form-check-label" for="flexRadioDefault1" style="text-align: center;
+                                    <input class="form-check-input price-type-input" type="radio" name="price_type" value="hourly"
+                                        style="position: absolute; right: 0px;top:5px;" id="price_type_1" />
+                                    <label class="form-check-label" for="price_type_1" style="text-align: center;
                                             margin-top: 30px;"><i class="fa-solid fa-clock"
                                             style="text-align: center; margin-bottom:10px;"></i><br><strong>Pay by the
                                             hour
@@ -342,9 +369,9 @@
                                 </div>
                                 <div class="form-check"
                                     style="border: 2px  solid #afafaf; border-radius: 4px; width:300px; position: relative;">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" value="fixed"
-                                        style="position: absolute; right: 5px; top:5px;" id="flexRadioDefault1" />
-                                    <label class="form-check-label" for="flexRadioDefault1" style="text-align: center;
+                                    <input class="form-check-input price-type-input" type="radio" name="price_type" value="fixed"
+                                        style="position: absolute; right: 5px; top:5px;" id="price_type_2" />
+                                    <label class="form-check-label" for="price_type_2" style="text-align: center;
                                             margin-top: 30px;"><i class="fa-solid fa-circle-dollar-to-slot"
                                             style="text-align: center; margin-bottom:10px;"></i><br><strong>Pay a fixed
                                             price
@@ -368,22 +395,28 @@
                                         placeholder="Price (in $)">
                                 </div>
                             </div>
+                            <h6 class="card-title text-start mt-4">Languages</h6>
+                             <div class="form-group mt-2 tom_select_div">
+                            <select id="languages" name="languages[]" multiple placeholder="Select perferred language">
+                                <option value=""></option>
+                                <x-languages />
+                            </select>
+                        </div>
                             <hr>
                             <a type="submit" href="" class="btn "
                                 style="border-radius: 50px; width:120px; margin-left:30px;color: green;"
                                 onclick="back_details_tab()">Back</a>
-                            <a class="btn btn-success" style="border-radius: 50px; width:120px; margin-left:30px;"
-                                onclick="visibility_tab()">Next</a>
+                            <a class="btn btn-success" style="border-radius: 50px; width:fit-content; margin-left:30px;"
+                                onclick="add_job()">Post the Job</a>
 
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-                    Connected Services
-                </div>
 
             </div>
             <!-- Tab content -->
+            </form>
+        
         </div>
     </div>
 </div>
@@ -400,25 +433,28 @@
         plugins: ['remove_button'],
         create: false,
     });
-    // let languages_select = new TomSelect("#languages",{
-    //     plugins: ['remove_button'],
-    //     create: false,
-    // });
+    let languages_select = new TomSelect("#languages",{
+        plugins: ['remove_button'],
+        create: false,
+    });
 
 
     // let select_div = document.querySelectorAll('.tom_select_div');
     // [].forEach.call(select_div,(element) => {
     //     element.classList.remove('d-none');
     // });
-
-    let price_type = document.getElementById('price_type');
-    price_type.addEventListener('change', (elem) => {
+    let price_type_change_handler = (e) => {
         let hour_per_week = document.getElementById('hours_per_week');
-        if (price_type.value == 'hourly') {
+        if (e.target.value == 'hourly') {
             hour_per_week.classList.remove("d-none");
         } else {
             hour_per_week.classList.add("d-none");
         }
+    };
+
+    let price_type = document.querySelectorAll('.price-type-input');
+    price_type.forEach(element => {
+        element.addEventListener('change', price_type_change_handler);
     });
 
     let description_tab = () => {
