@@ -19,10 +19,10 @@
                             <h6 style="margin: 0px">{{ $item->total_proposals  }}</h6>
                             <p style="margin: 0px">Proposals</p>
                     </div>
-                    <div class="col-1">
+                    {{-- <div class="col-1">
                             <h6 style="margin: 0px">5</h6>
                             <p style="margin: 0px">Messaged</p>
-                    </div>
+                    </div> --}}
                     <div class="col-1">
                             <h6 style="margin: 0px">{{$item->contracts->count()}}</h6>
                             <p style="margin: 0px">Hired</p>

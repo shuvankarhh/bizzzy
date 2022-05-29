@@ -171,7 +171,8 @@
     </template>
     <div class="modal fade" id="pay_milestone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <form action="#" id="release_payment_form">
+            <form action="#" id="release_payment_form" name="{{ Str::random(5) }}">
+                
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Approve & Pay</h5>
@@ -185,7 +186,13 @@
                     <div class="modal-body p-4" id="pay_milestone_body">
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary">Send Payment</button>
+                        <div id="proceed_buttons">
+                            <button id="milestone_release_proceed_to_payment" type="button" class="btn btn-primary d-none">Proceed to payment</button>
+                            <button id="milestone_release_send_payment" class="btn btn-success">Send Payment</button>
+                        </div>
+                        <div id="payment_button">
+                            <button id="milestone_release_"></button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -224,6 +231,9 @@
         document.getElementById('payment_button').addEventListener('click', add_milestone_payment);
         document.getElementById('payment_reverse_button').addEventListener('click', milestoen_payment_reverse);
         document.getElementById('release_payment_form').addEventListener('submit', release_payment_form_submit);
+        document.getElementById('release_fund').addEventListener('click', release_fund_handeler);
+        document.getElementById('milestone_release_proceed_to_payment').addEventListener('click', proceed_to_payment);
+        
         
     </script>
 @endpush

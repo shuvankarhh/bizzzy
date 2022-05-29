@@ -6,7 +6,7 @@
 <section class="container body">
         <div class="card" style="width: 100%;">
             <div class="card-header">
-                <h4 class="card-title" style="color: green"><i class="fa-solid fa-gem"></i> {{ $job_proposals[0]->job->name }}</h4>
+                <h4 class="card-title" style="color: green"><i class="fa-solid fa-gem"></i> {{ $job->name }}</h4>
             </div>
             <div class="card-body">
                 <ul class="nav flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row flex-xxl-row text-center text-xs-center text-md-start nav-tabs mb-3" id="ex1" role="tablist">
@@ -14,7 +14,7 @@
                         <a class="nav-link active" id="all_proposal_tab" data-mdb-toggle="tab" href="#all_proposal"
                             role="tab" aria-controls="all_proposal" aria-selected="true">
                             <span class="icon">
-                                <span class="text">All Proposal ({{$job_proposals->count()}})</span>
+                                <span class="text">All Proposal ({{$job->job_proposals->count()}})</span>
                             </span>
                         </a>
                     </li>
@@ -51,7 +51,7 @@
                 <div class="tab-content" id="ex1-content">
                     <div class="tab-pane fade show active" id="all_proposal" role="tabpanel" aria-labelledby="all_proposal">
                         <div class="row mt-4">
-                            @foreach ($job_proposals as $item)
+                            @foreach ($job->job_proposals as $item)
                                 <div class="col-2">
                                     <img class="proposal-img" src="{{ asset('storage/' . $item->user->photo   ) }}" alt="">
                                 </div>

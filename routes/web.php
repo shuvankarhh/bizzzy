@@ -62,6 +62,8 @@ use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
 use App\Http\Controllers\Freelancer\FreelancerAccountVerificationController;
+use App\Http\Controllers\Freelancer\FreelancerOverviewController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Recruiter\NewMilestonePayment;
 use App\Http\Controllers\Stripe\StripeCardController;
 use App\Http\Controllers\Stripe\StripeCustomerController;
@@ -282,6 +284,8 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::DELETE('f/save-job/{savedJob}', [FreelancerSaveJobController::class, 'destroy'])->name('freelancer.save.job.destroy');
     Route::get('f/save-job/', [FreelancerSaveJobController::class, 'index'])->name('freelancer.save.job.index');
 
+    Route::get('/f/overview', [FreelancerOverviewController::class, 'index'])->name('freelancer.overview.index');
+    
     /**
      * r indicates recruiter
      */
@@ -298,6 +302,8 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::patch('/{id}', [ContractMilestoneController::class, 'update'])->name('contract.milestone.update');
         Route::post('/{id}', [ContractMilestoneController::class, 'store'])->name('contract.milestone.store');
     });
+
+    Route::get('/payment-methods/create', [PaymentController::class, 'create'])->name('payment.create');    
 
     Route::post('/r/new-milestone/create/{contract}', [NewMilestonePayment::class, 'create'])->name('new.milestone.create');
 

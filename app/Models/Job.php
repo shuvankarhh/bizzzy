@@ -127,9 +127,20 @@ class Job extends Model
         return $this->hasMany(JobCategory::class);
     }
 
+    /**
+     * Job Proposal and User have many to many relationship.
+     * In first draft job proposal and user relationship was created using a pivot table. There was no model for job proposal.
+     * Later a model for job proposal was created.
+     */
+
     public function proposals()
     {
         return $this->belongsToMany(User::class, 'job_proposals', 'job_id', 'user_id')->withPivot('price_type', 'price', 'description', 'project_time', 'id', 'contract_id');
+    }
+
+    public function job_proposals()
+    {
+        return $this->hasMany(JobProposal::class);
     }
 
     public function proposal_files()

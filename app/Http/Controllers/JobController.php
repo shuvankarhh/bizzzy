@@ -52,7 +52,7 @@ class JobController extends Controller
     public function create()
     {
         $this->authorize('create', Job::class);
-        return view('contents.jobs.create-job')->with([
+        return view('contents.jobs.create-job-old')->with([
             'tags' => Tag::get(),
             'categories' => Category::get(),
         ]);

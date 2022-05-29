@@ -11,6 +11,7 @@ use App\Models\ContractMilestone;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\ContractMilestoneRequest;
+use App\Models\UserPendingBalance;
 
 class ContractMilestoneController extends Controller
 {
@@ -171,14 +172,16 @@ class ContractMilestoneController extends Controller
                 'debit_account' => '1',
                 'amount' => $request->pay_amount
             ]);
+            
             $paid_amount_after_charge = ($request->pay_amount - $request->pay_amount * 0.2);
-            auth()->user()->user_pending_balance()->create([
+            UserPendingBalance::create([
                 'contract_id' => $milestone->contract->id,
                 'contract_milestone_id' => $milestone->id,
                 'user_id' => $milestone->contract->freelancer_id,
                 'status' => 1,
                 'amount' => $paid_amount_after_charge
             ]);
+
             Transaction::create([
                 'user_id' => auth()->id(),
                 'credit_account' => '3',

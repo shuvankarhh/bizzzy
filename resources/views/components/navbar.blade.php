@@ -156,7 +156,7 @@
                               <a class="nav-link text-reset me-2 dropdown-toggle hidden-arrow" href="#" id="freelancerReportsDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false" > Reports </a>
                               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="freelancerReportsDropdown" >
                                 <li>
-                                  <a class="dropdown-item" href="#">Overview</a>
+                                  <a class="dropdown-item" href="{{ route('freelancer.overview.index') }}">Overview</a>
                                 </li>
                                 <li>
                                   <a class="dropdown-item" href="#">My Reports</a>

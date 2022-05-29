@@ -18,7 +18,6 @@
 @endpush
 @section('content')
 <div class="container">
-    <button onclick="toogle_tab()">test</button>
     <p style="font-size: 1.5rem; font-weight: 400">User Setting</p>
     <div class="row">
         <div class="col-3 setting-links">

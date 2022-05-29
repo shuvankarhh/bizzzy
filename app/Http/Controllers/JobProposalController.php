@@ -139,6 +139,8 @@ class JobProposalController extends Controller
                         'off_session' => true,
                         'confirm' => true,
                     ]);
+                    $contract->milestone_security_balance = $amount;
+                    $contract->save();
                 } catch (\Stripe\Exception\CardException $e) {
                     // Error code will be authentication_required if authentication is needed
                     echo 'Error code is:' . $e->getError()->code;

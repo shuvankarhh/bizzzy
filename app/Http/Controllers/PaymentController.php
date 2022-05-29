@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Job;
-use App\Models\JobProposal;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
 
-class RecruiterJobController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +13,7 @@ class RecruiterJobController extends Controller
      */
     public function index()
     {
-
-        return view('contents.jobs.recruiter-jobs')->with([
-            'jobs' => auth()->user()->jobs()->with('proposals', 'tags.tag', 'categories.category', 'contracts')->latest()->paginate(3)
-        ]);
+        //
     }
 
     /**
@@ -27,14 +21,10 @@ class RecruiterJobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function proposal($id)
+    public function create()
     {
-        return view('contents.jobs.job-proposals')->with([
-            'job' => Job::with(['job_proposals' => function($q){
-                $q->with(['user' => function($q){
-                    $q->with('freelance_profile', 'address', 'skills');
-                }]);
-            }])->find($id)
+        return view('components.stripe-payment')->with([
+            'payment_methods' => auth()->user()->stripe_details
         ]);
     }
 
@@ -89,18 +79,8 @@ class RecruiterJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($job)
+    public function destroy($id)
     {
-        $job = Job::withCount('contracts')->find(decrypt($job));
-
-        if($job->user_id != auth()->id()){
-            abort(403);
-        }
-
-        if($job->total_proposals > 0){
-            abort(403);
-        }
-
-        $job->delete();
+        //
     }
 }

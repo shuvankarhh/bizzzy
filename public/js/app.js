@@ -3490,17 +3490,35 @@ var add_bonus = function add_bonus() {
   document.getElementById('bonus_input').classList.toggle('d-none');
 };
 
-var release_fund = document.getElementById('release_fund');
+var bonus_payment = function bonus_payment(e) {
+  if (e.target.checked) {
+    document.getElementById('milestone_release_proceed_to_payment').classList.remove('d-none');
+    document.getElementById('milestone_release_send_payment').classList.add('d-none');
+  } else {
+    document.getElementById('milestone_release_proceed_to_payment').classList.add('d-none');
+    document.getElementById('milestone_release_send_payment').classList.remove('d-none');
+  }
+};
 
-if (release_fund) {
-  release_fund.addEventListener('click', function (e) {
-    axios.get(APP_URL + "/r/contract-milestone/create/".concat(e.currentTarget.dataset.milestone)).then(function (response) {
-      document.getElementById('pay_milestone_body').innerHTML = response.data;
-      document.getElementById('toggle_pay_amount').addEventListener('click', edit_pay_amount);
-      document.getElementById('bonus_pay').addEventListener('click', add_bonus);
-    });
+release_fund_handeler = function release_fund_handeler(e) {
+  axios.get(APP_URL + "/r/contract-milestone/create/".concat(e.currentTarget.dataset.milestone)).then(function (response) {
+    document.getElementById('pay_milestone_body').innerHTML = response.data;
+    document.getElementById('toggle_pay_amount').addEventListener('click', edit_pay_amount);
+    document.getElementById('bonus_pay').addEventListener('click', add_bonus);
+    document.getElementById('bonus_pay').addEventListener('change', bonus_payment);
   });
-}
+};
+
+proceed_to_payment = function proceed_to_payment() {
+  axios.get(APP_URL + "/payment-methods/create").then(function (response) {
+    var payment_div = document.getElementById('release_milestone_payment_div');
+    release_milestone_payment_div.innerHTML = response.data;
+    document.getElementById('charged_amount').innerHTML = document.getElementById('bonus').value;
+    console.log(payment_div.innerHTML);
+    document.getElementById('inputs_div').classList.add('d-none');
+    payment_div.classList.remove('d-none');
+  });
+};
 
 release_payment_form_submit = function release_payment_form_submit(e) {
   e.preventDefault();
@@ -3508,7 +3526,7 @@ release_payment_form_submit = function release_payment_form_submit(e) {
   var formData = new FormData(release_payment_form);
   formData.append('_method', 'patch');
   axios.post(APP_URL + "/r/contract-milestone/".concat(document.getElementById('edit_portfolio').value), formData).then(function (response) {
-    location.href = response.data;
+    console.log(response); // location.href = response.data;
   })["catch"](function (error) {
     if (typeof error.response !== "undefined") {
       //  This is for error from laravel
