@@ -139,7 +139,8 @@ class ContractMilestoneController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'bonus' => 'required_if:bonus_pay,yes'
+            'bonus' => 'required_if:bonus_pay,yes',
+            'payment_method' => 'required_if:bonus_pay,yes',
         ]);
 
         return DB::transaction(function() use ($request, $id){

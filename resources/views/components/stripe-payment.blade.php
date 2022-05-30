@@ -1,4 +1,5 @@
 <div>
+    <button type="button" id="payment_previous_step_button" class="btn btn-link"><i class="fas fa-arrow-left"></i> Return to previous step</button>
     <p>You will be charged $<span id="charged_amount"></span> amount!</p>
     <h3>Payment methods</h3>
     <p id="stripe_payment_error" class="text-danger d-none"></p>

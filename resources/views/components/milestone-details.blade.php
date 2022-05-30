@@ -10,13 +10,13 @@
         <label class="form-check-label" for="bonus_pay">Add Bonus (optional)</label>
     </div>
     <div class="form-group mt-2 d-none" id="bonus_input">
-        <label for="bonus">Provide bonus amount</label>
+        <label for="bonus">Provide bonus amount <span class="text-danger ms-2" id="bonus_amount_error"></span></label>
         <input type="number" name="bonus" id="bonus" class="form-control w-50" step="any">
         <div id="bonus_invalid" class="invalid-feedback js"></div>
     </div>
 
     @if ($max_id == $contract_milestone->id)        
-        <p class="mt-5 text-black"><strong>Contract status</strong></p>
+        <p class="mt-5 text-black"><strong>Contract status</strong><span class="text-danger ms-2" id="contract_status_error"></span></p>
         <!-- Default radio -->
         <div class="form-check">
             <input class="form-check-input" type="radio" name="contract_status" id="contract_status" value="end" required />

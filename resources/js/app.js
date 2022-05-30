@@ -1699,24 +1699,49 @@ release_fund_handeler = (e) => {
     })
 };
 
+
 proceed_to_payment = () => {
+    let bonus_amount_error = document.getElementById('bonus_amount_error');
+    let contract_status_error = document.getElementById('contract_status_error');
+    bonus_amount_error.innerHTML = "";
+    contract_status_error.innerHTML = "";
+
+    let bonus_pay = document.getElementById('bonus_pay');
+    let bonus = document.getElementById('bonus');
+    bonus.classList.remove('is-invalid');
+    let contract_status = document.querySelector('input[name=contract_status]:checked');
+    if(bonus_pay.checked && bonus.value == ''){
+        bonus_amount_error.innerHTML = "Bonus amount is mendatory!";
+        bonus.classList.add('is-invalid');
+        return;
+    }
+    if(!contract_status){
+        contract_status_error.innerHTML = "Bonus amount is mendatory!";
+        return;
+    }
     axios
     .get(APP_URL + `/payment-methods/create`)
     .then(function(response) {
         let payment_div = document.getElementById('release_milestone_payment_div');
         release_milestone_payment_div.innerHTML = response.data;
         document.getElementById('charged_amount').innerHTML = document.getElementById('bonus').value;
-        console.log(payment_div.innerHTML);
-        
-        document.getElementById('inputs_div').classList.add('d-none');
+        let input_divs = document.getElementById('inputs_div');
+        input_divs.classList.add('d-none');
         payment_div.classList.remove('d-none');
+        document.getElementById('proceed_buttons').classList.add('d-none');
+        document.getElementById('payment_button_div').classList.remove('d-none');
+        document.getElementById('payment_previous_step_button').addEventListener('click', () => {
+            document.getElementById('payment_button_div').classList.add('d-none');
+            document.getElementById('proceed_buttons').classList.remove('d-none');
+            payment_div.classList.add('d-none');
+            input_divs.classList.remove('d-none');
+        });
     })
 }
 
 release_payment_form_submit =  (e) => {
     e.preventDefault();
-    removeValidation();
-    let formData = new FormData(release_payment_form);
+    let formData = new FormData(e.target);
     formData.append('_method', 'patch');
     axios
     .post(APP_URL + `/r/contract-milestone/${document.getElementById('edit_portfolio').value}`, formData)
@@ -1725,14 +1750,13 @@ release_payment_form_submit =  (e) => {
         // location.href = response.data;
     })
     .catch(function(error) {
-        if (typeof error.response !== "undefined") {
-            //  This is for error from laravel
-            console.log(error.response.data);
-            showValidation(error.response.data);
-        } else {
-            // Other JS related error
-            console.log(error);
+        let stripe_payment_error = document.getElementById('stripe_payment_error');
+        if(error.response.data.errors.payment_method){
+            stripe_payment_error.innerHTML = error.response.data.errors.payment_method[0];
+        }else{
+            stripe_payment_error.innerHTML = "Please provide all information from previous step!";
         }
+        stripe_payment_error.classList.remove('d-none');
     });
 };
 

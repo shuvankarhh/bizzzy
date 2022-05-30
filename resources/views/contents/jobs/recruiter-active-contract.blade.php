@@ -190,8 +190,8 @@
                             <button id="milestone_release_proceed_to_payment" type="button" class="btn btn-primary d-none">Proceed to payment</button>
                             <button id="milestone_release_send_payment" class="btn btn-success">Send Payment</button>
                         </div>
-                        <div id="payment_button">
-                            <button id="milestone_release_"></button>
+                        <div id="payment_button_div" class="d-none">
+                            <button id="milestone_release_payment" class="btn btn-success">Pay & Submit</button>
                         </div>
                     </div>
                 </div>
