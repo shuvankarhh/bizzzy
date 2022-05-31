@@ -68,18 +68,15 @@
                                 <td>${{ $item->deposit_amount }}</td>
                                 <td>{{ $item->end_date }}</td>
                                 <td>
-                                    @if ($item->is_complete == 0 AND !$relase_fund_button)
+                                    @if ($item->is_complete == 2 AND !$relase_fund_button)
                                         <button data-mdb-target="#pay_milestone" data-mdb-toggle="modal" data-milestone="{{ encrypt($item->id) }}" id="release_fund" class="btn btn-success">Release Fund</button>
-                                        {{-- <form action="{{ route('contract.milestone.update', encrypt($item->id)) }}" method="post">
-                                            @csrf
-                                        </form> --}}
                                         @php
                                             $relase_fund_button = true;
                                         @endphp
                                     @elseif ($item->is_complete == 1)
                                         <p>Completed!</p>
                                     @else
-                                        <button class="btn btn-secondary">Edit</button>
+                                        <button data-milestone="{{ $item->id }}" data-mdb-target="#edit_milestone_modal" data-mdb-toggle="modal" data-name="{{ $item->name }}" data-deposit_amount="{{ $item->deposit_amount }}" data-end_date="{{ Str::substr($item->end_date, 0, 10); }}" class="btn btn-secondary contract-edit-button">Edit</button>
                                     @endif
                                 </td>
                             </tr>                            
@@ -87,12 +84,14 @@
                     </tbody>
                 </table>                
                 @if (!$relase_fund_button)
-                    <a href="{{ route('recruiter.end.contract.create', encrypt($contract->id)) }}" class="btn btn-primary">End Contract</a> 
+                    <button data-contract="{{ $contract_id }}" data-mdb-target="#activate_milestone_modal" data-mdb-toggle="modal" id="activate_next_milestone" class="btn btn-primary"><i class="fa-solid fa-check-to-slot"></i> Activate Next Milestone</button>
+                    <a href="{{ route('recruiter.end.contract.create', $contract_id) }}" class="btn btn-danger"><i class="fa-solid fa-xmark"></i> End Contract</a> 
                 @endif
                 <button class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#add_new_milestone"><i class="fas fa-plus"></i> Add New Milestone</button>
             </div>
         </div>
     </div>
+    {{-- Add New Milestone modal --}}
     <div class="modal fade" id="add_new_milestone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <form action="#" id="add_new_milestone_form">
@@ -107,7 +106,7 @@
                         ></button>
                     </div>
                     <div class="modal-body p-4" id="add_new_milestone_body">
-                        <input type="hidden" name="add_milestone_to" id="add_milestone_to" value="{{encrypt($contract->id)}}">
+                        <input type="hidden" name="add_milestone_to" id="add_milestone_to" value="{{$contract_id}}">
                         <div id="milestones">
                             <p id="new_milestone_pre_payment_error" class="text-danger d-none"><i class="fas fa-exclamation-circle"></i> Please fill all inputs!</p>
                             <p id="payment_info" class="d-none"><i class="fas fa-exclamation-circle"></i> <span id="new_milestone_error_message">You will be charded approxiamtely $<span id="payment_amount"></span> to fund your milestone!</span></p>
@@ -150,6 +149,7 @@
             </form>
         </div>
     </div>
+    {{-- Template for new milestone --}}
     <template id="additional_milestone_contente">
         <div class="c-flex f-gap-3 mt-3">
             <div class="form-group">
@@ -169,6 +169,7 @@
             </div>
         </div>
     </template>
+    {{-- Modal for Releasing mielstone --}}
     <div class="modal fade" id="pay_milestone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <form action="#" id="release_payment_form" name="{{ Str::random(5) }}">
@@ -193,6 +194,62 @@
                         <div id="payment_button_div" class="d-none">
                             <button id="milestone_release_payment" class="btn btn-success">Pay & Submit</button>
                         </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {{-- Activate next milestone --}}
+    <div class="modal fade" id="activate_milestone_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form action="#" id="activate_milestone_form" name="{{ Str::random(5) }}">
+                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Activate next milestone</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-mdb-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div id="activate_milestone_body">
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {{-- Edit milestone --}}
+    <div class="modal fade" id="edit_milestone_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form action="#" id="edit_milestone_form" name="{{ Str::random(5) }}">
+                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit milestone</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-mdb-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body p-4" id="pay_milestone_body">
+                        <input type="hidden" id="edit_milestone">
+                        <label for="edit_name">Milestone name</label>
+                        <input type="text" name="milestone_name_edit" id="milestone_name_edit" class="form-control">
+                        <div id="milestone_name_edit_invalid" class="invalid-response"></div>
+                        <label for="edit_amount">Deposit amount</label>
+                        <input type="text" name="deposit_amount_edit" id="deposit_amount_edit" class="form-control">
+                        <div id="deposit_amount_edit_invalid" class="invalid-response"></div>
+                        <label for="edit_date">End date</label>
+                        <input type="date" name="end_date_edit" id="end_date_edit" class="form-control">
+                        <div id="end_date_edit_invalid" class="invalid-response"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
@@ -231,8 +288,24 @@
         document.getElementById('payment_button').addEventListener('click', add_milestone_payment);
         document.getElementById('payment_reverse_button').addEventListener('click', milestoen_payment_reverse);
         document.getElementById('release_payment_form').addEventListener('submit', release_payment_form_submit);
-        document.getElementById('release_fund').addEventListener('click', release_fund_handeler);
+        let release_fund = document.getElementById('release_fund');
+        if(release_fund){
+            release_fund.addEventListener('click', release_fund_handeler);
+        }
         document.getElementById('milestone_release_proceed_to_payment').addEventListener('click', proceed_to_payment);
+        let activate_next_milestone = document.getElementById('activate_next_milestone');
+        if(activate_next_milestone){
+            activate_next_milestone.addEventListener('click', activate_next_milestone_handeler);
+        }
+
+        document.getElementById('activate_milestone_form').addEventListener('submit', activate_milestone_form_handler);
+        
+        let contract_edits = document.querySelectorAll('.contract-edit-button');
+        contract_edits.forEach(element => {
+            element.addEventListener('click', editMilestoneHandler);
+        });
+
+        document.getElementById('edit_milestone_form').addEventListener('submit', edit_milestone_form_handler);
         
         
     </script>

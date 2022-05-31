@@ -11,7 +11,9 @@ use App\Models\ContractMilestone;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\ContractMilestoneRequest;
+use App\Models\StripeDetail;
 use App\Models\UserPendingBalance;
+use App\Services\StripePaymentService;
 
 class ContractMilestoneController extends Controller
 {
@@ -64,7 +66,7 @@ class ContractMilestoneController extends Controller
             abort(403);
         }
 
-        $any_active_milestone = ContractMilestone::where('contract_id', $contract->id)->where('is_complete', 0)->count();
+        $any_active_milestone = ContractMilestone::where('contract_id', $contract->id)->where('is_complete', 2)->count();
 
         if($any_active_milestone == 0 AND $contract->milestone_security_balance < $request->deposit_amount[0]){
             $request->validate([
@@ -146,6 +148,10 @@ class ContractMilestoneController extends Controller
         return DB::transaction(function() use ($request, $id){
             $milestone = ContractMilestone::with('contract')->find(decrypt($id));
             $max_id = ContractMilestone::select(DB::raw('MAX(id) as max_id'))->where('contract_id', $milestone->contract->id)->first();
+
+            if($milestone->contract->created_by_user != auth()->id()){
+                abort(403);
+            }
     
             if($request->pay_amount > $milestone->deposit_amount){
                 throw ValidationException::withMessages(['pay_amount' => 'Paid amount cannot be more than deposited amount!']);
@@ -156,15 +162,21 @@ class ContractMilestoneController extends Controller
                     'contract_status' => 'required'
                 ]);
             }
-    
-            if($milestone->contract->created_by_user != auth()->id()){
-                abort(403);
+
+            $bonus = 0;
+            if($request->bonus_pay == 'yes'){
+                $stripe_detail = StripeDetail::find($request->payment_method);
+                $payment = new StripePaymentService($stripe_detail->customer_id);
+                $payment_methods = $payment->getPaymentMethods();
+                $payment->makeOffSessionPayment($payment_methods->data[0]->id, $request->bonus);
+                $bonus = $request->bonus;
             }
-    
+            
             $milestone->is_complete = 1;
             $milestone->paid_amount = $request->pay_amount;
             $milestone->contract->milestone_security_balance -= $request->pay_amount;
             $milestone->contract->save();
+            $milestone->bonus = $bonus;
             $milestone->save();
     
             Transaction::create([
@@ -189,6 +201,8 @@ class ContractMilestoneController extends Controller
                 'debit_account' => '1',
                 'amount' => ($request->pay_amount - $paid_amount_after_charge)
             ]);
+
+            
     
             if($request->contract_status == 'end'){
                 return route('recruiter.end.contract.create', encrypt($milestone->contract->id));

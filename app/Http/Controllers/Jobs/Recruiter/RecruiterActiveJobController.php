@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Jobs\Recruiter;
 
 use App\Models\Contract;
+use App\Models\StripeDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Services\StripePaymentService;
 
 class RecruiterActiveJobController extends Controller
 {
@@ -71,7 +73,10 @@ class RecruiterActiveJobController extends Controller
     public function show($id)
     {
         return view('contents.jobs.recruiter-active-contract')->with([
-            'contract' => Contract::with('freelancer', 'job', 'milestones')->find(decrypt($id))
+            'contract' => Contract::with('freelancer', 'job')->with(['milestones' => function($q){
+                $q->orderBy('id', 'desc');
+            }])->find(decrypt($id)),
+            'contract_id' => $id
         ]);
     }
 

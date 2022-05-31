@@ -3509,6 +3509,69 @@ release_fund_handeler = function release_fund_handeler(e) {
   });
 };
 
+activate_next_milestone_handeler = function activate_next_milestone_handeler(e) {
+  axios.get(APP_URL + "/r/activate-next-milestone/create", {
+    params: {
+      'contract': e.target.dataset.contract
+    }
+  }).then(function (response) {
+    document.getElementById('activate_milestone_body').innerHTML = response.data;
+    document.getElementById('toggle_pay_amount').addEventListener('click', edit_pay_amount);
+    document.getElementById('bonus_pay').addEventListener('click', add_bonus);
+    document.getElementById('bonus_pay').addEventListener('change', bonus_payment);
+  });
+};
+
+activate_milestone_form_handler = function activate_milestone_form_handler(e) {
+  e.preventDefault();
+  var activate_milestone_btn = document.getElementById('activate_milestone_btn');
+  var innerHTML = activate_milestone_btn.innerHTML;
+  activate_milestone_btn.disabled = true;
+  activate_milestone_btn.innerHTML = fa_spinning;
+  var formData = new FormData(e.target);
+  axios.post(APP_URL + "/r/activate-next-milestone/".concat(document.getElementById('activate_contract').value), formData).then(function (response) {
+    console.log(response);
+    location.reload();
+  })["catch"](function (error) {
+    activate_milestone_btn.disabled = false;
+    activate_milestone_btn.innerHTML = innerHTML;
+    var stripe_payment_error = document.getElementById('stripe_payment_error');
+
+    if (error.response.data.errors) {
+      stripe_payment_error.innerHTML = error.response.data.errors.payment_method[0];
+    } else {
+      stripe_payment_error.innerHTML = "Please select a payment method!";
+    }
+
+    stripe_payment_error.classList.remove('d-none');
+  });
+};
+
+editMilestoneHandler = function editMilestoneHandler(e) {
+  document.getElementById('edit_milestone').value = e.target.dataset.milestone;
+  document.getElementById('milestone_name_edit').value = e.target.dataset.name;
+  document.getElementById('deposit_amount_edit').value = e.target.dataset.deposit_amount;
+  document.getElementById('end_date_edit').value = e.target.dataset.end_date;
+};
+
+edit_milestone_form_handler = function edit_milestone_form_handler(e) {
+  e.preventDefault();
+  var formData = new FormData(e.target);
+  formData.append('_method', 'patch');
+  axios.post(APP_URL + "/r/single-milestone/".concat(document.getElementById('edit_milestone').value), formData).then(function (response) {
+    location.reload();
+  })["catch"](function (error) {
+    if (typeof error.response !== "undefined") {
+      //  This is for error from laravel
+      console.log(error.response.data);
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
+  });
+};
+
 proceed_to_payment = function proceed_to_payment() {
   var bonus_amount_error = document.getElementById('bonus_amount_error');
   var contract_status_error = document.getElementById('contract_status_error');
@@ -3549,12 +3612,18 @@ proceed_to_payment = function proceed_to_payment() {
 };
 
 release_payment_form_submit = function release_payment_form_submit(e) {
+  var milestone_release_payment = document.getElementById('milestone_release_payment');
+  milestone_release_payment.disabled = true;
+  milestone_release_payment.innerHTML = fa_spinning;
   e.preventDefault();
   var formData = new FormData(e.target);
   formData.append('_method', 'patch');
   axios.post(APP_URL + "/r/contract-milestone/".concat(document.getElementById('edit_portfolio').value), formData).then(function (response) {
-    console.log(response); // location.href = response.data;
+    location.href = response.data;
   })["catch"](function (error) {
+    milestone_release_payment.disabled = false;
+    milestone_release_payment.innerHTML = "Pay & Submit";
+    console.log(error.response);
     var stripe_payment_error = document.getElementById('stripe_payment_error');
 
     if (error.response.data.errors.payment_method) {

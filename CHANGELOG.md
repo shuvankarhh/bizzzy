@@ -1,3 +1,8 @@
+## 0.051.0 (2022-05-31 17:23)
+| Type | Description         |
+| ---- | ------------------- |
+| fix  | milestone payment and activating |
+
 ## 0.050.0 (2022-05-30 17:00)
 | Type | Description         |
 | ---- | ------------------- |

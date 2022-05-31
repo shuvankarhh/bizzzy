@@ -49,12 +49,12 @@ class StripeCardController extends Controller
         $stripe_detail->amount_to_verify = $random_amount;
         $paymentIntent = $stripe->paymentIntents->create([
             'customer' => $customer_id,
-            'setup_future_usage' => 'off_session',
             'amount' => $random_amount,
             'currency' => 'usd',
             'automatic_payment_methods' => [
                 'enabled' => true,
             ],
+            'setup_future_usage' => 'off_session',
         ]);
 
         $stripe_detail->payment_intent = $paymentIntent->id;
