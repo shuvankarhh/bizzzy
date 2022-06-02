@@ -1768,6 +1768,26 @@ edit_milestone_form_handler = (e) => {
     });
 }
 
+withdraw_balance_form_handeler = (e) => {
+    e.preventDefault();
+    let formData = new FormData(e.target);
+    axios
+    .post(APP_URL + `/f/withdraw-balance`, formData)
+    .then(function(response) {
+        location.reload();
+    })
+    .catch(function(error) {
+        if (typeof error.response !== "undefined") {
+            //  This is for error from laravel
+            console.log(error.response.data);
+            showValidation(error.response.data);
+        } else {
+            // Other JS related error
+            console.log(error);
+        }
+    });
+}
+
 proceed_to_payment = () => {
     let bonus_amount_error = document.getElementById('bonus_amount_error');
     let contract_status_error = document.getElementById('contract_status_error');

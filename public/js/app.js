@@ -3572,6 +3572,23 @@ edit_milestone_form_handler = function edit_milestone_form_handler(e) {
   });
 };
 
+withdraw_balance_form_handeler = function withdraw_balance_form_handeler(e) {
+  e.preventDefault();
+  var formData = new FormData(e.target);
+  axios.post(APP_URL + "/f/withdraw-balance", formData).then(function (response) {
+    location.reload();
+  })["catch"](function (error) {
+    if (typeof error.response !== "undefined") {
+      //  This is for error from laravel
+      console.log(error.response.data);
+      showValidation(error.response.data);
+    } else {
+      // Other JS related error
+      console.log(error);
+    }
+  });
+};
+
 proceed_to_payment = function proceed_to_payment() {
   var bonus_amount_error = document.getElementById('bonus_amount_error');
   var contract_status_error = document.getElementById('contract_status_error');

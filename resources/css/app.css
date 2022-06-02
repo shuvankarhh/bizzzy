@@ -2198,6 +2198,9 @@ b {
 }
 
 .f-direction-column {
+    flex-direction: row;
+}
+.f-direction-column {
     flex-direction: column;
 }
 

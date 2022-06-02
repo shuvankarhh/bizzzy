@@ -1,7 +1,7 @@
 ## 0.053.0 (2022-05-02 17:00)
 | Type | Description         |
 | ---- | ------------------- |
-| add  | Freelancer & Admin withdraw money |
+| add  | Work diary and hourly contract |
 
 ## 0.052.0 (2022-05-02 17:00)
 | Type | Description         |

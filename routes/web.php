@@ -54,6 +54,7 @@ use App\Http\Controllers\Freelancer\VisibilityController;
 use App\Http\Controllers\GetStarted\GetStartedController;
 use App\Http\Controllers\Stripe\StripeCustomerController;
 use App\Http\Controllers\ActivateContractMilestoneController;
+use App\Http\Controllers\Admin\AdminMoneyWithdrawController;
 use App\Http\Controllers\Admin\VerificationRequestController;
 use App\Http\Controllers\FreelancerProfileCategoryController;
 use App\Http\Controllers\GetStarted\WorkExperienceController;
@@ -69,6 +70,8 @@ use App\Http\Controllers\Jobs\Recruiter\RecruiterActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerActiveJobController;
 use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
 use App\Http\Controllers\Freelancer\FreelancerAccountVerificationController;
+use App\Http\Controllers\Freelancer\FreelancerWithdrawMoneyController;
+use App\Http\Controllers\Freelancer\FreelancerWorkDiaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -287,6 +290,12 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::get('f/save-job/', [FreelancerSaveJobController::class, 'index'])->name('freelancer.save.job.index');
 
     Route::get('/f/overview', [FreelancerOverviewController::class, 'index'])->name('freelancer.overview.index');
+
+    Route::post('f/withdraw-balance', [FreelancerWithdrawMoneyController::class, 'store'])->name('freelancer.withdraw.money.store');
+
+    Route::prefix('f/work-diary')->group(function () {
+        Route::get('/', [FreelancerWorkDiaryController::class, 'index'])->name('freelancer.work.diary.index');
+    });
     
     /**
      * r indicates recruiter
@@ -452,6 +461,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
         Route::get('', [PermissionRoleController::class, 'index'])->name('permission.role.index');
         Route::post('/', [PermissionRoleController::class, 'store'])->name('permission.role.store');
         Route::get('/{id}/{guard}', [PermissionRoleController::class, 'show'])->name('permission.role.show');
+    });
+
+    Route::prefix('withdraw-request')->group(function () {
+        Route::get('/', [AdminMoneyWithdrawController::class, 'index'])->name('admin.withdraw.request.index');
+        Route::get('/datatable', [AdminMoneyWithdrawController::class, 'datatable'])->name('admin.withdraw.request.datatable');
+
     });
     Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });
