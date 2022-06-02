@@ -116,37 +116,37 @@ class JobProposalController extends Controller
                     ]);
                     $amount = $request->price;
                 }
-                $stripe = new StripeClient(config('stripe.stripe_secret'));
-                $stripe_detail = auth()->user()->stripe_detail;
+                // $stripe = new StripeClient(config('stripe.stripe_secret'));
+                // $stripe_detail = auth()->user()->stripe_detail;
 
-                if(is_null($stripe_detail)){
-                    throw ValidationException::withMessages(['message', 'Something wrong with your payment method!']);
-                }
+                // if(is_null($stripe_detail)){
+                //     throw ValidationException::withMessages(['message', 'Something wrong with your payment method!']);
+                // }
 
-                if($stripe_detail->status != '1'){
-                    throw ValidationException::withMessages(['message', 'Your payment method is not verified!']);
-                }
+                // if($stripe_detail->status != '1'){
+                //     throw ValidationException::withMessages(['message', 'Your payment method is not verified!']);
+                // }
                 
-                $payment_methods = $stripe->paymentMethods->all(
-                    ['customer' => $stripe_detail->customer_id, 'type' => 'card']
-                );
-                try {
-                    $stripe->paymentIntents->create([
-                        'amount' => $amount * 100,
-                        'currency' => 'usd',
-                        'customer' => $stripe_detail->customer_id,
-                        'payment_method' => $payment_methods->data[0]->id,
-                        'off_session' => true,
-                        'confirm' => true,
-                    ]);
-                    $contract->milestone_security_balance = $amount;
-                    $contract->save();
-                } catch (\Stripe\Exception\CardException $e) {
-                    // Error code will be authentication_required if authentication is needed
-                    echo 'Error code is:' . $e->getError()->code;
-                    $payment_intent_id = $e->getError()->payment_intent->id;
-                    $payment_intent = \Stripe\PaymentIntent::retrieve($payment_intent_id);
-                }
+                // $payment_methods = $stripe->paymentMethods->all(
+                //     ['customer' => $stripe_detail->customer_id, 'type' => 'card']
+                // );
+                // try {
+                //     $stripe->paymentIntents->create([
+                //         'amount' => $amount * 100,
+                //         'currency' => 'usd',
+                //         'customer' => $stripe_detail->customer_id,
+                //         'payment_method' => $payment_methods->data[0]->id,
+                //         'off_session' => true,
+                //         'confirm' => true,
+                //     ]);
+                //     $contract->milestone_security_balance = $amount;
+                //     $contract->save();
+                // } catch (\Stripe\Exception\CardException $e) {
+                //     // Error code will be authentication_required if authentication is needed
+                //     echo 'Error code is:' . $e->getError()->code;
+                //     $payment_intent_id = $e->getError()->payment_intent->id;
+                //     $payment_intent = \Stripe\PaymentIntent::retrieve($payment_intent_id);
+                // }
             }
 
             $freelancer_gave_job_proposal->contract_id = $contract->id;

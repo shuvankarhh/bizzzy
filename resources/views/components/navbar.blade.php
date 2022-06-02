@@ -148,7 +148,7 @@
                                   <a class="dropdown-item" href="{{ route('freelancer.contract.index') }}">All Contracts</a>
                                 </li>
                                 <li>
-                                  <a class="dropdown-item" href="#">Work Diary</a>
+                                  <a class="dropdown-item" href="{{ route('freelancer.work.diary.index') }}">Work Diary</a>
                                 </li>
                               </ul>
                             </li>

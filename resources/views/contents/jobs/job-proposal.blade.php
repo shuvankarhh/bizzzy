@@ -128,8 +128,8 @@
                             <label class="form-check-label" for="terms">I agree to terms and condition</label>
                             <div id="terms_invalid" class="-reponse"></div>
                         </div>
-                        <button id="hire_button" class="btn mt-3 {{ ($job_proposal->job->price_type == 'Hourly') ? '' : 'd-none' }}" disabled>Hire, {{ $job_proposal->user->name }}</button>
-                        <button type="button" id="proceed_to_payment" class="btn mt-3 {{ ($job_proposal->job->price_type == 'Hourly') ? 'd-none' : '' }}" disabled>Proceed to payment</button>
+                        <button id="hire_button" class="btn mt-3" disabled>Hire, {{ $job_proposal->user->name }}</button>
+                        {{-- <button type="button" id="proceed_to_payment" class="btn mt-3 d-none" disabled>Proceed to payment</button> --}}
                     </div>
 
                     <div id="payment_div" class="d-none">
@@ -219,7 +219,7 @@
 
 
     const terms = document.getElementById('terms');
-    const proceed_to_payment = document.getElementById('proceed_to_payment');
+    // const proceed_to_payment = document.getElementById('proceed_to_payment');
     const hire_button = document.getElementById('hire_button');    
     const job_details_div = document.getElementById('job_details_div');    
     const payment_div = document.getElementById('payment_div');
@@ -251,12 +251,12 @@
         });
     }
     
-    proceed_to_payment.addEventListener('click', toggle_payment_div);
+    // proceed_to_payment.addEventListener('click', toggle_payment_div);
     back_to_offer_button.addEventListener('click', toggle_payment_div);
 
     terms.addEventListener('click', () => {
-        proceed_to_payment.disabled = !terms.checked;
-        proceed_to_payment.classList.toggle('btn-primary', terms.checked);
+        // proceed_to_payment.disabled = !terms.checked;
+        // proceed_to_payment.classList.toggle('btn-primary', terms.checked);
         hire_button.disabled = !terms.checked;
         hire_button.classList.toggle('btn-primary', terms.checked);
     })
@@ -298,16 +298,16 @@
     let fixed_div = document.getElementById('fixed');
 
     hourly.addEventListener('click', () => {
-        hire_button.classList.remove('d-none');
-        proceed_to_payment.classList.add('d-none');
+        // hire_button.classList.remove('d-none');
+        // proceed_to_payment.classList.add('d-none');
         fixed_div.classList.toggle('d-none');
         hourly_div.classList.toggle('d-none');
         document.getElementById('payment_type').value = 'hourly';
     })
 
     fixed.addEventListener('click', () => {
-        hire_button.classList.add('d-none');
-        proceed_to_payment.classList.remove('d-none');
+        // hire_button.classList.add('d-none');
+        // proceed_to_payment.classList.remove('d-none');
         fixed_div.classList.toggle('d-none');
         hourly_div.classList.toggle('d-none');
         document.getElementById('payment_type').value = 'fixed';

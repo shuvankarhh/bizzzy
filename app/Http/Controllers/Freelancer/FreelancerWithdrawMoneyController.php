@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Freelancer;
 
-use App\Models\Contract;
-use Illuminate\Http\Request;
-use App\Models\ContractMilestone;
-use App\Models\UserPendingBalance;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\WithdrawRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
-class FreelancerOverviewController extends Controller
+class FreelancerWithdrawMoneyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,22 +16,7 @@ class FreelancerOverviewController extends Controller
      */
     public function index()
     {
-        config()->set('database.connections.mysql.strict', false);
-        DB::reconnect();
-        $contracts = Contract::with('job')->whereHas('milestones', function($q){
-            $q->where('is_complete', 0);
-        })->where('freelancer_id', auth()->id())->get();
-        // dd($contracts);
-        $in_progress = ContractMilestone::with(['contract.job'])->groupBy('id')->orderBy('id')->whereIn('contract_id', $contracts->pluck('id')->toArray())->where('is_complete', 0)->get();
-        $pending = UserPendingBalance::where('user_id', auth()->id())->where('status', 1)->sum('amount');
-        $balance = auth()->user()->user_balance;
-        return view('contents.freelancer.freelancer-overview')->with([
-            'contracts' => $contracts,
-            'in_progress' => $in_progress,
-            'pending' => $pending,
-            'balance' => $balance,
-            'recent_activity' => auth()->user()->withdraw_requests
-        ]);
+        //
     }
 
     /**
@@ -54,7 +37,27 @@ class FreelancerOverviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'withdraw_type' => 'required',
+            'other_amount' => 'required_if:withdraw_type,other'
+        ]);
+
+        $balance = auth()->user()->user_balance;
+        $withdraw_amount = $balance->balance;
+
+        if($request->withdraw_type == 'other' AND $request->other_amount > $balance->balance){
+            throw ValidationException::withMessages(['other_amount' => "Withdraw amount cannot be more then $$balance->balance"]);
+            $withdraw_amount = $request->other_amount;
+        }
+
+        $balance->balance -= $withdraw_amount;
+        $balance->save();
+
+        WithdrawRequest::create([
+            'user_id' => auth()->id(),
+            'amount' => $withdraw_amount,
+            'status' => 0
+        ]);
     }
 
     /**

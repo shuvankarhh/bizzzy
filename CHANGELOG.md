@@ -1,3 +1,13 @@
+## 0.053.0 (2022-05-02 17:00)
+| Type | Description         |
+| ---- | ------------------- |
+| add  | Freelancer & Admin withdraw money |
+
+## 0.052.0 (2022-05-02 17:00)
+| Type | Description         |
+| ---- | ------------------- |
+| add  | Freelancer & Admin withdraw money |
+
 ## 0.051.0 (2022-05-31 17:23)
 | Type | Description         |
 | ---- | ------------------- |

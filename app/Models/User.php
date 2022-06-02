@@ -131,7 +131,12 @@ class User extends Authenticatable
 
     public function user_balance()
     {
-        return $this->hasOne(UserAccount::class);
+        return $this->hasOne(UserBalance::class);
+    }
+
+    public function withdraw_requests()
+    {
+        return $this->hasMany(WithdrawRequest::class);
     }
     
     public function user_pending_balance()

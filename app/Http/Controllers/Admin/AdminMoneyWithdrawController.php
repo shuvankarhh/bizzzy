@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Freelancer;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Contract;
 use Illuminate\Http\Request;
-use App\Models\ContractMilestone;
-use App\Models\UserPendingBalance;
-use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use App\Models\WithdrawRequest;
 
-class FreelancerOverviewController extends Controller
+class AdminMoneyWithdrawController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,22 +16,7 @@ class FreelancerOverviewController extends Controller
      */
     public function index()
     {
-        config()->set('database.connections.mysql.strict', false);
-        DB::reconnect();
-        $contracts = Contract::with('job')->whereHas('milestones', function($q){
-            $q->where('is_complete', 0);
-        })->where('freelancer_id', auth()->id())->get();
-        // dd($contracts);
-        $in_progress = ContractMilestone::with(['contract.job'])->groupBy('id')->orderBy('id')->whereIn('contract_id', $contracts->pluck('id')->toArray())->where('is_complete', 0)->get();
-        $pending = UserPendingBalance::where('user_id', auth()->id())->where('status', 1)->sum('amount');
-        $balance = auth()->user()->user_balance;
-        return view('contents.freelancer.freelancer-overview')->with([
-            'contracts' => $contracts,
-            'in_progress' => $in_progress,
-            'pending' => $pending,
-            'balance' => $balance,
-            'recent_activity' => auth()->user()->withdraw_requests
-        ]);
+        return view('admin.withdraw.withdraw-list');
     }
 
     /**
@@ -100,5 +83,30 @@ class FreelancerOverviewController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function datatable()
+    {
+        $withdraw_request = WithdrawRequest::with('user')->get();
+        //return $withdraw_request;
+
+        return DataTables::of($withdraw_request)
+        // ->editColumn('user.name', function ($t) {
+        //     return $t->user->name;
+        // })
+        // ->editColumn('user.user_name', function ($t) {
+        //     return $t->user->user_name;
+        // })
+        ->addColumn('approval', function($q){
+            if($q->status == 0){
+                return "<span class='badge badge-danger'>Not Approved</span>";
+            }
+        })
+
+        ->addColumn('action', function ($t) {
+            return " PENDING WORK! ";
+        })
+        ->rawColumns(['approval', 'action'])
+        ->toJson();
     }
 }
