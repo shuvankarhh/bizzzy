@@ -21,7 +21,7 @@ class CreateTimeTrackersTable extends Migration
             $table->foreignIdFor(Contract::class);
             $table->string('task_title');
             $table->dateTime('start');
-            $table->dateTime('end');
+            $table->dateTime('end')->nullable();
             $table->timestamps();
         });
     }

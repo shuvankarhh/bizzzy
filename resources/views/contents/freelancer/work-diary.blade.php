@@ -12,11 +12,38 @@
             </div>
         </div>
     @else
-        <select name="contarct" id="contract" class="form-control">
-            @foreach ($contracts as $item)
-            <option value="{{ encrypt($item->id) }}">{{ $item->job->name }}</option>
-            @endforeach
-        </select>
+        <div class="row">
+            <div class="col-4">
+                <select name="contarct" id="contract" class="form-control">
+                    @foreach ($contracts as $item)
+                    <option value="{{ encrypt($item->id) }}">{{ $item->job->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-8"></div>
+            <div class="col-4 mt-4">
+                <h4>History for:</h4>
+                <input class="form-control" type="date" name="history_of" id="history_of" value="{{date('Y-m-d')}}">
+            </div>
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-body row" id="history_body">
+                        <div class="fa-3x">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     @endif
 </div>
 @endsection
+
+@push('script')
+    <script>
+        let history_of = document.getElementById('history_of');
+        history_of.addEventListener('change', getWorkHistory);
+
+        window.onload = getWorkHistory;
+    </script>
+@endpush

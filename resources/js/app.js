@@ -1919,3 +1919,19 @@ milestoen_payment_reverse = () => {
     document.getElementById('additional_milestone_buttons').classList.remove('d-none');
     document.getElementById('additional_milestone_payment_buttons').classList.add('d-none');
 }
+
+getWorkHistory = (e) => {
+    let contract = document.getElementById('contract').value;
+    let history_of = document.getElementById('history_of').value;
+    console.log(contract);
+
+    let test = axios
+    .get(APP_URL + `/f/work-diary/${contract}/${history_of}`)
+    .then(function (response) {
+        document.getElementById('history_body').innerHTML = response.data
+    })
+    .catch(function (error){
+
+    });
+    console.log(test);
+}

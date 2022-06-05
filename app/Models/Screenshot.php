@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Screenshot extends Model
 {
     use HasFactory;
+
+    public function time_tracker()
+    {
+        return $this->belongsTo(TimeTracker::class);
+    }
 }

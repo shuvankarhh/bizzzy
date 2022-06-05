@@ -3718,6 +3718,16 @@ milestoen_payment_reverse = function milestoen_payment_reverse() {
   document.getElementById('additional_milestone_payment_buttons').classList.add('d-none');
 };
 
+getWorkHistory = function getWorkHistory(e) {
+  var contract = document.getElementById('contract').value;
+  var history_of = document.getElementById('history_of').value;
+  console.log(contract);
+  var test = axios.get(APP_URL + "/f/work-diary/".concat(contract, "/").concat(history_of)).then(function (response) {
+    document.getElementById('history_body').innerHTML = response.data;
+  })["catch"](function (error) {});
+  console.log(test);
+};
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

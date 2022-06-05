@@ -295,6 +295,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
 
     Route::prefix('f/work-diary')->group(function () {
         Route::get('/', [FreelancerWorkDiaryController::class, 'index'])->name('freelancer.work.diary.index');
+        Route::get('/{contract}/{date}', [FreelancerWorkDiaryController::class, 'show'])->name('freelancer.work.diary.show');
     });
     
     /**

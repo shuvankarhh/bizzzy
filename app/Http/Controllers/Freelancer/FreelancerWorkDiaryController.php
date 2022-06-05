@@ -3,18 +3,27 @@
 namespace App\Http\Controllers\Freelancer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Screenshot;
+use App\Models\TimeTracker;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class FreelancerWorkDiaryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Return Work Diary for Freelancer.
+     * 
+     * Work diary of freelancer that is comming from destop applicatin!
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index():View
     {
-        $hourly_contracts = auth()->user()->freelancerContracts()->with('job:id,name')->where('payment_type', 2)->get();
+        $hourly_contracts = auth()->user()->freelancerContracts()->with('job:id,name')->with(['time_trackers' => function($q){
+            $q->with(['screenshots' => function($q){
+                $q->whereDate('created_at', date('Y-m-d'));
+            }]);
+        }])->where('payment_type', 2)->get();
         return view('contents.freelancer.work-diary')->with([
             'contracts' => $hourly_contracts
         ]);
@@ -42,14 +51,24 @@ class FreelancerWorkDiaryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display screentshot for project for a perticular data and contract.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function show($id)
+    public function show($contract, $date)
     {
-        //
+        $trackers = TimeTracker::with(['screenshots' => function($q) use ($date){
+            $q->whereDate('created_at', $date);
+        }])->where('contract_id', decrypt($contract))->whereDate('start', $date);
+
+        
+        $screenshots = Screenshot::whereHas('time_tracker', function($q) use($contract, $date){
+            $q->where('contract_id', decrypt($contract))->whereDate('start', $date);
+        })->with('time_tracker')->get();
+        return view('components.work-diary-component')->with([
+            'screenshots' => $screenshots
+        ]);
     }
 
     /**

@@ -2240,6 +2240,10 @@ b {
     gap: 4rem;
 }
 
+.f-wrap{
+    flex-wrap: wrap;
+}
+
 .attachment-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -2253,7 +2257,40 @@ b {
     }
 }
 
-
+.work-history-img{
+    width: 200px;
+}
+.work-history{
+    margin: 0 0.2rem 0 0.2rem;
+}
+.work-div{
+    overflow-x: auto;
+    margin-top: 0.8rem;
+}
+.work-div::before{
+    width: 10px;
+    content: attr(data-time);
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    background-color: wheat;
+    border-radius: 5px;
+    padding: 5px;
+}
+.work-history-memo{
+    height: 1.5rem;
+    background-color: #0086FF;
+    color: white;
+}
+.work-history-memo.start{
+    border-radius: 20px 0 0 20px;
+}
+.work-history-memo.end{
+    border-radius: 0 20px 20px 0;
+}
 /* Stripe CSS */
 
 .error {

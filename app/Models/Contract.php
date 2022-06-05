@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\TimeTracker;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Contract extends Model
 {
@@ -74,5 +75,10 @@ class Contract extends Model
     public function feedback()
     {
         return $this->hasMany(ContractFeedback::class);
+    }
+
+    public function time_trackers()
+    {
+        return $this->hasMany(TimeTracker::class);
     }
 }
