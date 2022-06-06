@@ -2266,6 +2266,7 @@ b {
 .work-div{
     overflow-x: auto;
     margin-top: 0.8rem;
+    min-height: 150px;
 }
 .work-div::before{
     width: 10px;
@@ -2291,6 +2292,15 @@ b {
 .work-history-memo.end{
     border-radius: 0 20px 20px 0;
 }
+/* .work-history-img.start{
+    margin: 0 0.2rem 0.2rem 0;
+}
+.work-history-img.start{
+    margin: 0.2rem 0 0 0.2rem;
+}
+.work-history-img.continue{
+    margin: 0 0.2rem 0 0.2rem;
+} */
 /* Stripe CSS */
 
 .error {

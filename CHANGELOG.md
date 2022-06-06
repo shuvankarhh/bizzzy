@@ -1,7 +1,12 @@
+## 0.055.0 (2022-05-05 17:13)
+| Type | Description         |
+| ---- | ------------------- |
+| add  | Time calculation and screenshot delete |
+
 ## 0.054.0 (2022-05-05 17:13)
 | Type | Description         |
 | ---- | ------------------- |
-| add  | Work diary show     |
+| add  | Work diary show |
 
 ## 0.053.0 (2022-05-02 17:00)
 | Type | Description         |

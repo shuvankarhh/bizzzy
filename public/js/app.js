@@ -3722,10 +3722,18 @@ getWorkHistory = function getWorkHistory(e) {
   var contract = document.getElementById('contract').value;
   var history_of = document.getElementById('history_of').value;
   console.log(contract);
-  var test = axios.get(APP_URL + "/f/work-diary/".concat(contract, "/").concat(history_of)).then(function (response) {
+  axios.get(APP_URL + "/f/work-diary/".concat(contract, "/").concat(history_of)).then(function (response) {
     document.getElementById('history_body').innerHTML = response.data;
   })["catch"](function (error) {});
-  console.log(test);
+};
+
+deleteScreenshot = function deleteScreenshot() {
+  var formData = new FormData(document.getElementById('work_history_form'));
+  formData.append('_method', 'delete');
+  axios.post(APP_URL + "/f/work-diary", formData).then(function (response) {
+    console.log(response);
+  })["catch"](function (error) {});
+  getWorkHistory();
 };
 
 /***/ }),

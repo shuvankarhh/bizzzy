@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Freelancer;
 
-use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 use App\Models\Screenshot;
 use App\Models\TimeTracker;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Validation\ValidationException;
 
 class FreelancerWorkDiaryController extends Controller
 {
@@ -58,14 +60,15 @@ class FreelancerWorkDiaryController extends Controller
      */
     public function show($contract, $date)
     {
-        $trackers = TimeTracker::with(['screenshots' => function($q) use ($date){
-            $q->whereDate('created_at', $date);
-        }])->where('contract_id', decrypt($contract))->whereDate('start', $date);
-
-        
         $screenshots = Screenshot::whereHas('time_tracker', function($q) use($contract, $date){
             $q->where('contract_id', decrypt($contract))->whereDate('start', $date);
         })->with('time_tracker')->get();
+        /**
+         * This view render the work history component for a specific contract on a specific day.
+         * 
+         * For each hour a there is a new col-12 row. In that row we have each image in a div with the work title and time. These divs are flex box 
+         * and will overflow-x:scroll. We have two flags. $prev and $start_hour. Initially they both are null.
+         */
         return view('components.work-diary-component')->with([
             'screenshots' => $screenshots
         ]);
@@ -100,8 +103,21 @@ class FreelancerWorkDiaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $request->validate([
+            'screenshot' => 'required|array'
+        ]);
+
+        $screenshots = Screenshot::with('time_tracker')->whereIn('id', $request->screenshot)->get();
+        // return response()->json($screenshots);
+        DB::transaction(function () use ($request, $screenshots) {
+            foreach($screenshots as $idx=>$item){
+                if($item->time_tracker->user_id != auth()->id()){
+                    abort(403);
+                }
+                $item->delete();
+            }
+        });
     }
 }

@@ -1925,7 +1925,7 @@ getWorkHistory = (e) => {
     let history_of = document.getElementById('history_of').value;
     console.log(contract);
 
-    let test = axios
+    axios
     .get(APP_URL + `/f/work-diary/${contract}/${history_of}`)
     .then(function (response) {
         document.getElementById('history_body').innerHTML = response.data
@@ -1933,5 +1933,18 @@ getWorkHistory = (e) => {
     .catch(function (error){
 
     });
-    console.log(test);
+}
+
+deleteScreenshot = () => {
+    let formData = new FormData(document.getElementById('work_history_form'));
+    formData.append('_method', 'delete');
+    axios
+    .post(APP_URL + `/f/work-diary`, formData)
+    .then(function (response) {
+        console.log(response);
+    })
+    .catch(function (error){
+
+    });
+    getWorkHistory();
 }
