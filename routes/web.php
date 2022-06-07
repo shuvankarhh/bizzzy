@@ -72,6 +72,7 @@ use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
 use App\Http\Controllers\Freelancer\FreelancerAccountVerificationController;
 use App\Http\Controllers\Freelancer\FreelancerWithdrawMoneyController;
 use App\Http\Controllers\Freelancer\FreelancerWorkDiaryController;
+use App\Http\Controllers\Recruiter\RecruiterHourlyContractController;
 
 /*
 |--------------------------------------------------------------------------
@@ -298,6 +299,8 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::get('/{contract}/{date}', [FreelancerWorkDiaryController::class, 'show'])->name('freelancer.work.diary.show');
         Route::DELETE('/', [FreelancerWorkDiaryController::class, 'destroy'])->name('freelancer.work.diary.destroy');
     });
+
+    Route::get('r/work-diary/{contract}', [RecruiterHourlyContractController::class, 'show'])->name('recruiter.hourly.contract.index');
     
     /**
      * r indicates recruiter

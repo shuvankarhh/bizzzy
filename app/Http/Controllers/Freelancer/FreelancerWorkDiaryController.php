@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Freelancer;
 
+use App\Models\Contract;
 use Illuminate\View\View;
 use App\Models\Screenshot;
 use App\Models\TimeTracker;
@@ -60,17 +61,28 @@ class FreelancerWorkDiaryController extends Controller
      */
     public function show($contract, $date)
     {
+
+        $contract = Contract::find(decrypt($contract));
+
+        if($contract->created_by_user != auth()->id() AND $contract->freelancer_id != auth()->id()){
+            abort(403);
+        }
+
         $screenshots = Screenshot::whereHas('time_tracker', function($q) use($contract, $date){
-            $q->where('contract_id', decrypt($contract))->whereDate('start', $date);
+            $q->where('contract_id', $contract->id)->whereDate('start', $date);
         })->with('time_tracker')->get();
         /**
          * This view render the work history component for a specific contract on a specific day.
          * 
-         * For each hour a there is a new col-12 row. In that row we have each image in a div with the work title and time. These divs are flex box 
-         * and will overflow-x:scroll. We have two flags. $prev and $start_hour. Initially they both are null.
+         * For each hour a there is a new col-12 row. In that row we have each image in a div with the work title and time.
+         * These divs are flex box and will overflow-x:scroll. We have two flags. $prev and $start_hour.
+         * Initially they both are null.
+         * 
+         * @return View
          */
         return view('components.work-diary-component')->with([
-            'screenshots' => $screenshots
+            'screenshots' => $screenshots,
+            'freelancer' => $contract->freelancer_id == auth()->id()
         ]);
     }
 

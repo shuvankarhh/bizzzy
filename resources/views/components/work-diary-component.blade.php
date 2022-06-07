@@ -7,7 +7,7 @@
     $start_hour_counter = NULL;
     $minutes = $screenshots->sum('screenshot_duration');
 @endphp
-    <h3>Total time tracked: {{ sprintf("%02d", intdiv($minutes, 60)).':'. ($minutes % 60) }}</h3>
+    <h3>Time tracked on this day: {{ sprintf("%02d", intdiv($minutes, 60)).':'. sprintf("%02d",($minutes % 60)) }}</h3>
     @foreach ($screenshots as $idx=>$item)
         {{-- This is the col-12 for each hour! --}}
         @if ($start_hour != $item->created_at->hour)            
@@ -46,10 +46,14 @@
                 <p class="work-history-memo continue m-0 p-0"></p>
                 <a href="{{ asset("storage/" . $item->image) }}"><img class="work-history-img continue" src="{{ asset("storage/" . $item->image) }}" alt=""></a>
             @endif
-            <div class="form-check mt-1">
-                <input class="form-check-input" type="checkbox" value="{{ $item->id }}" id="screenshot.{{ $idx }}" name="screenshot[]" />
-                <label class="form-check-label" for="screenshot.{{ $idx }}">{{ $item->created_at->format("h:i a") }}</label>
-            </div>
+            @if (isset($freelancer) AND $freelancer)
+                <div class="form-check mt-1">
+                    <input class="form-check-input" type="checkbox" value="{{ $item->id }}" id="screenshot.{{ $idx }}" name="screenshot[]" />
+                    <label class="form-check-label" for="screenshot.{{ $idx }}">{{ $item->created_at->format("h:i a") }}</label>
+                </div>
+            @else
+                <p class="mb-0">{{ $item->created_at->format("h:i a") }}</p>
+            @endif
         </div>
     @endforeach
     </div>
