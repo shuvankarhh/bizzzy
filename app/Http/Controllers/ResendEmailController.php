@@ -14,6 +14,6 @@ class ResendEmailController extends Controller
     {
         $email = Email::with('userEmail.user')->where('email', $request->email)->first();
         $temp = Mail::to($email->email)->send(new EmailVerification($email->userEmail->user, $email->userEmail->verification_token, $email->email));
-        print_r($temp);
+        return response()->json($temp);
     }
 }

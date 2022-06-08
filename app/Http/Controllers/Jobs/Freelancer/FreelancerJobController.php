@@ -81,7 +81,10 @@ class FreelancerJobController extends Controller
         $id = decrypt($id);
         $contract = Contract::with('job.categories.category', 'milestones', 'recruiter.freelance_profile', 'freelancer.freelance_profile')->find($id);
 
-        $this->authorize('view', $contract);
+        // $this->authorize('view', $contract);
+        if($contract->freelancer_id != auth()->id()){
+            abort(403);
+        }
 
         return view('contents.jobs.job-offer')->with([
             'contract' => $contract,

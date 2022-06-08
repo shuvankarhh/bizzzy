@@ -14,7 +14,7 @@ class AddMembershipToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('membership')->unsigned();
+            $table->tinyInteger('membership')->unsigned()->nullable();
         });
     }
 

@@ -14,7 +14,7 @@ class AddSuccessfullyCompletedToFreelancerProfiles extends Migration
     public function up()
     {
         Schema::table('freelancer_profiles', function (Blueprint $table) {
-            $table->smallInteger('successfully_completed')->unsigned();
+            $table->smallInteger('successfully_completed')->unsigned()->default(0);
         });
     }
 

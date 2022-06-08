@@ -109,7 +109,7 @@
             <div class="lower-text-line-break-div">
                 <p class="m-0 top-text">Services as </p>
                 <p class="m-0 bottom-text">
-                    {{ (is_null($profile->service_categories[0])) 
+                    {{ (is_null($profile->service_categories) AND is_null($profile->service_categories[0])) 
                         ? 'Not Set' 
                         : 
                         ( 

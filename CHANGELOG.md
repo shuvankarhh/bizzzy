@@ -7,7 +7,7 @@
 | Type | Description         |
 | ---- | ------------------- |
 | add  | Time calculation and screenshot delete |
-
+             
 ## 0.054.0 (2022-05-05 17:13)
 | Type | Description         |
 | ---- | ------------------- |
