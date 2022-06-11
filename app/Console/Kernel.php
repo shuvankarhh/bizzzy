@@ -2,6 +2,13 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
+use App\Models\Test;
+use App\Models\Contract;
+use App\Models\Screenshot;
+use App\Models\Transaction;
+use App\Schedules\HourlyBill;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,6 +23,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->call(new HourlyBill)->weekly()->mondays()->at('13:00');;
     }
 
     /**

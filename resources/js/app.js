@@ -1923,15 +1923,17 @@ milestoen_payment_reverse = () => {
 getWorkHistory = (e) => {
     let contract = document.getElementById('contract').value;
     let history_of = document.getElementById('history_of').value;
-    console.log(contract);
 
+    let loader = document.getElementById("loader");
+    loader.classList.remove("d-none");
     axios
     .get(APP_URL + `/f/work-diary/${contract}/${history_of}`)
     .then(function (response) {
         document.getElementById('history_body').innerHTML = response.data
+        loader.classList.add("d-none");
     })
     .catch(function (error){
-
+        loader.classList.add("d-none");
     });
 }
 

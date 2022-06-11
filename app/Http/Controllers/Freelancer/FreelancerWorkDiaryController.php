@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Freelancer;
 
+use Carbon\Carbon;
 use App\Models\Contract;
 use Illuminate\View\View;
 use App\Models\Screenshot;
@@ -9,6 +10,9 @@ use App\Models\TimeTracker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
+use App\Schedules\HourlyBill;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Validation\ValidationException;
 
 class FreelancerWorkDiaryController extends Controller
@@ -61,7 +65,6 @@ class FreelancerWorkDiaryController extends Controller
      */
     public function show($contract, $date)
     {
-
         $contract = Contract::find(decrypt($contract));
 
         if($contract->created_by_user != auth()->id() AND $contract->freelancer_id != auth()->id()){

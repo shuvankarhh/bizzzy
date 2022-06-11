@@ -24,7 +24,7 @@
             <div class="col-12 mt-4">
                 <div class="row justify-content-between">
                     <div class="col-auto"">
-                        <h4>History for:</h4>
+                        <h4>History for: <i class="fa-solid fa-circle-notch fa-spin d-none" id="loader"></i></h4>
                         <input class="form-control" type="date" name="history_of" id="history_of" value="{{date('Y-m-d')}}">
                     </div>
                     <div class="col-8 align-self-end text-end">
