@@ -71,31 +71,6 @@
                                 {{-- <p>No Rating!</p> --}}
                             @else
                                 <x-star-component :rating="$item->average_rating" justify_style="justify-content: start" />
-                                {{-- <div style="display: flex; align-items: center; gap: 0.5rem">
-                                    <div id="one" class="star-rating-display" data-average-score="@php
-                                        if($item->average_rating > 4.5){
-                                            echo '5';
-                                        }else if($item->average_rating > 4){
-                                            echo '4.5';
-                                        }else if($item->average_rating > 3.5){
-                                            echo '4';
-                                        }else if($item->average_rating > 3){
-                                            echo '3.5';
-                                        }else if($item->average_rating > 2.5){
-                                            echo '3';
-                                        }else if($item->average_rating > 2){
-                                            echo '2.5';
-                                        }else if($item->average_rating > 1.5){
-                                            echo '2';
-                                        }else if($item->average_rating > 1){
-                                            echo '1.5';
-                                        }else{
-                                            echo '1';
-                                        }
-                                    @endphp">
-                                    </div>
-                                    <p class="m-0 p-0">({{ $item->average_rating }})</p>
-                                </div> --}}
                             @endif
                             
                             <p><strong style="font-size: 1rem">{{ is_null($item->user->address) ? '' : $item->user->address->country }}</strong></p>
@@ -109,7 +84,7 @@
                             <a href="{{ route('freelancer.hire.create', $item->id) }}">Hire {{ $item->user->name }}</a>
                         </div>
                     </div>
-                    <p class="mt-3">{{ $item->description }}</p>
+                    <p class="mt-3">{{ Str::limit($item->description, 200, " ...") }}</p>
                 </div>
             </div>
         </div>

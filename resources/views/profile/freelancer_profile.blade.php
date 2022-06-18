@@ -726,7 +726,7 @@
                     let input = document.getElementById("base64image");
                     input.value = base64data;
                     upload_profile_image(base64data);
-                    location.reload();
+                    // location.reload();
                     // document.getElementById('imagePreview').style.backgroundImage = `url(${base64data})`;
                     modal_toggle.toggle();
                 }

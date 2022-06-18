@@ -559,6 +559,7 @@ add_direct_job = (e) => {
             // categories_select.clear();
             // languages_select.clear();
             // location.href = response.data;
+            location.reload();
         })
         .catch(function(error) {
             if (typeof error.response !== "undefined") {
