@@ -144,6 +144,11 @@ class User extends Authenticatable
         return $this->hasMany(UserPendingBalance::class);
     }
 
+    public function contacts()
+    {
+        return $this->hasMany(MessageContact::class);
+    }
+
     public function isRecruiter()
     {
         $userAccount = $this->userAccount()->where('client_or_freelancer', 1)->first();

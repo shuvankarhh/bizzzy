@@ -72,7 +72,9 @@ use App\Http\Controllers\Jobs\Freelancer\FreelancerDirectJobController;
 use App\Http\Controllers\Freelancer\FreelancerAccountVerificationController;
 use App\Http\Controllers\Freelancer\FreelancerWithdrawMoneyController;
 use App\Http\Controllers\Freelancer\FreelancerWorkDiaryController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Recruiter\RecruiterHourlyContractController;
+use Symfony\Component\Mime\MessageConverter;
 
 /*
 |--------------------------------------------------------------------------
@@ -284,10 +286,10 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::post('/', [FreelancerEndContractController::class, 'store'])->name('freelancer.end.contract.store');
     });
 
-    Route::PATCH('f/edit-title', [FreelancerTitleController::class, 'update'])->name('freelancer.title.update');
+    Route::patch('f/edit-title', [FreelancerTitleController::class, 'update'])->name('freelancer.title.update');
 
     Route::post('f/save-job/store', [FreelancerSaveJobController::class, 'store'])->name('freelancer.save.job.store');
-    Route::DELETE('f/save-job/{savedJob}', [FreelancerSaveJobController::class, 'destroy'])->name('freelancer.save.job.destroy');
+    Route::delete('f/save-job/{savedJob}', [FreelancerSaveJobController::class, 'destroy'])->name('freelancer.save.job.destroy');
     Route::get('f/save-job/', [FreelancerSaveJobController::class, 'index'])->name('freelancer.save.job.index');
 
     Route::get('/f/overview', [FreelancerOverviewController::class, 'index'])->name('freelancer.overview.index');
@@ -309,17 +311,22 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
         Route::get('/', [RecruiterActiveJobController::class, 'index'])->name('recruiter.contract.index');
         Route::get('/{id}', [RecruiterActiveJobController::class, 'show'])->name('recruiter.contract.show');
     });
+
     Route::prefix('r/end-contract')->group(function () {
         Route::get('/create/{id}', [RecruiterEndContractController::class, 'create'])->name('recruiter.end.contract.create');
         Route::post('/', [RecruiterEndContractController::class, 'store'])->name('recruiter.end.contract.store');
     });
+
     Route::prefix('r/contract-milestone')->group(function () {
         Route::get('/create/{contract_milestone}', [ContractMilestoneController::class, 'create'])->name('contract.milestone.create');
         Route::patch('/{id}', [ContractMilestoneController::class, 'update'])->name('contract.milestone.update');
         Route::post('/{id}', [ContractMilestoneController::class, 'store'])->name('contract.milestone.store');
     });
+
     Route::patch('r/single-milestone/{id}', [SingleMilestoneController::class, 'update'])->name('single.contract.milestone.update');
+
     Route::get('r/activate-next-milestone/create', [ActivateContractMilestoneController::class, 'create'])->name('activate.milestone.create');
+
     Route::post('r/activate-next-milestone/{contract}', [ActivateContractMilestoneController::class, 'store'])->name('activate.milestone.store');
 
     Route::get('/payment-methods/create', [PaymentController::class, 'create'])->name('payment.create');    
@@ -370,6 +377,12 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::get('billing/create', [BillingController::class, 'create'])->name('billing.create');
     Route::get('contract-billing/create', [ContractBillingController::class, 'create'])->name('contract.billing.create');
     Route::get('contract-billing/store', [ContractBillingController::class, 'store'])->name('contract.billing.store');
+
+    Route::prefix('message')->group(function () {
+        Route::get('/', [MessageController::class, 'index'])->name('message.index');
+        Route::get('/{from}', [MessageController::class, 'show'])->name('message.show');
+    });
+
 });
 Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dash');
 Route::group(['middleware' => ['guest', 'guest:admin']], function () {

@@ -109,7 +109,7 @@
                               </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link text-reset me-3" aria-current="page" href="#">Messages</a>
+                                <a href="{{ route('message.index') }}" class="nav-link text-reset me-3" aria-current="page" href="#">Messages</a>
                             </li>  
                           @else
                             <li class="nav-item dropdown">
@@ -176,7 +176,7 @@
                               </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link text-reset me-3" aria-current="page" href="#">Messages</a>
+                                <a href="{{ route('message.index') }}" class="nav-link text-reset me-3" aria-current="page">Messages</a>
                             </li>                        
                           @endif
                             {{-- <li class="nav-item">
