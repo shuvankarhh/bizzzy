@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Message;
+use App\Models\MessageContact;
 use Illuminate\Http\Request;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
@@ -20,20 +21,27 @@ class WebSocketController extends Controller implements MessageComponentInterfac
     }
     
      /**
-     * When a new connection is opened it will be passed to this method
+     * When a new connection is opened it will be passed to this method.
+     * A token is passed when opening connection.
+     * This token is id of users table.
+     * This is id is stored the the opend connections array.
+     * Afrer opening a connection user table is updated with sokcet_id to indicate that user is active or not.
      * @param  ConnectionInterface $conn The socket/connection that just connected to your application
      * @throws \Exception
      */
     function onOpen(ConnectionInterface $conn){
+        var_dump($conn->httpRequest);
         $uri = $conn->httpRequest->getUri()->getQuery();
         parse_str($uri, $token);
 
         $this->connections[$conn->resourceId] = compact('conn') + ['user_id' => $token['token']] + ['open_user' => NULL];
-        $this->clients->attach($conn);
+        // $this->clients->attach($conn);
 
         User::where('id', $token['token'])->update(['socket_id' => $conn->resourceId]);
 
-        echo "New connection! ({$conn->resourceId})\n";
+        echo "New connection! ({$conn->resourceId})\n";        
+
+        $this->connections[$conn->resourceId]['conn']->send(json_encode(['unseen_messages' => $this->getUnseenMessageCount($token['token'])]));
     }
     
      /**
@@ -42,13 +50,13 @@ class WebSocketController extends Controller implements MessageComponentInterfac
      * @throws \Exception
      */
     function onClose(ConnectionInterface $conn){
-        $this->clients->detach($conn);
+        // $this->clients->detach($conn);
 
         echo "Connection {$conn->resourceId} has disconnected\n";
 
         User::where('socket_id', $conn->resourceId)->update(['socket_id' => NULL]);
-        // $disconnectedId = $conn->resourceId;
-        // unset($this->connections[$disconnectedId]);
+        $disconnectedId = $conn->resourceId;
+        unset($this->connections[$disconnectedId]);
         // foreach($this->connections as &$connection)
         //     $connection['conn']->send(json_encode([
         //         'offline_user' => $disconnectedId,
@@ -79,14 +87,11 @@ class WebSocketController extends Controller implements MessageComponentInterfac
      */
     function onMessage(ConnectionInterface $conn, $msg){
 
-        echo("-------- START (".date("Y-m-d H:i:s").") --------\n");
 
         $data = json_decode($msg);
 
         if($data->action == 'switch'){
-            $this->connections[$conn->resourceId]['open_user'] = $data->sender;
-            echo "Connection {$this->connections[$conn->resourceId]['user_id']} has opened {$this->connections[$conn->resourceId]['open_user']}\n";
-            echo("-------- END --------\n");
+            // $this->connections[$conn->resourceId]['open_user'] = $data->sender;
             return;
         }
 
@@ -96,38 +101,31 @@ class WebSocketController extends Controller implements MessageComponentInterfac
             'message' => $data->message,
             'status' => 1,
         ]);
+
+        $message = $message->toArray();
+        
+        // Update last interaction time. Make user contact to seen as he sent the message.
+        MessageContact::where('user_id', $this->connections[$conn->resourceId]['user_id'])->where('contact_id', $data->receiver)->update(['last_interaction' => now(), 'unseen' => 2]);
+        // Update last interaction time. Make reciver contact to unseen, where the message will be marker seen from a request from client side.
+        MessageContact::where('contact_id', $this->connections[$conn->resourceId]['user_id'])->where('user_id', $data->receiver)->update(['last_interaction' => now(), 'unseen' => 1]);
+        
+        $message['unseen_messages'] = $this->getUnseenMessageCount($data->receiver);
+
+        // Only send message to the sender and receiver!
         foreach ( $this->connections as $resourceId => &$connection ) {
-
-            if ( $conn->resourceId == $connection['conn']->resourceId ) {
-                $connection['conn']->send( $message->toJson() );
-            }else if($data->receiver == $connection['user_id']){
-                if($this->connections[$conn->resourceId]['user_id'] == $connection['open_user']){
-                    echo "{$this->connections[$conn->resourceId]['user_id']} this is sender id\n{$data->receiver} id receiver id\n{$connection['open_user']} open user id of receiver\n{$connection['user_id']} connected user id\n";
-                    $message->status = 2;
-                    $message->save();
-                }
-                $connection['conn']->send( $message->toJson() );
+            if ( $conn->resourceId == $connection['conn']->resourceId OR $data->receiver == $connection['user_id']) {
+                $connection['conn']->send( json_encode($message) );
             }
-
         }
-        // if(is_null($this->connections[$conn->resourceId]['user_id'])){
-        //     $this->connections[$conn->resourceId]['user_id'] = $msg;
-        //     $onlineUsers = [];
-        //     foreach($this->connections as $resourceId => &$connection){
-        //         $connection['conn']->send(json_encode([$conn->resourceId => $msg]));
-        //         if($conn->resourceId != $resourceId)
-        //             $onlineUsers[$resourceId] = $connection['user_id'];
-        //     }
-        //     $conn->send(json_encode(['online_users' => $onlineUsers]));
-        // } else{
-        //     $fromUserId = $this->connections[$conn->resourceId]['user_id'];
-        //     $msg = json_decode($msg, true);
-        //     $this->connections[$msg['to']]['conn']->send(json_encode([
-        //         'msg' => $msg['content'],
-        //         'from_user_id' => $fromUserId,
-        //         'from_resource_id' => $conn->resourceId
-        //     ]));
-        // }
-        echo("-------- END --------\n");
+    }
+
+    /**
+     * Get number of unseen contacts from user!
+     * @param int $user_id id of users table
+     * @return int Count of unseen contact!
+     */
+    public function getUnseenMessageCount($user_id)
+    {
+        return MessageContact::where('user_id', $user_id)->where('unseen', 1)->count();
     }
 }

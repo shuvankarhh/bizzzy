@@ -2513,6 +2513,8 @@ add_direct_job = function add_direct_job(e) {
     // categories_select.clear();
     // languages_select.clear();
     // location.href = response.data;
+
+    location.reload();
   })["catch"](function (error) {
     if (typeof error.response !== "undefined") {
       //  This is for error from laravel
@@ -3738,6 +3740,21 @@ deleteScreenshot = function deleteScreenshot() {
     console.log(response);
   })["catch"](function (error) {});
   getWorkHistory();
+}; // Create a new websocket connection
+
+
+socket = new WebSocket("ws://localhost:8090?token=".concat(TOKEN));
+
+socket.onmessage = function (e) {
+  var data = JSON.parse(e.data);
+  console.log('from upper');
+  console.log(data);
+
+  if (data.unseen_messages > 0) {
+    var message_dot = document.querySelector('.message-notification-dot');
+    message_dot.classList.remove('no-message');
+    message_dot.innerHTML = data.unseen_messages;
+  }
 };
 
 /***/ }),
