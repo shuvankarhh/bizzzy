@@ -30,7 +30,6 @@ class WebSocketController extends Controller implements MessageComponentInterfac
      * @throws \Exception
      */
     function onOpen(ConnectionInterface $conn){
-        var_dump($conn->httpRequest);
         $uri = $conn->httpRequest->getUri()->getQuery();
         parse_str($uri, $token);
 
@@ -39,7 +38,7 @@ class WebSocketController extends Controller implements MessageComponentInterfac
 
         User::where('id', $token['token'])->update(['socket_id' => $conn->resourceId]);
 
-        echo "New connection! ({$conn->resourceId})\n";        
+        echo "New connection! ({$conn->resourceId})\n";
 
         $this->connections[$conn->resourceId]['conn']->send(json_encode(['unseen_messages' => $this->getUnseenMessageCount($token['token'])]));
     }
