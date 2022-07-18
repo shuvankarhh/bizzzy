@@ -107,9 +107,6 @@
                                   <a class="dropdown-item" href="#">Transaction Reports</a>
                                 </li>
                               </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('message.index') }}" class="nav-link text-reset me-3" aria-current="page" href="#">Messages</a>
                             </li>  
                           @else
                             <li class="nav-item dropdown">
@@ -174,11 +171,14 @@
                                   <a class="dropdown-item" href="#">Certifacte of Earnings</a>
                                 </li>
                               </ul>
-                            </li>
-                            <li class="nav-item">
+                            </li>                      
+                          @endif                          
+                          <li class="nav-item">
+                              <div style="position: relative">
                                 <a href="{{ route('message.index') }}" class="nav-link text-reset me-3" aria-current="page">Messages</a>
-                            </li>                        
-                          @endif
+                                <span class="message-notification-dot no-message"></span>
+                              </div>
+                          </li>
                             {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('start.message') }}">Profile Setup</a>
                             </li> --}}

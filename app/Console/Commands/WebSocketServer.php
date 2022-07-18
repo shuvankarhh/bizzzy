@@ -22,7 +22,7 @@ class WebSocketServer extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Start ratchet websocket server';
 
     /**
      * Create a new command instance.

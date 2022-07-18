@@ -9,13 +9,16 @@
             <div class="card">
                 <div class="card-header"><h4>Contacts</h4></div>
                 <div class="card-body p-0 m-0">
-                    <div class="row m-0">
+                    <div class="row m-0" id="contact_div">
                         @foreach ($contacts as $idx=>$item)
-                            <div data-from="{{ $item->user->id }}" class="col-12 contact {{ $idx == 0 ? 'active' : '' }}" role="button" disabled>
+                            <div data-user="{{ $item->user->id }}" class="contact_{{ $item->user->id }} col-12 contact {{ $idx == 0 ? 'active' : '' }}" role="button" disabled>
                                 <div class="c-flex f-align-center f-gap-2" style="position: relative">
                                     <img class="dp-image" src="{{ asset("storage/{$item->user->photo}") }}" alt="">
-                                    <p>{{ $item->user->name }}</p>
-                                    <span class="dot" id="unseen_{{ $item->user->id }}"></span>
+                                    <div class="w-100 left-contacts">
+                                        <p class="m-0" style="">{{ $item->user->name }}</p>
+                                        <p id="last_interaction_{{ $item->user->id }}" class="m-0 mt-2 text-end w-100">{{ $item->last_interaction->format('h:i a') }}</p>
+                                    </div>
+                                    <span class="dot {{ ($item->unseen === 1) ? 'unseen' : '' }}" id="unseen_{{ $item->user->id }}"></span>
                                 </div>                                
                             </div>                            
                         @endforeach
@@ -45,24 +48,26 @@
 @endsection
 
 @push('script')
-    <script>        
-        // Create a new WebSocket.
-        var socket  = new WebSocket('ws://localhost:8090?token={{ auth()->id() }}');        
+    <script>
+        let firstLoad = true;
 
         let message_body = document.getElementById('message_body');
         var message = document.getElementById('message');
 
+        let messageNotificationDot = (unseen_messages) => {
+            let message_dot = document.querySelector('.message-notification-dot');
+            if(unseen_messages > 0){
+                message_dot.classList.remove('no-message');
+                message_dot.innerHTML = unseen_messages;
+            }else{
+                message_dot.classList.add('no-message');
+            }
+        }
+
         let createMessage = (data) => {
+            
             let html = '';
             data.forEach((element => {
-
-                console.log(`fetching message from: ${element.from} AND to: ${element.to}!`);
-                let from_div = document.getElementById(`unseen_${element.from}`)
-                if(element.status == '1' && from_div){
-                    from_div.classList.add('unseen');
-                    return;
-                }
-
                 let chatClass = '';
                 let justifyContent = '';
 
@@ -74,33 +79,50 @@
                     justifyContent = 'justify-content-start';
                 }
 
+                /*
+                Prepend messages as message are coming newest first! If we reverse the sorting we will not get the
+                newest messages.
+                 */
                 html = `<div class="row ${justifyContent} mb-3">
-                    <div class="col-7 chat ${chatClass}">
-                        <p class="mt-2 mb-1">${element.message}</p>
-                        <p class="text-end">${element.created_at}</p>
-                    </div>
-                </div>` + html;
+                            <div class="col-7 chat ${chatClass}">
+                                <p class="mt-2 mb-1">${element.message}</p>
+                                <p class="text-end">${element.created_at}</p>
+                            </div>
+                        </div>` + html;
 
             }));
 
-
-
             message_body.innerHTML += html;
+
+            // Always scroll to bottom after adding new message.
             message_body.scrollTop = message_body.scrollHeight;
+
+            // Reseting the input field
             message.value = '';
         }
+
+        // Fetch entire message of a person!
         let fetch_message = (e) => {
+            console.log(firstLoad);
             let active_member = document.querySelector('.contact.active');
             message_body.innerHTML = "";
             let target = e.currentTarget;
-            let from = target.dataset.from;
-            document.getElementById(`unseen_${from}`).classList.remove('unseen');
+            let from = target.dataset.user;
+            if(!firstLoad){
+                document.getElementById(`unseen_${from}`).classList.remove('unseen');
+            }
             active_member.classList.remove('active');
             target.classList.add('active');
             axios
-            .get(`${APP_URL}/message/${from}`)
+            .get(`${APP_URL}/message/${from}`, {
+                params:{
+                    firstLoad: firstLoad
+                }
+            })
             .then((response) => {
-                createMessage(response.data);
+                messageNotificationDot(response.data.unseen_messages);
+                firstLoad = false;
+                createMessage(response.data.message);
                 socket.send( JSON.stringify(data) );
             })
             let data = {
@@ -119,9 +141,69 @@
             socket.send( message.value );
         }
 
+        let markMessageRead = (message) => {
+            axios
+            .post(`${APP_URL}/message/read/${message}`, {
+                "_method" : "patch"
+            })
+            .then((response) => {
+                console.log(response);
+                messageNotificationDot(response.data.unseen_messages);
+            })
+        }
+
+        let unseenMessageNotification = (sender) => {
+            sender.querySelector('.dot').classList.add('unseen');
+        }
+
+        let removeUnseenMessageNotification = (sender) => {
+            sender.querySelector('.dot').classList.remove('unseen');
+        }
+
         socket.onmessage = function(e) {
+            // console.log(e);
             let data = JSON.parse(e.data);
-            createMessage(Array(data));
+            let active_member = document.querySelector('.contact.active');
+            
+            if(data.unseen_messages){
+                messageNotificationDot(data.unseen_messages);
+                return;
+            }
+
+            // Getting message I sent. Bring the message div of the person that I sent message to top and create & append message!
+            if({{auth()->id()}} == data.from){
+                console.log('I am sender!');
+                let sender = document.querySelector(`.contact_${data.to}`);
+                let contacts = document.querySelector('.contact');
+                let partent = contacts.parentNode;
+                partent.insertBefore(sender, contacts);
+                document.querySelector(`#last_interaction_${data.to}`).innerHTML = data.created_at;
+                document.querySelector(`#unseen_${data.to}`).classList.remove('unseen');
+                createMessage(Array(data));
+                return;
+            }
+
+            // I got message but I am not the sender that means I received message from someone. Bring the message
+            // div of the person that sent the message to top.
+
+            console.log(`#last_interaction_${data.from}`);
+            document.querySelector(`#last_interaction_${data.from}`).innerHTML = data.created_at;
+            let sender = document.querySelector(`.contact_${data.from}`);
+            let contacts = document.querySelector('.contact');
+            let partent = contacts.parentNode;
+            partent.insertBefore(sender, contacts);
+
+            if(active_member.dataset.user == data.from){
+                // I also have opened the sender's messages so append the message.
+                createMessage(Array(data));
+                unseenMessageNotification(sender);
+                setTimeout(() => {
+                    markMessageRead(data.id)
+                    removeUnseenMessageNotification(sender)
+                }, 1500);
+            }else{
+                unseenMessageNotification(sender);
+            }
         }
 
         socket.onopen = (e) => {
@@ -129,13 +211,14 @@
             active_member.click();
         }
 
+
         let message_form = document.getElementById('message_form');
         message_form.addEventListener('submit', (e) => {
             let active_member = document.querySelector('.contact.active');
             e.preventDefault();
             let data = {
                 message: message.value,
-                receiver: active_member.dataset.from,
+                receiver: active_member.dataset.user,
                 action: 'message',
             }
             socket.send( JSON.stringify(data) );

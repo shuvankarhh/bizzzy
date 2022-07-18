@@ -14,7 +14,7 @@ We are trying to maintain RESTful conventions as much as possible. Every actions
 
 > OPTIONS
 
-Create controller for an actions and perform any of these 6 actions.
+Create controller for an action and perform any of these 6 actions.
 
 ## Folder Structure
 

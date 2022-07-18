@@ -25,6 +25,7 @@
     <script>
         const APP_URL = '{{ url('/') }}'
         const STRIPE_KEY = "{{ config('stripe.stripe_key') }}"
+        const TOKEN = "{{ auth()->id() }}"
 
     </script>
 

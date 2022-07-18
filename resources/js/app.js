@@ -1951,3 +1951,17 @@ deleteScreenshot = () => {
     });
     getWorkHistory();
 }
+
+// Create a new websocket connection
+socket  = new WebSocket(`ws://localhost:8090?token=${TOKEN}`);
+
+socket.onmessage = function(e) {    
+    let data = JSON.parse(e.data);
+    console.log('from upper');
+    console.log(data);
+    if(data.unseen_messages > 0){
+        let message_dot = document.querySelector('.message-notification-dot');
+        message_dot.classList.remove('no-message');
+        message_dot.innerHTML = data.unseen_messages;
+    }
+}

@@ -381,6 +381,7 @@ Route::group(['middleware' => ['auth:web,admin,staff', 'user.activity']], functi
     Route::prefix('message')->group(function () {
         Route::get('/', [MessageController::class, 'index'])->name('message.index');
         Route::get('/{from}', [MessageController::class, 'show'])->name('message.show');
+        Route::patch('/read/{message}', [MessageController::class, 'update'])->name('message.update');
     });
 
 });

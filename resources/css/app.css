@@ -2417,3 +2417,29 @@ b {
 .unseen{
     opacity: 100;
 }
+
+.left-contacts{
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
+.message-notification-dot{
+    font-size: 0.8rem;
+    color: white;
+    font-weight: 500;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 10px;
+    width: 1.25rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #0086FF;
+    box-shadow: 0px 1px 2px #0086FF;
+}
+
+.no-message{
+    opacity: 0;
+}
