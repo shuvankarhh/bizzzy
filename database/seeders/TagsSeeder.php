@@ -16,7 +16,7 @@ class TagsSeeder extends Seeder
     {
         $arr =[            
             [
-                'name' => 'Featured Jobs',
+                'name' => 'Featured Job',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
